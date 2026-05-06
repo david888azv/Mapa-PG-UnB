@@ -1719,7 +1719,20 @@ function gerarRelatorioIF(programas, winRef) {
     reportSeq++;
     const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
     const seqStr = String(reportSeq).padStart(3, '0');
-    const fmtR = (n, d) => d > 0 ? (n/d).toFixed(2) : '\u2014';
+    // raz\u00e3o = N/D com 2 casas; quando D=0, tra\u00e7o
+    const fmtR  = (n, d) => d > 0 ? (n/d).toFixed(2) : '\u2014';
+    // Vers\u00e3o com v\u00edrgula decimal (Excel pt-BR reconhece como n\u00famero)
+    const fmtR_BR = (n, d) => d > 0 ? (n/d).toFixed(2).replace('.', ',') : '\u2014';
+    const fmtN_BR = v => (v == null || v === '') ? '' : String(v).replace('.', ',');
+    // Escapa string para CSV (aspas + escapa aspas internas) se contiver delim/aspas/quebra
+    const csvEsc = v => {
+        if (v == null) return '';
+        const s = String(v);
+        return /[;"\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+    };
+    // Pad para tabela TXT, levando em conta largura visual (acentos contam 1)
+    const padR = (s, n) => String(s).padStart(n);
+    const padL = (s, n) => String(s).padEnd(n);
 
     let h = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1762,24 +1775,54 @@ tr:nth-child(even){background:#F8F9FA;}
     <button class="btn btn-csv" onclick="downloadIFCSV()">Baixar report-IF.csv</button>
 </div>`;
 
+    // \u2500\u2500 Cabe\u00E7alho do TXT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     let txt = [];
     const pt = s => txt.push(s);
-    pt('='.repeat(110));
-    pt('  MAPA-PG \u2014 RELAT\u00d3RIO DETALHADO DE FATOR DE IMPACTO');
-    pt('  Prof. David L. Azevedo | v' + VERSION);
-    pt('  Gerado em: ' + now.toLocaleString('pt-BR'));
-    pt('  Estratos: IF < 2.2 (baixo) | 2.2 <= IF <= 8.0 (m\u00e9dio) | IF > 8.0 (alto)');
-    pt('='.repeat(110));
+    const W = 100;  // largura da r\u00e9gua
+    pt('\u2550'.repeat(W));
+    pt('  MAPA-PG \u2014 Relat\u00F3rio Detalhado de Fator de Impacto');
+    pt('  \u00C1rea CAPES        : ' + (CURRENT_AREA_NAME || '\u2014'));
+    pt('  Curso UnB de ref. : ' + (CURRENT_SUFIXO ? `MAPA-PG-${CURRENT_SUFIXO}` : '\u2014'));
+    pt('  Programas no relat.: ' + programas.length);
+    pt('  Gerado em         : ' + now.toLocaleString('pt-BR'));
+    pt('  Software          : MAPA-PG v' + VERSION + ' \u2014 Prof. David L. Azevedo');
+    pt('');
+    pt('  Estratos de IF (Fator de Impacto, OpenAlex 2yr mean citedness):');
+    pt('    BAIXO  \u2192 IF < 2.2');
+    pt('    M\u00C9DIO  \u2192 2.2 \u2264 IF \u2264 8.0');
+    pt('    ALTO   \u2192 IF > 8.0');
+    pt('');
+    pt('  Raz\u00E3o = artigos / docentes na categoria (m\u00e9dia de artigos por docente');
+    pt('  durante o quadri\u00EAnio inteiro, sem normalizar por ano).');
+    pt('\u2550'.repeat(W));
 
-    let csvRows = ['\uFEFFIES;Programa;UF;Nota;Quadrienio;Doc_Total;Perm;Colab;Visit;' +
-        'Art_IF_baixo;Art_IF_medio;Art_IF_alto;' +
-        'Art_Perm_baixo;Art_Perm_medio;Art_Perm_alto;' +
-        'Art_Colab_baixo;Art_Colab_medio;Art_Colab_alto;' +
-        'Art_Visit_baixo;Art_Visit_medio;Art_Visit_alto;' +
-        'Razao_Perm_baixo;Razao_Perm_medio;Razao_Perm_alto;' +
-        'Razao_Colab_baixo;Razao_Colab_medio;Razao_Colab_alto;' +
-        'Razao_Total_baixo;Razao_Total_medio;Razao_Total_alto;' +
-        'IF_Medio;IF_Mediana;Referencia_UnB'];
+    // \u2500\u2500 Cabe\u00E7alho do CSV \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // Linhas iniciadas por # s\u00E3o coment\u00E1rios (Excel/LibreOffice ignoram em modo "From Text")
+    // mas ainda servem como legenda quando o usu\u00E1rio abre como texto puro.
+    let csvRows = [];
+    csvRows.push('# MAPA-PG \u2014 Relat\u00F3rio Detalhado de Fator de Impacto');
+    csvRows.push('# \u00C1rea CAPES: ' + (CURRENT_AREA_NAME || ''));
+    csvRows.push('# Curso UnB de refer\u00EAncia: ' + (CURRENT_SUFIXO ? 'MAPA-PG-' + CURRENT_SUFIXO : ''));
+    csvRows.push('# Gerado em: ' + now.toLocaleString('pt-BR'));
+    csvRows.push('# Estratos de IF (OpenAlex 2yr mean citedness):');
+    csvRows.push('#   BAIXO = IF < 2,2  |  M\u00C9DIO = 2,2 \u2264 IF \u2264 8,0  |  ALTO = IF > 8,0');
+    csvRows.push('# Separador de campo: ponto-e-v\u00EDrgula (;)');
+    csvRows.push('# Separador decimal: v\u00EDrgula (,) \u2014 compat\u00EDvel com Excel pt-BR');
+    csvRows.push('#');
+    // Cabe\u00E7alho das colunas, com nomes leg\u00EDveis e completos
+    csvRows.push([
+        'IES','Programa','UF','Nota_CAPES','Quadrienio',
+        'Doc_Total','Doc_Permanente','Doc_Colaborador','Doc_Visitante',
+        'Artigos_IF_BAIXO','Artigos_IF_MEDIO','Artigos_IF_ALTO',
+        'Artigos_Permanente_BAIXO','Artigos_Permanente_MEDIO','Artigos_Permanente_ALTO',
+        'Artigos_Colaborador_BAIXO','Artigos_Colaborador_MEDIO','Artigos_Colaborador_ALTO',
+        'Artigos_Visitante_BAIXO','Artigos_Visitante_MEDIO','Artigos_Visitante_ALTO',
+        'Razao_Permanente_BAIXO','Razao_Permanente_MEDIO','Razao_Permanente_ALTO',
+        'Razao_Colaborador_BAIXO','Razao_Colaborador_MEDIO','Razao_Colaborador_ALTO',
+        'Razao_Total_BAIXO','Razao_Total_MEDIO','Razao_Total_ALTO',
+        'IF_Medio_geral','IF_Mediana_geral','IF_Maximo_geral','Artigos_com_IF_Total',
+        'Eh_UnB',
+    ].join(';'));
 
     programas.forEach(d => {
         const np=d.n_perm||0, nc=d.n_colab||0, nv=d.n_visit||0, nt=np+nc+nv;
@@ -1816,33 +1859,81 @@ tr:nth-child(even){background:#F8F9FA;}
 </table>
 </div></div>`;
 
+        // \u2500\u2500 Bloco TXT por programa \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
         pt('');
-        pt('\u2500'.repeat(110));
-        pt('  ' + d.sigla + ' \u2014 ' + d.programa + ' (' + d.uf + ') | Nota ' + d.nota + ' | ' + d.quad);
-        pt('\u2500'.repeat(110));
-        pt('  Docentes: Perm=' + np + ', Colab=' + nc + ', Visit=' + nv + ', Total=' + nt);
-        pt('  Artigos c/ IF: ' + (d.n_if||0) + ' | IF M\u00e9dio=' + (d.avg_if||0) + ' | IF Mediana=' + (d.med_if||0));
-        pt('  Estratos: IF<2.2=' + (d.if_lo||0) + ' | 2.2<=IF<=8.0=' + (d.if_mi||0) + ' | IF>8.0=' + (d.if_hi||0));
+        pt('\u2500'.repeat(W));
+        pt(`  [${d.is_unb ? '\u2605 UnB' : '    '}]  ${d.sigla} \u2014 ${d.programa}  (${d.uf})`);
+        pt(`           Nota CAPES: ${d.nota}   |   Quadri\u00eanio: ${d.quad}`);
+        pt('\u2500'.repeat(W));
+        pt(`  Docentes:    Permanente=${np}   Colaborador=${nc}   Visitante=${nv}   Total=${nt}`);
+        pt(`  Resumo IF:   Total artigos com IF=${d.n_if||0}   ` +
+           `M\u00e9dio=${d.avg_if||0}   Mediana=${d.med_if||0}   M\u00e1ximo=${d.max_if||0}`);
         pt('');
-        pt('  Categoria      Doc   Art<2.2  A/D<2.2  Art 2-8  A/D 2-8  Art>8  A/D>8');
-        pt('  ' + '-'.repeat(75));
-        pt('  Permanentes  ' + String(np).padStart(5) + '  ' + String(ip[0]).padStart(7) + '  ' + fmtR(ip[0],np).padStart(7) + '  ' + String(ip[1]).padStart(7) + '  ' + fmtR(ip[1],np).padStart(7) + '  ' + String(ip[2]).padStart(5) + '  ' + fmtR(ip[2],np).padStart(5));
-        pt('  Colaborador  ' + String(nc).padStart(5) + '  ' + String(ic[0]).padStart(7) + '  ' + fmtR(ic[0],nc).padStart(7) + '  ' + String(ic[1]).padStart(7) + '  ' + fmtR(ic[1],nc).padStart(7) + '  ' + String(ic[2]).padStart(5) + '  ' + fmtR(ic[2],nc).padStart(5));
-        pt('  Visitantes   ' + String(nv).padStart(5) + '  ' + String(iv[0]).padStart(7) + '  ' + fmtR(iv[0],nv).padStart(7) + '  ' + String(iv[1]).padStart(7) + '  ' + fmtR(iv[1],nv).padStart(7) + '  ' + String(iv[2]).padStart(5) + '  ' + fmtR(iv[2],nv).padStart(5));
-        pt('  TOTAL        ' + String(nt).padStart(5) + '  ' + String(ia[0]).padStart(7) + '  ' + fmtR(ia[0],nt).padStart(7) + '  ' + String(ia[1]).padStart(7) + '  ' + fmtR(ia[1],nt).padStart(7) + '  ' + String(ia[2]).padStart(5) + '  ' + fmtR(ia[2],nt).padStart(5));
+        pt('  Distribui\u00e7\u00e3o de artigos por estrato de IF:');
+        pt(`    BAIXO (IF<2,2)         ${padR(d.if_lo||0, 6)} artigos    \u2192  ${padR(fmtR(d.if_lo||0, nt), 6)} por docente`);
+        pt(`    M\u00c9DIO (2,2\u2264IF\u22648,0)     ${padR(d.if_mi||0, 6)} artigos    \u2192  ${padR(fmtR(d.if_mi||0, nt), 6)} por docente`);
+        pt(`    ALTO  (IF>8,0)         ${padR(d.if_hi||0, 6)} artigos    \u2192  ${padR(fmtR(d.if_hi||0, nt), 6)} por docente`);
+        pt('');
+        pt('  Detalhamento por categoria docente \u00d7 estrato:');
+        pt('  ' + padL('', 14) + padR('', 5) + '  ' +
+                  padL('  BAIXO (IF<2,2)', 22) +
+                  padL('  M\u00c9DIO (2,2-8,0)', 22) +
+                  padL('  ALTO  (IF>8,0)', 22));
+        pt('  ' + padL('Categoria', 14) + padR('Doc', 5) + '  ' +
+                  padR('Art', 8) + padR('Art/Doc', 12) + '  ' +
+                  padR('Art', 8) + padR('Art/Doc', 12) + '  ' +
+                  padR('Art', 8) + padR('Art/Doc', 12));
+        pt('  ' + '\u2500'.repeat(W - 2));
+        const linhaCat = (rotulo, n, arr) =>
+            '  ' + padL(rotulo, 14) + padR(n, 5) + '  ' +
+                   padR(arr[0], 8) + padR(fmtR(arr[0], n), 12) + '  ' +
+                   padR(arr[1], 8) + padR(fmtR(arr[1], n), 12) + '  ' +
+                   padR(arr[2], 8) + padR(fmtR(arr[2], n), 12);
+        pt(linhaCat('Permanentes',   np, ip));
+        pt(linhaCat('Colaboradores', nc, ic));
+        pt(linhaCat('Visitantes',    nv, iv));
+        pt('  ' + '\u2500'.repeat(W - 2));
+        pt(linhaCat('TOTAL',         nt, ia));
 
-        csvRows.push([d.sigla,d.programa,d.uf,d.nota,d.quad,nt,np,nc,nv,
-            d.if_lo||0,d.if_mi||0,d.if_hi||0,
-            ip[0],ip[1],ip[2],ic[0],ic[1],ic[2],iv[0],iv[1],iv[2],
-            fmtR(ip[0],np),fmtR(ip[1],np),fmtR(ip[2],np),
-            fmtR(ic[0],nc),fmtR(ic[1],nc),fmtR(ic[2],nc),
-            fmtR(ia[0],nt),fmtR(ia[1],nt),fmtR(ia[2],nt),
-            d.avg_if||0,d.med_if||0,d.is_unb?'SIM':'NAO'].join(';'));
+        // \u2500\u2500 Linha CSV por programa (decimal v\u00edrgula, campos escapados) \u2500
+        csvRows.push([
+            csvEsc(d.sigla),
+            csvEsc(d.programa),
+            csvEsc(d.uf),
+            d.nota,
+            csvEsc(d.quad),
+            nt, np, nc, nv,
+            d.if_lo||0, d.if_mi||0, d.if_hi||0,
+            ip[0], ip[1], ip[2],
+            ic[0], ic[1], ic[2],
+            iv[0], iv[1], iv[2],
+            fmtR_BR(ip[0], np), fmtR_BR(ip[1], np), fmtR_BR(ip[2], np),
+            fmtR_BR(ic[0], nc), fmtR_BR(ic[1], nc), fmtR_BR(ic[2], nc),
+            fmtR_BR(ia[0], nt), fmtR_BR(ia[1], nt), fmtR_BR(ia[2], nt),
+            fmtN_BR(d.avg_if||0), fmtN_BR(d.med_if||0), fmtN_BR(d.max_if||0),
+            d.n_if||0,
+            d.is_unb ? 'SIM' : 'NAO',
+        ].join(';'));
     });
 
+    // \u2500\u2500 Sum\u00e1rio agregado no final do TXT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    const sumLo  = programas.reduce((s, d) => s + (d.if_lo  || 0), 0);
+    const sumMi  = programas.reduce((s, d) => s + (d.if_mi  || 0), 0);
+    const sumHi  = programas.reduce((s, d) => s + (d.if_hi  || 0), 0);
+    const sumDoc = programas.reduce((s, d) =>
+        s + (d.n_perm||0) + (d.n_colab||0) + (d.n_visit||0), 0);
     pt('');
-    pt('  MAPA-PG v' + VERSION + ' | Prof. David L. Azevedo');
-    pt('='.repeat(110));
+    pt('\u2550'.repeat(W));
+    pt(`  RESUMO AGREGADO  (${programas.length} programa${programas.length === 1 ? '' : 's'})`);
+    pt('\u2500'.repeat(W));
+    pt(`  Docentes (soma)             : ${sumDoc}`);
+    pt(`  Artigos IF BAIXO (soma)     : ${padR(sumLo, 6)}    \u2192  ${fmtR(sumLo, sumDoc)} / docente`);
+    pt(`  Artigos IF M\u00c9DIO (soma)     : ${padR(sumMi, 6)}    \u2192  ${fmtR(sumMi, sumDoc)} / docente`);
+    pt(`  Artigos IF ALTO  (soma)     : ${padR(sumHi, 6)}    \u2192  ${fmtR(sumHi, sumDoc)} / docente`);
+    pt(`  Artigos com IF (soma total) : ${sumLo + sumMi + sumHi}`);
+    pt('\u2550'.repeat(W));
+    pt('  Fim do relat\u00f3rio \u2014 MAPA-PG v' + VERSION);
+    pt('\u2550'.repeat(W));
 
     const txtStr = JSON.stringify(txt.join('\\n'));
     const csvStr = JSON.stringify(csvRows.join('\\n'));
