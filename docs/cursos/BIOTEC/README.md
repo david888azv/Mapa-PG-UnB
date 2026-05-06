@@ -1,0 +1,9 @@
+# MAPA-PG-BIOTEC — BIOTECNOLOGIA E BIODIVERSIDADE - REDE PRÓ-CENTRO-OESTE
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **BIOTECNOLOGIA** (CNPq: MULTIDISCIPLINAR)
+- Conceito: 4
+- Modalidade: ACADÊMICO
+- Graus: DOUTORADO
+
+Aplicativo: [`../../index.html?curso=BIOTEC`](../../index.html?curso=BIOTEC)

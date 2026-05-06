@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-ECONOP",
+  "sufixo": "ECONOP",
+  "cd_programa_ies": "53001010058P1",
+  "nome_programa": "ECONOMIA",
+  "graus": [
+    "MESTRADO PROFISSIONAL"
+  ],
+  "modalidade": [
+    "PROFISSIONAL"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "ECONOMIA",
+  "cd_area_capes": "28",
+  "slug_area": "economia",
+  "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+  "area_conhecimento": "ECONOMIA",
+  "area_basica": "ECONOMIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=ECONOP"
+}

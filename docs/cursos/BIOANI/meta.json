@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-BIOANI",
+  "sufixo": "BIOANI",
+  "cd_programa_ies": "53001010045P7",
+  "nome_programa": "BIOLOGIA ANIMAL",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "CIÊNCIAS BIOLÓGICAS I",
+  "cd_area_capes": "6",
+  "slug_area": "ciencias-biologicas-i",
+  "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+  "area_conhecimento": "BIOLOGIA GERAL",
+  "area_basica": "BIOLOGIA GERAL",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=BIOANI"
+}

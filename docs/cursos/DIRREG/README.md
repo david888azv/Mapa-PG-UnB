@@ -1,0 +1,9 @@
+# MAPA-PG-DIRREG — DIREITO, REGULAÇÃO E POLÍTICAS PÚBLICAS
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **DIREITO** (CNPq: CIÊNCIAS SOCIAIS APLICADAS)
+- Conceito: A
+- Modalidade: PROFISSIONAL
+- Graus: MESTRADO PROFISSIONAL
+
+Aplicativo: [`../../index.html?curso=DIRREG`](../../index.html?curso=DIRREG)

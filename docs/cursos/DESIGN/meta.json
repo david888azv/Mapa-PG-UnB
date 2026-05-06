@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-DESIGN",
+  "sufixo": "DESIGN",
+  "cd_programa_ies": "53001010101P4",
+  "nome_programa": "DESIGN",
+  "graus": [
+    "MESTRADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "3"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "ARQUITETURA, URBANISMO E DESIGN",
+  "cd_area_capes": "29",
+  "slug_area": "arquitetura-urbanismo-e-design",
+  "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+  "area_conhecimento": "DESENHO INDUSTRIAL",
+  "area_basica": "DESENHO INDUSTRIAL",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=DESIGN"
+}

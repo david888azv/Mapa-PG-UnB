@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-REABIL",
+  "sufixo": "REABIL",
+  "cd_programa_ies": "53001010107P2",
+  "nome_programa": "CIÊNCIAS DA REABILITAÇÃO",
+  "graus": [
+    "MESTRADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "3"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "EDUCAÇÃO FÍSICA",
+  "cd_area_capes": "21",
+  "slug_area": "educacao-fisica",
+  "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+  "area_conhecimento": "FISIOTERAPIA E TERAPIA OCUPACIONAL",
+  "area_basica": "FISIOTERAPIA E TERAPIA OCUPACIONAL",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=REABIL"
+}

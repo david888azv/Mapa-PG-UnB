@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-ENGELE",
+  "sufixo": "ENGELE",
+  "cd_programa_ies": "53001010080P7",
+  "nome_programa": "ENGENHARIA ELÉTRICA",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "ENGENHARIAS IV",
+  "cd_area_capes": "14",
+  "slug_area": "engenharias-iv",
+  "grande_area_cnpq": "ENGENHARIAS",
+  "area_conhecimento": "ENGENHARIA ELÉTRICA",
+  "area_basica": "ENGENHARIA ELÉTRICA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=ENGELE"
+}

@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-FILOSO",
+  "sufixo": "FILOSO",
+  "cd_programa_ies": "53001010048P6",
+  "nome_programa": "FILOSOFIA",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "FILOSOFIA",
+  "cd_area_capes": "33",
+  "slug_area": "filosofia",
+  "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+  "area_conhecimento": "FILOSOFIA",
+  "area_basica": "FILOSOFIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=FILOSO"
+}

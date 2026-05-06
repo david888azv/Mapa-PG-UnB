@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAPA-PG — Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</title>
+<link rel="manifest" href="app.webmanifest">
+<meta name="theme-color" content="#2C3E50">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+  }
+</script>
+<style>
+:root {
+    --azul: #2C3E50; --azul2: #34495E; --azul3: #1A252F;
+    --accent: #E91E63; --accent2: #F48FB1;
+    --verde: #27AE60; --laranja: #F39C12; --vermelho: #E74C3C;
+    --bg: #F5F7FA; --card: #FFFFFF; --borda: #E0E4E8;
+    --txt: #2C3E50; --txt2: #7F8C8D;
+    --n5: #2196F3; --n6: #FF9800; --n7: #4CAF50;
+    --unb: #E91E63;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--txt); }
+
+/* HEADER */
+.header { background: linear-gradient(135deg, var(--azul), var(--azul2)); color: #fff;
+    padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.header h1 { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+.header h1 span { color: var(--accent); }
+.header .meta { text-align: right; font-size: 12px; opacity: .85; line-height: 1.5; }
+
+/* LAYOUT */
+.container { display: flex; min-height: calc(100vh - 56px); }
+.sidebar { width: 320px; min-width: 320px; background: var(--card); border-right: 1px solid var(--borda);
+    padding: 16px; overflow-y: auto; max-height: calc(100vh - 56px); }
+.main { flex: 1; padding: 20px; overflow-y: auto; max-height: calc(100vh - 56px); }
+
+/* SIDEBAR */
+.filter-group { margin-bottom: 16px; }
+.filter-group h3 { font-size: 13px; text-transform: uppercase; color: var(--txt2);
+    margin-bottom: 8px; letter-spacing: .5px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+.filter-group label { display: block; padding: 3px 0; font-size: 13px; cursor: pointer; }
+.filter-group label:hover { background: #f0f2f5; }
+.filter-group input[type="checkbox"] { margin-right: 6px; accent-color: var(--accent); }
+.filter-group select { width: 100%; padding: 6px; border: 1px solid var(--borda); border-radius: 4px; font-size: 13px; }
+
+.ies-container { max-height: 260px; overflow-y: auto; border: 1px solid var(--borda);
+    border-radius: 4px; padding: 6px; background: #FAFBFC; }
+
+.btn { display: block; width: 100%; padding: 10px; margin-top: 8px; border: none; border-radius: 6px;
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #C2185B; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(233,30,99,.4); }
+.btn-secondary { background: var(--azul); color: #fff; }
+.btn-secondary:hover { background: var(--azul3); }
+.btn-export { background: var(--verde); color: #fff; }
+.btn-export:hover { background: #1E8449; }
+.btn-sm { display: inline-block; width: auto; padding: 5px 12px; font-size: 12px; margin: 2px; }
+
+/* CARDS */
+.card { background: var(--card); border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    padding: 12px; margin-bottom: 10px; }
+.card h2 { font-size: 13px; color: var(--azul); margin-bottom: 8px; border-bottom: 2px solid var(--n5); padding-bottom: 4px; }
+.card h2.unb { border-color: var(--unb); }
+
+/* STATS */
+.stats-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.stat-box { flex: 1; min-width: 90px; background: #F8F9FA; border-radius: 4px; padding: 6px 4px; text-align: center;
+    border-left: 3px solid var(--n5); }
+.stat-box.unb { border-left-color: var(--unb); background: #FCE4EC; }
+.stat-box .value { font-size: 16px; font-weight: 700; color: var(--azul); }
+.stat-box.unb .value { color: var(--unb); }
+.stat-box .label { font-size: 9px; color: var(--txt2); text-transform: uppercase; line-height: 1.2; }
+
+/* TABLE */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 11px; }
+th { background: var(--azul); color: #fff; padding: 4px 6px; text-align: center; font-weight: 600; font-size: 10px; }
+td { padding: 3px 5px; text-align: center; border-bottom: 1px solid var(--borda); }
+tr:nth-child(even) { background: #F8F9FA; }
+tr.row-unb { background: #FCE4EC !important; font-weight: 700; }
+tr.row-unb td { color: var(--unb); }
+tr:hover { background: #EEF2F7; }
+
+/* CHART */
+.chart-container { position: relative; height: 400px; margin: 12px 0; }
+.chart-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.chart-half { flex: 1; min-width: 400px; }
+
+/* REPORT */
+.report-box { background: #1A1A2E; color: #E0E0E0; padding: 16px; border-radius: 6px;
+    font-family: 'Consolas', 'Courier New', monospace; font-size: 12px;
+    white-space: pre-wrap; max-height: 500px; overflow-y: auto; line-height: 1.6; }
+
+/* LOADING */
+.loading { text-align: center; padding: 60px; }
+.loading .spinner { width: 48px; height: 48px; border: 4px solid var(--borda);
+    border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* STATUS */
+.status-bar { background: var(--azul3); color: #aaa; padding: 4px 24px; font-size: 11px;
+    display: flex; justify-content: space-between; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .container { flex-direction: column; }
+    .sidebar { width: 100%; min-width: auto; max-height: none; }
+    .main { max-height: none; }
+}
+
+/* TOAST */
+.toast { position: fixed; bottom: 20px; right: 20px; background: var(--verde); color: #fff;
+    padding: 12px 20px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,.3);
+    opacity: 0; transition: opacity .3s; z-index: 999; }
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1><span>MAPA-PG</span> — Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</h1>
+    <div class="meta">
+        <div>Prof. David L. Azevedo</div>
+        <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
+        <div id="headerDate"></div>
+        <div id="headerVersion">v1.2</div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="filter-group" style="border:2px solid var(--accent);padding:10px;border-radius:8px;background:#FFF0F5;">
+            <h3 style="color:var(--accent);">Selecionar Programa UnB</h3>
+            <label style="font-size:12px;">Grande Área CNPq</label>
+            <select id="selGrandeArea" onchange="onGrandeAreaChange()"></select>
+            <label style="font-size:12px;margin-top:6px;display:block;">Área de Avaliação CAPES</label>
+            <select id="selArea" onchange="onAreaChange()"></select>
+            <label style="font-size:12px;margin-top:6px;display:block;">Curso (UnB) — referência</label>
+            <select id="selCurso" onchange="onCursoChange()"></select>
+            <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Comparações são feitas dentro da mesma Área CAPES (regra CAPES).</p>
+        </div>
+
+        <div class="filter-group">
+            <h3>Nota CAPES</h3>
+            <label><input type="checkbox" id="nota5" value="5" checked> Nota 5</label>
+            <label><input type="checkbox" id="nota6" value="6"> Nota 6</label>
+            <label><input type="checkbox" id="nota7" value="7"> Nota 7</label>
+        </div>
+
+        <div class="filter-group">
+            <h3>Quadriênio</h3>
+            <select id="selQuad">
+                <option value="all">Todos os quadriênios</option>
+                <option value="2013-2016">2013–2016 (Q1)</option>
+                <option value="2017-2020">2017–2020 (Q2)</option>
+                <option value="2021-2024">2021–2024 (Q3)</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <h3>Métrica de Comparação</h3>
+            <select id="selMetrica">
+                <option value="ma_pq">Art/ano — Bolsistas PQ</option>
+                <option value="ma_spq">Art/ano — Sem bolsa PQ</option>
+                <option value="ma_all" selected>Art/ano — Média geral (PQ + sem PQ)</option>
+                <option value="ma_perm">Art/ano — Docentes Permanentes</option>
+                <option value="ma_colab">Art/ano — Docentes Colaboradores</option>
+                <option value="ma_visit">Art/ano — Docentes Visitantes</option>
+                <option value="avg_if">Fator de Impacto Médio (OpenAlex 2yr)</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <h3>Categoria de Docente</h3>
+            <label><input type="checkbox" class="cat-chk" value="PERMANENTE" checked> Permanente</label>
+            <label><input type="checkbox" class="cat-chk" value="COLABORADOR" checked> Colaborador</label>
+            <label><input type="checkbox" class="cat-chk" value="VISITANTE" checked> Visitante</label>
+        </div>
+
+        <div class="filter-group">
+            <h3>Região</h3>
+            <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <button class="btn btn-sm btn-primary" onclick="toggleRegioes(true)" style="flex:1;margin:0;">Todas</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleRegioes(false)" style="flex:1;margin:0;">Nenhuma</button>
+            </div>
+            <label><input type="checkbox" class="reg-chk" value="Centro-Oeste" checked> Centro-Oeste (CO)</label>
+            <label><input type="checkbox" class="reg-chk" value="Nordeste" checked> Nordeste (NE)</label>
+            <label><input type="checkbox" class="reg-chk" value="Norte" checked> Norte (N)</label>
+            <label><input type="checkbox" class="reg-chk" value="Sudeste" checked> Sudeste (SE)</label>
+            <label><input type="checkbox" class="reg-chk" value="Sul" checked> Sul (S)</label>
+        </div>
+
+        <div class="filter-group">
+            <h3>Instituições (IES)</h3>
+            <label><input type="checkbox" id="chkAllIES" checked> <strong>Todas as IES</strong></label>
+            <div class="ies-container" id="iesContainer"></div>
+        </div>
+
+        <div class="filter-group">
+            <h3>Tipo de Produção</h3>
+            <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <button class="btn btn-sm btn-primary" onclick="toggleSubtipos(true)" style="flex:1;margin:0;">Todos</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleSubtipos(false)" style="flex:1;margin:0;">Nenhum</button>
+            </div>
+            <label><input type="checkbox" class="sub-chk" value="25" checked> Artigo em Periódico</label>
+            <label><input type="checkbox" class="sub-chk" value="8"> Resumo</label>
+            <label><input type="checkbox" class="sub-chk" value="9"> Trabalho de Congresso</label>
+            <label><input type="checkbox" class="sub-chk" value="26"> Capítulo de Livro</label>
+            <label><input type="checkbox" class="sub-chk" value="10"> Texto em Jornal</label>
+        </div>
+
+        <div class="filter-group">
+            <h3>Estrato de Fator de Impacto</h3>
+            <label><input type="checkbox" class="if-chk" value="lo" checked> IF &lt; 2.2 (Baixo)</label>
+            <label><input type="checkbox" class="if-chk" value="mi" checked> 2.2 &le; IF &le; 8.0 (Médio)</label>
+            <label><input type="checkbox" class="if-chk" value="hi" checked> IF &gt; 8.0 (Alto)</label>
+        </div>
+
+        <div class="filter-group">
+            <h3>Média Nacional (Todas as Áreas)</h3>
+            <label><input type="checkbox" id="chkNatlAvg" onchange="showNatlAvg=this.checked;analisar()"> Incluir média nacional de todas as áreas nos gráficos e tabelas</label>
+        </div>
+
+        <div class="filter-group">
+            <h3>Relatório Detalhado IF</h3>
+            <label><input type="checkbox" id="chkIFDetail"> Análise detalhada por Fator de Impacto</label>
+        </div>
+
+        <button class="btn btn-primary" onclick="analisar()">Analisar</button>
+        <button class="btn btn-secondary" onclick="gerarRelatorio()">Gerar Relatório</button>
+        <button class="btn btn-export" onclick="exportarCSV()">Exportar CSV</button>
+        <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
+        <button class="btn" onclick="abrirHelp()" style="background:#607D8B;color:#fff;margin-top:16px;">? Ajuda / Documentação</button>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main" id="main">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p id="loadingMsg">Carregando catálogo de áreas CAPES...</p>
+        </div>
+        <div id="results" style="display:none;"></div>
+    </div>
+</div>
+
+<div class="status-bar">
+    <span id="statusLeft">Aguardando dados...</span>
+    <span id="statusRight">MAPA-PG | Prof. David L. Azevedo</span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// GLOBALS
+// ══════════════════════════════════════════════════════════════════
+let DATA = null;
+let charts = [];
+let reportSeq = 0;
+let MANIFEST = null;          // catálogo geral de áreas
+let REGISTRY = null;          // catálogo de programas UnB
+let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
+let CURRENT_SUFIXO = null;    // sufixo do programa UnB selecionado
+let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
+const VERSION = '2.0-multi';
+// UNB_CD: programa UnB selecionado como referência (mutável quando usuário troca de curso).
+// UNB_CDS: lista de todos os códigos UnB presentes na área carregada (para destacar todos).
+let UNB_CD = '53001010002P6';
+let UNB_CDS = [];
+const UF_REGIAO = {
+    "AC":"Norte","AL":"Nordeste","AM":"Norte","AP":"Norte","BA":"Nordeste",
+    "CE":"Nordeste","DF":"Centro-Oeste","ES":"Sudeste","GO":"Centro-Oeste",
+    "MA":"Nordeste","MG":"Sudeste","MS":"Centro-Oeste","MT":"Centro-Oeste",
+    "PA":"Norte","PB":"Nordeste","PE":"Nordeste","PI":"Nordeste","PR":"Sul",
+    "RJ":"Sudeste","RN":"Nordeste","RO":"Norte","RR":"Norte","RS":"Sul",
+    "SC":"Sul","SE":"Nordeste","SP":"Sudeste","TO":"Norte",
+};
+
+const NOTA_COLORS = { 5: '#2196F3', 6: '#FF9800', 7: '#4CAF50' };
+const UNB_COLOR = '#E91E63';
+const NATL_COLOR = '#9E9E9E';
+
+// Media nacional — todas as areas — artigos em periodicos por docente por ano
+// Fonte: dados_capes (docentes + prod_artpe/prod_autor), subtipo 25
+const MEDIA_NACIONAL = {
+    por_ano: {
+        2013: {art:184111, doc:61513, media:2.99},
+        2014: {art:198050, doc:65722, media:3.01},
+        2015: {art:197518, doc:69217, media:2.85},
+        2016: {art:202398, doc:72482, media:2.79},
+        2017: {art:232317, doc:76922, media:3.02},
+        2018: {art:243684, doc:78977, media:3.09},
+        2019: {art:259076, doc:81682, media:3.17},
+        2020: {art:300748, doc:81116, media:3.71},
+        2021: {art:311141, doc:83690, media:3.72},
+        2022: {art:278185, doc:83690, media:3.32},
+        2023: {art:267404, doc:83690, media:3.20},
+        2024: {art:287323, doc:83690, media:3.43},
+    },
+    por_quad: {
+        '2013-2016': {art:782077, doc:79098, media:2.47},
+        '2017-2020': {art:1035825, doc:91537, media:2.83},
+        '2021-2024': {art:1144053, doc:83690, media:3.42},
+    }
+};
+let showNatlAvg = false;
+
+// ══════════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════════
+document.getElementById('headerDate').textContent = new Date().toLocaleDateString('pt-BR', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+});
+document.getElementById('headerVersion').textContent = `v${VERSION}`;
+
+// ── Carga em camadas: manifest → registry → área selecionada ─────────
+async function loadData() {
+    const setMsg = m => { const el = document.getElementById('loadingMsg'); if (el) el.textContent = m; };
+    try {
+        setMsg('Carregando catálogo de áreas CAPES...');
+        const [mf, rg] = await Promise.all([
+            fetch('manifest.json', {cache: 'force-cache'}).then(r=>r.json()),
+            fetch('registry.json', {cache: 'force-cache'}).then(r=>r.json()),
+        ]);
+        MANIFEST = mf; REGISTRY = rg;
+        // Determinar curso/área inicial via querystring (?curso=FISICA) ou padrão FISICA
+        const params = new URLSearchParams(location.search);
+        const sufQS = (params.get('curso') || 'FISICA').toUpperCase();
+        const areaQS = params.get('area');
+        let prog = REGISTRY.programas_unb.find(p => p.sufixo === sufQS);
+        let areaSlug = areaQS;
+        if (prog) areaSlug = prog.slug_area;
+        if (!areaSlug) areaSlug = 'astronomia-fisica';
+        await switchArea(areaSlug, prog ? prog.sufixo : null);
+    } catch (e) {
+        console.error(e);
+        document.getElementById('loading').innerHTML =
+            `<p style="color:#E74C3C;font-size:16px;">Erro ao carregar catálogo.</p>
+             <p style="color:#999;margin-top:8px;">${e.message}</p>`;
+    }
+}
+
+async function switchArea(slug, sufixo) {
+    const setMsg = m => { const el = document.getElementById('loadingMsg'); if (el) el.textContent = m; };
+    document.getElementById('loading').style.display = '';
+    document.getElementById('results').style.display = 'none';
+    setMsg(`Carregando dados da área ${slug}...`);
+    const areaInfo = MANIFEST.areas.find(a => a.slug === slug);
+    if (!areaInfo) throw new Error(`Área desconhecida: ${slug}`);
+    const url = areaInfo.arquivo;
+    const d = await fetch(url, {cache: 'force-cache'}).then(r=>r.json());
+    DATA = d;
+    CURRENT_AREA_SLUG = slug;
+    CURRENT_AREA_NAME = d.metadata.area;
+    UNB_CDS = d.metadata.unb_cds || [];
+    // Definir programa UnB de referência (destaque) — se sufixo informado, usa o cd dele;
+    // senão, primeiro UnB da área
+    if (sufixo) {
+        const p = REGISTRY.programas_unb.find(x => x.sufixo === sufixo);
+        if (p && UNB_CDS.includes(p.cd_programa)) {
+            UNB_CD = p.cd_programa;
+            CURRENT_SUFIXO = sufixo;
+        } else {
+            UNB_CD = UNB_CDS[0] || null;
+            CURRENT_SUFIXO = REGISTRY.programas_unb.find(p => p.cd_programa === UNB_CD)?.sufixo || null;
+        }
+    } else {
+        UNB_CD = UNB_CDS[0] || null;
+        CURRENT_SUFIXO = REGISTRY.programas_unb.find(p => p.cd_programa === UNB_CD)?.sufixo || null;
+    }
+    // Reflag is_unb com base em UNB_CD selecionado (programa de referência destacado)
+    DATA.data.forEach(r => { r.is_unb = (r.cd === UNB_CD); });
+    onDataLoaded();
+    // Atualizar URL sem recarregar
+    const u = new URL(location.href);
+    if (CURRENT_SUFIXO) u.searchParams.set('curso', CURRENT_SUFIXO);
+    u.searchParams.set('area', slug);
+    history.replaceState(null, '', u.toString());
+}
+
+let LICENSE_ACCEPTED = false;
+function onDataLoaded() {
+    DATA.data.forEach(d => { d.regiao = UF_REGIAO[d.uf] || '?'; });
+    const areaTit = document.getElementById('headerArea');
+    if (areaTit) areaTit.textContent = `${CURRENT_AREA_NAME} — ${getRefName()}`;
+    populateCursoSelect();
+    if (!LICENSE_ACCEPTED) {
+        showLicenseModal();
+    } else {
+        // Re-renderiza sem reabrir modal (troca de área/curso)
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('results').style.display = 'block';
+        try { initUI(); } catch(_) {}
+        setStatus(`${DATA.data.length} registros carregados — ${DATA.metadata.n_programas} programas`);
+        analisar();
+    }
+}
+
+function getRefName() {
+    if (!CURRENT_SUFIXO || !REGISTRY) return 'UnB';
+    const p = REGISTRY.programas_unb.find(x => x.sufixo === CURRENT_SUFIXO);
+    return p ? `${p.nome} (UnB) — MAPA-PG-${p.sufixo}` : 'UnB';
+}
+// Versão curta do nome da área (ex: "FÍSICA/ASTRO", "PSICOLOGIA")
+function areaShort() {
+    if (!CURRENT_AREA_NAME) return 'área';
+    return CURRENT_AREA_NAME.replace(/\s*\/\s*/g,'/').split(/\s+/).slice(0,2).join(' ');
+}
+
+// Popula o seletor de Grande Área → Área CAPES → Curso UnB (sidebar)
+function populateCursoSelect() {
+    const selGA = document.getElementById('selGrandeArea');
+    const selArea = document.getElementById('selArea');
+    const selCurso = document.getElementById('selCurso');
+    if (!selGA || !selArea || !selCurso) return;
+    if (!selGA.options.length) {
+        Object.keys(REGISTRY.grandes_areas).sort().forEach(g => {
+            selGA.add(new Option(g, g));
+        });
+    }
+    // Determinar grande área da área atual
+    const refProg = REGISTRY.programas_unb.find(p => p.slug_area === CURRENT_AREA_SLUG);
+    if (refProg) selGA.value = refProg.grande_area_cnpq;
+    rebuildAreaOptions();
+    selArea.value = CURRENT_AREA_SLUG;
+    rebuildCursoOptions();
+    if (CURRENT_SUFIXO) selCurso.value = CURRENT_SUFIXO;
+}
+function rebuildAreaOptions() {
+    const selGA = document.getElementById('selGrandeArea');
+    const selArea = document.getElementById('selArea');
+    selArea.innerHTML = '';
+    const ga = selGA.value;
+    const areasDaGA = REGISTRY.grandes_areas[ga] || [];
+    areasDaGA.forEach(a => {
+        const slug = REGISTRY.areas_capes[a].slug;
+        const n = REGISTRY.areas_capes[a].n_unb;
+        selArea.add(new Option(`${a} (${n} UnB)`, slug));
+    });
+}
+function rebuildCursoOptions() {
+    const selArea = document.getElementById('selArea');
+    const selCurso = document.getElementById('selCurso');
+    selCurso.innerHTML = '';
+    const slugA = selArea.value;
+    const progs = REGISTRY.programas_unb
+        .filter(p => p.slug_area === slugA)
+        .sort((a,b) => a.nome.localeCompare(b.nome));
+    progs.forEach(p => {
+        selCurso.add(new Option(`${p.nome} — MAPA-PG-${p.sufixo}`, p.sufixo));
+    });
+}
+function onGrandeAreaChange() { rebuildAreaOptions(); rebuildCursoOptions(); }
+function onAreaChange() { rebuildCursoOptions(); }
+function onCursoChange() {
+    const selArea = document.getElementById('selArea');
+    const selCurso = document.getElementById('selCurso');
+    const slugA = selArea.value;
+    const suf = selCurso.value;
+    if (slugA === CURRENT_AREA_SLUG) {
+        // Mesma área — só troca o destaque (sem refetch)
+        const p = REGISTRY.programas_unb.find(x => x.sufixo === suf);
+        if (p) {
+            UNB_CD = p.cd_programa;
+            CURRENT_SUFIXO = suf;
+            DATA.data.forEach(r => { r.is_unb = (r.cd === UNB_CD); });
+            const areaTit = document.getElementById('headerArea');
+            if (areaTit) areaTit.textContent = `${CURRENT_AREA_NAME} — ${getRefName()}`;
+            const u = new URL(location.href);
+            u.searchParams.set('curso', suf);
+            history.replaceState(null, '', u.toString());
+            analisar();
+        }
+    } else {
+        // Área diferente — recarrega
+        switchArea(slugA, suf).then(() => analisar());
+    }
+}
+
+function showLicenseModal() {
+    const overlay = document.createElement('div');
+    overlay.id = 'licenseOverlay';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:32px;max-width:620px;width:92%;box-shadow:0 8px 32px rgba(0,0,0,.4);text-align:center;max-height:90vh;overflow-y:auto;">
+        <h2 style="color:#2C3E50;margin-bottom:4px;font-size:22px;font-weight:800;letter-spacing:1px;">MAPA-PG</h2>
+        <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>
+        <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Abril 2026</p>
+        <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:16px;">Prof. David L. Azevedo</p>
+        <div style="background:#F5F7FA;border-radius:8px;padding:16px;text-align:left;font-size:13px;color:#555;line-height:1.7;margin-bottom:14px;">
+            <p><strong>Fonte dos dados:</strong> Todos os dados utilizados nas analises e investigacoes deste sistema foram obtidos exclusivamente do <strong>Portal de Dados Abertos da CAPES</strong>
+            (<a href="https://dadosabertos.capes.gov.br/" target="_blank" style="color:#1565C0;">dadosabertos.capes.gov.br</a>), como parte da iniciativa do Governo Federal de transparencia e acesso a informacao publica (Lei de Acesso a Informacao — Lei n. 12.527/2011).</p>
+            <p style="margin-top:8px;">Os dados sao <strong>publicos e de livre acesso</strong>, disponibilizados pela Coordenacao de Aperfeicoamento de Pessoal de Nivel Superior (CAPES/MEC).</p>
+            <p style="margin-top:8px;">Todas as URLs de download dos dados brutos da Coleta CAPES estao documentadas no arquivo de ajuda (<strong>help-doc.html</strong>), acessivel pelo botao <strong>Help</strong> na barra lateral do sistema.</p>
+        </div>
+        <div style="background:#FFF8E1;border-radius:8px;padding:14px;text-align:left;font-size:12px;color:#555;line-height:1.7;margin-bottom:16px;border-left:4px solid #FF9800;">
+            <p>Ao utilizar este software, voce concorda com os seguintes termos:</p>
+            <ul style="padding-left:18px;margin-top:6px;">
+                <li>Nao remover, alterar ou ocultar informacoes de <strong>autoria</strong> ou creditos do desenvolvedor.</li>
+                <li>Manter a identificacao <strong>"Prof. David L. Azevedo"</strong> e <strong>"MAPA-PG"</strong> em todas as copias e derivados.</li>
+                <li>Contato: <a href="mailto:david888azv@unb.br" style="color:#E91E63;">david888azv@unb.br</a></li>
+            </ul>
+        </div>
+        <div style="background:#E3F2FD;border-radius:8px;padding:14px;text-align:left;font-size:12px;color:#1565C0;line-height:1.7;margin-bottom:16px;border-left:4px solid #2196F3;">
+            <strong>Solucoes sob medida:</strong> Podemos desenvolver uma solucao especifica de monitoramento e analise para qualquer programa de pos-graduacao de qualquer universidade do pais. Entre em contato com o desenvolvedor: <a href="mailto:david888azv@unb.br" style="color:#E91E63;font-weight:700;">david888azv@unb.br</a>
+        </div>
+        <button onclick="acceptLicense()" style="background:#E91E63;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;">Concordo e desejo continuar</button>
+    </div>`;
+    document.body.appendChild(overlay);
+}
+
+function acceptLicense() {
+    LICENSE_ACCEPTED = true;
+    const ov = document.getElementById('licenseOverlay');
+    if (ov) ov.remove();
+    initUI();
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+    setStatus(`${DATA.data.length} registros carregados — ${DATA.metadata.n_programas} programas`);
+    analisar();
+}
+
+loadData();
+
+function initUI() {
+    const container = document.getElementById('iesContainer');
+    const iesList = DATA.ies_list;
+    container.innerHTML = iesList.map(ies =>
+        `<label><input type="checkbox" class="ies-chk" value="${ies.sigla}" checked> ${ies.sigla} (${ies.uf})</label>`
+    ).join('');
+
+    document.getElementById('chkAllIES').addEventListener('change', function() {
+        document.querySelectorAll('.ies-chk').forEach(cb => cb.checked = this.checked);
+    });
+    document.querySelectorAll('.ies-chk').forEach(cb => {
+        cb.addEventListener('change', () => {
+            const all = document.querySelectorAll('.ies-chk');
+            const checked = document.querySelectorAll('.ies-chk:checked');
+            document.getElementById('chkAllIES').checked = all.length === checked.length;
+        });
+    });
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ANALYSIS
+// ══════════════════════════════════════════════════════════════════
+function toggleRegioes(state) {
+    document.querySelectorAll('.reg-chk').forEach(cb => cb.checked = state);
+}
+
+function toggleSubtipos(state) {
+    document.querySelectorAll('.sub-chk').forEach(cb => cb.checked = state);
+}
+
+// Subtype labels for display
+const SUBTIPO_LABELS = { '25': 'Art. Periódico', '8': 'Resumo', '9': 'Trab. Congresso', '26': 'Cap. Livro', '10': 'Texto Jornal' };
+const ALL_SUBTIPOS = ['25', '8', '9', '26', '10'];
+
+function getFilters() {
+    const notas = [];
+    if (document.getElementById('nota5').checked) notas.push(5);
+    if (document.getElementById('nota6').checked) notas.push(6);
+    if (document.getElementById('nota7').checked) notas.push(7);
+
+    const quad = document.getElementById('selQuad').value;
+    const metrica = document.getElementById('selMetrica').value;
+
+    const iesChecked = [...document.querySelectorAll('.ies-chk:checked')].map(cb => cb.value);
+    const regChecked = [...document.querySelectorAll('.reg-chk:checked')].map(cb => cb.value);
+    const catChecked = [...document.querySelectorAll('.cat-chk:checked')].map(cb => cb.value);
+    const subChecked = [...document.querySelectorAll('.sub-chk:checked')].map(cb => cb.value);
+    const ifChecked = [...document.querySelectorAll('.if-chk:checked')].map(cb => cb.value);
+
+    return { notas, quad, metrica, ies: iesChecked, regioes: regChecked, categorias: catChecked,
+             subtipos: subChecked, estratos_if: ifChecked };
+}
+
+function filterData(filters) {
+    return DATA.data.filter(d => {
+        if (!filters.notas.includes(d.nota) && !d.is_unb) return false;
+        if (filters.quad !== 'all' && d.quad !== filters.quad) return false;
+        if (!d.is_unb && !filters.regioes.includes(d.regiao)) return false;
+        if (!d.is_unb && !filters.ies.includes(d.sigla)) return false;
+        return true;
+    });
+}
+
+function getUnbData(filters) {
+    return DATA.data.filter(d => d.is_unb &&
+        (filters.quad === 'all' || d.quad === filters.quad));
+}
+
+function calcWeightedAvg(records, field, weightField) {
+    const totalW = records.reduce((s, r) => s + r[weightField], 0);
+    if (totalW === 0) return 0;
+    return records.reduce((s, r) => s + r[field] * r[weightField], 0) / totalW;
+}
+
+// ── SUBTYPE-AWARE METRIC COMPUTATION ──────────────────────────
+// When subtype filters are active (not all selected), compute production
+// counts from prod_sub instead of using pre-computed ma_* fields.
+// Returns: { total, perm, colab, visit, pq, spq } — raw counts for the selected subtypes
+
+function getSubtypeProd(record, subtipos) {
+    const ps = record.prod_sub;
+    if (!ps) return { total: 0, perm: 0, colab: 0, visit: 0, pq: 0, spq: 0 };
+    let total = 0, perm = 0, colab = 0, visit = 0, pq = 0, spq = 0;
+    subtipos.forEach(st => {
+        const s = ps[st];
+        if (s) {
+            total += s.total || 0;
+            perm += s.perm || 0;
+            colab += s.colab || 0;
+            visit += s.visit || 0;
+            pq += s.pq || 0;
+            spq += s.spq || 0;
+        }
+    });
+    return { total, perm, colab, visit, pq, spq };
+}
+
+// Compute the effective metric value for a record given subtype and IF strata filters
+function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
+    const allSubsSelected = subtipos.length === ALL_SUBTIPOS.length;
+    const allIFSelected = estratos_if.length === 3;
+
+    // If all subtipos AND all IF strata selected, use pre-computed values (fast path)
+    if (allSubsSelected && allIFSelected) return d[metrica] || 0;
+
+    // For IF-based metric, filter by strata
+    if (metrica === 'avg_if') {
+        // avg_if doesn't depend on subtype, but on IF strata — not filterable from aggregated data
+        // Return the pre-computed value (IF strata filtering applies to count metrics)
+        return d[metrica] || 0;
+    }
+
+    // Get production counts from selected subtypes
+    const sp = getSubtypeProd(d, subtipos);
+    const n_anos = d.quad ? (d.quad.split('-').length > 1 ? 4 : 1) : 4;
+
+    switch (metrica) {
+        case 'ma_pq':   return d.n_pq > 0 ? +(sp.pq / d.n_pq / n_anos).toFixed(2) : 0;
+        case 'ma_spq':  return d.n_spq > 0 ? +(sp.spq / d.n_spq / n_anos).toFixed(2) : 0;
+        case 'ma_all':  return d.n_doc > 0 ? +(sp.total / d.n_doc / n_anos).toFixed(2) : 0;
+        case 'ma_perm': return d.n_perm > 0 ? +(sp.perm / d.n_perm / n_anos).toFixed(2) : 0;
+        case 'ma_colab': return d.n_colab > 0 ? +(sp.colab / d.n_colab / n_anos).toFixed(2) : 0;
+        case 'ma_visit': return d.n_visit > 0 ? +(sp.visit / d.n_visit / n_anos).toFixed(2) : 0;
+        default: return d[metrica] || 0;
+    }
+}
+
+// Weighted average using effective metric
+function calcWeightedAvgEff(records, metrica, weightField, subtipos, estratos_if) {
+    const totalW = records.reduce((s, r) => s + (r[weightField] || 0), 0);
+    if (totalW === 0) return 0;
+    return records.reduce((s, r) => s + getEffectiveMetric(r, metrica, subtipos, estratos_if) * (r[weightField] || 0), 0) / totalW;
+}
+
+// Compute effective IF strata counts filtered by selected estratos
+function getEffectiveIF(d, estratos_if) {
+    let lo = 0, mi = 0, hi = 0;
+    if (estratos_if.includes('lo')) lo = d.if_lo || 0;
+    if (estratos_if.includes('mi')) mi = d.if_mi || 0;
+    if (estratos_if.includes('hi')) hi = d.if_hi || 0;
+    return { lo, mi, hi, total: lo + mi + hi };
+}
+
+// Build active subtype label for display
+function getSubtipoLabel(subtipos) {
+    if (subtipos.length === ALL_SUBTIPOS.length) return 'Todos os tipos';
+    if (subtipos.length === 0) return 'Nenhum tipo selecionado';
+    return subtipos.map(s => SUBTIPO_LABELS[s] || s).join(', ');
+}
+
+function analisar() {
+    if (!DATA) return;
+    const filters = getFilters();
+    const filtered = filterData(filters);
+    const unbData = getUnbData(filters);
+    const others = filtered.filter(d => !d.is_unb);
+
+    const metrica = filters.metrica;
+    const subtipos = filters.subtipos;
+    const estratos_if = filters.estratos_if;
+    const subtipoLabel = getSubtipoLabel(subtipos);
+
+    const metricaLabel = {
+        'ma_pq': 'Art/ano Bolsistas PQ',
+        'ma_spq': 'Art/ano Sem PQ',
+        'ma_all': 'Art/ano Média Geral',
+        'ma_perm': 'Art/ano Permanentes',
+        'ma_colab': 'Art/ano Colaboradores',
+        'ma_visit': 'Art/ano Visitantes',
+        'avg_if': 'IF Médio (OpenAlex 2yr)',
+    }[metrica];
+    const weightField = {
+        'ma_pq': 'n_pq', 'ma_spq': 'n_spq', 'ma_all': 'n_doc',
+        'ma_perm': 'n_perm', 'ma_colab': 'n_colab', 'ma_visit': 'n_visit',
+        'avg_if': 'n_if',
+    }[metrica] || 'n_doc';
+
+    // Destroy old charts
+    charts.forEach(c => c.destroy());
+    charts = [];
+
+    let html = '';
+
+    // ── ACTIVE FILTERS BANNER ──
+    const allSubsSelected = subtipos.length === ALL_SUBTIPOS.length;
+    const allIFSelected = estratos_if.length === 3;
+    if (!allSubsSelected || !allIFSelected) {
+        let filterDesc = [];
+        if (!allSubsSelected) filterDesc.push('Tipo: ' + subtipoLabel);
+        if (!allIFSelected) filterDesc.push('Estrato IF: ' + estratos_if.map(e => ({lo:'Baixo',mi:'Médio',hi:'Alto'}[e])).join(', '));
+        html += `<div class="card" style="background:#FFF3E0;border-left:4px solid #FF9800;padding:8px 12px;">
+            <strong style="font-size:12px;color:#E65100;">Filtros ativos:</strong>
+            <span style="font-size:12px;color:#BF360C;"> ${filterDesc.join(' | ')}</span>
+        </div>`;
+    }
+
+    // ── STATS CARDS ──
+    const unbAvg = unbData.length > 0
+        ? calcWeightedAvgEff(unbData, metrica, weightField, subtipos, estratos_if)
+        : 0;
+    const othersAvg = others.length > 0
+        ? calcWeightedAvgEff(others, metrica, weightField, subtipos, estratos_if)
+        : 0;
+    const totalProgs = new Set(others.map(d => d.cd)).size;
+    const totalDocs = others.reduce((s, d) => s + d.n_doc, 0);
+
+    // Category stats for UnB
+    const unbPerm = calcWeightedAvgEff(unbData, 'ma_perm', 'n_perm', subtipos, estratos_if);
+    const unbColab = calcWeightedAvgEff(unbData, 'ma_colab', 'n_colab', subtipos, estratos_if);
+    const unbVisit = calcWeightedAvgEff(unbData, 'ma_visit', 'n_visit', subtipos, estratos_if);
+    const unbRazaoPC = unbColab > 0 ? (unbPerm / unbColab).toFixed(2) : '—';
+
+    const othPerm = others.length > 0 ? calcWeightedAvgEff(others, 'ma_perm', 'n_perm', subtipos, estratos_if) : 0;
+    const othColab = others.length > 0 ? calcWeightedAvgEff(others, 'ma_colab', 'n_colab', subtipos, estratos_if) : 0;
+    const othRazaoPC = othColab > 0 ? (othPerm / othColab).toFixed(2) : '—';
+
+    html += `<div class="stats-row">
+        <div class="stat-box unb"><div class="value">${unbAvg.toFixed(2)}</div><div class="label">UnB Física — ${metricaLabel}</div></div>
+        <div class="stat-box"><div class="value">${othersAvg.toFixed(2)}</div><div class="label">Média Selecionados — ${metricaLabel}</div></div>
+        <div class="stat-box"><div class="value">${totalProgs}</div><div class="label">Programas</div></div>
+        <div class="stat-box"><div class="value">${totalDocs}</div><div class="label">Docentes</div></div>`;
+    if (showNatlAvg) {
+        const nq = filters.quad === 'all' ? ['2013-2016','2017-2020','2021-2024'] : [filters.quad];
+        let ns = 0, nc = 0;
+        nq.forEach(q => { if (MEDIA_NACIONAL.por_quad[q]) { ns += MEDIA_NACIONAL.por_quad[q].media; nc++; }});
+        const natlAvgSel = nc > 0 ? (ns / nc).toFixed(2) : '—';
+        html += `<div class="stat-box" style="border-left:4px solid ${NATL_COLOR};"><div class="value">${natlAvgSel}</div><div class="label">Média Nacional (Todas as Áreas)</div></div>`;
+    }
+    html += `</div>`;
+
+    // Category breakdown cards
+    html += `<div class="card"><h2>Produção por Categoria de Docente</h2>
+    <div class="stats-row">
+        <div class="stat-box unb"><div class="value">${unbPerm.toFixed(2)}</div><div class="label">UnB — Permanentes</div></div>
+        <div class="stat-box unb"><div class="value">${unbColab.toFixed(2)}</div><div class="label">UnB — Colaboradores</div></div>
+        <div class="stat-box unb"><div class="value">${unbVisit.toFixed(2)}</div><div class="label">UnB — Visitantes</div></div>
+        <div class="stat-box unb"><div class="value">${unbRazaoPC}x</div><div class="label">UnB — Razão Perm/Colab</div></div>
+    </div>
+    <div class="stats-row">
+        <div class="stat-box"><div class="value">${othPerm.toFixed(2)}</div><div class="label">Selecionados — Permanentes</div></div>
+        <div class="stat-box"><div class="value">${othColab.toFixed(2)}</div><div class="label">Selecionados — Colaboradores</div></div>
+        <div class="stat-box"><div class="value">${othRazaoPC}x</div><div class="label">Selecionados — Razão Perm/Colab</div></div>
+    </div>
+    <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Razão Perm/Colab: número de vezes que a produção do permanente supera a do colaborador (ex: 4.85x = permanente produz 4.85 vezes mais)</p>
+    </div>`;
+
+    // Impact Factor card
+    const unbIF = unbData.length > 0
+        ? (unbData.reduce((s,d) => s + (d.avg_if||0)*(d.n_if||0), 0) / Math.max(1, unbData.reduce((s,d) => s + (d.n_if||0), 0)))
+        : 0;
+    const unbMedIF = unbData.length > 0
+        ? (unbData.reduce((s,d) => s + (d.med_if||0)*(d.n_if||0), 0) / Math.max(1, unbData.reduce((s,d) => s + (d.n_if||0), 0)))
+        : 0;
+    const unbMaxIF = unbData.length > 0 ? Math.max(...unbData.map(d => d.max_if||0)) : 0;
+    const unbNIF = unbData.reduce((s,d) => s + (d.n_if||0), 0);
+    const othIF = others.length > 0 ? calcWeightedAvg(others, 'avg_if', 'n_if') : 0;
+    const othMedIF = others.length > 0 ? calcWeightedAvg(others, 'med_if', 'n_if') : 0;
+
+    if (unbNIF > 0 || othIF > 0) {
+        html += `<div class="card"><h2>Fator de Impacto — OpenAlex (2yr mean citedness)</h2>
+        <div class="stats-row">
+            <div class="stat-box unb"><div class="value">${unbIF.toFixed(2)}</div><div class="label">UnB — IF Médio</div></div>
+            <div class="stat-box unb"><div class="value">${unbMedIF.toFixed(2)}</div><div class="label">UnB — IF Mediana</div></div>
+            <div class="stat-box unb"><div class="value">${unbMaxIF.toFixed(1)}</div><div class="label">UnB — IF Máximo</div></div>
+            <div class="stat-box unb"><div class="value">${unbNIF}</div><div class="label">UnB — Arts c/ IF</div></div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-box"><div class="value">${othIF.toFixed(2)}</div><div class="label">Selecionados — IF Médio</div></div>
+            <div class="stat-box"><div class="value">${othMedIF.toFixed(2)}</div><div class="label">Selecionados — IF Mediana</div></div>
+        </div>
+        <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">IF baseado no OpenAlex 2yr mean citedness (equivalente ao Impact Factor JCR). Fonte: OpenAlex.org (CC0)</p>
+        </div>`;
+    }
+
+    // ── SUBTYPE BREAKDOWN CARD ──
+    {
+        const stLabels = { '25': 'Art. Periódico', '8': 'Resumo', '9': 'Trab. Congresso', '26': 'Cap. Livro', '10': 'Texto Jornal' };
+        const stColors = { '25': '#2196F3', '8': '#FF9800', '9': '#9C27B0', '26': '#4CAF50', '10': '#607D8B' };
+        html += `<div class="card"><h2>Produção por Tipo de Publicação</h2>`;
+        // UnB totals
+        const unbSub = {};
+        ALL_SUBTIPOS.forEach(st => {
+            let t = 0, p = 0, c = 0, v = 0;
+            unbData.forEach(d => {
+                const s = (d.prod_sub || {})[st] || {};
+                t += s.total || 0; p += s.perm || 0; c += s.colab || 0; v += s.visit || 0;
+            });
+            unbSub[st] = { total: t, perm: p, colab: c, visit: v };
+        });
+        // Others totals
+        const othSub = {};
+        ALL_SUBTIPOS.forEach(st => {
+            let t = 0, p = 0, c = 0, v = 0;
+            others.forEach(d => {
+                const s = (d.prod_sub || {})[st] || {};
+                t += s.total || 0; p += s.perm || 0; c += s.colab || 0; v += s.visit || 0;
+            });
+            othSub[st] = { total: t, perm: p, colab: c, visit: v };
+        });
+        html += `<div class="stats-row">`;
+        ALL_SUBTIPOS.forEach(st => {
+            const sel = subtipos.includes(st) ? 'border:2px solid ' + stColors[st] : 'opacity:0.4';
+            html += `<div class="stat-box unb" style="${sel}"><div class="value">${unbSub[st].total}</div><div class="label">UnB — ${stLabels[st]}</div></div>`;
+        });
+        html += `</div><div class="stats-row">`;
+        ALL_SUBTIPOS.forEach(st => {
+            const sel = subtipos.includes(st) ? 'border:2px solid ' + stColors[st] : 'opacity:0.4';
+            html += `<div class="stat-box" style="${sel}"><div class="value">${othSub[st].total}</div><div class="label">Selecionados — ${stLabels[st]}</div></div>`;
+        });
+        html += `</div>`;
+        html += `<p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Contagem total de produções no(s) quadriênio(s) selecionado(s). Tipos ativos destacados com borda colorida.</p>`;
+        html += `</div>`;
+    }
+
+    // ── CHART 1: BY QUADRIENIO ──
+    const quads = filters.quad === 'all' ? ['2013-2016', '2017-2020', '2021-2024'] : [filters.quad];
+
+    html += `<div class="card"><h2>Comparativo por Quadriênio — ${metricaLabel}</h2>
+        <div class="chart-container"><canvas id="chartQuad"></canvas></div></div>`;
+
+    // ── CHART 2: BY IES ──
+    html += `<div class="card"><h2>Comparativo por IES — ${metricaLabel}</h2>
+        <div class="chart-container" style="height:${Math.max(400, totalProgs * 25)}px;">
+        <canvas id="chartIES"></canvas></div></div>`;
+
+    // ── TABLE ──
+    // Helper to build a table row with subtype-aware metrics
+    function tblRow(d, cls) {
+        const ePQ = getEffectiveMetric(d, 'ma_pq', subtipos, estratos_if);
+        const eSPQ = getEffectiveMetric(d, 'ma_spq', subtipos, estratos_if);
+        const eAll = getEffectiveMetric(d, 'ma_all', subtipos, estratos_if);
+        const ePerm = getEffectiveMetric(d, 'ma_perm', subtipos, estratos_if);
+        const eColab = getEffectiveMetric(d, 'ma_colab', subtipos, estratos_if);
+        const eVisit = getEffectiveMetric(d, 'ma_visit', subtipos, estratos_if);
+        const razao = eSPQ > 0 ? (ePQ / eSPQ).toFixed(2) : 0;
+        const razaoPC = eColab > 0 ? (ePerm / eColab).toFixed(2) : 0;
+        const eIF = getEffectiveIF(d, estratos_if);
+        // Per-subtype total count
+        const sp = getSubtypeProd(d, subtipos);
+        return `<tr class="${cls}"><td>${d.sigla}</td><td>${d.uf}</td><td>${d.nota}</td>
+            <td>${d.quad}</td><td>${d.n_doc}</td><td>${d.n_pq}</td><td>${d.pct_pq}%</td>
+            <td>${ePQ.toFixed(2)}</td><td>${eSPQ.toFixed(2)}</td><td>${eAll.toFixed(2)}</td><td>${razao}x</td>
+            <td>${d.n_perm||0}</td><td>${d.n_colab||0}</td><td>${d.n_visit||0}</td>
+            <td>${ePerm.toFixed(2)}</td><td>${eColab.toFixed(2)}</td><td>${razaoPC}x</td>
+            <td>${d.avg_if||0}</td><td>${d.med_if||0}</td><td>${sp.total}</td></tr>`;
+    }
+
+    html += `<div class="card"><h2 class="unb">Tabela Detalhada${!allSubsSelected ? ' — ' + subtipoLabel : ''}</h2><div class="tbl-wrap">
+        <table id="tblResults">
+        <thead><tr><th>IES</th><th>UF</th><th>Nota</th><th>Quad</th>
+        <th>Doc</th><th>PQ</th><th>%PQ</th><th>Art/a PQ</th><th>Art/a sPQ</th><th>Art/a Ger</th><th>Razão</th>
+        <th>Perm</th><th>Colab</th><th>Visit</th><th>A/a Perm</th><th>A/a Colab</th><th>P/C x</th>
+        <th>IF Méd</th><th>IF Med</th><th>Total Prod</th></tr></thead>
+        <tbody>`;
+
+    // UnB rows first
+    unbData.sort((a, b) => a.quad.localeCompare(b.quad));
+    unbData.forEach(d => { html += tblRow(d, 'row-unb'); });
+
+    others.sort((a, b) => a.sigla.localeCompare(b.sigla) || a.quad.localeCompare(b.quad));
+    others.forEach(d => { html += tblRow(d, ''); });
+
+    // National average row (all areas) — optional
+    if (showNatlAvg) {
+        const selQuads = filters.quad === 'all' ? ['2013-2016','2017-2020','2021-2024'] : [filters.quad];
+        selQuads.forEach(q => {
+            const mn = MEDIA_NACIONAL.por_quad[q];
+            if (!mn) return;
+            html += `<tr style="background:#F5F5F5;font-weight:600;color:${NATL_COLOR};">
+                <td>TODAS ÁREAS</td><td>BR</td><td>—</td><td>${q}</td>
+                <td>${mn.doc.toLocaleString('pt-BR')}</td><td>—</td><td>—</td>
+                <td>—</td><td>—</td><td>${mn.media.toFixed(2)}</td><td>—</td>
+                <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+                <td>—</td><td>—</td><td>${mn.art.toLocaleString('pt-BR')}</td></tr>`;
+        });
+    }
+
+    html += `</tbody></table></div></div>`;
+
+    // ── DYNAMIC YEAR-BY-YEAR ANALYSIS ──
+    {
+        const DYN_YEARS = filters.quad === 'all'
+            ? ['2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024']
+            : (filters.quad === '2013-2016' ? ['2013','2014','2015','2016']
+               : filters.quad === '2017-2020' ? ['2017','2018','2019','2020']
+               : ['2021','2022','2023','2024']);
+        const mIdx = {'ma_pq': 0, 'ma_spq': 1, 'ma_all': 2}[metrica] ?? 2;
+        const nYrs = DYN_YEARS.length;
+        const yrsLabel = nYrs === 12 ? '12 Anos' : `${nYrs} Anos`;
+        const mIdxNote = (metrica !== 'ma_all' && metrica !== 'ma_pq' && metrica !== 'ma_spq')
+            ? '<br><em style="color:var(--laranja);">Nota: para esta métrica, a análise ano a ano utiliza Art/ano Média Geral.</em>' : '';
+
+        // Get CDs of all programs in the filtered selection
+        const filteredRecs = [...unbData, ...others];
+        const selectedCDs = new Set(filteredRecs.map(d => d.cd));
+        // Load ALL records (all quadriênios) for selected programs — so the
+        // year-by-year trajectory is complete even when nota changed between quads
+        const dynRecs = DATA.data.filter(d => selectedCDs.has(d.cd));
+        const pMap = {};
+        dynRecs.forEach(d => {
+            if (!pMap[d.cd]) pMap[d.cd] = { recs: [], sigla: d.sigla, uf: d.uf, nota: d.nota, is_unb: d.is_unb };
+            pMap[d.cd].recs.push(d);
+            if (d.quad > (pMap[d.cd]._lq || '')) { pMap[d.cd].nota = d.nota; pMap[d.cd]._lq = d.quad; }
+        });
+
+        // Build year data per program + national weighted totals
+        const natW = {}, natS = {};
+        DYN_YEARS.forEach(y => { natW[y] = 0; natS[y] = 0; });
+
+        const dynList = [];
+        Object.entries(pMap).forEach(([cd, p]) => {
+            const yD = {};
+            let sm = 0, ct = 0;
+            p.recs.forEach(r => {
+                const pa = r.prod_ano || {};
+                Object.entries(pa).forEach(([y, v]) => {
+                    if (!DYN_YEARS.includes(y)) return;
+                    const val = v[mIdx] || 0;
+                    // Use per-year doc count if available and > 0, otherwise fallback to quadriênio n_doc
+                    const nDocY = (v.length > 3 && v[3] > 0) ? v[3] : r.n_doc;
+                    yD[y] = { val, n_doc: nDocY, nota: r.nota };
+                    sm += val; ct++;
+                    natW[y] += val * nDocY;
+                    natS[y] += nDocY;
+                });
+            });
+            dynList.push({ cd, sigla: p.sigla, uf: p.uf, nota: p.nota, is_unb: p.is_unb, yD, avg: ct > 0 ? sm / ct : 0 });
+        });
+
+        // National average per year and overall
+        const natYA = {};
+        DYN_YEARS.forEach(y => { natYA[y] = natS[y] > 0 ? natW[y] / natS[y] : null; });
+        const natVals = Object.values(natYA).filter(v => v !== null);
+        const natAvgG = natVals.length > 0 ? natVals.reduce((a, b) => a + b, 0) / natVals.length : 0;
+
+        const unbP = dynList.find(p => p.is_unb);
+        const unbAvgG = unbP ? unbP.avg : 0;
+
+        dynList.sort((a, b) => b.avg - a.avg);
+
+        html += `<div class="card"><h2 class="unb">Produção Dinâmica — Médias Ano a Ano por Pesquisador (${metricaLabel})</h2>`;
+        html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Análise dinâmica: produção intelectual média por pesquisador, ano a ano, para cada programa selecionado. Passe o mouse sobre os pontos do gráfico para ver nota, nº de pesquisadores e média naquele ano. UnB e média nacional destacados.${mIdxNote}</p>`;
+
+        // Summary stats: overall averages
+        html += `<div class="stats-row">
+            <div class="stat-box unb"><div class="value">${unbAvgG.toFixed(2)}</div><div class="label">UnB — Média Geral ${yrsLabel}</div></div>
+            <div class="stat-box"><div class="value">${natAvgG.toFixed(2)}</div><div class="label">Média ${areaShort()} ${yrsLabel}</div></div>
+            <div class="stat-box"><div class="value">${dynList.length}</div><div class="label">Programas Analisados</div></div>`;
+        if (showNatlAvg) {
+            const natlYrs = DYN_YEARS.map(y => MEDIA_NACIONAL.por_ano[parseInt(y)]).filter(d => d && d.media > 0);
+            const natlAllAvg = natlYrs.length > 0 ? (natlYrs.reduce((s,d) => s + d.media, 0) / natlYrs.length).toFixed(2) : '—';
+            html += `<div class="stat-box" style="border-left:4px solid ${NATL_COLOR};"><div class="value">${natlAllAvg}</div><div class="label">Média Nacional (Todas as Áreas) ${yrsLabel}</div></div>`;
+        }
+        html += `</div>`;
+
+        // Per-program overall averages (summary)
+        html += `<div style="margin:12px 0 8px;"><strong style="font-size:12px;color:var(--azul);">Médias Gerais por Programa (${yrsLabel}):</strong></div>`;
+        html += `<div class="stats-row" style="flex-wrap:wrap;">`;
+        dynList.forEach(p => {
+            const cls = p.is_unb ? 'stat-box unb' : 'stat-box';
+            const star = p.is_unb ? ' ★' : '';
+            html += `<div class="${cls}" style="min-width:110px;"><div class="value">${p.avg.toFixed(2)}</div><div class="label">${p.sigla}${star} (N${p.nota})</div></div>`;
+        });
+        html += `</div>`;
+
+        // Line chart
+        html += `<div class="chart-container" style="height:500px;"><canvas id="chartDynamic"></canvas></div>`;
+
+        // Year-by-year table
+        html += `<div style="margin-top:16px;">`;
+        html += `<div class="tbl-wrap"><table id="tblDynamic"><thead><tr><th>IES</th><th>UF</th><th>Nota</th>`;
+        DYN_YEARS.forEach(y => html += `<th>${y}</th>`);
+        html += `<th>Média</th></tr></thead><tbody>`;
+
+        // National row (área CAPES atual)
+        html += `<tr style="background:#E3F2FD;font-weight:700;"><td>${areaShort().toUpperCase()}</td><td>—</td><td>—</td>`;
+        DYN_YEARS.forEach(y => html += `<td>${natYA[y] !== null ? natYA[y].toFixed(2) : '—'}</td>`);
+        html += `<td>${natAvgG.toFixed(2)}</td></tr>`;
+
+        // National row (ALL areas) — optional
+        if (showNatlAvg) {
+            html += `<tr style="background:#F5F5F5;font-weight:700;color:${NATL_COLOR};"><td>TODAS ÁREAS</td><td>—</td><td>—</td>`;
+            let natlSum = 0, natlCnt = 0;
+            DYN_YEARS.forEach(y => {
+                const d = MEDIA_NACIONAL.por_ano[parseInt(y)];
+                const v = d && d.media > 0 ? d.media : null;
+                html += `<td>${v !== null ? v.toFixed(2) : '—'}</td>`;
+                if (v) { natlSum += v; natlCnt++; }
+            });
+            html += `<td>${natlCnt > 0 ? (natlSum / natlCnt).toFixed(2) : '—'}</td></tr>`;
+        }
+
+        // UnB row
+        if (unbP) {
+            html += `<tr class="row-unb"><td>${unbP.sigla} ★</td><td>${unbP.uf}</td><td>${unbP.nota}</td>`;
+            DYN_YEARS.forEach(y => {
+                const v = unbP.yD[y];
+                html += `<td>${v ? v.val.toFixed(2) : '—'}</td>`;
+            });
+            html += `<td>${unbP.avg.toFixed(2)}</td></tr>`;
+        }
+
+        // Other programs sorted by avg desc
+        dynList.filter(p => !p.is_unb).forEach(p => {
+            html += `<tr><td>${p.sigla}</td><td>${p.uf}</td><td>${p.nota}</td>`;
+            DYN_YEARS.forEach(y => {
+                const v = p.yD[y];
+                html += `<td>${v ? v.val.toFixed(2) : '—'}</td>`;
+            });
+            html += `<td>${p.avg.toFixed(2)}</td></tr>`;
+        });
+
+        html += `</tbody></table></div></div></div>`;
+
+        // Store for chart building
+        window._dynChartData = { dynList, natYA, DYN_YEARS, mIdx, metricaLabel };
+    }
+
+    // ── REPORT AREA ──
+    html += `<div class="card" id="reportCard" style="display:none;">
+        <h2>Relatório</h2><div class="report-box" id="reportBox"></div>
+        <div style="margin-top:8px;">
+            <button class="btn btn-sm btn-secondary" onclick="downloadReport()">Baixar .txt</button>
+            <button class="btn btn-sm btn-export" onclick="downloadReportCSV()">Baixar .csv</button>
+        </div></div>`;
+
+    document.getElementById('results').innerHTML = html;
+
+    // ── BUILD CHARTS ──
+    buildChartQuad(quads, others, unbData, metrica, metricaLabel, weightField, subtipos, estratos_if);
+    buildChartIES(others, unbData, metrica, metricaLabel, quads, weightField, subtipos, estratos_if);
+    buildDynamicChart(metricaLabel);
+
+    setStatus(`${filtered.length} registros exibidos — ${totalProgs} programas, ${totalDocs} docentes`);
+
+    // IF Detail report
+    if (document.getElementById('chkIFDetail').checked) {
+        const allProgs = [...unbData, ...others].sort((a,b) => {
+            if (a.is_unb !== b.is_unb) return a.is_unb ? -1 : 1;
+            return a.sigla.localeCompare(b.sigla) || a.quad.localeCompare(b.quad);
+        });
+        if (allProgs.length > 0) {
+            const ok = confirm('ANÁLISE DETALHADA DE FATOR DE IMPACTO\n\nSerão abertas DUAS novas abas:\n\n  1ª ABA — Detalhamento numérico por programa\n  2ª ABA — Gráfico comparativo multi-programa\n\nDeseja continuar?');
+            if (ok) {
+                // Abrir ambas as abas imediatamente (antes de escrever conteúdo)
+                // para evitar bloqueio de popup do navegador
+                const win1 = window.open('', '_blank');
+                const win2 = window.open('', '_blank');
+                gerarRelatorioIF(allProgs, win1);
+                gerarGraficoIF(allProgs, win2);
+            }
+        } else {
+            toast('Nenhum programa selecionado para o relatório de IF.');
+        }
+    }
+}
+
+function buildChartQuad(quads, others, unbData, metrica, label, weightField, subtipos, estratos_if) {
+    const ctx = document.getElementById('chartQuad');
+    if (!ctx) return;
+
+    const datasets = [];
+    const notas = [...new Set(others.map(d => d.nota))].sort();
+
+    notas.forEach(n => {
+        const vals = quads.map(q => {
+            const recs = others.filter(d => d.nota === n && d.quad === q);
+            return recs.length > 0 ? +calcWeightedAvgEff(recs, metrica, weightField, subtipos, estratos_if).toFixed(2) : 0;
+        });
+        datasets.push({
+            label: `Nota ${n}`, data: vals,
+            backgroundColor: NOTA_COLORS[n] || '#999',
+            borderWidth: 1, borderRadius: 4,
+        });
+    });
+
+    // UnB
+    const unbVals = quads.map(q => {
+        const r = unbData.find(d => d.quad === q);
+        return r ? getEffectiveMetric(r, metrica, subtipos, estratos_if) : 0;
+    });
+    datasets.push({
+        label: 'UnB Física', data: unbVals,
+        backgroundColor: UNB_COLOR,
+        borderWidth: 2, borderColor: '#880E4F', borderRadius: 4,
+    });
+
+    // National average line (optional)
+    if (showNatlAvg) {
+        const natlVals = quads.map(q => MEDIA_NACIONAL.por_quad[q] ? MEDIA_NACIONAL.por_quad[q].media : 0);
+        datasets.push({
+            label: 'Média Nacional (Todas as Áreas)', data: natlVals,
+            type: 'line', borderColor: NATL_COLOR, backgroundColor: 'rgba(158,158,158,0.15)',
+            borderWidth: 2, borderDash: [6, 3], pointRadius: 5, pointStyle: 'rectRot',
+            fill: false, order: -1,
+        });
+    }
+
+    // Build extra info for tooltips: per quad, per nota, list of IES and docs
+    const quadNotaInfo = {};
+    quads.forEach(q => {
+        notas.forEach(n => {
+            const recs = others.filter(d => d.nota === n && d.quad === q);
+            const nProgs = recs.length;
+            const nDocs = recs.reduce((s, r) => s + r.n_doc, 0);
+            quadNotaInfo[`${q}_${n}`] = { nProgs, nDocs };
+        });
+        // UnB
+        const u = unbData.find(d => d.quad === q);
+        quadNotaInfo[`${q}_unb`] = u ? { nDocs: u.n_doc, nPQ: u.n_pq, nota: u.nota } : null;
+    });
+
+    const ch = new Chart(ctx, {
+        type: 'bar',
+        data: { labels: quads, datasets },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' },
+                title: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: items => items[0].label,
+                        label: ctx => {
+                            const dsLabel = ctx.dataset.label;
+                            const quad = quads[ctx.dataIndex];
+                            const val = ctx.parsed.y.toFixed(2);
+                            if (dsLabel === 'UnB Física') {
+                                const info = quadNotaInfo[`${quad}_unb`];
+                                const nota = info ? `N ${info.nota}` : '';
+                                return `  UnB Física (${nota}): ${val} art/ano — ${info ? info.nDocs : 0} doc, ${info ? info.nPQ : 0} PQ`;
+                            } else {
+                                const nota = dsLabel.replace('Nota ', '');
+                                const info = quadNotaInfo[`${quad}_${nota}`];
+                                return `  ${dsLabel} (N ${nota}): ${val} art/ano — ${info ? info.nProgs : 0} prog, ${info ? info.nDocs : 0} doc`;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: label } },
+            },
+        }
+    });
+    charts.push(ch);
+}
+
+function buildChartIES(others, unbData, metrica, label, quads, weightField, subtipos, estratos_if) {
+    const ctx = document.getElementById('chartIES');
+    if (!ctx) return;
+
+    // Aggregate per IES with nota info
+    const iesMap = {};
+    others.forEach(d => {
+        if (!iesMap[d.sigla]) iesMap[d.sigla] = [];
+        iesMap[d.sigla].push(d);
+    });
+
+    const iesNames = Object.keys(iesMap).sort();
+    const iesVals = iesNames.map(s => +calcWeightedAvgEff(iesMap[s], metrica, weightField, subtipos, estratos_if).toFixed(2));
+
+    // Build tooltip info per IES: notas, docs, progs
+    const iesTooltip = {};
+    iesNames.forEach(s => {
+        const recs = iesMap[s];
+        const notasIES = [...new Set(recs.map(r => r.nota))].sort();
+        const nDocs = recs.reduce((sum, r) => sum + r.n_doc, 0);
+        const nProgs = new Set(recs.map(r => r.cd)).size;
+        iesTooltip[s] = { notas: notasIES.map(n => `N ${n}`).join('/'), nDocs, nProgs };
+    });
+
+    // UnB average and info
+    const unbAvg = unbData.length > 0
+        ? +calcWeightedAvgEff(unbData, metrica, weightField, subtipos, estratos_if).toFixed(2)
+        : 0;
+    const unbNotas = [...new Set(unbData.map(d => d.nota))].sort();
+    const unbDocs = unbData.reduce((s, d) => s + d.n_doc, 0);
+    const unbPQ = unbData.reduce((s, d) => s + d.n_pq, 0);
+
+    const colors = iesVals.map(v => v >= unbAvg ? '#4CAF50' : '#2196F3');
+
+    // Add UnB at the beginning
+    iesNames.unshift('UnB ★');
+    iesVals.unshift(unbAvg);
+    colors.unshift(UNB_COLOR);
+    iesTooltip['UnB ★'] = { notas: unbNotas.map(n => `N ${n}`).join('/'), nDocs: unbDocs, nPQ: unbPQ, isUnb: true };
+
+    // National average vertical line dataset
+    const iesDatasets = [{
+        label: label, data: iesVals,
+        backgroundColor: colors,
+        borderWidth: 1, borderRadius: 3,
+    }];
+    if (showNatlAvg) {
+        // Compute national avg for selected quads
+        const selQuads = quads;
+        let natlSum = 0, natlCnt = 0;
+        selQuads.forEach(q => { if (MEDIA_NACIONAL.por_quad[q]) { natlSum += MEDIA_NACIONAL.por_quad[q].media; natlCnt++; } });
+        const natlIESAvg = natlCnt > 0 ? natlSum / natlCnt : 0;
+        // Add as vertical line (scatter points at each IES y-position)
+        iesDatasets.push({
+            label: 'Média Nacional (Todas as Áreas)',
+            data: iesNames.map(() => natlIESAvg),
+            type: 'line', indexAxis: 'y',
+            borderColor: NATL_COLOR, borderWidth: 2, borderDash: [6, 3],
+            pointRadius: 0, fill: false, order: -1,
+        });
+    }
+
+    const ch = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: iesNames,
+            datasets: iesDatasets,
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: showNatlAvg },
+                tooltip: {
+                    callbacks: {
+                        title: items => {
+                            const name = items[0].label;
+                            const info = iesTooltip[name];
+                            return info ? `${name} (${info.notas})` : name;
+                        },
+                        label: ctx => {
+                            const name = ctx.label;
+                            const info = iesTooltip[name];
+                            const val = ctx.parsed.x.toFixed(2);
+                            if (info && info.isUnb) {
+                                return `  ${val} art/ano — ${info.nDocs} doc, ${info.nPQ} PQ`;
+                            }
+                            return info
+                                ? `  ${val} art/ano — ${info.nProgs} prog, ${info.nDocs} doc`
+                                : `  ${val} art/ano`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { beginAtZero: true, title: { display: true, text: label } },
+            },
+        }
+    });
+    charts.push(ch);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// DYNAMIC YEAR-BY-YEAR CHART
+// ══════════════════════════════════════════════════════════════════
+function buildDynamicChart(metricaLabel) {
+    const ctx = document.getElementById('chartDynamic');
+    if (!ctx || !window._dynChartData) return;
+
+    const { dynList, natYA, DYN_YEARS } = window._dynChartData;
+
+    const DCOLORS = [
+        '#1565C0','#F57F17','#2E7D32','#6A1B9A','#D84315','#00838F','#4E342E',
+        '#283593','#558B2F','#AD1457','#00695C','#37474F','#827717','#1B5E20',
+        '#4527A0','#BF360C','#006064','#3E2723','#0D47A1','#E65100','#1A237E',
+        '#33691E','#880E4F','#004D40','#263238','#F9A825','#C62828','#0277BD',
+        '#9E9D24','#7B1FA2','#00ACC1','#43A047','#5E35B1','#F4511E','#546E7A'
+    ];
+
+    const datasets = [];
+    let ci = 0;
+
+    // Other programs — thin semi-transparent lines
+    dynList.filter(p => !p.is_unb).forEach(p => {
+        const data = DYN_YEARS.map(y => p.yD[y] ? p.yD[y].val : null);
+        const color = DCOLORS[ci % DCOLORS.length];
+        ci++;
+        datasets.push({
+            label: `${p.sigla} (N${p.nota})`,
+            data,
+            borderColor: color + '88',
+            backgroundColor: color,
+            borderWidth: 1.5,
+            pointRadius: 3,
+            pointHoverRadius: 7,
+            tension: 0.3,
+            _pInfo: { sigla: p.sigla, nota: p.nota, yD: p.yD },
+        });
+    });
+
+    // UnB — bold magenta with star points
+    const unbP = dynList.find(p => p.is_unb);
+    if (unbP) {
+        const data = DYN_YEARS.map(y => unbP.yD[y] ? unbP.yD[y].val : null);
+        datasets.push({
+            label: `★ UnB Física (N${unbP.nota})`,
+            data,
+            borderColor: UNB_COLOR,
+            backgroundColor: UNB_COLOR,
+            borderWidth: 4,
+            pointRadius: 6,
+            pointHoverRadius: 10,
+            pointStyle: 'star',
+            tension: 0.3,
+            _pInfo: { sigla: 'UnB', nota: unbP.nota, yD: unbP.yD },
+        });
+    }
+
+    // National average (Physics area) — dashed dark line
+    const natData = DYN_YEARS.map(y => natYA[y] !== null ? +natYA[y].toFixed(2) : null);
+    datasets.push({
+        label: `Média ${areaShort()}`,
+        data: natData,
+        borderColor: '#2C3E50',
+        backgroundColor: '#2C3E50',
+        borderWidth: 3,
+        borderDash: [8, 4],
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointStyle: 'rectRot',
+        tension: 0.3,
+        _isNat: true,
+    });
+
+    // National average (ALL areas) — optional grey dashed line
+    if (showNatlAvg) {
+        const natlAllData = DYN_YEARS.map(y => {
+            const d = MEDIA_NACIONAL.por_ano[parseInt(y)];
+            return d && d.media > 0 ? d.media : null;
+        });
+        datasets.push({
+            label: 'Média Nacional (Todas as Áreas)',
+            data: natlAllData,
+            borderColor: NATL_COLOR,
+            backgroundColor: NATL_COLOR,
+            borderWidth: 2,
+            borderDash: [4, 4],
+            pointRadius: 4,
+            pointHoverRadius: 7,
+            pointStyle: 'triangle',
+            tension: 0.3,
+            _isNatlAll: true,
+        });
+    }
+
+    const ch = new Chart(ctx, {
+        type: 'line',
+        data: { labels: DYN_YEARS, datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'nearest', intersect: true },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { size: 10 }, boxWidth: 12, padding: 6 },
+                },
+                tooltip: {
+                    callbacks: {
+                        title: items => `Ano ${items[0].label}`,
+                        label: item => {
+                            const ds = item.dataset;
+                            const year = DYN_YEARS[item.dataIndex];
+                            const val = item.parsed.y != null ? item.parsed.y.toFixed(2) : '—';
+                            if (ds._isNat) {
+                                return `  Média Nacional: ${val} ${metricaLabel}`;
+                            }
+                            const info = ds._pInfo;
+                            if (info && info.yD[year]) {
+                                const nDoc = info.yD[year].n_doc;
+                                const nota = info.yD[year].nota;
+                                return `  ${info.sigla} (Nota ${nota}): ${val} — ${nDoc} pesquisadores`;
+                            }
+                            return `  ${ds.label}: ${val}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: metricaLabel } },
+                x: { title: { display: true, text: 'Ano' } }
+            }
+        }
+    });
+    charts.push(ch);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// REPORT
+// ══════════════════════════════════════════════════════════════════
+function gerarRelatorio() {
+    if (!DATA) return;
+    const filters = getFilters();
+    const filtered = filterData(filters);
+    const unbData = getUnbData(filters);
+    const others = filtered.filter(d => !d.is_unb);
+
+    const metrica = filters.metrica;
+    const subtipos = filters.subtipos;
+    const estratos_if = filters.estratos_if;
+    const metricaLabel = { 'ma_pq': 'Art/ano PQ', 'ma_spq': 'Art/ano sem PQ', 'ma_all': 'Art/ano Geral',
+        'ma_perm': 'Art/ano Permanentes', 'ma_colab': 'Art/ano Colaboradores', 'ma_visit': 'Art/ano Visitantes',
+        'avg_if': 'IF Médio' }[metrica] || metrica;
+    const weightField = { 'ma_pq': 'n_pq', 'ma_spq': 'n_spq', 'ma_all': 'n_doc',
+        'ma_perm': 'n_perm', 'ma_colab': 'n_colab', 'ma_visit': 'n_visit', 'avg_if': 'n_if' }[metrica] || 'n_doc';
+
+    const now = new Date();
+    reportSeq++;
+    const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
+
+    let R = [];
+    const p = s => R.push(s);
+
+    p('=' .repeat(80));
+    p('  MAPA-PG — RELATÓRIO COMPARATIVO');
+    p(`  Prof. David L. Azevedo | v${VERSION}`);
+    p(`  Gerado em: ${now.toLocaleString('pt-BR')}`);
+    p('=' .repeat(80));
+    p('');
+    p('  FILTROS APLICADOS:');
+    p(`    Notas: ${filters.notas.join(', ')}`);
+    p(`    Quadriênio: ${filters.quad === 'all' ? 'Todos' : filters.quad}`);
+    p(`    Métrica: ${metricaLabel}`);
+    p(`    Tipos de Produção: ${getSubtipoLabel(subtipos)}`);
+    p(`    Estratos IF: ${estratos_if.length === 3 ? 'Todos' : estratos_if.map(e => ({lo:'Baixo',mi:'Médio',hi:'Alto'}[e])).join(', ')}`);
+    p(`    IES selecionadas: ${filters.ies.length}`);
+    p('');
+
+    // UnB summary
+    p('─'.repeat(80));
+    p(`  PROGRAMA — ${getRefName().toUpperCase()}`);
+    p('─'.repeat(80));
+    unbData.forEach(d => {
+        const ePQ = getEffectiveMetric(d, 'ma_pq', subtipos, estratos_if);
+        const eSPQ = getEffectiveMetric(d, 'ma_spq', subtipos, estratos_if);
+        const eAll = getEffectiveMetric(d, 'ma_all', subtipos, estratos_if);
+        const razao = eSPQ > 0 ? (ePQ / eSPQ).toFixed(2) : 0;
+        p(`  ${d.quad}: Doc=${d.n_doc}, PQ=${d.n_pq} (${d.pct_pq}%), ` +
+          `Art/a PQ=${ePQ.toFixed(2)}, Art/a sPQ=${eSPQ.toFixed(2)}, Art/a Ger=${eAll.toFixed(2)}, Razão=${razao}x`);
+    });
+    p('');
+
+    // Comparison summary
+    const unbAvg = unbData.length > 0
+        ? calcWeightedAvgEff(unbData, metrica, weightField, subtipos, estratos_if)
+        : 0;
+    const othersAvg = others.length > 0 ? calcWeightedAvgEff(others, metrica, weightField, subtipos, estratos_if) : 0;
+    const diff = unbAvg - othersAvg;
+    const pctDiff = othersAvg > 0 ? ((diff / othersAvg) * 100) : 0;
+
+    p('─'.repeat(80));
+    p('  COMPARATIVO GERAL');
+    p('─'.repeat(80));
+    p(`  UnB ${metricaLabel}: ${unbAvg.toFixed(2)}`);
+    p(`  Média selecionados: ${othersAvg.toFixed(2)}`);
+    p(`  Diferença: ${diff > 0 ? '+' : ''}${diff.toFixed(2)} (${pctDiff > 0 ? '+' : ''}${pctDiff.toFixed(1)}%)`);
+    p(`  UnB está ${diff >= 0 ? 'ACIMA' : 'ABAIXO'} da média dos programas selecionados.`);
+    p('');
+
+    // Category breakdown in report
+    const rUnbPerm = calcWeightedAvgEff(unbData, 'ma_perm', 'n_perm', subtipos, estratos_if);
+    const rUnbColab = calcWeightedAvgEff(unbData, 'ma_colab', 'n_colab', subtipos, estratos_if);
+    const rUnbVisit = calcWeightedAvgEff(unbData, 'ma_visit', 'n_visit', subtipos, estratos_if);
+    const rOthPerm = others.length > 0 ? calcWeightedAvgEff(others, 'ma_perm', 'n_perm', subtipos, estratos_if) : 0;
+    const rOthColab = others.length > 0 ? calcWeightedAvgEff(others, 'ma_colab', 'n_colab', subtipos, estratos_if) : 0;
+
+    p('─'.repeat(80));
+    p('  PRODUÇÃO POR CATEGORIA DE DOCENTE');
+    p('─'.repeat(80));
+    p(`  ${''.padEnd(20)} ${'Permanente'.padStart(12)} ${'Colaborador'.padStart(12)} ${'Visitante'.padStart(12)} ${'Razão P/C'.padStart(12)}`);
+    p(`  ${'UnB Física'.padEnd(20)} ${rUnbPerm.toFixed(2).padStart(12)} ${rUnbColab.toFixed(2).padStart(12)} ${rUnbVisit.toFixed(2).padStart(12)} ${rUnbColab > 0 ? (rUnbPerm/rUnbColab).toFixed(2)+'x' : '—'.padStart(12)}`);
+    p(`  ${'Média Selecionados'.padEnd(20)} ${rOthPerm.toFixed(2).padStart(12)} ${rOthColab.toFixed(2).padStart(12)} ${'—'.padStart(12)} ${rOthColab > 0 ? (rOthPerm/rOthColab).toFixed(2)+'x' : '—'.padStart(12)}`);
+    p('  (Razão P/C: nº de vezes que a produção do permanente supera a do colaborador)');
+    p('');
+
+    // Detailed table
+    p('─'.repeat(110));
+    p('  DETALHAMENTO POR PROGRAMA');
+    p('─'.repeat(110));
+    const hdr = `  ${'IES'.padEnd(10)} ${'UF'.padEnd(4)} ${'N'.padEnd(3)} ` +
+                `${'Quad'.padEnd(11)} ${'Doc'.padStart(4)} ${'PQ'.padStart(4)} ` +
+                `${'A/a PQ'.padStart(8)} ${'A/a sPQ'.padStart(8)} ${'A/a Ger'.padStart(8)} ` +
+                `${'Perm'.padStart(5)} ${'Colab'.padStart(5)} ${'A/a P'.padStart(7)} ${'A/a C'.padStart(7)} ${'P/C x'.padStart(7)}`;
+    p(hdr);
+    p('  ' + '-'.repeat(hdr.length - 2));
+
+    const allRows = [...unbData, ...others];
+    allRows.sort((a, b) => {
+        if (a.is_unb !== b.is_unb) return a.is_unb ? -1 : 1;
+        return a.sigla.localeCompare(b.sigla) || a.quad.localeCompare(b.quad);
+    });
+
+    allRows.forEach(d => {
+        const mark = d.is_unb ? '★ ' : '  ';
+        const ePQ = getEffectiveMetric(d, 'ma_pq', subtipos, estratos_if);
+        const eSPQ = getEffectiveMetric(d, 'ma_spq', subtipos, estratos_if);
+        const eAll = getEffectiveMetric(d, 'ma_all', subtipos, estratos_if);
+        const ePerm = getEffectiveMetric(d, 'ma_perm', subtipos, estratos_if);
+        const eColab = getEffectiveMetric(d, 'ma_colab', subtipos, estratos_if);
+        const razaoPC = eColab > 0 ? (ePerm / eColab).toFixed(2) + 'x' : '—';
+        p(mark + `${d.sigla.padEnd(10)} ${d.uf.padEnd(4)} ${String(d.nota).padEnd(3)} ` +
+          `${d.quad.padEnd(11)} ${String(d.n_doc).padStart(4)} ${String(d.n_pq).padStart(4)} ` +
+          `${ePQ.toFixed(2).padStart(8)} ${eSPQ.toFixed(2).padStart(8)} ${eAll.toFixed(2).padStart(8)} ` +
+          `${String(d.n_perm||0).padStart(5)} ${String(d.n_colab||0).padStart(5)} ` +
+          `${ePerm.toFixed(2).padStart(7)} ${eColab.toFixed(2).padStart(7)} ` +
+          `${razaoPC}`);
+    });
+
+    p('');
+    p(`  Fim do relatório — ${now.toLocaleString('pt-BR')}`);
+    p(`  MAPA-PG v${VERSION} | Prof. David L. Azevedo`);
+    p('=' .repeat(80));
+
+    const reportText = R.join('\n');
+    document.getElementById('reportBox').textContent = reportText;
+    document.getElementById('reportCard').style.display = 'block';
+    document.getElementById('reportCard').scrollIntoView({ behavior: 'smooth' });
+
+    // Store for download
+    window._lastReport = reportText;
+    window._lastReportName = `report-${ts}-${String(reportSeq).padStart(3, '0')}`;
+    window._lastFiltered = allRows;
+
+    toast('Relatório gerado!');
+}
+
+function downloadReport() {
+    if (!window._lastReport) return;
+    download(window._lastReportName + '.txt', window._lastReport, 'text/plain');
+}
+
+function downloadReportCSV() {
+    if (!window._lastFiltered) return;
+    const rows = window._lastFiltered;
+    let csv = 'IES;Programa;UF;Nota;Quadrienio;Doc;PQ;%PQ;Art_a_PQ;Art_a_sPQ;Art_a_Ger;Razao;UnB\n';
+    rows.forEach(d => {
+        csv += `${d.sigla};${d.programa};${d.uf};${d.nota};${d.quad};${d.n_doc};${d.n_pq};${d.pct_pq};` +
+               `${d.ma_pq};${d.ma_spq};${d.ma_all};${d.razao};${d.is_unb ? 'SIM' : 'NAO'}\n`;
+    });
+    download(window._lastReportName + '.csv', csv, 'text/csv');
+}
+
+function exportarCSV() {
+    if (!DATA) return;
+    const filters = getFilters();
+    const filtered = filterData(filters);
+    const unbData = getUnbData(filters);
+    const all = [...unbData, ...filtered.filter(d => !d.is_unb)];
+    const subtipos = filters.subtipos;
+    const estratos_if = filters.estratos_if;
+
+    const now = new Date();
+    reportSeq++;
+    const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
+
+    let csv = '\uFEFF'; // BOM for Excel
+    csv += 'IES;Programa;UF;Nota;Quadrienio;Docentes;PQ;Sem_PQ;Pct_PQ;Art_ano_PQ;Art_ano_sPQ;Art_ano_Geral;Razao_PQ_sPQ;Permanentes;Colaboradores;Visitantes;Art_ano_Perm;Art_ano_Colab;Art_ano_Visit;Razao_Perm_Colab_x;IF_Medio;IF_Mediana;IF_Maximo;Arts_com_IF;' +
+           'Prod_ArtPeriodico;Prod_Resumo;Prod_TrabCongresso;Prod_CapLivro;Prod_TextoJornal;Filtro_Tipos;Referencia_UnB\n';
+    all.forEach(d => {
+        const ePQ = getEffectiveMetric(d, 'ma_pq', subtipos, estratos_if);
+        const eSPQ = getEffectiveMetric(d, 'ma_spq', subtipos, estratos_if);
+        const eAll = getEffectiveMetric(d, 'ma_all', subtipos, estratos_if);
+        const ePerm = getEffectiveMetric(d, 'ma_perm', subtipos, estratos_if);
+        const eColab = getEffectiveMetric(d, 'ma_colab', subtipos, estratos_if);
+        const eVisit = getEffectiveMetric(d, 'ma_visit', subtipos, estratos_if);
+        const razao = eSPQ > 0 ? (ePQ / eSPQ).toFixed(2) : 0;
+        const razaoPC = eColab > 0 ? (ePerm / eColab).toFixed(2) : 0;
+        const sp = d.prod_sub || {};
+        const n25 = (sp['25'] || {}).total || 0;
+        const n8 = (sp['8'] || {}).total || 0;
+        const n9 = (sp['9'] || {}).total || 0;
+        const n26 = (sp['26'] || {}).total || 0;
+        const n10 = (sp['10'] || {}).total || 0;
+        csv += `${d.sigla};${d.programa};${d.uf};${d.nota};${d.quad};${d.n_doc};${d.n_pq};${d.n_spq};` +
+               `${d.pct_pq};${ePQ.toFixed(2)};${eSPQ.toFixed(2)};${eAll.toFixed(2)};${razao};` +
+               `${d.n_perm||0};${d.n_colab||0};${d.n_visit||0};${ePerm.toFixed(2)};${eColab.toFixed(2)};${eVisit.toFixed(2)};${razaoPC};` +
+               `${d.avg_if||0};${d.med_if||0};${d.max_if||0};${d.n_if||0};` +
+               `${n25};${n8};${n9};${n26};${n10};${getSubtipoLabel(subtipos)};` +
+               `${d.is_unb ? 'SIM' : 'NAO'}\n`;
+    });
+
+    csv += `\n# MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleString('pt-BR')}\n`;
+    csv += `# Filtros: Tipos=${getSubtipoLabel(subtipos)} | Estratos IF=${estratos_if.join(',')}\n`;
+    const name = `export-${ts}-${String(reportSeq).padStart(3, '0')}.csv`;
+    download(name, csv, 'text/csv;charset=utf-8');
+    toast(`Exportado: ${name}`);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════════════
+function download(filename, content, type) {
+    const blob = new Blob([content], { type: type + ';charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+}
+
+function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function setStatus(msg) {
+    document.getElementById('statusLeft').textContent = msg;
+    document.getElementById('statusRight').textContent = `MAPA-PG v${VERSION} | Prof. David L. Azevedo`;
+}
+
+function abrirHelp() {
+    window.open('help-doc.html', '_blank');
+}
+
+function gerarRelatorioIF(programas, winRef) {
+    const now = new Date();
+    reportSeq++;
+    const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
+    const seqStr = String(reportSeq).padStart(3, '0');
+    const fmtR = (n, d) => d > 0 ? (n/d).toFixed(2) : '\u2014';
+
+    let h = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAPA-PG \u2014 Relat\u00f3rio Detalhado IF</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;line-height:1.5;}
+.hdr{background:linear-gradient(135deg,#2C3E50,#34495E);color:#fff;padding:14px 24px;
+    display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.hdr h1{font-size:18px;letter-spacing:1px;} .hdr h1 em{color:#E91E63;font-style:normal;}
+.hdr .m{font-size:11px;opacity:.8;text-align:right;}
+.content{max-width:1100px;margin:16px auto;padding:0 16px;}
+.prog-card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;overflow:hidden;}
+.prog-hdr{background:linear-gradient(135deg,#1A252F,#2C3E50);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
+.prog-hdr h2{font-size:16px;font-weight:700;} .prog-hdr .nota{background:#E91E63;padding:3px 12px;border-radius:12px;font-size:13px;font-weight:700;}
+.prog-hdr.unb-hdr{background:linear-gradient(135deg,#880E4F,#E91E63);}
+.prog-body{padding:16px;}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.box{flex:1;min-width:80px;background:#F8F9FA;border-radius:4px;padding:6px;text-align:center;border-left:3px solid #2196F3;}
+.box.perm{border-color:#4CAF50;} .box.colab{border-color:#FF9800;} .box.visit{border-color:#9C27B0;}
+.box.all{border-color:#2C3E50;} .box.lo{border-color:#66BB6A;} .box.mi{border-color:#42A5F5;} .box.hi{border-color:#EF5350;}
+.box .v{font-size:15px;font-weight:700;color:#2C3E50;} .box .l{font-size:8px;color:#7F8C8D;text-transform:uppercase;line-height:1.2;}
+.sep{font-size:11px;color:#7F8C8D;font-weight:600;margin:10px 0 4px;border-bottom:1px solid #E0E4E8;padding-bottom:2px;}
+table{width:100%;border-collapse:collapse;font-size:11px;margin:6px 0;}
+th{background:#2C3E50;color:#fff;padding:4px 6px;text-align:center;font-size:10px;}
+td{padding:3px 5px;text-align:center;border-bottom:1px solid #E0E4E8;}
+tr:nth-child(even){background:#F8F9FA;}
+.btn-bar{text-align:center;margin:16px 0;}
+.btn{padding:10px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;margin:4px;}
+.btn-txt{background:#2C3E50;color:#fff;} .btn-csv{background:#27AE60;color:#fff;}
+.footer{text-align:center;color:#999;font-size:10px;padding:12px;margin-top:16px;}
+</style></head><body>
+<div class="hdr">
+    <h1><em>MAPA-PG</em> \u2014 Relat\u00f3rio Detalhado de Fator de Impacto</h1>
+    <div class="m">Prof. David L. Azevedo<br>v${VERSION} | ${now.toLocaleDateString('pt-BR')}</div>
+</div>
+<div class="content">
+<div class="btn-bar">
+    <button class="btn btn-txt" onclick="downloadIFReport()">Baixar report-IF.txt</button>
+    <button class="btn btn-csv" onclick="downloadIFCSV()">Baixar report-IF.csv</button>
+</div>`;
+
+    let txt = [];
+    const pt = s => txt.push(s);
+    pt('='.repeat(110));
+    pt('  MAPA-PG \u2014 RELAT\u00d3RIO DETALHADO DE FATOR DE IMPACTO');
+    pt('  Prof. David L. Azevedo | v' + VERSION);
+    pt('  Gerado em: ' + now.toLocaleString('pt-BR'));
+    pt('  Estratos: IF < 2.2 (baixo) | 2.2 <= IF <= 8.0 (m\u00e9dio) | IF > 8.0 (alto)');
+    pt('='.repeat(110));
+
+    let csvRows = ['\uFEFFIES;Programa;UF;Nota;Quadrienio;Doc_Total;Perm;Colab;Visit;' +
+        'Art_IF_baixo;Art_IF_medio;Art_IF_alto;' +
+        'Art_Perm_baixo;Art_Perm_medio;Art_Perm_alto;' +
+        'Art_Colab_baixo;Art_Colab_medio;Art_Colab_alto;' +
+        'Art_Visit_baixo;Art_Visit_medio;Art_Visit_alto;' +
+        'Razao_Perm_baixo;Razao_Perm_medio;Razao_Perm_alto;' +
+        'Razao_Colab_baixo;Razao_Colab_medio;Razao_Colab_alto;' +
+        'Razao_Total_baixo;Razao_Total_medio;Razao_Total_alto;' +
+        'IF_Medio;IF_Mediana;Referencia_UnB'];
+
+    programas.forEach(d => {
+        const np=d.n_perm||0, nc=d.n_colab||0, nv=d.n_visit||0, nt=np+nc+nv;
+        const ip=d.if_perm||[0,0,0], ic=d.if_colab||[0,0,0], iv=d.if_visit||[0,0,0], ia=d.if_all||[0,0,0];
+        const hdrCls = d.is_unb ? 'prog-hdr unb-hdr' : 'prog-hdr';
+
+        h += `<div class="prog-card">
+<div class="${hdrCls}">
+    <h2>${d.sigla} \u2014 ${d.programa} (${d.uf})</h2>
+    <span class="nota">Nota ${d.nota} | ${d.quad}</span>
+</div>
+<div class="prog-body">
+<div class="row">
+    <div class="box perm"><div class="v">${np}</div><div class="l">Permanentes</div></div>
+    <div class="box colab"><div class="v">${nc}</div><div class="l">Colaboradores</div></div>
+    <div class="box visit"><div class="v">${nv}</div><div class="l">Visitantes</div></div>
+    <div class="box all"><div class="v">${d.n_if||0}</div><div class="l">Total Arts c/ IF</div></div>
+    <div class="box"><div class="v">${d.avg_if||0}</div><div class="l">IF M\u00e9dio</div></div>
+    <div class="box"><div class="v">${d.med_if||0}</div><div class="l">IF Mediana</div></div>
+</div>
+<div class="sep">Artigos por Estrato de IF</div>
+<div class="row">
+    <div class="box lo"><div class="v">${d.if_lo||0}</div><div class="l">IF &lt; 2.2</div></div>
+    <div class="box mi"><div class="v">${d.if_mi||0}</div><div class="l">2.2 &le; IF &le; 8.0</div></div>
+    <div class="box hi"><div class="v">${d.if_hi||0}</div><div class="l">IF &gt; 8.0</div></div>
+</div>
+<div class="sep">Raz\u00e3o Artigos / Docente por Estrato e Categoria</div>
+<table>
+<tr><th>Categoria</th><th>Doc</th><th>Art IF&lt;2.2</th><th>Art/Doc</th><th>Art 2.2-8</th><th>Art/Doc</th><th>Art IF&gt;8</th><th>Art/Doc</th></tr>
+<tr style="background:#E8F5E9;"><td><b>Permanentes</b></td><td>${np}</td><td>${ip[0]}</td><td><b>${fmtR(ip[0],np)}</b></td><td>${ip[1]}</td><td><b>${fmtR(ip[1],np)}</b></td><td>${ip[2]}</td><td><b>${fmtR(ip[2],np)}</b></td></tr>
+<tr style="background:#FFF3E0;"><td><b>Colaboradores</b></td><td>${nc}</td><td>${ic[0]}</td><td><b>${fmtR(ic[0],nc)}</b></td><td>${ic[1]}</td><td><b>${fmtR(ic[1],nc)}</b></td><td>${ic[2]}</td><td><b>${fmtR(ic[2],nc)}</b></td></tr>
+<tr style="background:#F3E5F5;"><td><b>Visitantes</b></td><td>${nv}</td><td>${iv[0]}</td><td><b>${fmtR(iv[0],nv)}</b></td><td>${iv[1]}</td><td><b>${fmtR(iv[1],nv)}</b></td><td>${iv[2]}</td><td><b>${fmtR(iv[2],nv)}</b></td></tr>
+<tr style="background:#E3F2FD;font-weight:700;"><td><b>TOTAL</b></td><td>${nt}</td><td>${ia[0]}</td><td><b>${fmtR(ia[0],nt)}</b></td><td>${ia[1]}</td><td><b>${fmtR(ia[1],nt)}</b></td><td>${ia[2]}</td><td><b>${fmtR(ia[2],nt)}</b></td></tr>
+</table>
+</div></div>`;
+
+        pt('');
+        pt('\u2500'.repeat(110));
+        pt('  ' + d.sigla + ' \u2014 ' + d.programa + ' (' + d.uf + ') | Nota ' + d.nota + ' | ' + d.quad);
+        pt('\u2500'.repeat(110));
+        pt('  Docentes: Perm=' + np + ', Colab=' + nc + ', Visit=' + nv + ', Total=' + nt);
+        pt('  Artigos c/ IF: ' + (d.n_if||0) + ' | IF M\u00e9dio=' + (d.avg_if||0) + ' | IF Mediana=' + (d.med_if||0));
+        pt('  Estratos: IF<2.2=' + (d.if_lo||0) + ' | 2.2<=IF<=8.0=' + (d.if_mi||0) + ' | IF>8.0=' + (d.if_hi||0));
+        pt('');
+        pt('  Categoria      Doc   Art<2.2  A/D<2.2  Art 2-8  A/D 2-8  Art>8  A/D>8');
+        pt('  ' + '-'.repeat(75));
+        pt('  Permanentes  ' + String(np).padStart(5) + '  ' + String(ip[0]).padStart(7) + '  ' + fmtR(ip[0],np).padStart(7) + '  ' + String(ip[1]).padStart(7) + '  ' + fmtR(ip[1],np).padStart(7) + '  ' + String(ip[2]).padStart(5) + '  ' + fmtR(ip[2],np).padStart(5));
+        pt('  Colaborador  ' + String(nc).padStart(5) + '  ' + String(ic[0]).padStart(7) + '  ' + fmtR(ic[0],nc).padStart(7) + '  ' + String(ic[1]).padStart(7) + '  ' + fmtR(ic[1],nc).padStart(7) + '  ' + String(ic[2]).padStart(5) + '  ' + fmtR(ic[2],nc).padStart(5));
+        pt('  Visitantes   ' + String(nv).padStart(5) + '  ' + String(iv[0]).padStart(7) + '  ' + fmtR(iv[0],nv).padStart(7) + '  ' + String(iv[1]).padStart(7) + '  ' + fmtR(iv[1],nv).padStart(7) + '  ' + String(iv[2]).padStart(5) + '  ' + fmtR(iv[2],nv).padStart(5));
+        pt('  TOTAL        ' + String(nt).padStart(5) + '  ' + String(ia[0]).padStart(7) + '  ' + fmtR(ia[0],nt).padStart(7) + '  ' + String(ia[1]).padStart(7) + '  ' + fmtR(ia[1],nt).padStart(7) + '  ' + String(ia[2]).padStart(5) + '  ' + fmtR(ia[2],nt).padStart(5));
+
+        csvRows.push([d.sigla,d.programa,d.uf,d.nota,d.quad,nt,np,nc,nv,
+            d.if_lo||0,d.if_mi||0,d.if_hi||0,
+            ip[0],ip[1],ip[2],ic[0],ic[1],ic[2],iv[0],iv[1],iv[2],
+            fmtR(ip[0],np),fmtR(ip[1],np),fmtR(ip[2],np),
+            fmtR(ic[0],nc),fmtR(ic[1],nc),fmtR(ic[2],nc),
+            fmtR(ia[0],nt),fmtR(ia[1],nt),fmtR(ia[2],nt),
+            d.avg_if||0,d.med_if||0,d.is_unb?'SIM':'NAO'].join(';'));
+    });
+
+    pt('');
+    pt('  MAPA-PG v' + VERSION + ' | Prof. David L. Azevedo');
+    pt('='.repeat(110));
+
+    const txtStr = JSON.stringify(txt.join('\\n'));
+    const csvStr = JSON.stringify(csvRows.join('\\n'));
+
+    h += `</div>
+<div class="footer">MAPA-PG v${VERSION} | Prof. David L. Azevedo | david888azv@unb.br</div>
+<` + `script>
+const _ifTxt = ${txtStr};
+const _ifCsv = ${csvStr};
+const _ifName = 'report-IF-${ts}-${seqStr}';
+function downloadIFReport() {
+    const b = new Blob([_ifTxt], {type:'text/plain;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(b);
+    a.download = _ifName + '.txt'; a.click();
+}
+function downloadIFCSV() {
+    const b = new Blob([_ifCsv], {type:'text/csv;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(b);
+    a.download = _ifName + '.csv'; a.click();
+}
+<` + `/script></body></html>`;
+
+    const w = winRef || window.open('', '_blank');
+    w.document.write(h);
+    w.document.close();
+}
+
+function gerarGraficoIF(programas, winRef) {
+    const now = new Date();
+    const fmtR = (n, d) => d > 0 ? +(n/d).toFixed(2) : 0;
+    const STRATA = ['IF < 2.2', '2.2 \u2264 IF \u2264 8.0', 'IF > 8.0'];
+    const COLORS = [
+        '#E91E63','#2196F3','#4CAF50','#FF9800','#9C27B0','#00BCD4',
+        '#F44336','#3F51B5','#8BC34A','#FF5722','#607D8B','#795548',
+        '#CDDC39','#009688','#673AB7','#FFC107','#03A9F4','#E91E63',
+        '#4CAF50','#FF9800','#9C27B0','#00BCD4','#F44336','#3F51B5',
+        '#8BC34A','#FF5722','#607D8B','#795548','#CDDC39','#009688',
+    ];
+
+    // Aggregate: for each program, compute Art/Doc(total) per stratum
+    const chartData = [];
+    programas.forEach((d, idx) => {
+        const nt = (d.n_perm||0) + (d.n_colab||0) + (d.n_visit||0);
+        const ia = d.if_all || [0,0,0];
+        const label = d.is_unb
+            ? `\u2605 ${d.sigla} (N${d.nota}) ${d.quad}`
+            : `${d.sigla} (N${d.nota}) ${d.quad}`;
+        chartData.push({
+            label: label,
+            vals: [fmtR(ia[0],nt), fmtR(ia[1],nt), fmtR(ia[2],nt)],
+            isUnb: d.is_unb,
+            color: d.is_unb ? '#E91E63' : COLORS[idx % COLORS.length],
+        });
+    });
+
+    // Build chart page
+    let h = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAPA-PG \u2014 Gr\u00e1fico IF Comparativo</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"><\/script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;}
+.hdr{background:linear-gradient(135deg,#2C3E50,#34495E);color:#fff;padding:14px 24px;
+    display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.hdr h1{font-size:18px;letter-spacing:1px;} .hdr h1 em{color:#E91E63;font-style:normal;}
+.hdr .m{font-size:11px;opacity:.8;text-align:right;}
+.content{max-width:1200px;margin:16px auto;padding:0 16px;}
+.card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:20px;margin-bottom:16px;}
+.card h2{font-size:14px;color:#2C3E50;margin-bottom:12px;border-bottom:2px solid #E91E63;padding-bottom:4px;}
+.chart-wrap{position:relative;width:100%;}
+.footer{text-align:center;color:#999;font-size:10px;padding:12px;margin-top:16px;}
+.note{font-size:11px;color:#7F8C8D;margin-top:8px;line-height:1.5;}
+.btn-bar{text-align:center;margin:12px 0;}
+.btn{padding:8px 18px;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;margin:4px;background:#FF9800;color:#fff;}
+</style></head><body>
+<div class="hdr">
+    <h1><em>MAPA-PG</em> \u2014 Gr\u00e1fico Comparativo de Fator de Impacto</h1>
+    <div class="m">Prof. David L. Azevedo<br>v${VERSION} | ${now.toLocaleDateString('pt-BR')}</div>
+</div>
+<div class="content">
+<div class="btn-bar">
+    <button class="btn" onclick="exportPNG('chartBars')">Exportar Barras PNG</button>
+    <button class="btn" onclick="exportPNG('chartLines')">Exportar Linhas PNG</button>
+    <button class="btn" onclick="exportPNG('chartClosest')">Exportar Pr\u00f3ximas PNG</button>
+</div>`;
+
+    // Chart 1: Grouped horizontal bars
+    const barH = Math.max(500, chartData.length * 60);
+    h += `<div class="card">
+<h2>Produ\u00e7\u00e3o por Estrato de IF \u2014 Barras Agrupadas (Art/Docente)</h2>
+<div class="chart-wrap" style="height:${barH}px;"><canvas id="chartBars"></canvas></div>
+<p class="note">Cada programa tem 3 barras: verde (IF&lt;2.2), azul (2.2\u22642IF\u22648), vermelho (IF&gt;8). UnB destacada com \u2605.</p>
+</div>`;
+
+    // Chart 2: Multi-line
+    const lineH = Math.max(450, 450);
+    h += `<div class="card">
+<h2>Perfil de Produ\u00e7\u00e3o por Estrato de IF \u2014 Multi-Linhas (Art/Docente)</h2>
+<div class="chart-wrap" style="height:${lineH}px;"><canvas id="chartLines"></canvas></div>
+<p class="note">Cada linha representa um programa. Eixo X: 3 faixas de IF. Eixo Y: art/docente. UnB em magenta com linha grossa.</p>
+</div>`;
+
+    // Chart 3: 3 IES mais próximas da UnB
+    const unbEntry = chartData.find(d => d.isUnb);
+    let closest3 = [];
+    let dsClosest = [];
+    if (unbEntry) {
+        const unbV = unbEntry.vals;
+        const others2 = chartData.filter(d => !d.isUnb && (d.vals[0]+d.vals[1]+d.vals[2]) > 0);
+        // Sort by sum of absolute differences across 3 strata
+        others2.forEach(d => {
+            d._dist = Math.abs(d.vals[0]-unbV[0]) + Math.abs(d.vals[1]-unbV[1]) + Math.abs(d.vals[2]-unbV[2]);
+            d._diffs = [
+                +(d.vals[0]-unbV[0]).toFixed(2),
+                +(d.vals[1]-unbV[1]).toFixed(2),
+                +(d.vals[2]-unbV[2]).toFixed(2),
+            ];
+        });
+        others2.sort((a,b) => a._dist - b._dist);
+        closest3 = others2.slice(0, 3);
+
+        const CLOSE_COLORS = ['#1565C0', '#F57F17', '#2E7D32'];
+        // UnB dataset
+        dsClosest.push({
+            label: unbEntry.label,
+            data: unbEntry.vals,
+            borderColor: '#E91E63', backgroundColor: '#E91E63',
+            borderWidth: 4, pointRadius: 8, pointStyle: 'star', tension: 0.3,
+        });
+        closest3.forEach((d, i) => {
+            const diffStr = d._diffs.map(v => (v >= 0 ? '+' : '') + v.toFixed(2)).join(' | ');
+            dsClosest.push({
+                label: d.label + '  [' + diffStr + ']',
+                data: d.vals,
+                borderColor: CLOSE_COLORS[i], backgroundColor: CLOSE_COLORS[i],
+                borderWidth: 3, pointRadius: 6, pointStyle: 'circle', tension: 0.3,
+                _diffs: d._diffs,
+            });
+        });
+    }
+
+    h += `<div class="card">
+<h2>3 IES Mais Pr\u00f3ximas da UnB \u2014 Compara\u00e7\u00e3o por Estrato de IF</h2>
+<div class="chart-wrap" style="height:450px;"><canvas id="chartClosest"></canvas></div>
+<p class="note">Compara a UnB com as 3 IES que apresentam menor diferen\u00e7a total nos 3 estratos de IF. Na legenda: [dif IF&lt;2.2 | dif 2.2-8 | dif IF&gt;8]. Sinal + = IES acima da UnB, sinal \u2013 = IES abaixo da UnB. Clique nos pontos para ver a diferen\u00e7a.</p>
+</div>`;
+
+    h += `</div>
+<div class="footer">MAPA-PG v${VERSION} | Prof. David L. Azevedo | david888azv@unb.br</div>`;
+
+    // Build chart data as JSON for the script
+    const labelsBar = chartData.map(d => d.label);
+    const dsBar = [
+        { label: 'IF < 2.2', data: chartData.map(d => d.vals[0]), backgroundColor: '#66BB6A' },
+        { label: '2.2 \u2264 IF \u2264 8.0', data: chartData.map(d => d.vals[1]), backgroundColor: '#42A5F5' },
+        { label: 'IF > 8.0', data: chartData.map(d => d.vals[2]), backgroundColor: '#EF5350' },
+    ];
+
+    const dsLine = chartData.map(d => ({
+        label: d.label,
+        data: d.vals,
+        borderColor: d.color,
+        backgroundColor: d.color,
+        borderWidth: d.isUnb ? 4 : 2,
+        pointRadius: d.isUnb ? 7 : 4,
+        pointStyle: d.isUnb ? 'star' : 'circle',
+        tension: 0.3,
+    }));
+
+    h += `<` + `script>
+const labelsBar = ${JSON.stringify(labelsBar)};
+const dsBar = ${JSON.stringify(dsBar)};
+const strataLabels = ${JSON.stringify(STRATA)};
+const dsLine = ${JSON.stringify(dsLine)};
+
+// Bar chart
+new Chart(document.getElementById('chartBars'), {
+    type: 'bar',
+    data: { labels: labelsBar, datasets: dsBar },
+    options: {
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'top', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.dataset.label + ': ' + ctx.parsed.x.toFixed(2) + ' art/doc'
+                }
+            }
+        },
+        scales: {
+            x: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
+            y: { ticks: { font: { size: 10 } } }
+        }
+    }
+});
+
+// Line chart
+new Chart(document.getElementById('chartLines'), {
+    type: 'line',
+    data: { labels: strataLabels, datasets: dsLine },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) + ' art/doc'
+                }
+            }
+        },
+        scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
+            x: { title: { display: true, text: 'Faixa de Fator de Impacto', font: { size: 12 } } }
+        }
+    }
+});
+
+// Chart 3: Closest to UnB
+const dsClosest = ${JSON.stringify(dsClosest)};
+if (dsClosest.length > 0) {
+    const unbVals = dsClosest[0].data;
+    new Chart(document.getElementById('chartClosest'), {
+        type: 'line',
+        data: { labels: strataLabels, datasets: dsClosest },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 14, padding: 12 } },
+                tooltip: {
+                    callbacks: {
+                        title: items => items[0].label.split('[')[0].trim(),
+                        afterLabel: ctx => {
+                            if (ctx.datasetIndex === 0) return '(Refer\\u00eancia)';
+                            const val = ctx.parsed.y;
+                            const unbVal = unbVals[ctx.dataIndex];
+                            const diff = val - unbVal;
+                            const sign = diff >= 0 ? '+' : '';
+                            return 'Dif. UnB: ' + sign + diff.toFixed(2) + ' art/doc';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
+                x: { title: { display: true, text: 'Faixa de Fator de Impacto', font: { size: 12 } } }
+            },
+            onClick: (evt, elements) => {
+                if (elements.length > 0) {
+                    const el = elements[0];
+                    const dsIdx = el.datasetIndex;
+                    const ptIdx = el.index;
+                    if (dsIdx > 0) {
+                        const val = dsClosest[dsIdx].data[ptIdx];
+                        const unbVal = unbVals[ptIdx];
+                        const diff = val - unbVal;
+                        const sign = diff >= 0 ? '+' : '';
+                        const faixa = strataLabels[ptIdx];
+                        alert(dsClosest[dsIdx].label.split('[')[0].trim() +
+                            '\\n\\nFaixa: ' + faixa +
+                            '\\nValor: ' + val.toFixed(2) + ' art/doc' +
+                            '\\nUnB: ' + unbVal.toFixed(2) + ' art/doc' +
+                            '\\nDiferen\\u00e7a: ' + sign + diff.toFixed(2) + ' art/doc');
+                    }
+                }
+            }
+        }
+    });
+}
+
+function exportPNG(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    const w = canvas.width, h = canvas.height;
+    const off = document.createElement('canvas');
+    off.width = w; off.height = h + 30;
+    const ctx = off.getContext('2d');
+    ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, off.width, off.height);
+    ctx.drawImage(canvas, 0, 0);
+    ctx.fillStyle = '#999'; ctx.font = '11px Arial'; ctx.textAlign = 'right';
+    ctx.fillText('MAPA-PG v${VERSION} | Prof. David L. Azevedo | ' + new Date().toLocaleDateString('pt-BR'), w - 10, h + 18);
+    off.toBlob(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = canvasId + '-' + new Date().toISOString().replace(/[-:T]/g,'').slice(0,14) + '.png';
+        a.click();
+    }, 'image/png');
+}
+<` + `/script></body></html>`;
+
+    const w = winRef || window.open('', '_blank');
+    w.document.write(h);
+    w.document.close();
+}
+
+function exportarPNGs() {
+    const canvases = document.querySelectorAll('canvas');
+    if (canvases.length === 0) { toast('Nenhum gráfico para exportar.'); return; }
+    const now = new Date();
+    const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
+    let seq = 0;
+
+    canvases.forEach(canvas => {
+        seq++;
+        const tipo = canvas.id.includes('Quad') ? 'barras-quadrienio' :
+                     canvas.id.includes('IES') ? 'barras-ies' :
+                     canvas.id.includes('ger') ? 'barras-geral' : 'grafico';
+
+        // Create a copy with white background and watermark
+        const w = canvas.width;
+        const h = canvas.height;
+        const offscreen = document.createElement('canvas');
+        offscreen.width = w;
+        offscreen.height = h + 30; // extra space for watermark
+        const ctx = offscreen.getContext('2d');
+
+        // White background
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, offscreen.width, offscreen.height);
+
+        // Draw original chart
+        ctx.drawImage(canvas, 0, 0);
+
+        // Watermark
+        ctx.fillStyle = '#999999';
+        ctx.font = '11px Arial';
+        ctx.textAlign = 'right';
+        ctx.fillText(`MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleDateString('pt-BR')}`, w - 10, h + 18);
+
+        offscreen.toBlob(blob => {
+            if (!blob) { toast('Erro ao gerar PNG.'); return; }
+            const filename = `${tipo}-${ts}-${String(seq).padStart(3, '0')}.png`;
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = filename; a.click();
+            URL.revokeObjectURL(url);
+        }, 'image/png');
+    });
+
+    toast(`${canvases.length} gráfico(s) exportado(s) como PNG`);
+}
+</script>
+</body>
+</html>

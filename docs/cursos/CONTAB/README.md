@@ -1,0 +1,9 @@
+# MAPA-PG-CONTAB — CIÊNCIAS CONTÁBEIS
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO** (CNPq: CIÊNCIAS SOCIAIS APLICADAS)
+- Conceito: 4
+- Modalidade: ACADÊMICO
+- Graus: MESTRADO/DOUTORADO
+
+Aplicativo: [`../../index.html?curso=CONTAB`](../../index.html?curso=CONTAB)

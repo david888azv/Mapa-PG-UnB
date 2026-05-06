@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-CTESAU",
+  "sufixo": "CTESAU",
+  "cd_programa_ies": "53001010088P8",
+  "nome_programa": "CIÊNCIAS E TECNOLOGIAS EM SAÚDE",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "INTERDISCIPLINAR",
+  "cd_area_capes": "45",
+  "slug_area": "interdisciplinar",
+  "grande_area_cnpq": "MULTIDISCIPLINAR",
+  "area_conhecimento": "INTERDISCIPLINAR",
+  "area_basica": "SAÚDE E BIOLÓGICAS",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=CTESAU"
+}

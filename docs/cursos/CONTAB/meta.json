@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-CONTAB",
+  "sufixo": "CONTAB",
+  "cd_programa_ies": "53001010105P0",
+  "nome_programa": "CIÊNCIAS CONTÁBEIS",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+  "cd_area_capes": "27",
+  "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+  "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+  "area_conhecimento": "ADMINISTRAÇÃO",
+  "area_basica": "ADMINISTRAÇÃO",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=CONTAB"
+}

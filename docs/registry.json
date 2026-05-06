@@ -1,0 +1,2583 @@
+{
+  "gerado_em": "2026-05-05 20:18:52",
+  "n_programas_unb": 94,
+  "grandes_areas": {
+    "CIÊNCIAS SOCIAIS APLICADAS": [
+      "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "ARQUITETURA, URBANISMO E DESIGN",
+      "COMUNICAÇÃO E INFORMAÇÃO",
+      "DIREITO",
+      "ECONOMIA",
+      "SERVIÇO SOCIAL"
+    ],
+    "MULTIDISCIPLINAR": [
+      "BIOTECNOLOGIA",
+      "CIÊNCIAS AMBIENTAIS",
+      "ENSINO",
+      "INTERDISCIPLINAR",
+      "MATERIAIS"
+    ],
+    "CIÊNCIAS AGRÁRIAS": [
+      "CIÊNCIAS AGRÁRIAS I",
+      "MEDICINA VETERINÁRIA"
+    ],
+    "CIÊNCIAS HUMANAS": [
+      "ANTROPOLOGIA / ARQUEOLOGIA",
+      "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+      "EDUCAÇÃO",
+      "FILOSOFIA",
+      "GEOGRAFIA",
+      "HISTÓRIA",
+      "PSICOLOGIA",
+      "SOCIOLOGIA"
+    ],
+    "LINGÜÍSTICA, LETRAS E ARTES": [
+      "ARTES",
+      "LINGUÍSTICA E LITERATURA"
+    ],
+    "CIÊNCIAS BIOLÓGICAS": [
+      "BIODIVERSIDADE",
+      "CIÊNCIAS BIOLÓGICAS I",
+      "CIÊNCIAS BIOLÓGICAS III"
+    ],
+    "CIÊNCIAS DA SAÚDE": [
+      "EDUCAÇÃO FÍSICA",
+      "ENFERMAGEM",
+      "FARMÁCIA",
+      "MEDICINA I",
+      "MEDICINA II",
+      "NUTRIÇÃO",
+      "ODONTOLOGIA",
+      "SAÚDE COLETIVA"
+    ],
+    "ENGENHARIAS": [
+      "ENGENHARIAS I",
+      "ENGENHARIAS III",
+      "ENGENHARIAS IV"
+    ],
+    "CIÊNCIAS EXATAS E DA TERRA": [
+      "ASTRONOMIA / FÍSICA",
+      "CIÊNCIA DA COMPUTAÇÃO",
+      "GEOCIÊNCIAS",
+      "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA",
+      "QUÍMICA"
+    ]
+  },
+  "areas_capes": {
+    "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO": {
+      "slug": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+      "sufixos_unb": [
+        "ADMINP",
+        "ADMIN",
+        "CONTAB",
+        "CONUNB",
+        "GESPUB"
+      ],
+      "n_unb": 5
+    },
+    "INTERDISCIPLINAR": {
+      "slug": "interdisciplinar",
+      "sufixos_unb": [
+        "AGRNEG",
+        "BIOETI",
+        "CTESAU",
+        "DESCOO",
+        "DIRHUM",
+        "MADER",
+        "NANOBI",
+        "SUSPOV"
+      ],
+      "n_unb": 8
+    },
+    "CIÊNCIAS AGRÁRIAS I": {
+      "slug": "ciencias-agrarias-i",
+      "sufixos_unb": [
+        "AGRONO",
+        "FLORES",
+        "FITOPA"
+      ],
+      "n_unb": 3
+    },
+    "ANTROPOLOGIA / ARQUEOLOGIA": {
+      "slug": "antropologia-arqueologia",
+      "sufixos_unb": [
+        "ANTROP"
+      ],
+      "n_unb": 1
+    },
+    "ARQUITETURA, URBANISMO E DESIGN": {
+      "slug": "arquitetura-urbanismo-e-design",
+      "sufixos_unb": [
+        "ARQURB",
+        "DESIGN"
+      ],
+      "n_unb": 2
+    },
+    "ARTES": {
+      "slug": "artes",
+      "sufixos_unb": [
+        "ARTES",
+        "ARTCEN",
+        "ARTVIS",
+        "MUSICA"
+      ],
+      "n_unb": 4
+    },
+    "CIÊNCIAS BIOLÓGICAS I": {
+      "slug": "ciencias-biologicas-i",
+      "sufixos_unb": [
+        "BIOANI",
+        "BIOMOL"
+      ],
+      "n_unb": 2
+    },
+    "CIÊNCIAS BIOLÓGICAS III": {
+      "slug": "ciencias-biologicas-iii",
+      "sufixos_unb": [
+        "BIOMIC",
+        "PATMOL"
+      ],
+      "n_unb": 2
+    },
+    "BIOTECNOLOGIA": {
+      "slug": "biotecnologia",
+      "sufixos_unb": [
+        "BIOTEC"
+      ],
+      "n_unb": 1
+    },
+    "BIODIVERSIDADE": {
+      "slug": "biodiversidade",
+      "sufixos_unb": [
+        "BOTANI",
+        "ECOLOG",
+        "ZOOLOG"
+      ],
+      "n_unb": 3
+    },
+    "MEDICINA I": {
+      "slug": "medicina-i",
+      "sufixos_unb": [
+        "CIAMED"
+      ],
+      "n_unb": 1
+    },
+    "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS": {
+      "slug": "ciencia-politica-e-relacoes-internacionais",
+      "sufixos_unb": [
+        "POLITI",
+        "RELINT"
+      ],
+      "n_unb": 2
+    },
+    "CIÊNCIAS AMBIENTAIS": {
+      "slug": "ciencias-ambientais",
+      "sufixos_unb": [
+        "CIAMBI",
+        "DESSUS"
+      ],
+      "n_unb": 2
+    },
+    "MEDICINA VETERINÁRIA": {
+      "slug": "medicina-veterinaria",
+      "sufixos_unb": [
+        "CIANIM",
+        "SAUANI"
+      ],
+      "n_unb": 2
+    },
+    "COMUNICAÇÃO E INFORMAÇÃO": {
+      "slug": "comunicacao-e-informacao",
+      "sufixos_unb": [
+        "INFOCI",
+        "COMUNI"
+      ],
+      "n_unb": 2
+    },
+    "EDUCAÇÃO FÍSICA": {
+      "slug": "educacao-fisica",
+      "sufixos_unb": [
+        "REABIL",
+        "EDUFIS"
+      ],
+      "n_unb": 2
+    },
+    "MEDICINA II": {
+      "slug": "medicina-ii",
+      "sufixos_unb": [
+        "CIASAU",
+        "MEDTRO"
+      ],
+      "n_unb": 2
+    },
+    "MATERIAIS": {
+      "slug": "materiais",
+      "sufixos_unb": [
+        "MATERI"
+      ],
+      "n_unb": 1
+    },
+    "PSICOLOGIA": {
+      "slug": "psicologia",
+      "sufixos_unb": [
+        "PSCCOM",
+        "PROCDH",
+        "PSCCLI",
+        "PSCDES",
+        "PSCSTO"
+      ],
+      "n_unb": 5
+    },
+    "FARMÁCIA": {
+      "slug": "farmacia",
+      "sufixos_unb": [
+        "FARMAC"
+      ],
+      "n_unb": 1
+    },
+    "ENGENHARIAS III": {
+      "slug": "engenharias-iii",
+      "sufixos_unb": [
+        "MECANI",
+        "INTMAT",
+        "MECATR"
+      ],
+      "n_unb": 3
+    },
+    "CIÊNCIA DA COMPUTAÇÃO": {
+      "slug": "ciencia-da-computacao",
+      "sufixos_unb": [
+        "COMPAP",
+        "INFORM"
+      ],
+      "n_unb": 2
+    },
+    "DIREITO": {
+      "slug": "direito",
+      "sufixos_unb": [
+        "DIREIT",
+        "DIRREG"
+      ],
+      "n_unb": 2
+    },
+    "ECONOMIA": {
+      "slug": "economia",
+      "sufixos_unb": [
+        "ECONOP",
+        "ECONOM"
+      ],
+      "n_unb": 2
+    },
+    "EDUCAÇÃO": {
+      "slug": "educacao",
+      "sufixos_unb": [
+        "EDUCAP",
+        "EDUCAC"
+      ],
+      "n_unb": 2
+    },
+    "ENSINO": {
+      "slug": "ensino",
+      "sufixos_unb": [
+        "EDUCIE",
+        "ENSCIE"
+      ],
+      "n_unb": 2
+    },
+    "ENFERMAGEM": {
+      "slug": "enfermagem",
+      "sufixos_unb": [
+        "ENFERM"
+      ],
+      "n_unb": 1
+    },
+    "ENGENHARIAS IV": {
+      "slug": "engenharias-iv",
+      "sufixos_unb": [
+        "ENGBIO",
+        "ESELET",
+        "ENGELE",
+        "ENGELP"
+      ],
+      "n_unb": 4
+    },
+    "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA": {
+      "slug": "matematica-probabilidade-e-estatistica",
+      "sufixos_unb": [
+        "ESTATI",
+        "MATEMA"
+      ],
+      "n_unb": 2
+    },
+    "ENGENHARIAS I": {
+      "slug": "engenharias-i",
+      "sufixos_unb": [
+        "ESTRCC",
+        "GEOTEC",
+        "TECARH",
+        "TRANSP"
+      ],
+      "n_unb": 4
+    },
+    "SOCIOLOGIA": {
+      "slug": "sociologia",
+      "sufixos_unb": [
+        "AMERIC",
+        "SOCIOL"
+      ],
+      "n_unb": 2
+    },
+    "LINGUÍSTICA E LITERATURA": {
+      "slug": "linguistica-e-literatura",
+      "sufixos_unb": [
+        "TRADUC",
+        "LINGUI",
+        "LINAPL",
+        "LITERA"
+      ],
+      "n_unb": 4
+    },
+    "FILOSOFIA": {
+      "slug": "filosofia",
+      "sufixos_unb": [
+        "FILOSO",
+        "METAFI"
+      ],
+      "n_unb": 2
+    },
+    "ASTRONOMIA / FÍSICA": {
+      "slug": "astronomia-fisica",
+      "sufixos_unb": [
+        "FISICA"
+      ],
+      "n_unb": 1
+    },
+    "GEOCIÊNCIAS": {
+      "slug": "geociencias",
+      "sufixos_unb": [
+        "GEOAPL",
+        "GEOLOG"
+      ],
+      "n_unb": 2
+    },
+    "GEOGRAFIA": {
+      "slug": "geografia",
+      "sufixos_unb": [
+        "GEOGRA"
+      ],
+      "n_unb": 1
+    },
+    "HISTÓRIA": {
+      "slug": "historia",
+      "sufixos_unb": [
+        "HISTOR"
+      ],
+      "n_unb": 1
+    },
+    "NUTRIÇÃO": {
+      "slug": "nutricao",
+      "sufixos_unb": [
+        "NUTRIC"
+      ],
+      "n_unb": 1
+    },
+    "ODONTOLOGIA": {
+      "slug": "odontologia",
+      "sufixos_unb": [
+        "ODONTO"
+      ],
+      "n_unb": 1
+    },
+    "SERVIÇO SOCIAL": {
+      "slug": "servico-social",
+      "sufixos_unb": [
+        "POLSOC"
+      ],
+      "n_unb": 1
+    },
+    "QUÍMICA": {
+      "slug": "quimica",
+      "sufixos_unb": [
+        "QUIMIC"
+      ],
+      "n_unb": 1
+    },
+    "SAÚDE COLETIVA": {
+      "slug": "saude-coletiva",
+      "sufixos_unb": [
+        "SAUCOP",
+        "SAUCOL"
+      ],
+      "n_unb": 2
+    }
+  },
+  "programas_unb": [
+    {
+      "sufixo": "ADMINP",
+      "cd_programa": "53001010055P2",
+      "nome": "ADMINISTRAÇÃO",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "cd_area_capes": "27",
+      "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ADMINISTRAÇÃO",
+      "area_basica": "ADMINISTRAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ADMIN",
+      "cd_programa": "53001010016P7",
+      "nome": "ADMINISTRAÇÃO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "cd_area_capes": "27",
+      "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ADMINISTRAÇÃO",
+      "area_basica": "ADMINISTRAÇÃO PÚBLICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "AGRNEG",
+      "cd_programa": "53001010063P5",
+      "nome": "AGRONEGÓCIOS",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "MEIO AMBIENTE E AGRÁRIAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "AGRONO",
+      "cd_programa": "53001010071P8",
+      "nome": "AGRONOMIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS AGRÁRIAS I",
+      "cd_area_capes": "42",
+      "slug_area": "ciencias-agrarias-i",
+      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS",
+      "area_conhecimento": "AGRONOMIA",
+      "area_basica": "AGRONOMIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ANTROP",
+      "cd_programa": "53001010010P9",
+      "nome": "ANTROPOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "7"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ANTROPOLOGIA / ARQUEOLOGIA",
+      "cd_area_capes": "35",
+      "slug_area": "antropologia-arqueologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "ANTROPOLOGIA",
+      "area_basica": "ANTROPOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ARQURB",
+      "cd_programa": "53001010042P8",
+      "nome": "ARQUITETURA E URBANISMO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ARQUITETURA, URBANISMO E DESIGN",
+      "cd_area_capes": "29",
+      "slug_area": "arquitetura-urbanismo-e-design",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ARQUITETURA E URBANISMO",
+      "area_basica": "ARQUITETURA E URBANISMO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ARTES",
+      "cd_programa": "53001010040P5",
+      "nome": "ARTES",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ARTES",
+      "cd_area_capes": "11",
+      "slug_area": "artes",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "ARTES",
+      "area_basica": "ARTES",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ARTCEN",
+      "cd_programa": "53001010103P7",
+      "nome": "ARTES CÊNICAS",
+      "graus": [
+        "MESTRADO",
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ARTES",
+      "cd_area_capes": "11",
+      "slug_area": "artes",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "ARTES",
+      "area_basica": "ARTES",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ARTVIS",
+      "cd_programa": "53001010040P5",
+      "nome": "ARTES VISUAIS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ARTES",
+      "cd_area_capes": "11",
+      "slug_area": "artes",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "ARTES",
+      "area_basica": "ARTES",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "BIOANI",
+      "cd_programa": "53001010045P7",
+      "nome": "BIOLOGIA ANIMAL",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
+      "cd_area_capes": "6",
+      "slug_area": "ciencias-biologicas-i",
+      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+      "area_conhecimento": "BIOLOGIA GERAL",
+      "area_basica": "BIOLOGIA GERAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "BIOMIC",
+      "cd_programa": "53001010094P8",
+      "nome": "BIOLOGIA MICROBIANA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS BIOLÓGICAS III",
+      "cd_area_capes": "9",
+      "slug_area": "ciencias-biologicas-iii",
+      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+      "area_conhecimento": "MICROBIOLOGIA",
+      "area_basica": "MICROBIOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "BIOTEC",
+      "cd_programa": "53001010100P8",
+      "nome": "BIOTECNOLOGIA E BIODIVERSIDADE - REDE PRÓ-CENTRO-OESTE",
+      "graus": [
+        "DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "BIOTECNOLOGIA",
+      "cd_area_capes": "48",
+      "slug_area": "biotecnologia",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "BIOTECNOLOGIA",
+      "area_basica": "BIOTECNOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "BIOETI",
+      "cd_programa": "53001010076P0",
+      "nome": "BIOÉTICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "SAÚDE E BIOLÓGICAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "BOTANI",
+      "cd_programa": "53001010112P6",
+      "nome": "BOTÂNICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "A"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "BIODIVERSIDADE",
+      "cd_area_capes": "7",
+      "slug_area": "biodiversidade",
+      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+      "area_conhecimento": "BOTÂNICA",
+      "area_basica": "BOTÂNICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "CIAMED",
+      "cd_programa": "53001010051P7",
+      "nome": "CIENCIAS MEDICAS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MEDICINA I",
+      "cd_area_capes": "15",
+      "slug_area": "medicina-i",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "MEDICINA",
+      "area_basica": "MEDICINA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "POLITI",
+      "cd_programa": "53001010026P2",
+      "nome": "CIÊNCIA POLÍTICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+      "cd_area_capes": "39",
+      "slug_area": "ciencia-politica-e-relacoes-internacionais",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "CIÊNCIA POLÍTICA",
+      "area_basica": "CIÊNCIA POLÍTICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "CIAMBI",
+      "cd_programa": "53001010108P9",
+      "nome": "CIÊNCIAS AMBIENTAIS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS AMBIENTAIS",
+      "cd_area_capes": "49",
+      "slug_area": "ciencias-ambientais",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "CIÊNCIAS AMBIENTAIS",
+      "area_basica": "CIÊNCIAS AMBIENTAIS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "CIANIM",
+      "cd_programa": "53001010067P0",
+      "nome": "CIÊNCIAS ANIMAIS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MEDICINA VETERINÁRIA",
+      "cd_area_capes": "24",
+      "slug_area": "medicina-veterinaria",
+      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS",
+      "area_conhecimento": "MEDICINA VETERINÁRIA",
+      "area_basica": "REPRODUÇÃO ANIMAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "BIOMOL",
+      "cd_programa": "53001010007P8",
+      "nome": "CIÊNCIAS BIOLÓGICAS (BIOLOGIA MOLECULAR)",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
+      "cd_area_capes": "6",
+      "slug_area": "ciencias-biologicas-i",
+      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+      "area_conhecimento": "BIOLOGIA GERAL",
+      "area_basica": "BIOLOGIA GERAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "CONTAB",
+      "cd_programa": "53001010105P0",
+      "nome": "CIÊNCIAS CONTÁBEIS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "cd_area_capes": "27",
+      "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ADMINISTRAÇÃO",
+      "area_basica": "ADMINISTRAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "INFOCI",
+      "cd_programa": "53001010018P0",
+      "nome": "CIÊNCIAS DA INFORMAÇÃO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
+      "cd_area_capes": "31",
+      "slug_area": "comunicacao-e-informacao",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "CIÊNCIA DA INFORMAÇÃO",
+      "area_basica": "CIÊNCIA DA INFORMAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "REABIL",
+      "cd_programa": "53001010107P2",
+      "nome": "CIÊNCIAS DA REABILITAÇÃO",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "EDUCAÇÃO FÍSICA",
+      "cd_area_capes": "21",
+      "slug_area": "educacao-fisica",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "FISIOTERAPIA E TERAPIA OCUPACIONAL",
+      "area_basica": "FISIOTERAPIA E TERAPIA OCUPACIONAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "CIASAU",
+      "cd_programa": "53001010047P0",
+      "nome": "CIÊNCIAS DA SAÚDE",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MEDICINA II",
+      "cd_area_capes": "16",
+      "slug_area": "medicina-ii",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "MEDICINA",
+      "area_basica": "NEUROLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "MATERI",
+      "cd_programa": "53001010084P2",
+      "nome": "CIÊNCIAS DE MATERIAIS",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MATERIAIS",
+      "cd_area_capes": "47",
+      "slug_area": "materiais",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "MATERIAIS",
+      "area_basica": "MATERIAIS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "PSCCOM",
+      "cd_programa": "53001010068P7",
+      "nome": "CIÊNCIAS DO COMPORTAMENTO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "PSICOLOGIA",
+      "cd_area_capes": "37",
+      "slug_area": "psicologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "PSICOLOGIA",
+      "area_basica": "PSICOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "CTESAU",
+      "cd_programa": "53001010088P8",
+      "nome": "CIÊNCIAS E TECNOLOGIAS EM SAÚDE",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "SAÚDE E BIOLÓGICAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "FARMAC",
+      "cd_programa": "53001010085P9",
+      "nome": "CIÊNCIAS FARMACÊUTICAS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "FARMÁCIA",
+      "cd_area_capes": "19",
+      "slug_area": "farmacia",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "FARMÁCIA",
+      "area_basica": "FARMÁCIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "FLORES",
+      "cd_programa": "53001010046P3",
+      "nome": "CIÊNCIAS FLORESTAIS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS AGRÁRIAS I",
+      "cd_area_capes": "42",
+      "slug_area": "ciencias-agrarias-i",
+      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS",
+      "area_conhecimento": "RECURSOS FLORESTAIS E ENGENHARIA FLORESTAL",
+      "area_basica": "RECURSOS FLORESTAIS E ENGENHARIA FLORESTAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "MECANI",
+      "cd_programa": "53001010053P0",
+      "nome": "CIÊNCIAS MECÂNICAS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS III",
+      "cd_area_capes": "13",
+      "slug_area": "engenharias-iii",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA MECÂNICA",
+      "area_basica": "ENGENHARIA MECÂNICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "COMPAP",
+      "cd_programa": "53001010098P3",
+      "nome": "COMPUTAÇÃO APLICADA",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIA DA COMPUTAÇÃO",
+      "cd_area_capes": "2",
+      "slug_area": "ciencia-da-computacao",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "CIÊNCIA DA COMPUTAÇÃO",
+      "area_basica": "CIÊNCIA DA COMPUTAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "COMUNI",
+      "cd_programa": "53001010019P6",
+      "nome": "COMUNICAÇÃO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
+      "cd_area_capes": "31",
+      "slug_area": "comunicacao-e-informacao",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "COMUNICAÇÃO",
+      "area_basica": "COMUNICAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "CONUNB",
+      "cd_programa": "53001010073P0",
+      "nome": "CONTABILIDADE - UNB - UFPB - UFRN",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "cd_area_capes": "27",
+      "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ADMINISTRAÇÃO",
+      "area_basica": "CIÊNCIAS CONTÁBEIS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "DESSUS",
+      "cd_programa": "53001010044P0",
+      "nome": "DESENVOLVIMENTO SUSTENTÁVEL",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "7"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS AMBIENTAIS",
+      "cd_area_capes": "49",
+      "slug_area": "ciencias-ambientais",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "CIÊNCIAS AMBIENTAIS",
+      "area_basica": "CIÊNCIAS AMBIENTAIS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "DESCOO",
+      "cd_programa": "53001010089P4",
+      "nome": "DESENVOLVIMENTO, SOCIEDADE E COOPERAÇÃO INTERNACIONAL",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3",
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "SOCIAIS E HUMANIDADES",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "DESIGN",
+      "cd_programa": "53001010101P4",
+      "nome": "DESIGN",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ARQUITETURA, URBANISMO E DESIGN",
+      "cd_area_capes": "29",
+      "slug_area": "arquitetura-urbanismo-e-design",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "DESENHO INDUSTRIAL",
+      "area_basica": "DESENHO INDUSTRIAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "DIREIT",
+      "cd_programa": "53001010017P3",
+      "nome": "DIREITO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "DIREITO",
+      "cd_area_capes": "26",
+      "slug_area": "direito",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "DIREITO",
+      "area_basica": "DIREITO PÚBLICO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "DIRREG",
+      "cd_programa": "53001010111P0",
+      "nome": "DIREITO, REGULAÇÃO E POLÍTICAS PÚBLICAS",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "A"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "DIREITO",
+      "cd_area_capes": "26",
+      "slug_area": "direito",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "DIREITO",
+      "area_basica": "DIREITO PÚBLICO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "DIRHUM",
+      "cd_programa": "53001010095P4",
+      "nome": "DIREITOS HUMANOS E CIDADANIA",
+      "graus": [
+        "MESTRADO",
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "SOCIAIS E HUMANIDADES",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ECOLOG",
+      "cd_programa": "53001010008P4",
+      "nome": "ECOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "BIODIVERSIDADE",
+      "cd_area_capes": "7",
+      "slug_area": "biodiversidade",
+      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+      "area_conhecimento": "ECOLOGIA",
+      "area_basica": "ECOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ECONOP",
+      "cd_programa": "53001010058P1",
+      "nome": "ECONOMIA",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ECONOMIA",
+      "cd_area_capes": "28",
+      "slug_area": "economia",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ECONOMIA",
+      "area_basica": "ECONOMIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ECONOM",
+      "cd_programa": "53001010012P1",
+      "nome": "ECONOMIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ECONOMIA",
+      "cd_area_capes": "28",
+      "slug_area": "economia",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ECONOMIA",
+      "area_basica": "ECONOMIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "EDUCAP",
+      "cd_programa": "53001010087P1",
+      "nome": "EDUCAÇÃO",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "EDUCAÇÃO",
+      "cd_area_capes": "38",
+      "slug_area": "educacao",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "EDUCAÇÃO",
+      "area_basica": "EDUCAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "EDUCAC",
+      "cd_programa": "53001010001P0",
+      "nome": "EDUCAÇÃO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "EDUCAÇÃO",
+      "cd_area_capes": "38",
+      "slug_area": "educacao",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "EDUCAÇÃO",
+      "area_basica": "EDUCAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "EDUCIE",
+      "cd_programa": "53001010106P6",
+      "nome": "EDUCAÇÃO EM CIÊNCIAS",
+      "graus": [
+        "DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENSINO",
+      "cd_area_capes": "46",
+      "slug_area": "ensino",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "ENSINO",
+      "area_basica": "ENSINO DE CIÊNCIAS E MATEMÁTICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "EDUFIS",
+      "cd_programa": "53001010066P4",
+      "nome": "EDUCAÇÃO FÍSICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "EDUCAÇÃO FÍSICA",
+      "cd_area_capes": "21",
+      "slug_area": "educacao-fisica",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "EDUCAÇÃO FÍSICA",
+      "area_basica": "EDUCAÇÃO FÍSICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ENFERM",
+      "cd_programa": "53001010082P0",
+      "nome": "ENFERMAGEM",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENFERMAGEM",
+      "cd_area_capes": "20",
+      "slug_area": "enfermagem",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "ENFERMAGEM",
+      "area_basica": "ENFERMAGEM",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ENGBIO",
+      "cd_programa": "53001010083P6",
+      "nome": "ENGENHARIA BIOMÉDICA",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS IV",
+      "cd_area_capes": "14",
+      "slug_area": "engenharias-iv",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA BIOMÉDICA",
+      "area_basica": "ENGENHARIA BIOMÉDICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ESELET",
+      "cd_programa": "53001010081P3",
+      "nome": "ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS IV",
+      "cd_area_capes": "14",
+      "slug_area": "engenharias-iv",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA ELÉTRICA",
+      "area_basica": "ENGENHARIA ELÉTRICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ENGELE",
+      "cd_programa": "53001010080P7",
+      "nome": "ENGENHARIA ELÉTRICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS IV",
+      "cd_area_capes": "14",
+      "slug_area": "engenharias-iv",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA ELÉTRICA",
+      "area_basica": "ENGENHARIA ELÉTRICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ENGELP",
+      "cd_programa": "53001010059P8",
+      "nome": "ENGENHARIA ELÉTRICA",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS IV",
+      "cd_area_capes": "14",
+      "slug_area": "engenharias-iv",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA ELÉTRICA",
+      "area_basica": "ENGENHARIA ELÉTRICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ENSCIE",
+      "cd_programa": "53001010056P9",
+      "nome": "ENSINO DE CIÊNCIAS",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENSINO",
+      "cd_area_capes": "46",
+      "slug_area": "ensino",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "ENSINO",
+      "area_basica": "ENSINO DE CIÊNCIAS E MATEMÁTICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ESTATI",
+      "cd_programa": "53001010074P7",
+      "nome": "ESTATISTICA",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA",
+      "cd_area_capes": "1",
+      "slug_area": "matematica-probabilidade-e-estatistica",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "PROBABILIDADE E ESTATÍSTICA",
+      "area_basica": "ESTATÍSTICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ESTRCC",
+      "cd_programa": "53001010036P8",
+      "nome": "ESTRUTURAS E CONSTRUÇÃO CIVIL",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS I",
+      "cd_area_capes": "10",
+      "slug_area": "engenharias-i",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA CIVIL",
+      "area_basica": "ENGENHARIA CIVIL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "AMERIC",
+      "cd_programa": "53001010029P1",
+      "nome": "ESTUDOS COMPARADOS SOBRE AS AMÉRICAS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "SOCIOLOGIA",
+      "cd_area_capes": "34",
+      "slug_area": "sociologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "SOCIOLOGIA",
+      "area_basica": "OUTRAS SOCIOLOGIAS ESPECÍFICAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "TRADUC",
+      "cd_programa": "53001010091P9",
+      "nome": "ESTUDOS DE TRADUÇÃO",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "LINGUÍSTICA E LITERATURA",
+      "cd_area_capes": "41",
+      "slug_area": "linguistica-e-literatura",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "LETRAS",
+      "area_basica": "LETRAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "FILOSO",
+      "cd_programa": "53001010048P6",
+      "nome": "FILOSOFIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "FILOSOFIA",
+      "cd_area_capes": "33",
+      "slug_area": "filosofia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "FILOSOFIA",
+      "area_basica": "FILOSOFIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "FITOPA",
+      "cd_programa": "53001010021P0",
+      "nome": "FITOPATOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS AGRÁRIAS I",
+      "cd_area_capes": "42",
+      "slug_area": "ciencias-agrarias-i",
+      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS",
+      "area_conhecimento": "AGRONOMIA",
+      "area_basica": "AGRONOMIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "FISICA",
+      "cd_programa": "53001010002P6",
+      "nome": "FÍSICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ASTRONOMIA / FÍSICA",
+      "cd_area_capes": "3",
+      "slug_area": "astronomia-fisica",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "FÍSICA",
+      "area_basica": "FÍSICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "GEOAPL",
+      "cd_programa": "53001010075P3",
+      "nome": "GEOCIÊNCIAS APLICADAS E GEODINÂMICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "GEOCIÊNCIAS",
+      "cd_area_capes": "5",
+      "slug_area": "geociencias",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "GEOCIÊNCIAS",
+      "area_basica": "GEOCIÊNCIAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "GEOGRA",
+      "cd_programa": "53001010043P4",
+      "nome": "GEOGRAFIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "GEOGRAFIA",
+      "cd_area_capes": "36",
+      "slug_area": "geografia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "GEOGRAFIA",
+      "area_basica": "GEOGRAFIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "GEOLOG",
+      "cd_programa": "53001010006P1",
+      "nome": "GEOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "7"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "GEOCIÊNCIAS",
+      "cd_area_capes": "5",
+      "slug_area": "geociencias",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "GEOCIÊNCIAS",
+      "area_basica": "GEOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "GEOTEC",
+      "cd_programa": "53001010032P2",
+      "nome": "GEOTECNIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS I",
+      "cd_area_capes": "10",
+      "slug_area": "engenharias-i",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA CIVIL",
+      "area_basica": "GEOTÉCNICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "GESPUB",
+      "cd_programa": "53001010102P0",
+      "nome": "GESTÃO PÚBLICA",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "cd_area_capes": "27",
+      "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "ADMINISTRAÇÃO",
+      "area_basica": "ADMINISTRAÇÃO PÚBLICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "HISTOR",
+      "cd_programa": "53001010011P5",
+      "nome": "HISTÓRIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "HISTÓRIA",
+      "cd_area_capes": "40",
+      "slug_area": "historia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "HISTÓRIA",
+      "area_basica": "HISTÓRIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "INFORM",
+      "cd_programa": "53001010054P6",
+      "nome": "INFORMÁTICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIA DA COMPUTAÇÃO",
+      "cd_area_capes": "2",
+      "slug_area": "ciencia-da-computacao",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "CIÊNCIA DA COMPUTAÇÃO",
+      "area_basica": "CIÊNCIA DA COMPUTAÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "INTMAT",
+      "cd_programa": "53001010086P5",
+      "nome": "INTEGRIDADE DE MATERIAIS DA ENGENHARIA",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS III",
+      "cd_area_capes": "13",
+      "slug_area": "engenharias-iii",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA MECÂNICA",
+      "area_basica": "ENGENHARIA MECÂNICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "LINGUI",
+      "cd_programa": "53001010023P3",
+      "nome": "LINGÜÍSTICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "LINGUÍSTICA E LITERATURA",
+      "cd_area_capes": "41",
+      "slug_area": "linguistica-e-literatura",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "LINGÜÍSTICA",
+      "area_basica": "LINGÜÍSTICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "LINAPL",
+      "cd_programa": "53001010078P2",
+      "nome": "LINGÜÍSTICA APLICADA",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "LINGUÍSTICA E LITERATURA",
+      "cd_area_capes": "41",
+      "slug_area": "linguistica-e-literatura",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "LINGÜÍSTICA",
+      "area_basica": "LINGÜÍSTICA APLICADA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "LITERA",
+      "cd_programa": "53001010022P7",
+      "nome": "LITERATURA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "LINGUÍSTICA E LITERATURA",
+      "cd_area_capes": "41",
+      "slug_area": "linguistica-e-literatura",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "LETRAS",
+      "area_basica": "LETRAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "MATEMA",
+      "cd_programa": "53001010003P2",
+      "nome": "MATEMÁTICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "7"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA",
+      "cd_area_capes": "1",
+      "slug_area": "matematica-probabilidade-e-estatistica",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "MATEMÁTICA",
+      "area_basica": "MATEMÁTICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "MEDTRO",
+      "cd_programa": "53001010015P0",
+      "nome": "MEDICINA TROPICAL",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MEDICINA II",
+      "cd_area_capes": "16",
+      "slug_area": "medicina-ii",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "MEDICINA",
+      "area_basica": "DOENÇAS INFECCIOSAS E PARASITÁRIAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "MADER",
+      "cd_programa": "53001010093P1",
+      "nome": "MEIO AMBIENTE E DESENVOLVIMENTO RURAL",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "MEIO AMBIENTE E AGRÁRIAS",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "METAFI",
+      "cd_programa": "53001010109P5",
+      "nome": "METAFÍSICA",
+      "graus": [
+        "MESTRADO",
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "FILOSOFIA",
+      "cd_area_capes": "33",
+      "slug_area": "filosofia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "FILOSOFIA",
+      "area_basica": "FILOSOFIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "MUSICA",
+      "cd_programa": "53001010057P5",
+      "nome": "MÚSICA",
+      "graus": [
+        "MESTRADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ARTES",
+      "cd_area_capes": "11",
+      "slug_area": "artes",
+      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+      "area_conhecimento": "ARTES",
+      "area_basica": "MÚSICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "NANOBI",
+      "cd_programa": "53001010096P0",
+      "nome": "NANOCIÊNCIA E NANOBIOTECNOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "ENGENHARIA/TECNOLOGIA/GESTÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "NUTRIC",
+      "cd_programa": "53001010049P2",
+      "nome": "NUTRIÇÃO HUMANA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "NUTRIÇÃO",
+      "cd_area_capes": "50",
+      "slug_area": "nutricao",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "NUTRIÇÃO",
+      "area_basica": "NUTRIÇÃO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ODONTO",
+      "cd_programa": "53001010110P3",
+      "nome": "ODONTOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ODONTOLOGIA",
+      "cd_area_capes": "18",
+      "slug_area": "odontologia",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "ODONTOLOGIA",
+      "area_basica": "ODONTOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "PATMOL",
+      "cd_programa": "53001010031P6",
+      "nome": "PATOLOGIA MOLECULAR",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIAS BIOLÓGICAS III",
+      "cd_area_capes": "9",
+      "slug_area": "ciencias-biologicas-iii",
+      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+      "area_conhecimento": "IMUNOLOGIA",
+      "area_basica": "IMUNOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "POLSOC",
+      "cd_programa": "53001010035P1",
+      "nome": "POLÍTICA SOCIAL",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "SERVIÇO SOCIAL",
+      "cd_area_capes": "32",
+      "slug_area": "servico-social",
+      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+      "area_conhecimento": "SERVIÇO SOCIAL",
+      "area_basica": "SERVIÇO SOCIAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "PROCDH",
+      "cd_programa": "53001010062P9",
+      "nome": "PROCESSOS DE DESENVOLVIMENTO HUMANO E SAÚDE",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "PSICOLOGIA",
+      "cd_area_capes": "37",
+      "slug_area": "psicologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "PSICOLOGIA",
+      "area_basica": "PSICOLOGIA DO DESENVOLVIMENTO HUMANO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "PSCCLI",
+      "cd_programa": "53001010064P1",
+      "nome": "PSICOLOGIA CLÍNICA E CULTURA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "PSICOLOGIA",
+      "cd_area_capes": "37",
+      "slug_area": "psicologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "PSICOLOGIA",
+      "area_basica": "PSICOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "PSCDES",
+      "cd_programa": "53001010062P9",
+      "nome": "PSICOLOGIA DO DESENVOLVIMENTO E ESCOLAR",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "PSICOLOGIA",
+      "cd_area_capes": "37",
+      "slug_area": "psicologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "PSICOLOGIA",
+      "area_basica": "PSICOLOGIA DO DESENVOLVIMENTO HUMANO",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "PSCSTO",
+      "cd_programa": "53001010065P8",
+      "nome": "PSICOLOGIA SOCIAL, DO TRABALHO E DAS ORGANIZAÇÕES (PSTO)",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "PSICOLOGIA",
+      "cd_area_capes": "37",
+      "slug_area": "psicologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "PSICOLOGIA",
+      "area_basica": "PSICOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "QUIMIC",
+      "cd_programa": "53001010005P5",
+      "nome": "QUÍMICA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "5"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "QUÍMICA",
+      "cd_area_capes": "4",
+      "slug_area": "quimica",
+      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA",
+      "area_conhecimento": "QUÍMICA",
+      "area_basica": "QUÍMICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "RELINT",
+      "cd_programa": "53001010025P6",
+      "nome": "RELAÇÕES INTERNACIONAIS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "6"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+      "cd_area_capes": "39",
+      "slug_area": "ciencia-politica-e-relacoes-internacionais",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "CIÊNCIA POLÍTICA",
+      "area_basica": "POLÍTICA INTERNACIONAL",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "SAUANI",
+      "cd_programa": "53001010070P1",
+      "nome": "SAÚDE ANIMAL",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "MEDICINA VETERINÁRIA",
+      "cd_area_capes": "24",
+      "slug_area": "medicina-veterinaria",
+      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS",
+      "area_conhecimento": "MEDICINA VETERINÁRIA",
+      "area_basica": "MEDICINA VETERINÁRIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "SAUCOP",
+      "cd_programa": "53001010092P5",
+      "nome": "SAÚDE COLETIVA",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "SAÚDE COLETIVA",
+      "cd_area_capes": "22",
+      "slug_area": "saude-coletiva",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "SAÚDE COLETIVA",
+      "area_basica": "SAÚDE COLETIVA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "SAUCOL",
+      "cd_programa": "53001010090P2",
+      "nome": "SAÚDE COLETIVA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "SAÚDE COLETIVA",
+      "cd_area_capes": "22",
+      "slug_area": "saude-coletiva",
+      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+      "area_conhecimento": "SAÚDE COLETIVA",
+      "area_basica": "SAÚDE COLETIVA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "MECATR",
+      "cd_programa": "53001010052P3",
+      "nome": "SISTEMAS MECATRÔNICOS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3",
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS III",
+      "cd_area_capes": "13",
+      "slug_area": "engenharias-iii",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA MECÂNICA",
+      "area_basica": "ENGENHARIA MECÂNICA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "SOCIOL",
+      "cd_programa": "53001010009P0",
+      "nome": "SOCIOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "7"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "SOCIOLOGIA",
+      "cd_area_capes": "34",
+      "slug_area": "sociologia",
+      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+      "area_conhecimento": "SOCIOLOGIA",
+      "area_basica": "SOCIOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "SUSPOV",
+      "cd_programa": "53001010113P2",
+      "nome": "SUSTENTABILIDADE JUNTO A POVOS E TERRITÓRIOS TRADICIONAIS",
+      "graus": [
+        "MESTRADO PROFISSIONAL"
+      ],
+      "modalidade": [
+        "PROFISSIONAL"
+      ],
+      "conceito": [
+        "A"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "INTERDISCIPLINAR",
+      "cd_area_capes": "45",
+      "slug_area": "interdisciplinar",
+      "grande_area_cnpq": "MULTIDISCIPLINAR",
+      "area_conhecimento": "INTERDISCIPLINAR",
+      "area_basica": "SOCIAIS E HUMANIDADES",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "TECARH",
+      "cd_programa": "53001010041P1",
+      "nome": "TECNOLOGIA AMBIENTAL E RECURSOS HÍDRICOS",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS I",
+      "cd_area_capes": "10",
+      "slug_area": "engenharias-i",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA SANITÁRIA",
+      "area_basica": "ENGENHARIA SANITÁRIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "TRANSP",
+      "cd_programa": "53001010030P0",
+      "nome": "TRANSPORTES",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "3"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "ENGENHARIAS I",
+      "cd_area_capes": "10",
+      "slug_area": "engenharias-i",
+      "grande_area_cnpq": "ENGENHARIAS",
+      "area_conhecimento": "ENGENHARIA DE TRANSPORTES",
+      "area_basica": "ENGENHARIA DE TRANSPORTES",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    },
+    {
+      "sufixo": "ZOOLOG",
+      "cd_programa": "53001010099P0",
+      "nome": "ZOOLOGIA",
+      "graus": [
+        "MESTRADO/DOUTORADO"
+      ],
+      "modalidade": [
+        "ACADÊMICO"
+      ],
+      "conceito": [
+        "4"
+      ],
+      "situacao": "EM FUNCIONAMENTO",
+      "area_capes": "BIODIVERSIDADE",
+      "cd_area_capes": "7",
+      "slug_area": "biodiversidade",
+      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+      "area_conhecimento": "ZOOLOGIA",
+      "area_basica": "ZOOLOGIA",
+      "sigla_ies": "UNB",
+      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
+    }
+  ]
+}

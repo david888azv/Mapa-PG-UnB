@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-SOCIOL",
+  "sufixo": "SOCIOL",
+  "cd_programa_ies": "53001010009P0",
+  "nome_programa": "SOCIOLOGIA",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "7"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "SOCIOLOGIA",
+  "cd_area_capes": "34",
+  "slug_area": "sociologia",
+  "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+  "area_conhecimento": "SOCIOLOGIA",
+  "area_basica": "SOCIOLOGIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=SOCIOL"
+}

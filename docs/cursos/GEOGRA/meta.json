@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-GEOGRA",
+  "sufixo": "GEOGRA",
+  "cd_programa_ies": "53001010043P4",
+  "nome_programa": "GEOGRAFIA",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "5"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "GEOGRAFIA",
+  "cd_area_capes": "36",
+  "slug_area": "geografia",
+  "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+  "area_conhecimento": "GEOGRAFIA",
+  "area_basica": "GEOGRAFIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=GEOGRA"
+}

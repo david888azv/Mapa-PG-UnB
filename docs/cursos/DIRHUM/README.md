@@ -1,0 +1,9 @@
+# MAPA-PG-DIRHUM — DIREITOS HUMANOS E CIDADANIA
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **INTERDISCIPLINAR** (CNPq: MULTIDISCIPLINAR)
+- Conceito: 4
+- Modalidade: ACADÊMICO
+- Graus: MESTRADO, MESTRADO/DOUTORADO
+
+Aplicativo: [`../../index.html?curso=DIRHUM`](../../index.html?curso=DIRHUM)

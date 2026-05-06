@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-MATERI",
+  "sufixo": "MATERI",
+  "cd_programa_ies": "53001010084P2",
+  "nome_programa": "CIÊNCIAS DE MATERIAIS",
+  "graus": [
+    "MESTRADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "3"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "MATERIAIS",
+  "cd_area_capes": "47",
+  "slug_area": "materiais",
+  "grande_area_cnpq": "MULTIDISCIPLINAR",
+  "area_conhecimento": "MATERIAIS",
+  "area_basica": "MATERIAIS",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=MATERI"
+}

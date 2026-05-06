@@ -1,0 +1,9 @@
+# MAPA-PG-ESELET — ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **ENGENHARIAS IV** (CNPq: ENGENHARIAS)
+- Conceito: 4
+- Modalidade: ACADÊMICO
+- Graus: MESTRADO/DOUTORADO
+
+Aplicativo: [`../../index.html?curso=ESELET`](../../index.html?curso=ESELET)

@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-ZOOLOG",
+  "sufixo": "ZOOLOG",
+  "cd_programa_ies": "53001010099P0",
+  "nome_programa": "ZOOLOGIA",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "BIODIVERSIDADE",
+  "cd_area_capes": "7",
+  "slug_area": "biodiversidade",
+  "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+  "area_conhecimento": "ZOOLOGIA",
+  "area_basica": "ZOOLOGIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=ZOOLOG"
+}

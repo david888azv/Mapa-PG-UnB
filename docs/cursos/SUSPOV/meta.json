@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-SUSPOV",
+  "sufixo": "SUSPOV",
+  "cd_programa_ies": "53001010113P2",
+  "nome_programa": "SUSTENTABILIDADE JUNTO A POVOS E TERRITÓRIOS TRADICIONAIS",
+  "graus": [
+    "MESTRADO PROFISSIONAL"
+  ],
+  "modalidade": [
+    "PROFISSIONAL"
+  ],
+  "conceito": [
+    "A"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "INTERDISCIPLINAR",
+  "cd_area_capes": "45",
+  "slug_area": "interdisciplinar",
+  "grande_area_cnpq": "MULTIDISCIPLINAR",
+  "area_conhecimento": "INTERDISCIPLINAR",
+  "area_basica": "SOCIAIS E HUMANIDADES",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=SUSPOV"
+}

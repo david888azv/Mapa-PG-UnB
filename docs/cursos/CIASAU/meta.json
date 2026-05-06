@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-CIASAU",
+  "sufixo": "CIASAU",
+  "cd_programa_ies": "53001010047P0",
+  "nome_programa": "CIÊNCIAS DA SAÚDE",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "5"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "MEDICINA II",
+  "cd_area_capes": "16",
+  "slug_area": "medicina-ii",
+  "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+  "area_conhecimento": "MEDICINA",
+  "area_basica": "NEUROLOGIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=CIASAU"
+}

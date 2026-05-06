@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-ENSCIE",
+  "sufixo": "ENSCIE",
+  "cd_programa_ies": "53001010056P9",
+  "nome_programa": "ENSINO DE CIÊNCIAS",
+  "graus": [
+    "MESTRADO PROFISSIONAL"
+  ],
+  "modalidade": [
+    "PROFISSIONAL"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "ENSINO",
+  "cd_area_capes": "46",
+  "slug_area": "ensino",
+  "grande_area_cnpq": "MULTIDISCIPLINAR",
+  "area_conhecimento": "ENSINO",
+  "area_basica": "ENSINO DE CIÊNCIAS E MATEMÁTICA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=ENSCIE"
+}

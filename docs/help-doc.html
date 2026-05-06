@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAPA-PG — Documentação e Fontes de Dados</title>
+<style>
+:root { --azul:#2C3E50; --azul2:#34495E; --azul3:#1A252F; --accent:#E91E63;
+    --verde:#27AE60; --bg:#F5F7FA; --card:#FFF; --borda:#E0E4E8; --txt:#2C3E50; --txt2:#7F8C8D; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;padding:14px 28px;
+    display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.header h1{font-size:22px;font-weight:700;letter-spacing:1px;}
+.header h1 em{color:var(--accent);font-style:normal;}
+.header .meta{text-align:right;font-size:12px;opacity:.85;line-height:1.5;}
+nav{background:var(--azul3);padding:8px 28px;display:flex;gap:16px;flex-wrap:wrap;}
+nav a{color:#aaa;text-decoration:none;font-size:13px;font-weight:600;padding:4px 12px;border-radius:4px;transition:.2s;cursor:pointer;}
+nav a:hover,nav a.active{color:#fff;background:var(--accent);}
+.content{max-width:1100px;margin:24px auto;padding:0 20px;}
+.card{background:var(--card);border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:24px;margin-bottom:20px;}
+.card h2{font-size:18px;color:var(--azul);margin-bottom:14px;border-bottom:3px solid var(--accent);padding-bottom:6px;}
+.card h3{font-size:15px;color:var(--accent);margin:16px 0 8px;}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+th{background:var(--azul);color:#fff;padding:8px 10px;text-align:left;font-weight:600;}
+td{padding:6px 10px;border-bottom:1px solid var(--borda);}
+tr:nth-child(even){background:#F8F9FA;}
+code{background:#E8EDF2;padding:2px 6px;border-radius:3px;font-size:12px;font-family:'Consolas','Courier New',monospace;}
+.info-box{border-left:4px solid #4CAF50;background:#E8F5E9;padding:12px;border-radius:4px;margin:12px 0;font-size:13px;}
+.warn-box{border-left:4px solid #FF9800;background:#FFF8E1;padding:12px;border-radius:4px;margin:12px 0;font-size:13px;}
+.section{display:none;} .section.active{display:block;}
+.contact{background:var(--azul3);color:#ccc;padding:12px 28px;font-size:12px;text-align:center;margin-top:24px;}
+.contact a{color:var(--accent);text-decoration:none;}
+a{color:#1565C0;}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1><em>MAPA-PG</em> — Documentação</h1>
+    <div class="meta">
+        <div>Prof. David L. Azevedo</div>
+        <div>v1.5</div>
+    </div>
+</div>
+
+<nav>
+    <a onclick="showSection('sec-sobre')" class="active" id="nav-sobre">Sobre</a>
+    <a onclick="showSection('sec-uso')" id="nav-uso">Como Usar</a>
+    <a onclick="showSection('sec-siglas')" id="nav-siglas">Siglas e Programas</a>
+    <a onclick="showSection('sec-fontes')" id="nav-fontes">Fontes de Dados e URLs</a>
+    <a onclick="showSection('sec-versoes')" id="nav-versoes">Versões</a>
+</nav>
+
+<div class="content">
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- SOBRE                                                       -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="section active" id="sec-sobre">
+
+<div class="card">
+    <h2>Sobre o MAPA-PG</h2>
+    <p><strong>MAPA-PG</strong> — <em>Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</em> — é um sistema interativo para acompanhamento
+       e gestão de análise de programas de pós-graduação brasileiros na área de <strong>Astronomia / Física</strong>.</p>
+
+    <p style="margin-top:12px;">O sistema permite comparar indicadores de produtividade entre programas com notas CAPES 4, 5, 6 e 7,
+       visualizar tendências ao longo de três quadriênios (2013-2016, 2017-2020, 2021-2024), e gerar relatórios e gráficos exportáveis.</p>
+
+    <h3>Autor</h3>
+    <table>
+        <tr><td><strong>Desenvolvedor</strong></td><td>Prof. David L. Azevedo</td></tr>
+        <tr><td><strong>Instituição</strong></td><td>Universidade de Brasília (UnB)</td></tr>
+        <tr><td><strong>E-mail</strong></td><td><a href="mailto:david888azv@unb.br">david888azv@unb.br</a></td></tr>
+        <tr><td><strong>Versão atual</strong></td><td>v1.5 (Abril 2026)</td></tr>
+        <tr><td><strong>Arquivo</strong></td><td><code>1.5-mapa-pg.html</code></td></tr>
+    </table>
+
+    <div class="info-box" style="text-align:justify;">
+        <strong>Dados públicos:</strong> Todos os dados utilizados neste sistema foram obtidos do
+        <a href="https://dadosabertos.capes.gov.br/" target="_blank">Portal de Dados Abertos da CAPES</a>,
+        como parte da iniciativa do Governo Federal de transparência e acesso à informação pública
+        (Lei de Acesso à Informação — Lei n. 12.527/2011). Os dados são públicos e de livre acesso.
+        Os links para download de cada arquivo encontram-se na aba <strong>"Fontes de Dados e URLs"</strong>.
+    </div>
+</div>
+
+<div class="card">
+    <h2>Requisitos</h2>
+    <ul style="padding-left:20px;font-size:13px;">
+        <li>Navegador moderno (Chrome, Firefox, Edge ou Safari)</li>
+        <li>Arquivo <code>dados_fisica.json</code> na mesma pasta (ou dados embutidos no HTML)</li>
+        <li>Conexão com internet na primeira abertura (para carregar Chart.js via CDN)</li>
+    </ul>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- COMO USAR                                                   -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="section" id="sec-uso">
+
+<div class="card">
+    <h2>Como Usar o MAPA-PG</h2>
+
+    <h3>1. Filtros (Barra Lateral)</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li><strong>Notas CAPES:</strong> Selecione notas 4, 5, 6 e/ou 7 para filtrar os programas</li>
+        <li><strong>Quadriênio:</strong> Escolha um quadriênio específico ou "Todos"</li>
+        <li><strong>Métrica:</strong> Selecione a métrica de produtividade (média artigos/docente/ano por categoria)</li>
+        <li><strong>Região:</strong> Filtre por região geográfica (CO, NE, N, SE, S)</li>
+        <li><strong>Tipo de produção:</strong> Filtre por tipo (Art. Periódico, Resumo, Trab. Congresso, etc.)</li>
+        <li><strong>Estrato IF:</strong> Filtre por faixa de fator de impacto (baixo/médio/alto)</li>
+    </ul>
+
+    <h3>2. Resultados</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li><strong>Tabela:</strong> Ranking dos programas com indicadores completos</li>
+        <li><strong>Gráficos:</strong> Barras e evolução temporal por quadriênio</li>
+        <li><strong>Relatório:</strong> Texto formatado para cópia e análise</li>
+    </ul>
+
+    <h3>3. Exportação</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li><strong>CSV:</strong> Exporta todos os dados filtrados em formato CSV (separador: ponto e vírgula)</li>
+        <li><strong>PNG:</strong> Exporta todos os gráficos visíveis como imagens PNG com marca d'água</li>
+        <li><strong>Relatório IF:</strong> Gera relatório detalhado de fator de impacto em nova janela</li>
+    </ul>
+
+    <h3>4. Destaques</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li>A <strong>UnB</strong> e sempre destacada em rosa nos gráficos e na tabela</li>
+        <li>Clique no cabeçalho de qualquer coluna da tabela para ordenar</li>
+        <li>Os dados de docentes para 2022-2024 utilizam forward-fill do último ano disponível (2021)</li>
+    </ul>
+
+    <div class="warn-box" style="margin-top:16px;text-align:justify;">
+        <strong>Ressalva sobre o número de docentes:</strong><br>
+        Nos dados brutos disponibilizados pelo Portal de Dados Abertos da CAPES, alguns programas de pós-graduação
+        apresentam o número de docentes igual a zero em determinados anos, especialmente no terceiro quadriênio
+        (Q3, 2021-2024), cujos dados de docentes só foram publicados até 2021. Essa situação pode ocorrer também
+        pontualmente em outros quadriênios para programas específicos.<br><br>
+        Para estimar a produção por pesquisador nesses casos, o MAPA-PG adota a seguinte estratégia de
+        <strong>forward-fill</strong>: quando o número de docentes de um programa é zero em um determinado ano,
+        o sistema utiliza o <strong>último registro diferente de zero</strong> disponível para aquele programa
+        como substituto. Isso garante que as métricas de produtividade (artigos/docente/ano) possam ser calculadas
+        de forma consistente, mesmo na ausência de dados completos de docentes.<br><br>
+        Os valores estimados por este método devem ser interpretados com cautela, pois o número real de
+        pesquisadores ativos pode ter variado no período.
+    </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- SIGLAS E PROGRAMAS                                          -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="section" id="sec-siglas">
+
+<div class="card">
+    <h2>Glossário de Siglas — Programas de Astronomia / Física</h2>
+    <p>Lista completa dos 66 programas de pós-graduação na área de Astronomia / Física monitorados pelo MAPA-PG,
+       com sigla da instituição, nome do programa, universidade e ano de início do primeiro curso.</p>
+
+    <div class="info-box">
+        <strong>Fonte:</strong> Cadastro de Programas de Pós-Graduação — CAPES Dados Abertos.
+        O ano de início refere-se ao campo <code>AN_INICIO_CURSO</code> (primeiro curso registrado no programa).
+    </div>
+
+    <table>
+        <tr><th>Sigla</th><th>Programa</th><th>Universidade / Instituição</th><th>Início</th></tr>
+        <tr><td>CBPF</td><td>FÍSICA</td><td>Centro Brasileiro de Pesquisas Físicas</td><td>1962</td></tr>
+        <tr><td>FUFPI</td><td>FÍSICA</td><td>Fundação Universidade Federal do Piauí</td><td>2008</td></tr>
+        <tr><td>FUFSE</td><td>FÍSICA</td><td>Fundação Universidade Federal de Sergipe</td><td>1994</td></tr>
+        <tr><td>FURG</td><td>FÍSICA</td><td>Universidade Federal do Rio Grande</td><td>2010</td></tr>
+        <tr><td>IFT/UNESP</td><td>FÍSICA</td><td>Instituto de Física Teórica / UNESP</td><td>1971</td></tr>
+        <tr><td>INPE</td><td>ASTROFÍSICA</td><td>Instituto Nacional de Pesquisas Espaciais</td><td>1994</td></tr>
+        <tr><td>ITA</td><td>FÍSICA</td><td>Instituto Tecnológico de Aeronáutica</td><td>1961</td></tr>
+        <tr><td>ON</td><td>ASTRONOMIA</td><td>Observatório Nacional</td><td>1969</td></tr>
+        <tr><td>PUC-RIO</td><td>FÍSICA</td><td>Pontifícia Universidade Católica do Rio de Janeiro</td><td>1965</td></tr>
+        <tr><td>UDESC</td><td>FÍSICA</td><td>Universidade do Estado de Santa Catarina</td><td>2006</td></tr>
+        <tr><td>UEL</td><td>FÍSICA</td><td>Universidade Estadual de Londrina</td><td>1996</td></tr>
+        <tr><td>UEM</td><td>FÍSICA</td><td>Universidade Estadual de Maringá</td><td>1997</td></tr>
+        <tr><td>UEPG</td><td>CIÊNCIAS</td><td>Universidade Estadual de Ponta Grossa</td><td>2003</td></tr>
+        <tr><td>UERJ</td><td>FÍSICA</td><td>Universidade do Estado do Rio de Janeiro</td><td>1997</td></tr>
+        <tr><td>UERN</td><td>FÍSICA</td><td>Universidade do Estado do Rio Grande do Norte</td><td>2008</td></tr>
+        <tr><td>UESC</td><td>FÍSICA</td><td>Universidade Estadual de Santa Cruz</td><td>2008</td></tr>
+        <tr><td>UFABC</td><td>FÍSICA</td><td>Universidade Federal do ABC</td><td>2007</td></tr>
+        <tr><td>UFAL</td><td>FÍSICA DA MATÉRIA CONDENSADA</td><td>Universidade Federal de Alagoas</td><td>1992</td></tr>
+        <tr><td>UFAM</td><td>FÍSICA</td><td>Universidade Federal do Amazonas</td><td>1999</td></tr>
+        <tr><td>UFBA</td><td>FÍSICA</td><td>Universidade Federal da Bahia</td><td>1975</td></tr>
+        <tr><td>UFC</td><td>FÍSICA</td><td>Universidade Federal do Ceará</td><td>1976</td></tr>
+        <tr><td>UFCG</td><td>FÍSICA</td><td>Universidade Federal de Campina Grande</td><td>2007</td></tr>
+        <tr><td>UFES</td><td>FÍSICA</td><td>Universidade Federal do Espírito Santo</td><td>1992</td></tr>
+        <tr><td>UFES</td><td>ASTROFÍSICA, COSMOLOGIA E GRAVITAÇÃO</td><td>Universidade Federal do Espírito Santo</td><td>2016</td></tr>
+        <tr><td>UFF</td><td>FÍSICA</td><td>Universidade Federal Fluminense</td><td>1977</td></tr>
+        <tr><td>UFG</td><td>FÍSICA</td><td>Universidade Federal de Goiás</td><td>1992</td></tr>
+        <tr><td>UFJF</td><td>FÍSICA</td><td>Universidade Federal de Juiz de Fora</td><td>1999</td></tr>
+        <tr><td>UFJF</td><td>FÍSICA - UFV</td><td>Universidade Federal de Juiz de Fora</td><td>2006</td></tr>
+        <tr><td>UFLA</td><td>FÍSICA</td><td>Universidade Federal de Lavras</td><td>2019</td></tr>
+        <tr><td>UFMA</td><td>FÍSICA</td><td>Universidade Federal do Maranhão</td><td>2005</td></tr>
+        <tr><td>UFMG</td><td>FÍSICA</td><td>Universidade Federal de Minas Gerais</td><td>1968</td></tr>
+        <tr><td>UFMT</td><td>FÍSICA</td><td>Universidade Federal de Mato Grosso</td><td>2005</td></tr>
+        <tr><td>UFPA</td><td>FÍSICA</td><td>Universidade Federal do Pará</td><td>2002</td></tr>
+        <tr><td>UFPB/J.P.</td><td>FÍSICA</td><td>Universidade Federal da Paraíba / João Pessoa</td><td>1973</td></tr>
+        <tr><td>UFPE</td><td>FÍSICA</td><td>Universidade Federal de Pernambuco</td><td>1973</td></tr>
+        <tr><td>UFPEL</td><td>FÍSICA</td><td>Universidade Federal de Pelotas</td><td>2008</td></tr>
+        <tr><td>UFPR</td><td>FÍSICA</td><td>Universidade Federal do Paraná</td><td>1984</td></tr>
+        <tr><td>UFRGS</td><td>FÍSICA</td><td>Universidade Federal do Rio Grande do Sul</td><td>1968</td></tr>
+        <tr><td>UFRJ</td><td>FÍSICA</td><td>Universidade Federal do Rio de Janeiro</td><td>1972</td></tr>
+        <tr><td>UFRJ</td><td>ASTRONOMIA</td><td>Universidade Federal do Rio de Janeiro</td><td>2003</td></tr>
+        <tr><td>UFRJ</td><td>INTERDISCIPLINAR EM FÍSICA APLICADA</td><td>Universidade Federal do Rio de Janeiro</td><td>2018</td></tr>
+        <tr><td>UFRN</td><td>FÍSICA</td><td>Universidade Federal do Rio Grande do Norte</td><td>1986</td></tr>
+        <tr><td>UFRPE</td><td>FÍSICA APLICADA</td><td>Universidade Federal Rural de Pernambuco</td><td>2009</td></tr>
+        <tr><td>UFRR</td><td>FÍSICA</td><td>Fundação Universidade Federal de Roraima</td><td>2006</td></tr>
+        <tr><td>UFSC</td><td>FÍSICA</td><td>Universidade Federal de Santa Catarina</td><td>1988</td></tr>
+        <tr><td>UFSCAR</td><td>FÍSICA</td><td>Universidade Federal de São Carlos</td><td>1988</td></tr>
+        <tr><td>UFSM</td><td>FÍSICA</td><td>Universidade Federal de Santa Maria</td><td>1994</td></tr>
+        <tr><td>UFU</td><td>FÍSICA</td><td>Universidade Federal de Uberlândia</td><td>2002</td></tr>
+        <tr><td>UFV</td><td>FÍSICA APLICADA</td><td>Universidade Federal de Viçosa</td><td>2001</td></tr>
+        <tr><td>UNB</td><td>FÍSICA</td><td>Universidade de Brasília</td><td>1969</td></tr>
+        <tr><td>UNESP/GUAR</td><td>FÍSICA</td><td>Univ. Est. Paulista Júlio de Mesquita Filho / Guaratinguetá</td><td>1990</td></tr>
+        <tr><td>UNESP/RC</td><td>FÍSICA</td><td>Univ. Est. Paulista Júlio de Mesquita Filho / Rio Claro</td><td>2000</td></tr>
+        <tr><td>UNICAMP</td><td>FÍSICA</td><td>Universidade Estadual de Campinas</td><td>1970</td></tr>
+        <tr><td>UNICID</td><td>ASTROFÍSICA E FÍSICA COMPUTACIONAL</td><td>Universidade Cidade de São Paulo</td><td>2008</td></tr>
+        <tr><td>UNICSUL</td><td>ASTROFÍSICA E FÍSICA COMPUTACIONAL</td><td>Universidade Cruzeiro do Sul</td><td>2008</td></tr>
+        <tr><td>UNIFAL</td><td>FÍSICA - UFLA - UFSJ - UNIFAL</td><td>Universidade Federal de Alfenas</td><td>2012</td></tr>
+        <tr><td>UNIFEI</td><td>FÍSICA</td><td>Universidade Federal de Itajubá</td><td>2013</td></tr>
+        <tr><td>UNIFEI</td><td>FÍSICA E MATEMÁTICA APLICADA</td><td>Universidade Federal de Itajubá</td><td>2006</td></tr>
+        <tr><td>UNILA</td><td>FÍSICA APLICADA</td><td>Universidade Federal da Integração Latino-Americana</td><td>2016</td></tr>
+        <tr><td>UNIR</td><td>ENSINO DE FÍSICA - PROFIS</td><td>Universidade Federal de Rondônia</td><td>2013</td></tr>
+        <tr><td>UNIVAP</td><td>FÍSICA E ASTRONOMIA</td><td>Universidade do Vale do Paraíba</td><td>2004</td></tr>
+        <tr><td>USP</td><td>FÍSICA</td><td>Universidade de São Paulo</td><td>1970</td></tr>
+        <tr><td>USP</td><td>ASTRONOMIA</td><td>Universidade de São Paulo</td><td>1973</td></tr>
+        <tr><td>USP/SC</td><td>FÍSICA</td><td>Universidade de São Paulo / São Carlos</td><td>1975</td></tr>
+        <tr><td>UTFPR</td><td>FÍSICA E ASTRONOMIA</td><td>Universidade Tecnológica Federal do Paraná</td><td>2016</td></tr>
+    </table>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- FONTES DE DADOS E URLs                                      -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="section" id="sec-fontes">
+
+<div class="card">
+    <h2>Fontes de Dados — Portal de Dados Abertos da CAPES</h2>
+
+    <div class="info-box">
+        <strong>Portal:</strong> <a href="https://dadosabertos.capes.gov.br/" target="_blank">https://dadosabertos.capes.gov.br/</a><br>
+        <strong>Tecnologia:</strong> Plataforma CKAN (Comprehensive Knowledge Archive Network)<br>
+        <strong>Licença:</strong> Dados abertos governamentais — Lei de Acesso à Informação (Lei n. 12.527/2011)<br>
+        <strong>Volume total baixado:</strong> ~7,5 GB (todas as áreas); filtrado para ~114 MB (Astronomia/Física)<br>
+        <strong>Data de download:</strong> 22 de março de 2026
+    </div>
+
+    <div class="warn-box">
+        Os dados da CAPES são atualizados periodicamente. Recomenda-se verificar o portal para versões mais recentes.
+        A API CKAN permite consultar metadados programaticamente:<br>
+        <code>https://dadosabertos.capes.gov.br/api/3/action/package_list</code>
+    </div>
+</div>
+
+<!-- FONTE 1 -->
+<div class="card">
+    <h2>1. Docentes da Pós-Graduação — 2021 a 2024</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2021-a-2024-docentes-da-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2021-a-2024-docentes-da-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
+        <tr><td><strong>API CKAN</strong></td><td><code style="word-break:break-all;">https://dadosabertos.capes.gov.br/api/3/action/package_show?id=2021-a-2024-docentes-da-pos-graduacao-stricto-sensu-no-brasil</code></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Docentes vinculados a programas stricto sensu: categoria, bolsa PQ, titulação, IES, área</td></tr>
+        <tr><td><strong>Arquivo filtrado</strong></td><td><code>docentes_0.csv</code></td></tr>
+    </table>
+</div>
+
+<!-- FONTE 2 -->
+<div class="card">
+    <h2>2. Docentes da Pós-Graduação — 2017 a 2020</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2017-a-2020-docentes-da-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2017-a-2020-docentes-da-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Docentes do segundo quadriênio</td></tr>
+        <tr><td><strong>Arquivos filtrados</strong></td><td><code>docentes_2017a2020_0.csv</code> a <code>_3.csv</code></td></tr>
+    </table>
+</div>
+
+<!-- FONTE 3 -->
+<div class="card">
+    <h2>3. Docentes da Pós-Graduação — 2013 a 2016</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2013-a-2016-docentes-da-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2013-a-2016-docentes-da-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Docentes do primeiro quadriênio</td></tr>
+        <tr><td><strong>Arquivos filtrados</strong></td><td><code>docentes_2013a2016_0.csv</code> a <code>_3.csv</code></td></tr>
+    </table>
+</div>
+
+<!-- FONTE 4 -->
+<div class="card">
+    <h2>4. Produção Intelectual por Autor — 2021 a 2024</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2021-a-2024-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2021-a-2024-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
+        <tr><td><strong>API CKAN</strong></td><td><code style="word-break:break-all;">https://dadosabertos.capes.gov.br/api/3/action/package_show?id=2021-a-2024-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</code></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Artigos em periódicos, resumos, trabalhos de congresso, capítulos de livro, textos em jornal</td></tr>
+        <tr><td><strong>Arquivos filtrados</strong></td><td><code>prod_artpe_0.csv</code> a <code>prod_artpe_11.csv</code></td></tr>
+    </table>
+</div>
+
+<!-- FONTE 5 -->
+<div class="card">
+    <h2>5. Produção Intelectual por Autor — 2017 a 2020</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2017-a-2020-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2017-a-2020-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Produção intelectual por autor do segundo quadriênio</td></tr>
+        <tr><td><strong>Arquivos filtrados</strong></td><td><code>prod_autor_2017a2020_*.csv</code> (33 arquivos)</td></tr>
+    </table>
+</div>
+
+<!-- FONTE 6 -->
+<div class="card">
+    <h2>6. Produção Intelectual por Autor — 2013 a 2016</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2013-a-2016-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2013-a-2016-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Produção intelectual por autor do primeiro quadriênio</td></tr>
+        <tr><td><strong>Arquivos filtrados</strong></td><td><code>prod_autor_2013a2016_*.csv</code> (27 arquivos)</td></tr>
+    </table>
+</div>
+
+<!-- FONTE 7 -->
+<div class="card">
+    <h2>7. Programas de Pós-Graduação — Censos 2022, 2023, 2024</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5</a></td></tr>
+        <tr><td><strong>Censo 2022</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5/resource/ead1fb95-dce7-46da-b253-998dddc3f448/download/br-capes-colsucup-prog-2022-2025-03-31.csv" target="_blank" style="word-break:break-all;">br-capes-colsucup-prog-2022-2025-03-31.csv</a></td></tr>
+        <tr><td><strong>Censo 2023</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5/resource/ddff2931-c0df-4bf8-a0fc-a97ad9cd74a0/download/br-capes-colsucup-prog-2023-2025-03-31.csv" target="_blank" style="word-break:break-all;">br-capes-colsucup-prog-2023-2025-03-31.csv</a></td></tr>
+        <tr><td><strong>Censo 2024</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5/resource/76ccbd76-7f3a-40c3-a4dc-7d6f65858db8/download/br-capes-colsucup-prog-2024-2025-12-01.csv" target="_blank" style="word-break:break-all;">br-capes-colsucup-prog-2024-2025-12-01.csv</a></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Cadastro de programas com notas conceito, status, área de avaliação, IES e município</td></tr>
+    </table>
+</div>
+
+<!-- FONTE 8 -->
+<div class="card">
+    <h2>8. Produção Intelectual Nomeada (Metadados com ISSN)</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>Portal</strong></td><td><a href="https://dadosabertos.capes.gov.br/" target="_blank">https://dadosabertos.capes.gov.br/</a> (datasets de produção intelectual — recursos com metadados nomeados)</td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Título, ISSN do periódico, tipo e subtipo de produção</td></tr>
+        <tr><td><strong>Arquivos</strong></td><td><code>prod_intel_*_artpe_*.csv</code></td></tr>
+    </table>
+</div>
+
+<!-- FONTE 9 -->
+<div class="card">
+    <h2>9. Periódicos — OpenAlex (Fator de Impacto)</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>API</strong></td><td><a href="https://api.openalex.org/sources?filter=type:journal&per_page=200" target="_blank" style="word-break:break-all;">https://api.openalex.org/sources?filter=type:journal&amp;per_page=200</a></td></tr>
+        <tr><td><strong>Documentação</strong></td><td><a href="https://docs.openalex.org/" target="_blank">https://docs.openalex.org/</a></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>~226.000 periódicos: ISSN, fator de impacto (2yr mean citedness), H-index, OA</td></tr>
+        <tr><td><strong>Licença</strong></td><td>CC0 (Domínio Público) — <a href="https://openalex.org/" target="_blank">https://openalex.org/</a></td></tr>
+        <tr><td><strong>Arquivo gerado</strong></td><td><code>openalex_journals.csv</code> e <code>issn_impacto.csv</code></td></tr>
+    </table>
+</div>
+
+<!-- RESUMO -->
+<div class="card">
+    <h2>Resumo Consolidado</h2>
+    <table>
+        <tr><th>Dataset</th><th>Fonte</th><th>Período</th><th>Licença</th></tr>
+        <tr><td>Docentes (3 quadriênios)</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
+        <tr><td>Produção Intelectual por Autor</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
+        <tr><td>Produção Intelectual Nomeada</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
+        <tr><td>Programas de Pós-Graduação</td><td>CAPES Dados Abertos</td><td>2022-2024</td><td>Dados abertos governamentais</td></tr>
+        <tr><td>Periódicos (Fator de Impacto)</td><td>OpenAlex API</td><td>Atual</td><td>CC0 (Domínio Público)</td></tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- VERSOES                                                     -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="section" id="sec-versoes">
+
+<div class="card">
+    <h2>Histórico de Versões</h2>
+    <table>
+        <tr><th>Versão</th><th>Data</th><th>Alterações</th></tr>
+        <tr><td>v1.0</td><td>2026-03-25</td><td>Versão inicial: filtros, gráficos, tabelas, relatórios, exportação CSV</td></tr>
+        <tr><td>v1.1</td><td>2026-03-25</td><td>Dados embutidos no HTML, exportação PNG, botão Help, documentação</td></tr>
+        <tr><td>v1.2</td><td>2026-03-25</td><td>Filtro por região, modal de licença de uso na abertura</td></tr>
+        <tr><td>v1.3</td><td>2026-04-02</td><td>Filtro por tipo de produção intelectual e estrato de fator de impacto, card de produção por tipo</td></tr>
+        <tr><td>v1.4</td><td>2026-04-10</td><td>Renomeação para <strong>MAPA-PG</strong> (Monitoramento e Análise de Produção Acadêmica da Pós-Graduação). Disclaimer de abertura com informações sobre dados abertos da CAPES e Lei de Acesso à Informação. Documentação simplificada com todas as URLs de download dos dados brutos. Pasta de distribuição <code>mapa-pg/</code> para execução independente</td></tr>
+        <tr><td>v1.5</td><td>2026-04-12</td><td>Programas de Física e Astronomia com <strong>Nota 4</strong> adicionados a todas as análises (filtros, tabelas, gráficos, relatórios e exportações). Textos da tela de abertura simplificados e revisão ortográfica com acentuação correta em toda a documentação</td></tr>
+    </table>
+
+    <h3>Limitações Conhecidas</h3>
+    <ul style="font-size:13px;padding-left:20px;line-height:2;">
+        <li>Dados de docentes disponíveis até 2021 (CAPES não publicou 2022-2024); anos faltantes usam forward-fill</li>
+        <li>Chart.js é carregado via CDN — primeira abertura requer internet</li>
+        <li>Exportação PNG depende do suporte nativo do navegador à <code>canvas.toBlob()</code></li>
+    </ul>
+</div>
+</div>
+
+</div><!-- content -->
+
+<div class="contact">
+    <strong>MAPA-PG</strong> v1.5 | Prof. David L. Azevedo |
+    <a href="mailto:david888azv@unb.br">david888azv@unb.br</a> |
+    Universidade de Brasília (UnB)
+</div>
+
+<script>
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('nav-' + id.replace('sec-', '')).classList.add('active');
+}
+</script>
+</body>
+</html>

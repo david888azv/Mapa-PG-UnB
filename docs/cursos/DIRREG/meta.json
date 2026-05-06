@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-DIRREG",
+  "sufixo": "DIRREG",
+  "cd_programa_ies": "53001010111P0",
+  "nome_programa": "DIREITO, REGULAÇÃO E POLÍTICAS PÚBLICAS",
+  "graus": [
+    "MESTRADO PROFISSIONAL"
+  ],
+  "modalidade": [
+    "PROFISSIONAL"
+  ],
+  "conceito": [
+    "A"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "DIREITO",
+  "cd_area_capes": "26",
+  "slug_area": "direito",
+  "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
+  "area_conhecimento": "DIREITO",
+  "area_basica": "DIREITO PÚBLICO",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=DIRREG"
+}

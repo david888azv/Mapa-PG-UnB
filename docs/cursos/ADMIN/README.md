@@ -1,0 +1,9 @@
+# MAPA-PG-ADMIN — ADMINISTRAÇÃO
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO** (CNPq: CIÊNCIAS SOCIAIS APLICADAS)
+- Conceito: 5
+- Modalidade: ACADÊMICO
+- Graus: MESTRADO/DOUTORADO
+
+Aplicativo: [`../../index.html?curso=ADMIN`](../../index.html?curso=ADMIN)

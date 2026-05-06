@@ -1,0 +1,9 @@
+# MAPA-PG-PSCSTO — PSICOLOGIA SOCIAL, DO TRABALHO E DAS ORGANIZAÇÕES (PSTO)
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **PSICOLOGIA** (CNPq: CIÊNCIAS HUMANAS)
+- Conceito: 6
+- Modalidade: ACADÊMICO
+- Graus: MESTRADO/DOUTORADO
+
+Aplicativo: [`../../index.html?curso=PSCSTO`](../../index.html?curso=PSCSTO)

@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-PATMOL",
+  "sufixo": "PATMOL",
+  "cd_programa_ies": "53001010031P6",
+  "nome_programa": "PATOLOGIA MOLECULAR",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "6"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "CIÊNCIAS BIOLÓGICAS III",
+  "cd_area_capes": "9",
+  "slug_area": "ciencias-biologicas-iii",
+  "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+  "area_conhecimento": "IMUNOLOGIA",
+  "area_basica": "IMUNOLOGIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=PATMOL"
+}

@@ -1,0 +1,9 @@
+# MAPA-PG-DESCOO — DESENVOLVIMENTO, SOCIEDADE E COOPERAÇÃO INTERNACIONAL
+
+- IES: UNIVERSIDADE DE BRASÍLIA (UNB)
+- Área CAPES: **INTERDISCIPLINAR** (CNPq: MULTIDISCIPLINAR)
+- Conceito: 3, 4
+- Modalidade: ACADÊMICO
+- Graus: MESTRADO/DOUTORADO
+
+Aplicativo: [`../../index.html?curso=DESCOO`](../../index.html?curso=DESCOO)

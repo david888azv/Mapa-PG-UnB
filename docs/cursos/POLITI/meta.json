@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-POLITI",
+  "sufixo": "POLITI",
+  "cd_programa_ies": "53001010026P2",
+  "nome_programa": "CIÊNCIA POLÍTICA",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "6"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+  "cd_area_capes": "39",
+  "slug_area": "ciencia-politica-e-relacoes-internacionais",
+  "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+  "area_conhecimento": "CIÊNCIA POLÍTICA",
+  "area_basica": "CIÊNCIA POLÍTICA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=POLITI"
+}

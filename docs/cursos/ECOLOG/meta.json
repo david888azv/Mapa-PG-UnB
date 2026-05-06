@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-ECOLOG",
+  "sufixo": "ECOLOG",
+  "cd_programa_ies": "53001010008P4",
+  "nome_programa": "ECOLOGIA",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "6"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "BIODIVERSIDADE",
+  "cd_area_capes": "7",
+  "slug_area": "biodiversidade",
+  "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS",
+  "area_conhecimento": "ECOLOGIA",
+  "area_basica": "ECOLOGIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=ECOLOG"
+}

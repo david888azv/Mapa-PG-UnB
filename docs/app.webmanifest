@@ -1,0 +1,15 @@
+{
+  "name": "MAPA-PG — Multi-área",
+  "short_name": "MAPA-PG",
+  "description": "Monitoramento e Análise de Produção Acadêmica da Pós-Graduação (UnB / CAPES)",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#2C3E50",
+  "background_color": "#F5F7FA",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "logos/unb_marca.jpg", "sizes": "192x192", "type": "image/jpeg" }
+  ]
+}

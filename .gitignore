@@ -1,0 +1,13 @@
+# Cache do pipeline batch — só serve para regerar JSONs offline (~9 GB)
+build/cache/
+
+# Logs do pipeline e arquivos temporários
+*.log
+*.pyc
+__pycache__/
+
+# Editores
+.vscode/
+.idea/
+*.swp
+.DS_Store

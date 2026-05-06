@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-FARMAC",
+  "sufixo": "FARMAC",
+  "cd_programa_ies": "53001010085P9",
+  "nome_programa": "CIÊNCIAS FARMACÊUTICAS",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "4"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "FARMÁCIA",
+  "cd_area_capes": "19",
+  "slug_area": "farmacia",
+  "grande_area_cnpq": "CIÊNCIAS DA SAÚDE",
+  "area_conhecimento": "FARMÁCIA",
+  "area_basica": "FARMÁCIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=FARMAC"
+}

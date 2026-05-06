@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-INTMAT",
+  "sufixo": "INTMAT",
+  "cd_programa_ies": "53001010086P5",
+  "nome_programa": "INTEGRIDADE DE MATERIAIS DA ENGENHARIA",
+  "graus": [
+    "MESTRADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "3"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "ENGENHARIAS III",
+  "cd_area_capes": "13",
+  "slug_area": "engenharias-iii",
+  "grande_area_cnpq": "ENGENHARIAS",
+  "area_conhecimento": "ENGENHARIA MECÂNICA",
+  "area_basica": "ENGENHARIA MECÂNICA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=INTMAT"
+}

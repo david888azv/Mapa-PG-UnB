@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-TECARH",
+  "sufixo": "TECARH",
+  "cd_programa_ies": "53001010041P1",
+  "nome_programa": "TECNOLOGIA AMBIENTAL E RECURSOS HÍDRICOS",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "3"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "ENGENHARIAS I",
+  "cd_area_capes": "10",
+  "slug_area": "engenharias-i",
+  "grande_area_cnpq": "ENGENHARIAS",
+  "area_conhecimento": "ENGENHARIA SANITÁRIA",
+  "area_basica": "ENGENHARIA SANITÁRIA",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=TECARH"
+}

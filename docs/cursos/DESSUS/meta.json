@@ -1,0 +1,28 @@
+{
+  "mapa_pg_id": "MAPA-PG-DESSUS",
+  "sufixo": "DESSUS",
+  "cd_programa_ies": "53001010044P0",
+  "nome_programa": "DESENVOLVIMENTO SUSTENTÁVEL",
+  "graus": [
+    "MESTRADO/DOUTORADO"
+  ],
+  "modalidade": [
+    "ACADÊMICO"
+  ],
+  "conceito": [
+    "7"
+  ],
+  "situacao": "EM FUNCIONAMENTO",
+  "sigla_ies": "UNB",
+  "nome_ies": "UNIVERSIDADE DE BRASÍLIA",
+  "area_capes": "CIÊNCIAS AMBIENTAIS",
+  "cd_area_capes": "49",
+  "slug_area": "ciencias-ambientais",
+  "grande_area_cnpq": "MULTIDISCIPLINAR",
+  "area_conhecimento": "CIÊNCIAS AMBIENTAIS",
+  "area_basica": "CIÊNCIAS AMBIENTAIS",
+  "sigaa_unb": "https://sigaa.unb.br/sigaa/public/curso/lista.jsf?nivel=S&aba=p-stricto",
+  "capes_dataset": "https://dadosabertos.capes.gov.br/dataset",
+  "gerado_em": "2026-05-05 20:27:16",
+  "shell": "../../index.html?curso=DESSUS"
+}
