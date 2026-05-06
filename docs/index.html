@@ -433,6 +433,24 @@ function areaShort() {
     return CURRENT_AREA_NAME.replace(/\s*\/\s*/g,'/').split(/\s+/).slice(0,2).join(' ');
 }
 
+// Helper global: padroniza nomes de arquivos exportados como
+//   <prefixo>[-extra]-<slug-area>-<SUFIXO>-<YYYY-MM-DD>-<HH-mm>.<ext>
+// Exemplo: report-enfermagem-ENFERM-2026-05-05-22-49.txt
+//          export-quimica-QUIMIC-2026-05-05-22-49.csv
+//          grafico-barras-ies-direito-DIREIT-2026-05-05-22-49.png
+function nomeArquivo(prefixo, ext, extra) {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const data = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    const hora = `${pad(d.getHours())}-${pad(d.getMinutes())}`;
+    const slugArea = CURRENT_AREA_SLUG || 'area';
+    const sufixo   = CURRENT_SUFIXO || 'curso';
+    const partes = [prefixo, extra, slugArea, sufixo, data, hora].filter(Boolean);
+    const base = partes.join('-');
+    if (!ext) return base;  // sem extensão (chamadores anexam .txt/.csv)
+    return base + (ext.startsWith('.') ? ext : '.' + ext);
+}
+
 // Popula o seletor de Grande Área → Área CAPES → Curso UnB (sidebar)
 function populateCursoSelect() {
     const selGA = document.getElementById('selGrandeArea');
@@ -1597,7 +1615,7 @@ function gerarRelatorio() {
 
     // Store for download
     window._lastReport = reportText;
-    window._lastReportName = `report-${ts}-${String(reportSeq).padStart(3, '0')}`;
+    window._lastReportName = nomeArquivo('report', '');  // sem extensão; download anexa .txt/.csv
     window._lastFiltered = allRows;
 
     toast('Relatório gerado!');
@@ -1660,7 +1678,7 @@ function exportarCSV() {
 
     csv += `\n# MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleString('pt-BR')}\n`;
     csv += `# Filtros: Tipos=${getSubtipoLabel(subtipos)} | Estratos IF=${estratos_if.join(',')}\n`;
-    const name = `export-${ts}-${String(reportSeq).padStart(3, '0')}.csv`;
+    const name = nomeArquivo('export', 'csv');
     download(name, csv, 'text/csv;charset=utf-8');
     toast(`Exportado: ${name}`);
 }
@@ -1829,7 +1847,7 @@ tr:nth-child(even){background:#F8F9FA;}
 <` + `script>
 const _ifTxt = ${txtStr};
 const _ifCsv = ${csvStr};
-const _ifName = 'report-IF-${ts}-${seqStr}';
+const _ifName = '${nomeArquivo('report', '', 'IF')}';
 function downloadIFReport() {
     const b = new Blob([_ifTxt], {type:'text/plain;charset=utf-8'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(b);
@@ -2103,7 +2121,7 @@ function exportPNG(canvasId) {
     off.toBlob(blob => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = canvasId + '-' + new Date().toISOString().replace(/[-:T]/g,'').slice(0,14) + '.png';
+        a.download = nomeArquivo('grafico', 'png', canvasId);
         a.click();
     }, 'image/png');
 }
@@ -2150,7 +2168,7 @@ function exportarPNGs() {
 
         offscreen.toBlob(blob => {
             if (!blob) { toast('Erro ao gerar PNG.'); return; }
-            const filename = `${tipo}-${ts}-${String(seq).padStart(3, '0')}.png`;
+            const filename = nomeArquivo('grafico', 'png', tipo);
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url; a.download = filename; a.click();
