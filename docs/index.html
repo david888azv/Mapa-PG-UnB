@@ -1687,7 +1687,12 @@ function exportarCSV() {
 // UTILS
 // ══════════════════════════════════════════════════════════════════
 function download(filename, content, type) {
-    const blob = new Blob([content], { type: type + ';charset=utf-8' });
+    // BOM UTF-8 (﻿) para arquivos de texto: garante que o Excel/Windows
+    // (que ignora o charset do MIME type) reconheça o encoding UTF-8 e
+    // renderize corretamente caracteres acentuados (ç, ã, é, õ etc.).
+    const isText = /^text\//i.test(type);
+    const payload = isText ? '﻿' + content : content;
+    const blob = new Blob([payload], { type: type + ';charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url; a.download = filename; a.click();
@@ -1849,12 +1854,13 @@ const _ifTxt = ${txtStr};
 const _ifCsv = ${csvStr};
 const _ifName = '${nomeArquivo('report', '', 'IF')}';
 function downloadIFReport() {
-    const b = new Blob([_ifTxt], {type:'text/plain;charset=utf-8'});
+    // BOM UTF-8 para acentos corretos no Excel/Windows
+    const b = new Blob(['\\uFEFF' + _ifTxt], {type:'text/plain;charset=utf-8'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(b);
     a.download = _ifName + '.txt'; a.click();
 }
 function downloadIFCSV() {
-    const b = new Blob([_ifCsv], {type:'text/csv;charset=utf-8'});
+    const b = new Blob(['\\uFEFF' + _ifCsv], {type:'text/csv;charset=utf-8'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(b);
     a.download = _ifName + '.csv'; a.click();
 }
