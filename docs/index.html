@@ -1142,11 +1142,47 @@ function analisar() {
             const ok = confirm('ANÁLISE DETALHADA DE FATOR DE IMPACTO\n\nSerão abertas DUAS novas abas:\n\n  1ª ABA — Detalhamento numérico por programa\n  2ª ABA — Gráfico comparativo multi-programa\n\nDeseja continuar?');
             if (ok) {
                 // Abrir ambas as abas imediatamente (antes de escrever conteúdo)
-                // para evitar bloqueio de popup do navegador
+                // para evitar bloqueio de popup do navegador.
                 const win1 = window.open('', '_blank');
                 const win2 = window.open('', '_blank');
+                if (!win1) {
+                    alert('Pop-ups bloqueados pelo navegador. Permita pop-ups deste site (Chrome: ícone com X na barra de endereços → Permitir) e tente novamente.');
+                    return;
+                }
                 gerarRelatorioIF(allProgs, win1);
-                gerarGraficoIF(allProgs, win2);
+                if (win2) {
+                    gerarGraficoIF(allProgs, win2);
+                } else {
+                    // 2ª aba foi bloqueada (Chrome/Edge limita a 1 popup
+                    // por gesto). Injeta um botão na 1ª aba para o usuário
+                    // abrir o gráfico manualmente — esse novo clique conta
+                    // como gesto e contorna o bloqueio.
+                    const abrirGrafico = () => {
+                        const w = window.open('', '_blank');
+                        if (w) gerarGraficoIF(allProgs, w);
+                        else alert('Pop-up ainda bloqueado. Permita pop-ups deste site nas configurações do navegador.');
+                    };
+                    setTimeout(() => {
+                        try {
+                            const doc = win1.document;
+                            if (!doc) return;
+                            const banner = doc.createElement('div');
+                            banner.style.cssText =
+                                'background:#FFF3CD;border:2px solid #FF9800;border-radius:8px;' +
+                                'padding:14px 18px;margin:14px;color:#7C5A00;text-align:center;' +
+                                'font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.5;';
+                            banner.innerHTML =
+                                '<strong>⚠ A 2ª aba (gráfico comparativo) foi bloqueada pelo navegador.</strong><br>' +
+                                'Clique no botão abaixo para abrir o gráfico:<br>' +
+                                '<button id="abrirGrafIF" style="background:#FF9800;color:#fff;padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;">Abrir gráfico em nova aba</button>';
+                            const content = doc.querySelector('.content');
+                            if (content) content.insertBefore(banner, content.firstChild);
+                            else doc.body.insertBefore(banner, doc.body.firstChild);
+                            const btn = doc.getElementById('abrirGrafIF');
+                            if (btn) btn.onclick = abrirGrafico;
+                        } catch (e) { console.error(e); }
+                    }, 200);
+                }
             }
         } else {
             toast('Nenhum programa selecionado para o relatório de IF.');
