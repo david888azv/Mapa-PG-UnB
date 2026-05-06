@@ -456,30 +456,46 @@ function rebuildCursoOptions() {
         selCurso.add(new Option(`${p.nome} — MAPA-PG-${p.sufixo}`, p.sufixo));
     });
 }
-function onGrandeAreaChange() { rebuildAreaOptions(); rebuildCursoOptions(); }
-function onAreaChange() { rebuildCursoOptions(); }
+function onGrandeAreaChange() {
+    // Cascata: ao mudar grande área, atualiza áreas → cursos → recarrega
+    rebuildAreaOptions();
+    rebuildCursoOptions();
+    aplicarSelecao();
+}
+function onAreaChange() {
+    // Cascata: ao mudar área, atualiza cursos → recarrega área
+    rebuildCursoOptions();
+    aplicarSelecao();
+}
 function onCursoChange() {
+    aplicarSelecao();
+}
+
+// Núcleo único: aplica o estado dos 3 selects, recarregando dados se a área
+// mudou ou apenas re-destacando o programa UnB se for a mesma área.
+function aplicarSelecao() {
     const selArea = document.getElementById('selArea');
     const selCurso = document.getElementById('selCurso');
-    const slugA = selArea.value;
-    const suf = selCurso.value;
+    const slugA = selArea && selArea.value;
+    const suf   = selCurso && selCurso.value;
+    if (!slugA || !suf) return;
     if (slugA === CURRENT_AREA_SLUG) {
         // Mesma área — só troca o destaque (sem refetch)
         const p = REGISTRY.programas_unb.find(x => x.sufixo === suf);
-        if (p) {
-            UNB_CD = p.cd_programa;
-            CURRENT_SUFIXO = suf;
-            DATA.data.forEach(r => { r.is_unb = (r.cd === UNB_CD); });
-            const areaTit = document.getElementById('headerArea');
-            if (areaTit) areaTit.textContent = `${CURRENT_AREA_NAME} — ${getRefName()}`;
-            const u = new URL(location.href);
-            u.searchParams.set('curso', suf);
-            history.replaceState(null, '', u.toString());
-            analisar();
-        }
+        if (!p) return;
+        UNB_CD = p.cd_programa;
+        CURRENT_SUFIXO = suf;
+        DATA.data.forEach(r => { r.is_unb = (r.cd === UNB_CD); });
+        const areaTit = document.getElementById('headerArea');
+        if (areaTit) areaTit.textContent = `${CURRENT_AREA_NAME} — ${getRefName()}`;
+        const u = new URL(location.href);
+        u.searchParams.set('area', slugA);
+        u.searchParams.set('curso', suf);
+        history.replaceState(null, '', u.toString());
+        analisar();
     } else {
-        // Área diferente — recarrega
-        switchArea(slugA, suf).then(() => analisar());
+        // Área diferente — recarrega o JSON da nova área
+        switchArea(slugA, suf);  // switchArea já chama onDataLoaded → analisar
     }
 }
 
