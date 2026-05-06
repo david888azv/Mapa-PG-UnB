@@ -217,9 +217,16 @@ tr:hover { background: #EEF2F7; }
 
         <div class="filter-group">
             <h3>Estrato de Fator de Impacto</h3>
-            <label><input type="checkbox" class="if-chk" value="lo" checked> IF &lt; 2.2 (Baixo)</label>
-            <label><input type="checkbox" class="if-chk" value="mi" checked> 2.2 &le; IF &le; 8.0 (Médio)</label>
-            <label><input type="checkbox" class="if-chk" value="hi" checked> IF &gt; 8.0 (Alto)</label>
+            <label><input type="checkbox" class="if-chk" value="lo" checked onchange="analisar()"> IF &lt; 2.2 (Baixo)</label>
+            <label><input type="checkbox" class="if-chk" value="mi" checked onchange="analisar()"> 2.2 &le; IF &le; 8.0 (Médio)</label>
+            <label><input type="checkbox" class="if-chk" value="hi" checked onchange="analisar()"> IF &gt; 8.0 (Alto)</label>
+            <p style="font-size:10px;color:var(--txt2);margin-top:4px;line-height:1.3;">
+                Afeta: <strong>ma_all, ma_perm, ma_colab, ma_visit</strong>
+                (médias passam a contar só artigos com IF nos estratos
+                marcados). <strong>ma_pq, ma_spq, avg_if</strong> e contagens
+                por tipo de produção não têm granularidade × estrato IF
+                no dataset CAPES e mantêm os valores agregados.
+            </p>
         </div>
 
         <div class="filter-group">
@@ -645,25 +652,41 @@ function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
     const allSubsSelected = subtipos.length === ALL_SUBTIPOS.length;
     const allIFSelected = estratos_if.length === 3;
 
-    // If all subtipos AND all IF strata selected, use pre-computed values (fast path)
+    // Fast path — todos os filtros ativos: usa valor pré-computado.
     if (allSubsSelected && allIFSelected) return d[metrica] || 0;
 
-    // For IF-based metric, filter by strata
-    if (metrica === 'avg_if') {
-        // avg_if doesn't depend on subtype, but on IF strata — not filterable from aggregated data
-        // Return the pre-computed value (IF strata filtering applies to count metrics)
-        return d[metrica] || 0;
+    const n_anos = 4;  // todo registro é por quadriênio
+
+    // ── Filtro IF ativo: recalcula via if_perm/if_colab/if_visit/if_all
+    //    (granularidade IF × categoria docente — não tem subtipo nem PQ).
+    //    Quando IF está restrito, o subtipo é ignorado por falta de dados
+    //    cruzados; isso é informado na UI.
+    if (!allIFSelected) {
+        const wLo = estratos_if.includes('lo') ? 1 : 0;
+        const wMi = estratos_if.includes('mi') ? 1 : 0;
+        const wHi = estratos_if.includes('hi') ? 1 : 0;
+        const sumIF = arr => arr ? ((arr[0]||0)*wLo + (arr[1]||0)*wMi + (arr[2]||0)*wHi) : 0;
+        switch (metrica) {
+            case 'ma_perm':  return d.n_perm  > 0 ? +(sumIF(d.if_perm)  / d.n_perm  / n_anos).toFixed(2) : 0;
+            case 'ma_colab': return d.n_colab > 0 ? +(sumIF(d.if_colab) / d.n_colab / n_anos).toFixed(2) : 0;
+            case 'ma_visit': return d.n_visit > 0 ? +(sumIF(d.if_visit) / d.n_visit / n_anos).toFixed(2) : 0;
+            case 'ma_all':   return d.n_doc   > 0 ? +(sumIF(d.if_all)   / d.n_doc   / n_anos).toFixed(2) : 0;
+            // Sem granularidade IF × PQ nem IF × média/mediana — devolvem o pré-computado
+            case 'ma_pq':
+            case 'ma_spq':
+            case 'avg_if':
+            default:         return d[metrica] || 0;
+        }
     }
 
-    // Get production counts from selected subtypes
+    // ── Filtro só por subtipo (caminho original)
+    if (metrica === 'avg_if') return d[metrica] || 0;
     const sp = getSubtypeProd(d, subtipos);
-    const n_anos = d.quad ? (d.quad.split('-').length > 1 ? 4 : 1) : 4;
-
     switch (metrica) {
-        case 'ma_pq':   return d.n_pq > 0 ? +(sp.pq / d.n_pq / n_anos).toFixed(2) : 0;
-        case 'ma_spq':  return d.n_spq > 0 ? +(sp.spq / d.n_spq / n_anos).toFixed(2) : 0;
-        case 'ma_all':  return d.n_doc > 0 ? +(sp.total / d.n_doc / n_anos).toFixed(2) : 0;
-        case 'ma_perm': return d.n_perm > 0 ? +(sp.perm / d.n_perm / n_anos).toFixed(2) : 0;
+        case 'ma_pq':   return d.n_pq    > 0 ? +(sp.pq    / d.n_pq    / n_anos).toFixed(2) : 0;
+        case 'ma_spq':  return d.n_spq   > 0 ? +(sp.spq   / d.n_spq   / n_anos).toFixed(2) : 0;
+        case 'ma_all':  return d.n_doc   > 0 ? +(sp.total / d.n_doc   / n_anos).toFixed(2) : 0;
+        case 'ma_perm': return d.n_perm  > 0 ? +(sp.perm  / d.n_perm  / n_anos).toFixed(2) : 0;
         case 'ma_colab': return d.n_colab > 0 ? +(sp.colab / d.n_colab / n_anos).toFixed(2) : 0;
         case 'ma_visit': return d.n_visit > 0 ? +(sp.visit / d.n_visit / n_anos).toFixed(2) : 0;
         default: return d[metrica] || 0;
