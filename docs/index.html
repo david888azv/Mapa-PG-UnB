@@ -414,6 +414,19 @@ function getRefName() {
     const p = REGISTRY.programas_unb.find(x => x.sufixo === CURRENT_SUFIXO);
     return p ? `${p.nome} (UnB) — MAPA-PG-${p.sufixo}` : 'UnB';
 }
+// Nome curto do programa UnB selecionado, em maiúsculas/título (ex: "Física",
+// "Química", "Enfermagem"). Usado em todos os labels que antes tinham "UnB Física"
+// fixo no app de referência.
+function unbShortName() {
+    if (!CURRENT_SUFIXO || !REGISTRY) return '';
+    const p = REGISTRY.programas_unb.find(x => x.sufixo === CURRENT_SUFIXO);
+    if (!p) return '';
+    // capitaliza primeira de cada palavra (nomes vêm em maiúscula no registry)
+    return p.nome.split(' ').map(w =>
+        w.length <= 2 ? w.toLowerCase()
+                      : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
+    ).join(' ');
+}
 // Versão curta do nome da área (ex: "FÍSICA/ASTRO", "PSICOLOGIA")
 function areaShort() {
     if (!CURRENT_AREA_NAME) return 'área';
@@ -783,7 +796,7 @@ function analisar() {
     const othRazaoPC = othColab > 0 ? (othPerm / othColab).toFixed(2) : '—';
 
     html += `<div class="stats-row">
-        <div class="stat-box unb"><div class="value">${unbAvg.toFixed(2)}</div><div class="label">UnB Física — ${metricaLabel}</div></div>
+        <div class="stat-box unb"><div class="value">${unbAvg.toFixed(2)}</div><div class="label">UnB ${unbShortName()} — ${metricaLabel}</div></div>
         <div class="stat-box"><div class="value">${othersAvg.toFixed(2)}</div><div class="label">Média Selecionados — ${metricaLabel}</div></div>
         <div class="stat-box"><div class="value">${totalProgs}</div><div class="label">Programas</div></div>
         <div class="stat-box"><div class="value">${totalDocs}</div><div class="label">Docentes</div></div>`;
@@ -1147,8 +1160,9 @@ function buildChartQuad(quads, others, unbData, metrica, label, weightField, sub
         const r = unbData.find(d => d.quad === q);
         return r ? getEffectiveMetric(r, metrica, subtipos, estratos_if) : 0;
     });
+    const UNB_LBL = `UnB ${unbShortName()}`;
     datasets.push({
-        label: 'UnB Física', data: unbVals,
+        label: UNB_LBL, data: unbVals,
         backgroundColor: UNB_COLOR,
         borderWidth: 2, borderColor: '#880E4F', borderRadius: 4,
     });
@@ -1193,10 +1207,10 @@ function buildChartQuad(quads, others, unbData, metrica, label, weightField, sub
                             const dsLabel = ctx.dataset.label;
                             const quad = quads[ctx.dataIndex];
                             const val = ctx.parsed.y.toFixed(2);
-                            if (dsLabel === 'UnB Física') {
+                            if (dsLabel === UNB_LBL) {
                                 const info = quadNotaInfo[`${quad}_unb`];
                                 const nota = info ? `N ${info.nota}` : '';
-                                return `  UnB Física (${nota}): ${val} art/ano — ${info ? info.nDocs : 0} doc, ${info ? info.nPQ : 0} PQ`;
+                                return `  ${UNB_LBL} (${nota}): ${val} art/ano — ${info ? info.nDocs : 0} doc, ${info ? info.nPQ : 0} PQ`;
                             } else {
                                 const nota = dsLabel.replace('Nota ', '');
                                 const info = quadNotaInfo[`${quad}_${nota}`];
@@ -1358,7 +1372,7 @@ function buildDynamicChart(metricaLabel) {
     if (unbP) {
         const data = DYN_YEARS.map(y => unbP.yD[y] ? unbP.yD[y].val : null);
         datasets.push({
-            label: `★ UnB Física (N${unbP.nota})`,
+            label: `★ UnB ${unbShortName()} (N${unbP.nota})`,
             data,
             borderColor: UNB_COLOR,
             backgroundColor: UNB_COLOR,
@@ -1533,7 +1547,7 @@ function gerarRelatorio() {
     p('  PRODUÇÃO POR CATEGORIA DE DOCENTE');
     p('─'.repeat(80));
     p(`  ${''.padEnd(20)} ${'Permanente'.padStart(12)} ${'Colaborador'.padStart(12)} ${'Visitante'.padStart(12)} ${'Razão P/C'.padStart(12)}`);
-    p(`  ${'UnB Física'.padEnd(20)} ${rUnbPerm.toFixed(2).padStart(12)} ${rUnbColab.toFixed(2).padStart(12)} ${rUnbVisit.toFixed(2).padStart(12)} ${rUnbColab > 0 ? (rUnbPerm/rUnbColab).toFixed(2)+'x' : '—'.padStart(12)}`);
+    p(`  ${('UnB '+unbShortName()).padEnd(20)} ${rUnbPerm.toFixed(2).padStart(12)} ${rUnbColab.toFixed(2).padStart(12)} ${rUnbVisit.toFixed(2).padStart(12)} ${rUnbColab > 0 ? (rUnbPerm/rUnbColab).toFixed(2)+'x' : '—'.padStart(12)}`);
     p(`  ${'Média Selecionados'.padEnd(20)} ${rOthPerm.toFixed(2).padStart(12)} ${rOthColab.toFixed(2).padStart(12)} ${'—'.padStart(12)} ${rOthColab > 0 ? (rOthPerm/rOthColab).toFixed(2)+'x' : '—'.padStart(12)}`);
     p('  (Razão P/C: nº de vezes que a produção do permanente supera a do colaborador)');
     p('');
