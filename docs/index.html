@@ -1971,8 +1971,10 @@ tr:nth-child(even){background:#F8F9FA;}
     pt('  Fim do relat\u00f3rio \u2014 MAPA-PG v' + VERSION);
     pt('\u2550'.repeat(W));
 
-    const txtStr = JSON.stringify(txt.join('\\n'));
-    const csvStr = JSON.stringify(csvRows.join('\\n'));
+    // IMPORTANTE: usar '\n' (newline real) e não '\\n' (string literal "\n")
+    // JSON.stringify cuida do escape correto p/ injetar no script do popup.
+    const txtStr = JSON.stringify(txt.join('\n'));
+    const csvStr = JSON.stringify(csvRows.join('\n'));
 
     h += `</div>
 <div class="footer">MAPA-PG v${VERSION} | Prof. David L. Azevedo | david888azv@unb.br</div>
