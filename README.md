@@ -1,7 +1,8 @@
 # MAPA-PG — Multi-área (UnB)
 
 Aplicativo HTML5 + JS estático para monitoramento e análise comparativa
-de **94 programas de pós-graduação da UnB**, agrupados em **42 Áreas de
+de **92 programas de pós-graduação da UnB** em funcionamento (82 acadêmicos
+e 10 profissionais), agrupados em **42 Áreas de
 Avaliação CAPES** (todas as 9 Grandes Áreas do CNPq), comparando-os
 sempre dentro da própria Área CAPES — única forma de comparação válida
 segundo a metodologia da CAPES.
@@ -43,10 +44,11 @@ Acesso direto via deeplink: `index.html?curso=FISICA`.
 
 1. **Camada mínima** (já gerada — 42 áreas): metadados de programas,
    conceito CAPES por quadriênio, modalidade, situação. Total ≈ 4 MB.
-2. **Camada com métricas completas** (atualmente apenas
-   ASTRONOMIA/FÍSICA — preserva o `MAPA-PG-FISICA` original como
-   referência): n_doc, médias por categoria, fator de impacto OpenAlex,
-   produção por subtipo bibliográfico.
+2. **Camada com métricas completas** (já gerada para **todas as 42 áreas** —
+   `docs/dados/area-*.json`, ~11,8 MB no total; `manifest.json` marca
+   `tem_metricas: true` nas 42): n_doc, médias por categoria, fator de
+   impacto OpenAlex, produção por subtipo bibliográfico. A migração inicial
+   da Física (`MAPA-PG-FISICA`) é preservada como referência.
 
 A camada completa é gerada por `build/gerar_dados_completos.py`
 (pipeline batch offline a partir dos CSVs CAPES + `openalex_journals.csv`).
@@ -89,16 +91,16 @@ Slug inválido sai com exit 2 e instrução para usar `--list`.
 mapa-pg-multi/
 ├── README.md
 ├── build/
-│   ├── gerar_registry.py         — 94 sufixos UnB
+│   ├── gerar_registry.py         — 92 sufixos UnB
 │   ├── gerar_dados_minimos.py    — 42 JSONs de área (camada mínima)
 │   ├── migrar_fisica.py          — slot área-astronomia-fisica.json com métricas
-│   └── gerar_cursos_meta.py      — 94 pastas docs/cursos/<SUFIXO>/
+│   └── gerar_cursos_meta.py      — 92 pastas docs/cursos/<SUFIXO>/
 └── docs/                         ← raiz do GitHub Pages
     ├── index.html                — shell multi-área
     ├── chart.umd.min.js
     ├── help-doc.html
     ├── manifest.json             — catálogo de áreas
-    ├── registry.json             — registro dos 94 programas UnB
+    ├── registry.json             — registro dos 92 programas UnB
     ├── app.webmanifest           — PWA
     ├── sw.js                     — Service Worker (cache offline)
     ├── logos/                    — UnB / CAPES / CNPq / FAPDF
@@ -111,7 +113,7 @@ mapa-pg-multi/
         ├── FISICA/  ← MAPA-PG-FISICA (referência)
         ├── QUIMIC/  ← MAPA-PG-QUIMIC
         ├── PSCDES/  ← MAPA-PG-PSCDES
-        └── ... (94 pastas)
+        └── ... (92 pastas)
 ```
 
 ## Como visualizar localmente

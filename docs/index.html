@@ -4,6 +4,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAPA-PG — Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</title>
+<meta name="description" content="MAPA-PG: sistema interativo e gratuito para comparar a produção e os indicadores dos 92 programas de pós-graduação da UnB com seus pares nacionais, em todas as 42 áreas de avaliação da CAPES, ao longo de três quadriênios (2013–2024). Dados públicos da CAPES e do OpenAlex.">
+<meta name="keywords" content="MAPA-PG, pós-graduação, CAPES, avaliação CAPES, conceito CAPES, produção acadêmica, produtividade científica, programas de pós-graduação, UnB, Universidade de Brasília, OpenAlex, fator de impacto, quadriênio, dados abertos, cientometria, bolsa produtividade CNPq">
+<meta name="author" content="Prof. David L. Azevedo — Universidade de Brasília (UnB)">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://david888azv.github.io/Mapa-PG-UnB/">
+<!-- Open Graph (preview ao compartilhar) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MAPA-PG">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="MAPA-PG — Produção da pós-graduação da UnB vs. pares nacionais (CAPES)">
+<meta property="og:description" content="Compare os 92 programas de pós-graduação da UnB com seus pares nacionais em todas as 42 áreas CAPES. Gratuito, sem instalação, com dados públicos da CAPES e do OpenAlex.">
+<meta property="og:url" content="https://david888azv.github.io/Mapa-PG-UnB/">
+<meta property="og:image" content="https://david888azv.github.io/Mapa-PG-UnB/logos/unb_marca.jpg">
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MAPA-PG — Produção da pós-graduação da UnB (CAPES)">
+<meta name="twitter:description" content="Comparativo interativo dos 92 PPGs da UnB em 42 áreas CAPES. Dados públicos, gratuito, sem instalação.">
+<meta name="twitter:image" content="https://david888azv.github.io/Mapa-PG-UnB/logos/unb_marca.jpg">
+<!-- Google Search Console: descomente e cole o token de verificacao ao publicar -->
+<!-- <meta name="google-site-verification" content="SEU_TOKEN_AQUI"> -->
+<!-- Dados estruturados schema.org (ajuda o Google a entender o app) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "MAPA-PG",
+  "alternateName": "Monitoramento e Análise de Produção Acadêmica da Pós-Graduação",
+  "url": "https://david888azv.github.io/Mapa-PG-UnB/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Qualquer (navegador web)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "pt-BR",
+  "isAccessibleForFree": true,
+  "author": {
+    "@type": "Person",
+    "name": "David L. Azevedo",
+    "affiliation": { "@type": "Organization", "name": "Universidade de Brasília (UnB)" }
+  },
+  "description": "Sistema interativo e gratuito para comparar a produção acadêmica dos 92 programas de pós-graduação da UnB com seus pares nacionais em todas as 42 áreas de avaliação da CAPES, usando dados públicos da CAPES e do OpenAlex.",
+  "keywords": "pós-graduação, CAPES, produção científica, UnB, OpenAlex, cientometria",
+  "codeRepository": "https://github.com/david888azv/Mapa-PG-UnB"
+}
+</script>
 <link rel="manifest" href="app.webmanifest">
 <meta name="theme-color" content="#2C3E50">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -28,10 +71,12 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color:
 /* HEADER */
 .header { background: linear-gradient(135deg, var(--azul), var(--azul2)); color: #fff;
     padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;
-    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
-.header h1 { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+    gap: 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.header h1 { font-size: 22px; font-weight: 700; letter-spacing: 1px; flex: 1 1 auto; min-width: 0; }
 .header h1 span { color: var(--accent); }
-.header .meta { text-align: right; font-size: 12px; opacity: .85; line-height: 1.5; }
+.header .meta { text-align: right; font-size: 12px; opacity: .85; line-height: 1.5;
+    flex-shrink: 0; max-width: 290px; }
+.header .meta > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* LAYOUT */
 .container { display: flex; min-height: calc(100vh - 56px); }
@@ -546,22 +591,14 @@ function showLicenseModal() {
         <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>
         <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Abril 2026</p>
         <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:16px;">Prof. David L. Azevedo</p>
-        <div style="background:#F5F7FA;border-radius:8px;padding:16px;text-align:left;font-size:13px;color:#555;line-height:1.7;margin-bottom:14px;">
-            <p><strong>Fonte dos dados:</strong> Todos os dados utilizados nas analises e investigacoes deste sistema foram obtidos exclusivamente do <strong>Portal de Dados Abertos da CAPES</strong>
-            (<a href="https://dadosabertos.capes.gov.br/" target="_blank" style="color:#1565C0;">dadosabertos.capes.gov.br</a>), como parte da iniciativa do Governo Federal de transparencia e acesso a informacao publica (Lei de Acesso a Informacao — Lei n. 12.527/2011).</p>
-            <p style="margin-top:8px;">Os dados sao <strong>publicos e de livre acesso</strong>, disponibilizados pela Coordenacao de Aperfeicoamento de Pessoal de Nivel Superior (CAPES/MEC).</p>
-            <p style="margin-top:8px;">Todas as URLs de download dos dados brutos da Coleta CAPES estao documentadas no arquivo de ajuda (<strong>help-doc.html</strong>), acessivel pelo botao <strong>Help</strong> na barra lateral do sistema.</p>
+        <div style="background:#F5F7FA;border-radius:8px;padding:14px;text-align:justify;font-size:13px;color:#555;line-height:1.6;margin-bottom:12px;">
+            <p><strong>Fonte dos dados:</strong> todos os dados deste sistema sao publicos e foram obtidos exclusivamente do <strong>Portal de Dados Abertos da CAPES</strong> (<a href="https://dadosabertos.capes.gov.br/" target="_blank" style="color:#1565C0;">dadosabertos.capes.gov.br</a>), ao amparo da Lei de Acesso a Informacao (Lei n. 12.527/2011). As URLs dos arquivos brutos da Coleta CAPES estao documentadas no arquivo de ajuda, acessivel pelo botao <strong>Help</strong> na barra lateral.</p>
         </div>
-        <div style="background:#FFF8E1;border-radius:8px;padding:14px;text-align:left;font-size:12px;color:#555;line-height:1.7;margin-bottom:16px;border-left:4px solid #FF9800;">
-            <p>Ao utilizar este software, voce concorda com os seguintes termos:</p>
-            <ul style="padding-left:18px;margin-top:6px;">
-                <li>Nao remover, alterar ou ocultar informacoes de <strong>autoria</strong> ou creditos do desenvolvedor.</li>
-                <li>Manter a identificacao <strong>"Prof. David L. Azevedo"</strong> e <strong>"MAPA-PG"</strong> em todas as copias e derivados.</li>
-                <li>Contato: <a href="mailto:david888azv@unb.br" style="color:#E91E63;">david888azv@unb.br</a></li>
-            </ul>
+        <div style="background:#FFF8E1;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;border-left:4px solid #FF9800;">
+            <strong>Termos de uso:</strong> ao utilizar este software, voce concorda em nao remover, alterar ou ocultar informacoes de autoria, mantendo a identificacao <strong>"Prof. David L. Azevedo"</strong> e <strong>"MAPA-PG"</strong> em todas as copias e derivados. Contato: <a href="mailto:david888azv@unb.br" style="color:#E91E63;">david888azv@unb.br</a>.
         </div>
-        <div style="background:#E3F2FD;border-radius:8px;padding:14px;text-align:left;font-size:12px;color:#1565C0;line-height:1.7;margin-bottom:16px;border-left:4px solid #2196F3;">
-            <strong>Solucoes sob medida:</strong> Podemos desenvolver uma solucao especifica de monitoramento e analise para qualquer programa de pos-graduacao de qualquer universidade do pais. Entre em contato com o desenvolvedor: <a href="mailto:david888azv@unb.br" style="color:#E91E63;font-weight:700;">david888azv@unb.br</a>
+        <div style="background:#E3F2FD;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#1565C0;line-height:1.6;margin-bottom:16px;border-left:4px solid #2196F3;">
+            <strong>Solucoes sob medida:</strong> desenvolvemos analises especificas para qualquer programa de pos-graduacao de qualquer universidade do pais — <a href="mailto:david888azv@unb.br" style="color:#E91E63;font-weight:700;">david888azv@unb.br</a>.
         </div>
         <button onclick="acceptLicense()" style="background:#E91E63;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;">Concordo e desejo continuar</button>
     </div>`;

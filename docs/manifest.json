@@ -49,9 +49,8 @@
       "arquivo": "dados/area-artes.json",
       "tamanho_kb": 176,
       "n_registros": 183,
-      "n_unb": 4,
+      "n_unb": 3,
       "sufixos_unb": [
-        "ARTES",
         "ARTCEN",
         "ARTVIS",
         "MUSICA"
@@ -498,10 +497,9 @@
       "arquivo": "dados/area-psicologia.json",
       "tamanho_kb": 272,
       "n_registros": 279,
-      "n_unb": 5,
+      "n_unb": 4,
       "sufixos_unb": [
         "PSCCOM",
-        "PROCDH",
         "PSCCLI",
         "PSCDES",
         "PSCSTO"
@@ -621,5 +619,5 @@
       "QUÍMICA"
     ]
   },
-  "atualizado_em": "2026-05-05 21:11:29"
+  "atualizado_em": "2026-06-17 07:05:22"
 }

@@ -1,6 +1,14 @@
 # Cache do pipeline batch — só serve para regerar JSONs offline (~9 GB)
 build/cache/
 
+# Subprojeto pip/ — caches e saídas são 100% regeneráveis pelos scripts
+pip/cache_unb/
+pip/cache_nac/
+pip/saida/
+
+# Backups gerados (ex.: correção do registry)
+*.bak
+
 # Logs do pipeline e arquivos temporários
 *.log
 *.pyc

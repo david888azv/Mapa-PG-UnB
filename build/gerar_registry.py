@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """
-Gera mapa-pg-multi/docs/registry.json com os 91 programas UnB.
+Gera mapa-pg-multi/docs/registry.json com os programas UnB EM FUNCIONAMENTO
+(92 = 82 acadêmicos + 10 profissionais; desativados são descartados).
 Cada entrada: { sufixo, cd_programa, nome, grau, area_capes, slug_area,
                 grande_area, conceito, situacao, modalidade }.
+
+UMA entrada por CD_PROGRAMA_IES: programas renomeados entre quadriênios
+(ex.: ARTES→ARTES VISUAIS) NÃO geram entradas duplicadas — usa-se o nome do
+registro mais recente.
 
 Sufixo: até 6 letras maiúsculas, A-Z, sem acento. Único por programa.
 Mapeamento manual para casos ambíguos; auto-derivação para o restante.
@@ -37,12 +42,14 @@ for r in all_rows:
 ativos = {cd: r for cd, r in latest.items()
           if r.get('DS_SITUACAO_PROGRAMA','').strip().upper() == 'EM FUNCIONAMENTO'}
 
-# Fundir todas as ocorrências (todos os graus de cada cd ativo)
+# Fundir todas as ocorrências de cada CD ativo em UMA entrada por CD.
+# (Programas renomeados entre anos — ex.: ARTES→ARTES VISUAIS — NÃO podem virar
+#  duas entradas; usa-se o nome do registro mais recente.)
 prog_map = defaultdict(list)
 for r in all_rows:
     cd = r['CD_PROGRAMA_IES']
     if cd in ativos:
-        prog_map[(cd, r['NM_PROGRAMA_IES'])].append(r)
+        prog_map[cd].append(r)
 
 # ── 2. Mapeamento manual canônico de sufixos ────────────────────────
 # Quando vazio, será auto-derivado (primeiras 6 letras sem acento).
@@ -154,18 +161,19 @@ def auto_suffix(nome):
 # ── 3. Construir o registry ─────────────────────────────────────────
 registry = []
 suffixes_used = {}
-for (cd, nome), recs in sorted(prog_map.items(), key=lambda x: x[0][1]):
-    r0 = recs[-1]  # registro mais recente
+for cd, recs in sorted(prog_map.items(), key=lambda x: (ativos[x[0]].get('NM_PROGRAMA_IES') or '')):
+    r0 = ativos[cd]                                   # registro do AN_BASE mais recente
+    nome = (r0.get('NM_PROGRAMA_IES') or '').strip()  # nome oficial mais recente do CD
     is_prof = (r0.get('NM_MODALIDADE_PROGRAMA','').strip().upper() == 'PROFISSIONAL')
-    base = SUFFIX_MANUAL.get(nome.strip()) or auto_suffix(nome)
+    base = SUFFIX_MANUAL.get(nome) or auto_suffix(nome)
     # Se for mestrado profissional e existir versão acadêmica do mesmo nome,
     # usar sufixo terminado em "P" para diferenciar.
     if is_prof:
         # Verificar se existe acadêmico para o mesmo nome
         academico = any(
-            (cd2 != cd and nome2 == nome and
+            (cd2 != cd and (ativos[cd2].get('NM_PROGRAMA_IES') or '').strip() == nome and
              any((rr.get('NM_MODALIDADE_PROGRAMA','').strip().upper() == 'ACADÊMICO') for rr in rs))
-            for (cd2, nome2), rs in prog_map.items()
+            for cd2, rs in prog_map.items()
         )
         if academico:
             suf = (base[:5] + 'P')[:6]

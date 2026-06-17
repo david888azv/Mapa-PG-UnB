@@ -1,6 +1,6 @@
 {
-  "gerado_em": "2026-05-05 20:18:52",
-  "n_programas_unb": 94,
+  "gerado_em": "2026-06-17 07:04:45",
+  "n_programas_unb": 92,
   "grandes_areas": {
     "CIÊNCIAS SOCIAIS APLICADAS": [
       "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
@@ -116,12 +116,11 @@
     "ARTES": {
       "slug": "artes",
       "sufixos_unb": [
-        "ARTES",
         "ARTCEN",
         "ARTVIS",
         "MUSICA"
       ],
-      "n_unb": 4
+      "n_unb": 3
     },
     "CIÊNCIAS BIOLÓGICAS I": {
       "slug": "ciencias-biologicas-i",
@@ -221,12 +220,11 @@
       "slug": "psicologia",
       "sufixos_unb": [
         "PSCCOM",
-        "PROCDH",
         "PSCCLI",
         "PSCDES",
         "PSCSTO"
       ],
-      "n_unb": 5
+      "n_unb": 4
     },
     "FARMÁCIA": {
       "slug": "farmacia",
@@ -547,29 +545,6 @@
       "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
       "area_conhecimento": "ARQUITETURA E URBANISMO",
       "area_basica": "ARQUITETURA E URBANISMO",
-      "sigla_ies": "UNB",
-      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
-    },
-    {
-      "sufixo": "ARTES",
-      "cd_programa": "53001010040P5",
-      "nome": "ARTES",
-      "graus": [
-        "MESTRADO/DOUTORADO"
-      ],
-      "modalidade": [
-        "ACADÊMICO"
-      ],
-      "conceito": [
-        "4"
-      ],
-      "situacao": "EM FUNCIONAMENTO",
-      "area_capes": "ARTES",
-      "cd_area_capes": "11",
-      "slug_area": "artes",
-      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
-      "area_conhecimento": "ARTES",
-      "area_basica": "ARTES",
       "sigla_ies": "UNB",
       "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
     },
@@ -2230,29 +2205,6 @@
       "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS",
       "area_conhecimento": "SERVIÇO SOCIAL",
       "area_basica": "SERVIÇO SOCIAL",
-      "sigla_ies": "UNB",
-      "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
-    },
-    {
-      "sufixo": "PROCDH",
-      "cd_programa": "53001010062P9",
-      "nome": "PROCESSOS DE DESENVOLVIMENTO HUMANO E SAÚDE",
-      "graus": [
-        "MESTRADO/DOUTORADO"
-      ],
-      "modalidade": [
-        "ACADÊMICO"
-      ],
-      "conceito": [
-        "5"
-      ],
-      "situacao": "EM FUNCIONAMENTO",
-      "area_capes": "PSICOLOGIA",
-      "cd_area_capes": "37",
-      "slug_area": "psicologia",
-      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
-      "area_conhecimento": "PSICOLOGIA",
-      "area_basica": "PSICOLOGIA DO DESENVOLVIMENTO HUMANO",
       "sigla_ies": "UNB",
       "nome_ies": "UNIVERSIDADE DE BRASÍLIA"
     },

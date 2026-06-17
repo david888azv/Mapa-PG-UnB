@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "Se você usar este software, por favor cite-o conforme os metadados abaixo."
+title: "MAPA-PG: Monitoramento e Análise de Produção Acadêmica da Pós-Graduação (UnB)"
+abstract: >-
+  Sistema interativo e gratuito (HTML5/JS estático) para comparar a produção e os
+  indicadores dos 92 programas de pós-graduação da Universidade de Brasília (UnB)
+  com seus pares nacionais, em todas as 42 áreas de avaliação da CAPES, ao longo
+  de três quadriênios (2013–2024). Utiliza exclusivamente dados públicos do
+  Portal de Dados Abertos da CAPES e metadados de periódicos do OpenAlex.
+type: software
+authors:
+  - family-names: Azevedo
+    given-names: David L.
+    affiliation: "Universidade de Brasília (UnB)"
+    email: david888azv@unb.br
+    # TODO: preencha seu ORCID (ex.: 0000-0002-1825-0097)
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+repository-code: "https://github.com/david888azv/Mapa-PG-UnB"
+url: "https://david888azv.github.io/Mapa-PG-UnB/"
+keywords:
+  - pós-graduação
+  - CAPES
+  - avaliação CAPES
+  - produção científica
+  - cientometria
+  - OpenAlex
+  - UnB
+  - dados abertos
+license: CC-BY-4.0
+version: "1.0.0"
+date-released: "2026-06-16"
