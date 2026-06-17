@@ -151,6 +151,17 @@ encerraram em 2019 e cuja atividade migrou para um código-irmão na mesma IES.
   em prod_intel_2021a2024) — agora ESTRUTURAL pela regra refinada. Restam 4
   vermelhos reais (ex.: UTFPR Zootecnia, forte até 2020 e silêncio depois).
 
+## Relatório de incremento (PDF)
+
+`gerar_relatorio_incremento.py` → `saida/relatorio_incremento_pip.pdf` (6 pág.):
+fecha a análise das transições **3→4 e 4→5** — metodologia, produção ponderada
+por nota (Brasil × UnB), as **4 definições de alvo** (piso e média ponderada da
+própria área; mediana e média nacionais), detalhe por programa e conclusões.
+Importa o `build_pip` para recalcular os números ao vivo; HTML → PDF via
+LibreOffice. Conclusão central: pelo **piso da área**, a produção da UnB já basta
+(3→4: incremento 0; 4→5: +102 art/ano) — o salto de nota depende de
+qualidade/impacto, não de volume.
+
 ## Documento final (PDF)
 
 `gerar_documento.py` → `saida/relatorio_mapa_pg_metodologia.pdf` (9 pág.):
