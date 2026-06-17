@@ -66,11 +66,12 @@ def media_referencia(progs, area_de):
     """
     Para cada (area, nota) calcula, entre os programas ACADÊMICOS cuja NOTA
     VIGENTE (2021-2024) é essa nota, as estatísticas de ma_perm (produção
-    2017-2020, art/permanente/ano): MÍNIMO, MÉDIA e n.
-    Retorna dict[(slug, nota)] -> {'min':, 'media':, 'n':}.
+    2017-2020, art/permanente/ano): MÍNIMO (piso), MÉDIA simples, MÉDIA
+    PONDERADA pelos permanentes e n.
+    Retorna dict[(slug, nota)] -> {'min':, 'media':, 'wmean':, 'n':}.
     Também devolve, por área, a contagem de programas acadêmicos por nota.
     """
-    grupos = defaultdict(list)      # (slug, nota_vigente) -> [ma_perm_2017_2020]
+    grupos = defaultdict(list)      # (slug, nota_vigente) -> [(ma_perm, n_perm)]
     cont_area = defaultdict(lambda: defaultdict(int))  # slug -> nota -> n
     for cd, quads in progs.items():
         nota_reg = quads.get(QUAD_NOTA)
@@ -83,10 +84,13 @@ def media_referencia(progs, area_de):
         slug = area_de[cd][1]
         cont_area[slug][nota] += 1
         if prod_reg and prod_reg.get('n_perm', 0) and prod_reg.get('ma_perm') is not None:
-            grupos[(slug, nota)].append(prod_reg['ma_perm'])
+            grupos[(slug, nota)].append((prod_reg['ma_perm'], prod_reg['n_perm']))
     ref = {}
     for chave, vals in grupos.items():
-        ref[chave] = {'min': round(min(vals), 2), 'media': round(mean(vals), 2),
+        mas = [m for m, _ in vals]
+        peso = sum(n for _, n in vals)
+        ref[chave] = {'min': round(min(mas), 2), 'media': round(mean(mas), 2),
+                      'wmean': round(sum(m * n for m, n in vals) / peso, 2) if peso else None,
                       'n': len(vals)}
     return ref, cont_area
 
@@ -593,6 +597,99 @@ def aba_detalhe_transicao(wb, linhas, stats):
     return ws
 
 
+def aba_piso(wb, linhas, ref):
+    """Incremento de cada programa UnB nota 3/4 até o PISO da nota-alvo NA PRÓPRIA
+    área CAPES = a MENOR produção (art/perm/ano) entre os programas da nota-alvo
+    na mesma área (regra de comparação da CAPES). Mostra também a média ponderada
+    (pelos permanentes) da nota-alvo na área. Programas em desativação / novos
+    ficam fora do ranking."""
+    ws = wb.create_sheet('Piso da área (3→4, 4→5)')
+    ws.append(['INCREMENTO ATÉ O PISO DA NOTA-ALVO NA PRÓPRIA ÁREA CAPES'])
+    ws.cell(1, 1).font = Font(bold=True, size=13, color=AZUL)
+    ws.append(['Produção em art/permanente/ano (2017-2020). Para cada programa UnB o ALVO é o '
+               'PISO = MENOR produção entre os programas da nota-alvo NA MESMA área CAPES. '
+               'Inclui também a MÉDIA PONDERADA (pelos permanentes) da nota-alvo na área. '
+               '"+ art/ano" = incremento × nº de permanentes. Ordenado do mais perto ao mais longe.'])
+    ws.cell(2, 1).font = ITAL
+
+    headers = ['Área CAPES', 'Programa', 'Nota', 'Perm. (2017-20)', 'Produção atual',
+               'PISO nota-alvo na área', 'Incr. p/ piso', '+ art/ano (piso)',
+               'Méd. ponderada nota-alvo', 'Incr. p/ méd. pond.', '+ art/ano (méd. pond.)',
+               'nº prog. nota-alvo na área']
+    larg = [24, 32, 6, 11, 12, 13, 12, 13, 14, 13, 14, 13]
+
+    for nota in (3, 4):
+        alvo_nota = nota + 1
+        ws.append([])
+        ws.append([f'NOTA {nota} → {alvo_nota}   (alvo = piso/menor produção dos programas nota {alvo_nota} na mesma área)'])
+        ws.cell(ws.max_row, 1).font = Font(bold=True, size=11, color=ROSA)
+        ws.append(headers)
+        hr = ws.max_row
+        for i in range(1, len(headers) + 1):
+            c = ws.cell(hr, i); c.font = H; c.fill = HFILL; c.alignment = CENTER; c.border = BORDA
+            col = get_column_letter(i)
+            ws.column_dimensions[col].width = max(ws.column_dimensions[col].width or 0, larg[i-1])
+
+        grupo = [l for l in linhas if l['nota'] == nota]
+        ativos = [l for l in grupo if l['situacao'] == 'EM FUNCIONAMENTO'
+                  and 'fallback' not in l['baseline'] and l['ma_atual'] is not None]
+        especiais = [l for l in grupo if l not in ativos]
+
+        def sortkey(l):
+            r = ref.get((l['slug'], alvo_nota))
+            if not r:
+                return (1, 0.0)
+            return (0, max(0.0, r['min'] - l['ma_atual']))
+        ativos.sort(key=sortkey)
+
+        tot_piso = tot_wm = tot_perm = n_ref = 0
+        for l in ativos:
+            ma = l['ma_atual']; n = l['n_perm'] or 0
+            r = ref.get((l['slug'], alvo_nota))
+            if not r:
+                ws.append([l['area'], l['programa'], nota, n, ma, '—', '—', '—', '—', '—', '—',
+                           f'sem programa nota {alvo_nota} na área'])
+                row = ws.max_row
+                for i in range(1, len(headers) + 1):
+                    c = ws.cell(row, i); c.border = BORDA
+                    c.alignment = LEFT if i in (1, 2, 12) else CENTER
+                    c.font = Font(italic=True, color='777777')
+                continue
+            piso = r['min']; wm = r['wmean']
+            ip = round(max(0.0, piso - ma), 2); ap = round(ip * n)
+            iw = round(max(0.0, (wm if wm is not None else 0) - ma), 2)
+            aw = round(iw * n)
+            tot_piso += ap; tot_wm += aw; tot_perm += n; n_ref += 1
+            ws.append([l['area'], l['programa'], nota, n, ma, piso, ip, ap, wm, iw, aw, r['n']])
+            row = ws.max_row
+            for i in range(1, len(headers) + 1):
+                c = ws.cell(row, i); c.border = BORDA
+                c.alignment = LEFT if i in (1, 2) else CENTER
+            if ip == 0:
+                ws.cell(row, 7).fill = VERDE; ws.cell(row, 8).fill = VERDE
+
+        ws.append([f'SUBTOTAL — {n_ref} prog. com referência na área', '', '', tot_perm, '', '',
+                   '', tot_piso, '', '', tot_wm, 'artigos/ano a mais (coorte)'])
+        sr = ws.max_row
+        for i in range(1, len(headers) + 1):
+            c = ws.cell(sr, i); c.border = BORDA; c.font = Font(bold=True)
+            c.alignment = LEFT if i in (1, 12) else CENTER
+
+        for l in especiais:
+            obs = ('EM DESATIVAÇÃO — fora do plano' if l['situacao'] != 'EM FUNCIONAMENTO'
+                   else 'programa novo — sem produção 2017-2020')
+            ma = l['ma_atual'] if ('fallback' not in l['baseline'] and l['ma_atual'] is not None) else '—'
+            ws.append([l['area'], l['programa'], nota, l['n_perm'] or 0, ma, '', '', '', '', '', '', obs])
+            row = ws.max_row
+            for i in range(1, len(headers) + 1):
+                c = ws.cell(row, i); c.border = BORDA
+                c.alignment = LEFT if i in (1, 2, 12) else CENTER
+                c.font = Font(italic=True, color='777777')
+
+    rodape_periodo(ws, len(headers))
+    return ws
+
+
 def main():
     progs, area_de, areas = carregar()
     ref, cont_area = media_referencia(progs, area_de)
@@ -606,6 +703,7 @@ def main():
     aba_incremento(wb, linhas)
     aba_projecao(wb, stats)
     aba_detalhe_transicao(wb, linhas, stats)
+    aba_piso(wb, linhas, ref)
     aba_faixas(wb, linhas, perf)
     aba_referencias(wb, ref, areas, cont_area)
     out = os.path.join(SAIDA, 'relatorio_pip_unb.xlsx')
