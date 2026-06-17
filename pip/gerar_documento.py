@@ -1,36 +1,44 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Gera o documento PDF com a METODOLOGIA + RESULTADOS + CONCLUSÕES da análise
-de produção dos programas de pós-graduação (sistema MAPA-PG), incluindo as
-figuras de casos críticos e a comparação com a mediana.
+Gera o relatório METODOLOGIA + RESULTADOS + CONCLUSÕES da análise de produção
+dos programas de pós-graduação (sistema MAPA-PG), em DOIS formatos:
 
-Compõe um HTML (com as figuras em base64) e converte para PDF via LibreOffice.
-Saída: saida/relatorio_mapa_pg_metodologia.pdf
+  • saida/relatorio_mapa_pg_metodologia.html  — HTML5 self-contained com gráficos
+    INTERATIVOS (Chart.js v4 inline): distribuição por retenção (4 coortes) e
+    nº de docentes por ano-base. As 4 figuras de séries de quedas seguem como
+    imagens estáticas (são figuras multi-painel pré-renderizadas).
+  • saida/relatorio_mapa_pg_metodologia.pdf   — via LibreOffice, com os mesmos
+    gráficos em versão ESTÁTICA (matplotlib), pois o conversor não roda JS.
 """
-import os, io, base64, subprocess
+import os
+import io
+import json
+import base64
+import subprocess
+
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 from PIL import Image
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SAIDA = os.path.join(AQUI, 'saida')
+DOCS = os.path.join(AQUI, '..', 'docs')
+CHARTJS = os.path.join(DOCS, 'chart.umd.min.js')
 
+# ── Dados das tabelas (também alimentam os gráficos) ───────────────────────
+DIST = {
+    'UnB acadêmicos (84)':        {'verde': 68,   'amarelo': 11,  'vermelho': 2,   'estrutural': 3},
+    'UnB profissionais (13)':     {'verde': 9,    'amarelo': 0,   'vermelho': 1,   'estrutural': 3},
+    'Brasil acadêmicos (3.866)':  {'verde': 2966, 'amarelo': 615, 'vermelho': 110, 'estrutural': 175},
+    'Brasil profissionais (909)': {'verde': 642,  'amarelo': 150, 'vermelho': 41,  'estrutural': 76},
+}
+CLASSES = [('verde', '🟢 Verde', '#27AE60'), ('amarelo', '🟡 Amarelo', '#E1B12C'),
+           ('vermelho', '🔴 Vermelho', '#C0392B'), ('estrutural', '⬛ Estrutural', '#566573')]
+DOCENTES = {2013: 3568, 2014: 3765, 2015: 3946, 2016: 4186, 2017: 4347, 2018: 4363,
+            2019: 4570, 2020: 4559, 2021: 4698, 2022: 0, 2023: 0, 2024: 0}
 
-def img64(nome, width_cm=15.0):
-    """Carrega o PNG e RECARIMBA o DPI para que sua largura física = width_cm.
-    O LibreOffice usa o DPI embutido (pHYs) para dimensionar a imagem na página,
-    evitando que figuras largas sejam renderizadas no tamanho nativo e cortadas."""
-    p = os.path.join(SAIDA, nome)
-    if not os.path.exists(p):
-        return ''
-    im = Image.open(p)
-    dpi = im.width / (width_cm / 2.54)        # DPI que faz a imagem ter width_cm
-    buf = io.BytesIO()
-    im.save(buf, format='PNG', dpi=(dpi, dpi))
-    b = base64.b64encode(buf.getvalue()).decode()
-    return f'data:image/png;base64,{b}'
-
-
-# --- nota de rodapé sobre o período (mantida do relatório PIP anterior) ----
 RODAPE_PERIODO = [
     'A NOTA de cada programa é a vigente (registro do quadriênio 2021-2024). A PRODUÇÃO, '
     'porém, é medida no quadriênio 2017-2020 — último período com coleta CAPES completa e confiável.',
@@ -44,49 +52,112 @@ RODAPE_PERIODO = [
     'Quando a CAPES consolidar 2021-2024, basta reprocessar com o novo período.',
 ]
 
+
+def img64(nome, width_cm=15.0):
+    """PNG existente em saida/ -> data URI, recarimbando o DPI p/ largura física."""
+    p = os.path.join(SAIDA, nome)
+    if not os.path.exists(p):
+        return ''
+    im = Image.open(p)
+    dpi = im.width / (width_cm / 2.54)
+    buf = io.BytesIO(); im.save(buf, format='PNG', dpi=(dpi, dpi))
+    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+
+
+def _b64(fig, width_cm=16.0):
+    buf = io.BytesIO()
+    fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
+    plt.close(fig); buf.seek(0)
+    im = Image.open(buf)
+    dpi = im.width / (width_cm / 2.54)
+    out = io.BytesIO(); im.save(out, format='PNG', dpi=(dpi, dpi))
+    return 'data:image/png;base64,' + base64.b64encode(out.getvalue()).decode()
+
+
+# ── gráficos estáticos (PDF) ───────────────────────────────────────────────
+def gerar_graficos():
+    figs = {}
+    cohorts = list(DIST.keys())
+    fig, ax = plt.subplots(figsize=(8, 3.2))
+    left = [0] * len(cohorts)
+    for k, lbl, col in CLASSES:
+        vals = [DIST[c][k] / sum(DIST[c].values()) * 100 for c in cohorts]
+        ax.barh(cohorts, vals, left=left, color=col, label=lbl.split(' ', 1)[1])  # sem emoji (fonte matplotlib)
+        left = [a + b for a, b in zip(left, vals)]
+    ax.set_xlim(0, 100); ax.set_xlabel('% dos programas'); ax.invert_yaxis()
+    ax.set_title('Distribuição por retenção de produção (2021-24 / 2017-20)', fontsize=11)
+    ax.legend(fontsize=7.5, ncol=4, loc='lower center', bbox_to_anchor=(0.5, -0.38))
+    ax.tick_params(axis='y', labelsize=8)
+    figs['dist'] = _b64(fig)
+
+    anos = [str(a) for a in DOCENTES]; vals = list(DOCENTES.values())
+    cores = ['#5DADE2' if v > 0 else '#C0392B' for v in vals]
+    fig, ax = plt.subplots(figsize=(8, 3.0))
+    ax.bar(anos, vals, color=cores)
+    ax.set_ylabel('programas c/ docentes')
+    ax.set_title('Programas com nº de docentes lançado, por ano-base', fontsize=11)
+    ax.grid(axis='y', alpha=.3)
+    figs['doc'] = _b64(fig)
+    return figs
+
+
+# ── dados p/ Chart.js (HTML5) ──────────────────────────────────────────────
+def chart_data():
+    cohorts = list(DIST.keys())
+    datasets = []
+    for k, lbl, col in CLASSES:
+        datasets.append({'label': lbl, 'color': col,
+                         'pct': [round(DIST[c][k] / sum(DIST[c].values()) * 100, 1) for c in cohorts],
+                         'cnt': [DIST[c][k] for c in cohorts]})
+    return {'dist': {'cohorts': cohorts, 'datasets': datasets},
+            'doc': {'anos': [str(a) for a in DOCENTES], 'vals': list(DOCENTES.values())}}
+
+
 CSS = """
 @page { size: A4; margin: 2.0cm 1.8cm; }
-body { font-family: 'Liberation Serif','Times New Roman',serif; font-size: 11pt;
-       color: #222; line-height: 1.42; }
-h1 { font-size: 20pt; color: #1A2A3A; margin: 0 0 2pt 0; }
-h2 { font-size: 14pt; color: #1F618D; border-bottom: 2px solid #AED6F1;
-     padding-bottom: 2px; margin-top: 20px; }
-h3 { font-size: 12pt; color: #2C3E50; margin-top: 14px; margin-bottom: 4px; }
-.sub { color: #666; font-size: 10.5pt; margin: 0 0 4px 0; }
-.meta { color: #888; font-size: 9.5pt; margin-bottom: 14px; }
-p { margin: 6px 0; text-align: justify; }
-table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 10pt; }
-th { background: #2C3E50; color: #fff; padding: 5px 7px; text-align: center; }
-td { border: 1px solid #ccc; padding: 4px 7px; text-align: center; }
-td.l { text-align: left; }
-.g { color: #1E8449; font-weight: bold; } .y { color: #9A7D0A; font-weight: bold; }
-.r { color: #C0392B; font-weight: bold; } .k { color: #566573; font-weight: bold; }
-.box { background: #Fef9e7; border-left: 4px solid #F1C40F; padding: 8px 12px; margin: 10px 0; }
-.boxr { background: #FDEDEC; border-left: 4px solid #E74C3C; padding: 8px 12px; margin: 10px 0; }
-figure { margin: 10px 0 4px 0; text-align: center; page-break-inside: avoid; }
-/* o DPI recarimbado em img64() define a largura física (~15cm); a largura é
-   menor que a área de texto (17.4cm), garantindo margem dos dois lados */
-figure img { width: 15cm; height: auto; border: 1px solid #ddd;
-             display: block; margin: 0 auto; }
-p.cap { font-size: 9.5pt; color: #555; margin: 3px 0 0 0; font-style: italic;
-        text-align: center; clear: both; }
-.foot { font-size: 9pt; color: #555; }
-.foot li { margin-bottom: 4px; }
-.pb { page-break-before: always; }
-ul { margin: 6px 0 6px 0; } li { margin: 3px 0; }
+body { font-family:'Liberation Serif','Times New Roman',serif; font-size:11pt; color:#222; line-height:1.42; }
+h1 { font-size:20pt; color:#1A2A3A; margin:0 0 2pt 0; }
+h2 { font-size:14pt; color:#1F618D; border-bottom:2px solid #AED6F1; padding-bottom:2px; margin-top:20px; }
+h3 { font-size:12pt; color:#2C3E50; margin-top:14px; margin-bottom:4px; }
+.sub { color:#666; font-size:10.5pt; margin:0 0 4px 0; }
+.meta { color:#888; font-size:9.5pt; margin-bottom:14px; }
+p { margin:6px 0; text-align:justify; }
+table { border-collapse:collapse; width:100%; margin:8px 0; font-size:10pt; }
+th { background:#2C3E50; color:#fff; padding:5px 7px; text-align:center; }
+td { border:1px solid #ccc; padding:4px 7px; text-align:center; }
+td.l { text-align:left; }
+.g { color:#1E8449; font-weight:bold; } .y { color:#9A7D0A; font-weight:bold; }
+.r { color:#C0392B; font-weight:bold; } .k { color:#566573; font-weight:bold; }
+.box { background:#Fef9e7; border-left:4px solid #F1C40F; padding:8px 12px; margin:10px 0; }
+.boxr { background:#FDEDEC; border-left:4px solid #E74C3C; padding:8px 12px; margin:10px 0; }
+figure { margin:10px 0 4px 0; text-align:center; page-break-inside:avoid; }
+figure img { width:15cm; max-width:100%; height:auto; border:1px solid #ddd; display:block; margin:0 auto; }
+.chartbox { position:relative; margin:12px 0 2px; }
+p.cap { font-size:9.5pt; color:#555; margin:3px 0 0 0; font-style:italic; text-align:center; clear:both; }
+.foot { font-size:9pt; color:#555; } .foot li { margin-bottom:4px; }
+.pb { page-break-before:always; }
+ul { margin:6px 0; } li { margin:3px 0; }
 """
+CSS_SCREEN = "body{max-width:1000px;margin:0 auto;padding:10px 18px;background:#fff;}"
+CANVAS = {'dist': ('cDist', 360), 'doc': ('cDoc', 320)}
 
 
-def build_html():
+def chart_el(mode, key, cap, figs):
+    if mode == 'pdf':
+        return f'<figure><img src="{figs[key]}"/><p class="cap">{cap}</p></figure>'
+    cid, h = CANVAS[key]
+    return (f'<div class="chartbox" style="height:{h}px"><canvas id="{cid}"></canvas></div>'
+            f'<p class="cap">{cap}</p>')
+
+
+def build_body(mode, figs):
+    rodape = ''.join(f'<li>{t}</li>' for t in RODAPE_PERIODO)
+    ce = lambda k, cap: chart_el(mode, k, cap, figs)
     fig_unb = img64('quedas_criticas.png')
     fig_unb_prof = img64('quedas_criticas_profissional.png')
     fig_nac = img64('quedas_criticas_nacional.png')
     fig_nac_prof = img64('quedas_criticas_nacional_profissional.png')
-    rodape = ''.join(f'<li>{t}</li>' for t in RODAPE_PERIODO)
-
-    H = f"""<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
-<style>{CSS}</style></head><body>
-
+    return f"""
 <h1>Produção dos Programas de Pós-Graduação — 2013-2024</h1>
 <p class="sub">Metodologia, Resultados e Conclusões · Sistema <b>MAPA-PG</b> · recálculo a partir dos
 dados abertos da CAPES</p>
@@ -135,17 +206,7 @@ número de docentes de 2021 foi <b>repetido</b> (mantido constante) para 2022-20
 <i>todos</i> os programas cadastrados nos datasets confirma que a ausência é universal: nenhum
 programa do país tem número de pesquisadores lançado para 2022-2024.</p>
 </div>
-<table>
-<tr><th>Ano-base</th><th>2013</th><th>2014</th><th>2015</th><th>2016</th><th>2017</th><th>2018</th>
-<th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr>
-<tr><td class="l"><b>Programas c/ docentes</b></td>
-<td>3.568</td><td>3.765</td><td>3.946</td><td>4.186</td><td>4.347</td><td>4.363</td>
-<td>4.570</td><td>4.559</td><td><b>4.698</b></td>
-<td class="r">0</td><td class="r">0</td><td class="r">0</td></tr>
-</table>
-<p>Por isso a métrica <i>artigos por pesquisador</i> em 2022-2024 é uma <b>estimativa</b> (denominador
-herdado de 2021), enquanto a contagem absoluta de artigos por ano (numerador) é medida diretamente
-dos dados.</p>
+{ce('doc', 'Figura — Programas com nº de docentes lançado por ano-base: o cadastro existe até 2021 e zera em 2022-2024 (limitação universal dos datasets).')}
 
 <h3>2.4 Período de referência (nota de rodapé mantida)</h3>
 <p>A comparação de desempenho usa a produção do quadriênio <b>2017-2020</b> como base (último período
@@ -176,6 +237,7 @@ alertas profissionais devem ser lidos como <b>indicativos</b>.</div>
 de artigos. A "queda" que aparecia na camada pré-processada e na mediana ingênua (de ~8 para ~3
 artigos/docente/ano) é <b>artefato de coleta</b> (Sucupira em andamento + atribuição ao cadastro de
 2021), não perda real de produtividade.</p>
+{ce('dist', 'Figura — Distribuição por retenção nas 4 coortes (% dos programas). A grande maioria é verde (manteve/cresceu); o vermelho é minoria. Passe o mouse para ver as contagens.')}
 
 <h3>3.2 UnB — programas acadêmicos (84)</h3>
 <table>
@@ -242,21 +304,75 @@ produção técnica não captada por artigos.</li>
 <ol class="foot">{rodape}</ol>
 <p class="meta">Documento gerado pelo sistema MAPA-PG (mapa-pg-multi/pip) a partir dos Dados Abertos da
 CAPES. Sinal: artigos distintos por programa/ano (prod_intel_artpe).</p>
+"""
 
-</body></html>"""
-    return H
+
+CHART_JS = r"""
+const D = __DATA__;
+Chart.defaults.font.family = "'Segoe UI',Arial,sans-serif";
+
+new Chart(document.getElementById('cDist'), {
+  type: 'bar',
+  data: { labels: D.dist.cohorts, datasets: D.dist.datasets.map(function(ds){
+    return { label: ds.label, data: ds.pct, backgroundColor: ds.color, _cnt: ds.cnt }; }) },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    scales: { x: { stacked: true, max: 100, title: { display: true, text: '% dos programas' } },
+              y: { stacked: true } },
+    plugins: { title: { display: true, text: 'Distribuição por retenção de produção (2021-24 / 2017-20)' },
+      tooltip: { callbacks: { label: function(it){
+        return it.dataset.label + ': ' + it.dataset._cnt[it.dataIndex] + ' (' + it.parsed.x + '%)'; } } } } }
+});
+
+new Chart(document.getElementById('cDoc'), {
+  type: 'bar',
+  data: { labels: D.doc.anos, datasets: [ { label: 'Programas c/ docentes', data: D.doc.vals,
+    backgroundColor: D.doc.vals.map(function(v){ return v > 0 ? '#5DADE2' : '#C0392B'; }) } ] },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false },
+      title: { display: true, text: 'Programas com nº de docentes lançado, por ano-base' },
+      tooltip: { callbacks: { label: function(it){
+        return it.parsed.y === 0 ? '0 — sem cadastro de docentes' : it.parsed.y + ' programas'; } } } },
+    scales: { y: { title: { display: true, text: 'programas' } } } }
+});
+"""
+
+
+def build_html5():
+    body = build_body('html5', None)
+    chartjs_lib = open(CHARTJS, encoding='utf-8').read()
+    js = CHART_JS.replace('__DATA__', json.dumps(chart_data(), ensure_ascii=False))
+    return (f'<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">'
+            f'<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+            f'<title>Produção dos Programas de Pós-Graduação — MAPA-PG</title>'
+            f'<style>{CSS}{CSS_SCREEN}</style></head><body>{body}'
+            f'<script>{chartjs_lib}</script><script>{js}</script></body></html>')
+
+
+def build_html_pdf(figs):
+    return (f'<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">'
+            f'<style>{CSS}</style></head><body>{build_body("pdf", figs)}</body></html>')
 
 
 def main():
-    html = build_html()
-    html_path = os.path.join(SAIDA, 'relatorio_mapa_pg_metodologia.html')
-    open(html_path, 'w', encoding='utf-8').write(html)
-    # HTML -> PDF via LibreOffice
-    subprocess.run(['libreoffice', '--headless', '--convert-to', 'pdf',
-                    '--outdir', SAIDA, html_path],
+    os.makedirs(SAIDA, exist_ok=True)
+    html5_path = os.path.join(SAIDA, 'relatorio_mapa_pg_metodologia.html')
+    open(html5_path, 'w', encoding='utf-8').write(build_html5())
+    print('HTML5 interativo:', html5_path, f"({os.path.getsize(html5_path)/1024:.0f} KB)")
+
+    figs = gerar_graficos()
+    src = os.path.join(SAIDA, '_pdf_metodologia.html')
+    open(src, 'w', encoding='utf-8').write(build_html_pdf(figs))
+    subprocess.run(['libreoffice', '--headless', '--convert-to', 'pdf', '--outdir', SAIDA, src],
                    check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    gerado = os.path.join(SAIDA, '_pdf_metodologia.pdf')
     pdf = os.path.join(SAIDA, 'relatorio_mapa_pg_metodologia.pdf')
-    print('PDF gerado:', pdf, f"({os.path.getsize(pdf)/1024:.0f} KB)" if os.path.exists(pdf) else '(FALHOU)')
+    if os.path.exists(gerado):
+        os.replace(gerado, pdf)
+        print('PDF estático: ', pdf, f"({os.path.getsize(pdf)/1024:.0f} KB)")
+    else:
+        print('PDF: FALHOU')
+    if os.path.exists(src):
+        os.remove(src)
 
 
 if __name__ == '__main__':

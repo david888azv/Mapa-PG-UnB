@@ -169,15 +169,22 @@ recalcular ao vivo. Conclusão central: pelo **piso da área**, a produção da 
 basta (3→4: incremento 0; 4→5: +102 art/ano) — o salto de nota depende de
 qualidade/impacto, não de volume.
 
-## Documento final (PDF)
+## Documento final (HTML5 + PDF, com gráficos)
 
-`gerar_documento.py` → `saida/relatorio_mapa_pg_metodologia.pdf` (9 pág.):
-metodologia + resultados + conclusões + as 4 figuras (UnB e Brasil, acad. e
-prof.), com as notas de rodapé do período mantidas. Inclui a **ressalva**:
-o número de docentes só existe até 2021 nos datasets da CAPES — verificação
-universal (4.698 programas com docentes em 2021; **0 em 2022/2023/2024**), e o
-roster de 2021 é repetido para estimar a produção por pesquisador nesses anos.
-(HTML → PDF via LibreOffice; figuras têm o DPI recarimbado p/ caber na página.)
+`gerar_documento.py` gera, do MESMO conteúdo:
+- `saida/relatorio_mapa_pg_metodologia.html` — **HTML5 self-contained** com 2
+  gráficos **interativos** (Chart.js v4 inline): distribuição por retenção nas 4
+  coortes (hover mostra as contagens) e nº de docentes por ano-base (o "penhasco"
+  2022-24 = 0);
+- `saida/relatorio_mapa_pg_metodologia.pdf` (9 pág.) — via LibreOffice, com os
+  mesmos 2 gráficos em versão **estática** (matplotlib).
+
+Conteúdo: metodologia + resultados + conclusões + as 4 figuras de séries de
+quedas (UnB e Brasil, acad. e prof., mantidas estáticas nos dois formatos), com
+as notas de rodapé do período. Inclui a **ressalva**: o número de docentes só
+existe até 2021 nos datasets da CAPES — verificação universal (4.698 programas
+com docentes em 2021; **0 em 2022/2023/2024**), e o roster de 2021 é repetido
+para estimar a produção por pesquisador nesses anos.
 
 ## Qualis — não usado (decisão 2026-06-17)
 
