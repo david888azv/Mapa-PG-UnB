@@ -221,6 +221,7 @@ def analisar(progs, area_de, ref):
             'alvo4': alvo4, 'incr4': incr4, 'sim4': sim4, 'n4': n4,
             'alvo5': alvo5, 'incr5': incr5, 'sim5': sim5, 'n5': n5,
             'baseline': baseline, 'cd': cd,
+            'situacao': nota_reg.get('situacao'),
         })
     linhas.sort(key=lambda x: (x['nota'], x['area'], x['programa']))
     return linhas
@@ -513,6 +514,85 @@ def aba_projecao(wb, stats):
     return ws
 
 
+def aba_detalhe_transicao(wb, linhas, stats):
+    """Detalhe POR PROGRAMA UnB das transições 3→4 e 4→5: produção atual vs a
+    mediana/média nacional da nota-alvo (mesmos alvos da aba 'Projeção por nota'),
+    incremento por pesquisador/ano e em artigos/ano absolutos. Ordena do mais
+    perto ao mais longe. Programas em desativação e novos (sem produção 2017-2020)
+    ficam fora do ranking, listados à parte."""
+    ws = wb.create_sheet('Detalhe 3→4 e 4→5')
+    ws.append(['DETALHE POR PROGRAMA UnB — incremento de produção até a PRÓXIMA nota'])
+    ws.cell(1, 1).font = Font(bold=True, size=13, color=AZUL)
+    ws.append(['Produção em artigos por permanente/ano (2017-2020). Alvo = MEDIANA e MÉDIA '
+               'nacionais dos programas da nota-alvo (mesmos valores da aba "Projeção por nota"). '
+               '"+ artigos/ano" = incremento × nº de permanentes. Ordenado do mais perto ao mais longe.'])
+    ws.cell(2, 1).font = ITAL
+
+    headers = ['Área CAPES', 'Programa', 'Nota', 'Perm. (2017-20)',
+               'Produção atual (art/pesq/ano)', 'Alvo MEDIANA (próx.)',
+               'Incr. p/ mediana (art/pesq/ano)', '+ artigos/ano (mediana)',
+               'Alvo MÉDIA (próx.)', 'Incr. p/ média (art/pesq/ano)',
+               '+ artigos/ano (média)', 'Situação / obs.']
+    larg = [24, 32, 6, 11, 13, 12, 14, 13, 12, 14, 13, 24]
+
+    for nota in (3, 4):
+        alvo = stats[nota + 1]['nac']
+        med, mean = alvo['mediana'], alvo['media']
+        ws.append([])
+        ws.append([f'NOTA {nota} → {nota+1}   (alvo nacional: mediana {med} · média {mean} art/pesq/ano)'])
+        ws.cell(ws.max_row, 1).font = Font(bold=True, size=11, color=ROSA)
+        ws.append(headers)
+        hr = ws.max_row
+        for i in range(1, len(headers) + 1):
+            c = ws.cell(hr, i); c.font = H; c.fill = HFILL; c.alignment = CENTER; c.border = BORDA
+            col = get_column_letter(i)
+            ws.column_dimensions[col].width = max(ws.column_dimensions[col].width or 0, larg[i-1])
+
+        grupo = [l for l in linhas if l['nota'] == nota]
+        ativos = [l for l in grupo if l['situacao'] == 'EM FUNCIONAMENTO'
+                  and 'fallback' not in l['baseline'] and l['ma_atual'] is not None]
+        especiais = [l for l in grupo if l not in ativos]
+        ativos.sort(key=lambda l: max(0.0, med - l['ma_atual']))
+
+        tot_med = tot_mean = tot_perm = 0
+        for l in ativos:
+            ma = l['ma_atual']; n = l['n_perm'] or 0
+            im = round(max(0.0, med - ma), 2); imn = round(max(0.0, mean - ma), 2)
+            am = round(im * n); amn = round(imn * n)
+            tot_med += am; tot_mean += amn; tot_perm += n
+            status = '✓ já ≥ mediana' if im == 0 else ''
+            ws.append([l['area'], l['programa'], nota, n, ma, med, im, am, mean, imn, amn, status])
+            row = ws.max_row
+            for i in range(1, len(headers) + 1):
+                c = ws.cell(row, i); c.border = BORDA
+                c.alignment = LEFT if i in (1, 2, 12) else CENTER
+            if im == 0:
+                ws.cell(row, 7).fill = VERDE; ws.cell(row, 8).fill = VERDE
+
+        ws.append([f'SUBTOTAL — {len(ativos)} programas ativos', '', '', tot_perm, '', '',
+                   '', tot_med, '', '', tot_mean, 'artigos/ano a mais (coorte)'])
+        sr = ws.max_row
+        for i in range(1, len(headers) + 1):
+            c = ws.cell(sr, i); c.border = BORDA; c.font = Font(bold=True)
+            c.alignment = LEFT if i in (1, 12) else CENTER
+
+        for l in especiais:
+            if l['situacao'] != 'EM FUNCIONAMENTO':
+                obs = 'EM DESATIVAÇÃO — fora do plano'
+            else:
+                obs = 'programa novo — sem produção 2017-2020'
+            ma = l['ma_atual'] if ('fallback' not in l['baseline'] and l['ma_atual'] is not None) else '—'
+            ws.append([l['area'], l['programa'], nota, l['n_perm'] or 0, ma, '', '', '', '', '', '', obs])
+            row = ws.max_row
+            for i in range(1, len(headers) + 1):
+                c = ws.cell(row, i); c.border = BORDA
+                c.alignment = LEFT if i in (1, 2, 12) else CENTER
+                c.font = Font(italic=True, color='777777')
+
+    rodape_periodo(ws, len(headers))
+    return ws
+
+
 def main():
     progs, area_de, areas = carregar()
     ref, cont_area = media_referencia(progs, area_de)
@@ -525,6 +605,7 @@ def main():
     aba_quantitativos(wb, linhas, cont_area)
     aba_incremento(wb, linhas)
     aba_projecao(wb, stats)
+    aba_detalhe_transicao(wb, linhas, stats)
     aba_faixas(wb, linhas, perf)
     aba_referencias(wb, ref, areas, cont_area)
     out = os.path.join(SAIDA, 'relatorio_pip_unb.xlsx')
