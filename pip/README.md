@@ -154,9 +154,11 @@ encerraram em 2019 e cuja atividade migrou para um código-irmão na mesma IES.
 ## Relatório de incremento (HTML5 + PDF, com gráficos)
 
 `gerar_relatorio_incremento.py` gera, do MESMO conteúdo:
-- `saida/relatorio_incremento_pip.html` — **HTML5 self-contained** (gráficos
-  matplotlib embutidos em base64; abre offline por duplo-clique);
-- `saida/relatorio_incremento_pip.pdf` — via LibreOffice (mesmas figuras).
+- `saida/relatorio_incremento_pip.html` — **HTML5 self-contained** com gráficos
+  **interativos** (Chart.js v4 inline; abre offline por duplo-clique). Nos
+  gráficos por programa, o tooltip (hover) mostra o incremento até os 4 alvos;
+- `saida/relatorio_incremento_pip.pdf` — via LibreOffice, com os mesmos gráficos
+  em versão **estática** (matplotlib), já que o conversor não executa JavaScript.
 
 Fecha a análise das transições **3→4 e 4→5**: metodologia, produção ponderada
 por nota (Brasil × UnB), as **4 definições de alvo** (piso e média ponderada da
