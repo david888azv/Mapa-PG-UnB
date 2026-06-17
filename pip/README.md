@@ -151,15 +151,20 @@ encerraram em 2019 e cuja atividade migrou para um código-irmão na mesma IES.
   em prod_intel_2021a2024) — agora ESTRUTURAL pela regra refinada. Restam 4
   vermelhos reais (ex.: UTFPR Zootecnia, forte até 2020 e silêncio depois).
 
-## Relatório de incremento (PDF)
+## Relatório de incremento (HTML5 + PDF, com gráficos)
 
-`gerar_relatorio_incremento.py` → `saida/relatorio_incremento_pip.pdf` (6 pág.):
-fecha a análise das transições **3→4 e 4→5** — metodologia, produção ponderada
+`gerar_relatorio_incremento.py` gera, do MESMO conteúdo:
+- `saida/relatorio_incremento_pip.html` — **HTML5 self-contained** (gráficos
+  matplotlib embutidos em base64; abre offline por duplo-clique);
+- `saida/relatorio_incremento_pip.pdf` — via LibreOffice (mesmas figuras).
+
+Fecha a análise das transições **3→4 e 4→5**: metodologia, produção ponderada
 por nota (Brasil × UnB), as **4 definições de alvo** (piso e média ponderada da
-própria área; mediana e média nacionais), detalhe por programa e conclusões.
-Importa o `build_pip` para recalcular os números ao vivo; HTML → PDF via
-LibreOffice. Conclusão central: pelo **piso da área**, a produção da UnB já basta
-(3→4: incremento 0; 4→5: +102 art/ano) — o salto de nota depende de
+própria área; mediana e média nacionais), detalhe por programa e conclusões, com
+**4 gráficos** (produção por nota; meta da coorte por alvo; produção por programa
+nota 3 e nota 4 com linhas de mediana/média). Importa o `build_pip` para
+recalcular ao vivo. Conclusão central: pelo **piso da área**, a produção da UnB já
+basta (3→4: incremento 0; 4→5: +102 art/ano) — o salto de nota depende de
 qualidade/impacto, não de volume.
 
 ## Documento final (PDF)
