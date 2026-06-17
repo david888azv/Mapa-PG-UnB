@@ -27,7 +27,7 @@ import json
 import glob
 import os
 from collections import defaultdict
-from statistics import mean
+from statistics import mean, median
 
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -89,6 +89,54 @@ def media_referencia(progs, area_de):
         ref[chave] = {'min': round(min(vals), 2), 'media': round(mean(vals), 2),
                       'n': len(vals)}
     return ref, cont_area
+
+
+def stats_por_nota(progs):
+    """
+    Agrega a produção (art/permanente/ano, 2017-2020) por NOTA VIGENTE,
+    nacionalmente (Brasil) e só UnB — atravessando TODAS as áreas CAPES.
+    Só programas ACADÊMICOS com n_perm>0 e ma_perm definido.
+
+    Para cada nota devolve, em 'nac' e 'unb':
+      n        — nº de programas
+      perm     — total de docentes permanentes (peso)
+      pond     — produção PONDERADA por pesquisador/ano = Σ(ma_perm·n_perm)/Σn_perm
+                 (= total de artigos/ano ÷ total de permanentes; programas maiores
+                 pesam mais — é a média ponderada pedida).
+      media    — média simples das taxas por programa
+      mediana  — mediana das taxas por programa
+    Retorna dict[nota] -> {'nac': {...}|None, 'unb': {...}|None}.
+    """
+    nat = defaultdict(list)         # nota -> [(ma_perm, n_perm)]
+    unb = defaultdict(list)
+    for cd, quads in progs.items():
+        nota_reg = quads.get(QUAD_NOTA)
+        prod_reg = quads.get(QUAD_PROD)
+        if not nota_reg or not is_academico(nota_reg.get('modalidade')):
+            continue
+        if not prod_reg or not prod_reg.get('n_perm') or prod_reg.get('ma_perm') is None:
+            continue
+        par = (prod_reg['ma_perm'], prod_reg['n_perm'])
+        nota = nota_reg.get('nota')
+        nat[nota].append(par)
+        if nota_reg.get('is_unb'):
+            unb[nota].append(par)
+
+    def agg(rows):
+        if not rows:
+            return None
+        mas = [m for m, _ in rows]
+        peso = sum(n for _, n in rows)
+        return {
+            'n': len(rows),
+            'perm': peso,
+            'pond': round(sum(m * n for m, n in rows) / peso, 2) if peso else None,
+            'media': round(mean(mas), 2),
+            'mediana': round(median(mas), 2),
+        }
+
+    return {nota: {'nac': agg(nat.get(nota, [])), 'unb': agg(unb.get(nota, []))}
+            for nota in (3, 4, 5, 6, 7)}
 
 
 def perfil_impacto(progs, area_de):
@@ -369,16 +417,114 @@ def aba_faixas(wb, linhas, perf):
     return ws
 
 
+NOTA_PROJ = [
+    'PROJEÇÃO POR NOTA — leitura e ressalva:',
+    '• "Produção ponderada" = artigos em periódico por docente PERMANENTE por ANO '
+    '(2017-2020), agregando TODAS as áreas CAPES e ponderando cada programa pelo '
+    'seu nº de permanentes (= total de artigos/ano ÷ total de permanentes). É a '
+    'média de produção PEDIDA, ponderada pelos programas de cada nota.',
+    '• A projeção pega a produção ponderada ATUAL dos programas UnB de cada nota e '
+    'mede quanto falta (art/pesq/ano) para alcançar a MÉDIA ou a MEDIANA NACIONAL '
+    'dos programas da nota imediatamente superior (3→4, 4→5, 5→6, 6→7).',
+    '• RESSALVA IMPORTANTE: a produção por pesquisador SATURA a partir da nota 4 '
+    '(Brasil: ~10,9 na nota 4 e ~11–12 nas notas 5/6/7). Acima da nota 4 os '
+    'programas se distinguem mais pelo IMPACTO/qualidade do que pelo VOLUME por '
+    'pesquisador — então o incremento de quantidade aqui é condição necessária, '
+    'não suficiente, para subir de 5 em diante. Ver a aba de faixas de impacto.',
+]
+
+
+def aba_projecao(wb, stats):
+    """Produção ponderada por nota (Brasil × UnB) + projeção de incremento da
+    UnB até a média/mediana nacional da próxima nota."""
+    ws = wb.create_sheet('Projeção por nota')
+    ws.append(['PRODUÇÃO PONDERADA POR NOTA E PROJEÇÃO DE INCREMENTO (UnB)'])
+    ws.cell(1, 1).font = Font(bold=True, size=13, color=AZUL)
+    ws.append([])
+
+    # ---- Tabela 1: produção por nota, Brasil x UnB -----------------------
+    h1 = ['Nota', 'Prog. Brasil', 'Perm. Brasil',
+          'Ponderada Brasil (art/pesq/ano)', 'Média Brasil', 'Mediana Brasil',
+          'Prog. UnB', 'Perm. UnB', 'Ponderada UnB (art/pesq/ano)']
+    larg1 = [7, 11, 12, 16, 12, 13, 9, 10, 16]
+    ws.append(h1)
+    hr = ws.max_row
+    for i in range(1, len(h1) + 1):
+        c = ws.cell(hr, i); c.font = H; c.fill = HFILL; c.alignment = CENTER; c.border = BORDA
+        ws.column_dimensions[get_column_letter(i)].width = larg1[i-1]
+    for nota in (7, 6, 5, 4, 3):
+        nac = stats[nota]['nac']; unb = stats[nota]['unb']
+        ws.append([
+            nota,
+            nac['n'] if nac else 0, nac['perm'] if nac else 0,
+            nac['pond'] if nac else None, nac['media'] if nac else None,
+            nac['mediana'] if nac else None,
+            unb['n'] if unb else 0, unb['perm'] if unb else 0,
+            unb['pond'] if unb else None,
+        ])
+        for i in range(1, len(h1) + 1):
+            c = ws.cell(ws.max_row, i); c.border = BORDA; c.alignment = CENTER
+
+    # ---- Tabela 2: projeção de incremento UnB ----------------------------
+    ws.append([])
+    ws.append(['PROJEÇÃO — produção ponderada ATUAL da UnB → alvo nacional da PRÓXIMA nota'])
+    ws.cell(ws.max_row, 1).font = Font(bold=True, size=11, color=ROSA)
+    h2 = ['De → Para', 'Prog. UnB', 'Ponderada UnB atual (art/pesq/ano)',
+          'Alvo MÉDIA nacional (próx. nota)', 'Incremento p/ MÉDIA (art/pesq/ano)',
+          'Alvo MEDIANA nacional (próx. nota)', 'Incremento p/ MEDIANA (art/pesq/ano)',
+          'Incremento % (sobre a média)']
+    larg2 = [11, 9, 16, 16, 16, 16, 16, 14]
+    ws.append(h2)
+    hr2 = ws.max_row
+    for i in range(1, len(h2) + 1):
+        c = ws.cell(hr2, i); c.font = H; c.fill = HFILL; c.alignment = CENTER; c.border = BORDA
+        atual = ws.column_dimensions[get_column_letter(i)].width or 0
+        ws.column_dimensions[get_column_letter(i)].width = max(atual, larg2[i-1])
+
+    for g in (3, 4, 5, 6):
+        unb = stats[g]['unb']; alvo = stats[g + 1]['nac']
+        if not unb or not alvo:
+            continue
+        base = unb['pond']
+        a_med = alvo['media']; a_mdn = alvo['mediana']
+        inc_med = round(max(0.0, a_med - base), 2)
+        inc_mdn = round(max(0.0, a_mdn - base), 2)
+        pct = round(inc_med / base * 100, 1) if base else None
+        ws.append([f'{g} → {g+1}', unb['n'], base, a_med, inc_med, a_mdn, inc_mdn, pct])
+        row = ws.max_row
+        for i in range(1, len(h2) + 1):
+            c = ws.cell(row, i); c.border = BORDA; c.alignment = CENTER
+        # destaca quando a UnB já está no/acima do alvo (incremento 0)
+        if inc_med == 0:
+            ws.cell(row, 5).fill = VERDE; ws.cell(row, 5).font = Font(bold=True, color='1E8449')
+        if inc_mdn == 0:
+            ws.cell(row, 7).fill = VERDE; ws.cell(row, 7).font = Font(bold=True, color='1E8449')
+
+    # nota de rodapé específica
+    ws.append([])
+    for i, texto in enumerate(NOTA_PROJ):
+        ws.append([texto])
+        r = ws.max_row
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=len(h2))
+        c = ws.cell(r, 1)
+        c.font = ITAL_B if i == 0 else ITAL
+        c.alignment = Alignment(horizontal='left', vertical='top', wrap_text=True)
+        ws.row_dimensions[r].height = 14 if i == 0 else 42
+    return ws
+
+
 def main():
     progs, area_de, areas = carregar()
     ref, cont_area = media_referencia(progs, area_de)
     perf = perfil_impacto(progs, area_de)
+    stats = stats_por_nota(progs)
     linhas = analisar(progs, area_de, ref)
 
     wb = openpyxl.Workbook()
     wb.remove(wb.active)
     aba_quantitativos(wb, linhas, cont_area)
     aba_incremento(wb, linhas)
+    aba_projecao(wb, stats)
     aba_faixas(wb, linhas, perf)
     aba_referencias(wb, ref, areas, cont_area)
     out = os.path.join(SAIDA, 'relatorio_pip_unb.xlsx')
@@ -392,6 +538,21 @@ def main():
     ja5 = [l for l in linhas if l['sim5'] == 'SIM']
     print(f'Já atingem o PISO de nota 4 (mínimo nacional): {len(ja4)}')
     print(f'Já atingem a MÉDIA de nota 5 (média nacional): {len(ja5)}')
+    print('\nProjeção por nota (produção ponderada art/pesq/ano, 2017-2020):')
+    print('nota | pondBR | médiaBR | medianaBR | pondUnB')
+    for nota in (7, 6, 5, 4, 3):
+        nac = stats[nota]['nac']; u = stats[nota]['unb']
+        print(f'  {nota}  | {nac["pond"]:6.2f} | {nac["media"]:6.2f}  | '
+              f'{nac["mediana"]:6.2f}    | {u["pond"] if u else float("nan"):6.2f}')
+    print('Incremento UnB (ponderada atual -> média/mediana nacional da próxima nota):')
+    for g in (3, 4, 5, 6):
+        u = stats[g]['unb']; alvo = stats[g + 1]['nac']
+        if not u or not alvo:
+            continue
+        base = u['pond']
+        print(f'  {g}->{g+1}: UnB {base:.2f} | +{max(0, alvo["media"]-base):.2f} p/ média '
+              f'({alvo["media"]:.2f}) | +{max(0, alvo["mediana"]-base):.2f} p/ mediana '
+              f'({alvo["mediana"]:.2f})')
     print(f'Excel salvo em: {out}')
 
 

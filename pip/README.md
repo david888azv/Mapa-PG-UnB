@@ -46,9 +46,18 @@ também em art/pesquisador/ano.
 
 ## Arquivos
 
-- `build_pip.py` — gera `saida/relatorio_pip_unb.xlsx` com 4 abas:
-  **Quantitativos UnB**, **Incremento de produção**, **Artigos por faixa de
-  impacto** e **Referências por área**.
+- `build_pip.py` — gera `saida/relatorio_pip_unb.xlsx` com 5 abas:
+  **Quantitativos UnB**, **Incremento de produção**, **Projeção por nota**,
+  **Artigos por faixa de impacto** e **Referências por área**.
+  A aba **Projeção por nota** (2026-06-17) agrega a produção art/permanente/ano
+  (2017-2020) por NOTA atravessando TODAS as áreas: produção PONDERADA pelos
+  permanentes de cada programa (Σ artigos/ano ÷ Σ permanentes), além de média e
+  mediana nacionais, para Brasil e UnB; e projeta o incremento da produção
+  ponderada da UnB de cada nota até a média/mediana nacional da nota seguinte
+  (3→4, 4→5, 5→6, 6→7). Ressalva embutida: a produção por pesquisador SATURA a
+  partir da nota 4 (Brasil ~10,9 na 4 e ~11–12 nas 5/6/7) — acima da nota 4 o que
+  distingue é o IMPACTO, não o volume; logo o incremento de quantidade é condição
+  necessária, não suficiente.
 - `investiga_quedas.py` — investigação de quedas de produção da UnB ano a ano
   (ver seção abaixo). Gera `relatorio_quedas_unb.xlsx`, `quedas_criticas.png` e
   `lista_vermelha.md`.
