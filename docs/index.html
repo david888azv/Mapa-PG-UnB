@@ -83,6 +83,7 @@
     --unb: #E91E63;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--txt); }
 
 /* HEADER */
@@ -173,6 +174,12 @@ tr:hover { background: #EEF2F7; }
     .container { flex-direction: column; }
     .sidebar { width: 100%; min-width: auto; max-height: none; }
     .main { max-height: none; }
+    /* Header empilhado: o h1 deixa de ser espremido pela .meta (evita
+       quebra em coluna estreita + font-boosting no celular). */
+    .header { flex-direction: column; align-items: flex-start; gap: 6px; padding: 10px 16px; }
+    .header h1 { font-size: 17px; letter-spacing: .5px; flex: none; width: 100%; }
+    .header .meta { text-align: left; max-width: 100%; }
+    .header .meta > div { white-space: normal; }
 }
 
 /* TOAST */
