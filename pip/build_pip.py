@@ -637,7 +637,7 @@ def aba_piso(wb, linhas, ref):
 
         def sortkey(l):
             r = ref.get((l['slug'], alvo_nota))
-            if not r:
+            if not r or r['min'] <= 0:          # sem ref ou piso=0 (não comparável) ao fim
                 return (1, 0.0)
             return (0, max(0.0, r['min'] - l['ma_atual']))
         ativos.sort(key=sortkey)
@@ -656,16 +656,27 @@ def aba_piso(wb, linhas, ref):
                     c.font = Font(italic=True, color='777777')
                 continue
             piso = r['min']; wm = r['wmean']
-            ip = round(max(0.0, piso - ma), 2); ap = round(ip * n)
-            iw = round(max(0.0, (wm if wm is not None else 0) - ma), 2)
-            aw = round(iw * n)
-            tot_piso += ap; tot_wm += aw; tot_perm += n; n_ref += 1
-            ws.append([l['area'], l['programa'], nota, n, ma, piso, ip, ap, wm, iw, aw, r['n']])
+            piso_ok = piso > 0                  # piso=0 não é referência útil
+            wm_ok = wm is not None and wm > 0
+            if piso_ok:
+                ip = round(max(0.0, piso - ma), 2); ap = round(ip * n); tot_piso += ap
+                piso_c, ip_c, ap_c = piso, ip, ap
+            else:
+                ip = None; piso_c = piso; ip_c = ap_c = '—'
+            if wm_ok:
+                iw = round(max(0.0, wm - ma), 2); aw = round(iw * n); tot_wm += aw
+                wm_c, iw_c, aw_c = wm, iw, aw
+            else:
+                iw = None; wm_c = wm if wm is not None else '—'; iw_c = aw_c = '—'
+            tot_perm += n; n_ref += 1
+            obs = '' if piso_ok else 'piso = 0 (sem referência útil)'
+            ws.append([l['area'], l['programa'], nota, n, ma, piso_c, ip_c, ap_c, wm_c, iw_c, aw_c,
+                       obs or r['n']])
             row = ws.max_row
             for i in range(1, len(headers) + 1):
                 c = ws.cell(row, i); c.border = BORDA
                 c.alignment = LEFT if i in (1, 2) else CENTER
-            if ip == 0:
+            if piso_ok and ip == 0:
                 ws.cell(row, 7).fill = VERDE; ws.cell(row, 8).fill = VERDE
 
         ws.append([f'SUBTOTAL — {n_ref} prog. com referência na área', '', '', tot_perm, '', '',
@@ -697,8 +708,14 @@ def _quatro_alvos(l, ref, stats):
     nota = l['nota']; alvo = nota + 1; ma = l['ma_atual']
     r = ref.get((l['slug'], alvo))
     nac = stats[alvo]['nac']
+    # piso só vale como referência se for > 0: um piso = 0 (algum programa da
+    # nota-alvo sem produção) é trivialmente superado por qualquer programa, logo
+    # não serve de meta — vira None (sem comparação).
+    piso = r['min'] if r else None
+    if piso is not None and piso <= 0:
+        piso = None
     alvos = {
-        'piso':  r['min'] if r else None,
+        'piso':  piso,
         'wmean': r['wmean'] if r else None,
         'mediana': nac['mediana'] if nac else None,
         'media':   nac['media'] if nac else None,

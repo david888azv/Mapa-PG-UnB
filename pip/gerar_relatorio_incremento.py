@@ -67,6 +67,29 @@ def tab_resumo(linhas, ref, stats):
     return html, c3, c4
 
 
+def tab_mediana(linhas, ref, stats, nota):
+    """Tabela numérica focada na MEDIANA NACIONAL da nota-alvo: por programa, a
+    produção atual, o alvo, o incremento por pesquisador/ano e o incremento
+    PERCENTUAL relativo (quanto a produção precisa subir, em %)."""
+    med = stats[nota + 1]['nac']['mediana']
+    ativos = sorted((l for l in linhas if l['nota'] == nota and ATIVO(l)),
+                    key=lambda l: max(0.0, med - l['ma_atual']))
+    out = ''
+    for l in ativos:
+        ma = l['ma_atual']
+        incr = round(max(0.0, med - ma), 2)
+        if incr == 0:
+            inc_c = "<span class='g'>0</span>"
+            pct_c = "<span class='g'>já atinge</span>"
+        else:
+            inc_c = fmt(incr)
+            pct_c = '—' if ma <= 0 else f'+{fmt(incr / ma * 100, 1)}%'
+        out += (f"<tr><td class='l'>{l['programa']}</td><td class='l'>{l['area']}</td>"
+                f"<td>{l['n_perm'] or 0}</td><td>{fmt(ma)}</td><td>{fmt(med)}</td>"
+                f"<td>{inc_c}</td><td>{pct_c}</td></tr>")
+    return out
+
+
 def tab_prog(linhas, ref, stats, nota):
     ativos = sorted((l for l in linhas if l['nota'] == nota and ATIVO(l)),
                     key=lambda l: (B._quatro_alvos(l, ref, stats)[1]['mediana'] or 0))
@@ -263,6 +286,13 @@ Incremento em art/pesq/ano; <span class="g">0</span> = já atingiu. Botânica (d
 <tr><th>Programa</th><th>Área CAPES</th><th>Perm.</th><th>Prod. atual</th><th>&rarr; Piso área</th><th>&rarr; Méd.pond.</th><th>&rarr; Mediana</th><th>&rarr; Média</th></tr>
 {tab_prog(linhas, ref, stats, 3)}
 </table>
+<h3>Incremento até a MEDIANA NACIONAL (3 &rarr; 4)</h3>
+<p class="sub">Quanto a produção por pesquisador de cada programa precisa subir para alcançar a mediana
+nacional da nota 4 ({fmt(m4['mediana'])} art/pesq/ano): em valor (art/pesq/ano) e em % relativo sobre a produção atual.</p>
+<table>
+<tr><th>Programa</th><th>Área CAPES</th><th>Perm.</th><th>Produção atual</th><th>Mediana nacional</th><th>Incremento (art/pesq/ano)</th><th>Incremento %</th></tr>
+{tab_mediana(linhas, ref, stats, 3)}
+</table>
 
 <h2 class="pb">5. Detalhe por programa — Nota 4 &rarr; 5</h2>
 <p class="sub">Alvos nacionais da nota 5: mediana {fmt(m5['mediana'])} · média {fmt(m5['media'])} art/pesq/ano.
@@ -271,6 +301,13 @@ Botânica nova (sem produção 2017-2020) fora do plano.</p>
 <table>
 <tr><th>Programa</th><th>Área CAPES</th><th>Perm.</th><th>Prod. atual</th><th>&rarr; Piso área</th><th>&rarr; Méd.pond.</th><th>&rarr; Mediana</th><th>&rarr; Média</th></tr>
 {tab_prog(linhas, ref, stats, 4)}
+</table>
+<h3>Incremento até a MEDIANA NACIONAL (4 &rarr; 5)</h3>
+<p class="sub">Quanto a produção por pesquisador de cada programa precisa subir para alcançar a mediana
+nacional da nota 5 ({fmt(m5['mediana'])} art/pesq/ano): em valor (art/pesq/ano) e em % relativo sobre a produção atual.</p>
+<table>
+<tr><th>Programa</th><th>Área CAPES</th><th>Perm.</th><th>Produção atual</th><th>Mediana nacional</th><th>Incremento (art/pesq/ano)</th><th>Incremento %</th></tr>
+{tab_mediana(linhas, ref, stats, 4)}
 </table>
 
 <h2 class="pb">6. Conclusões</h2>

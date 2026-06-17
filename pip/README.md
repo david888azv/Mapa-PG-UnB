@@ -164,8 +164,11 @@ Fecha a análise das transições **3→4 e 4→5**: metodologia, produção pon
 por nota (Brasil × UnB), as **4 definições de alvo** (piso e média ponderada da
 própria área; mediana e média nacionais), detalhe por programa e conclusões, com
 **4 gráficos** (produção por nota; meta da coorte por alvo; produção por programa
-nota 3 e nota 4 com linhas de mediana/média). Importa o `build_pip` para
-recalcular ao vivo. Conclusão central: pelo **piso da área**, a produção da UnB já
+nota 3 e nota 4 com linhas de mediana/média) e **tabelas numéricas de incremento
+até a MEDIANA NACIONAL** (por programa: art/pesq/ano **e % relativo**) para 3→4 e
+4→5. Importa o `build_pip` para recalcular ao vivo. **Regra do piso:** o piso da
+área só é usado como alvo quando é **> 0** (piso=0 — algum programa da nota-alvo
+sem produção — é trivialmente superado, então não serve de meta). Conclusão central: pelo **piso da área**, a produção da UnB já
 basta (3→4: incremento 0; 4→5: +102 art/ano) — o salto de nota depende de
 qualidade/impacto, não de volume.
 
