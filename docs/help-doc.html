@@ -63,9 +63,10 @@ a{color:#1565C0;}
 <div class="card">
     <h2>Sobre o MAPA-PG</h2>
     <p><strong>MAPA-PG</strong> — <em>Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</em> — é um sistema interativo para acompanhamento
-       e gestão de análise de programas de pós-graduação brasileiros na área de <strong>Astronomia / Física</strong>.</p>
+       e análise de programas de pós-graduação brasileiros em <strong>todas as 42 áreas de avaliação da CAPES</strong>,
+       com foco nos <strong>92 programas da Universidade de Brasília (UnB)</strong> comparados aos seus pares nacionais na mesma área.</p>
 
-    <p style="margin-top:12px;">O sistema permite comparar indicadores de produtividade entre programas com notas CAPES 4, 5, 6 e 7,
+    <p style="margin-top:12px;">O sistema permite comparar indicadores de produtividade entre programas de todas as notas CAPES (3, 4, 5, 6 e 7),
        visualizar tendências ao longo de três quadriênios (2013-2016, 2017-2020, 2021-2024), e gerar relatórios e gráficos exportáveis.</p>
 
     <h3>Autor</h3>
@@ -100,7 +101,7 @@ a{color:#1565C0;}
     <h2>Requisitos</h2>
     <ul style="padding-left:20px;font-size:13px;">
         <li>Navegador moderno (Chrome, Firefox, Edge ou Safari)</li>
-        <li>Arquivo <code>dados_fisica.json</code> na mesma pasta (ou dados embutidos no HTML)</li>
+        <li>Catálogo <code>manifest.json</code> / <code>registry.json</code> e o arquivo da área selecionada (<code>dados/area-*.json</code>), na mesma pasta</li>
         <li>Conexão com internet na primeira abertura (para carregar Chart.js via CDN)</li>
     </ul>
 </div>
@@ -168,9 +169,12 @@ a{color:#1565C0;}
 <div class="section" id="sec-siglas">
 
 <div class="card">
-    <h2>Glossário de Siglas — Programas de Astronomia / Física</h2>
-    <p>Lista completa dos 66 programas de pós-graduação na área de Astronomia / Física monitorados pelo MAPA-PG,
-       com sigla da instituição, nome do programa, universidade e ano de início do primeiro curso.</p>
+    <h2>Glossário de Siglas — exemplo da área de Astronomia / Física</h2>
+    <p>O MAPA-PG cobre <strong>todas as 42 áreas de avaliação da CAPES</strong>; a lista abaixo é um
+       <strong>exemplo</strong> de uma delas — os 66 programas da área de <strong>Astronomia / Física</strong> —
+       com sigla da instituição, nome do programa, universidade e ano de início do primeiro curso. Em cada área,
+       os programas da UnB recebem um código próprio no formato <code>MAPA-PG-XXXXXX</code>, exibido nos seletores
+       da barra lateral.</p>
 
     <div class="info-box">
         <strong>Fonte:</strong> Cadastro de Programas de Pós-Graduação — CAPES Dados Abertos.

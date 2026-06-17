@@ -3,7 +3,7 @@
 // (network-first com fallback para cache, para que atualizações sejam
 // refletidas quando online; offline o app continua funcional para áreas
 // já visitadas).
-const VERSION = 'mapa-pg-v2.0.1';
+const VERSION = 'mapa-pg-v2.0.2';
 const SHELL = [
   './',
   './index.html',

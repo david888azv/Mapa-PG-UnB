@@ -405,21 +405,73 @@ async function loadData() {
             fetch('registry.json', {cache: 'force-cache'}).then(r=>r.json()),
         ]);
         MANIFEST = mf; REGISTRY = rg;
-        // Determinar curso/área inicial via querystring (?curso=FISICA) ou padrão FISICA
+        // Seleção inicial APENAS via querystring (?curso=SUFIXO e/ou ?area=slug).
+        // Sem querystring → ABERTURA NEUTRA: o app cobre as 42 áreas CAPES e NÃO
+        // pré-seleciona Física (evita dar a impressão de ser um app só de Física).
         const params = new URLSearchParams(location.search);
-        const sufQS = (params.get('curso') || 'FISICA').toUpperCase();
+        const sufQS = (params.get('curso') || '').toUpperCase();
         const areaQS = params.get('area');
-        let prog = REGISTRY.programas_unb.find(p => p.sufixo === sufQS);
-        let areaSlug = areaQS;
-        if (prog) areaSlug = prog.slug_area;
-        if (!areaSlug) areaSlug = 'astronomia-fisica';
-        await switchArea(areaSlug, prog ? prog.sufixo : null);
+        const prog = sufQS ? REGISTRY.programas_unb.find(p => p.sufixo === sufQS) : null;
+        const areaSlug = areaQS || (prog ? prog.slug_area : null);
+        if (areaSlug) {
+            await switchArea(areaSlug, prog ? prog.sufixo : null);
+        } else {
+            showLanding();
+        }
     } catch (e) {
         console.error(e);
         document.getElementById('loading').innerHTML =
             `<p style="color:#E74C3C;font-size:16px;">Erro ao carregar catálogo.</p>
              <p style="color:#999;margin-top:8px;">${e.message}</p>`;
     }
+}
+
+// Abertura neutra: nenhuma área pré-carregada. Mostra os seletores em branco e
+// um painel de boas-vindas; o subtítulo do header indica a cobertura total.
+function showLanding() {
+    populateSelectsLanding();
+    const areaTit = document.getElementById('headerArea');
+    if (areaTit) areaTit.textContent = 'Todas as 42 áreas CAPES — selecione um programa';
+    if (!LICENSE_ACCEPTED) {
+        showLicenseModal();
+    } else {
+        renderWelcome();
+    }
+}
+
+// Popula só a Grande Área (com opção-placeholder); Área e Curso ficam em branco.
+function populateSelectsLanding() {
+    const selGA = document.getElementById('selGrandeArea');
+    const selArea = document.getElementById('selArea');
+    const selCurso = document.getElementById('selCurso');
+    if (!selGA || !selArea || !selCurso) return;
+    selGA.innerHTML = '';
+    selGA.add(new Option('— Selecione a Grande Área —', ''));
+    Object.keys(REGISTRY.grandes_areas).sort().forEach(g => selGA.add(new Option(g, g)));
+    selGA.value = '';
+    selArea.innerHTML = ''; selArea.add(new Option('— Selecione a Área CAPES —', ''));
+    selCurso.innerHTML = ''; selCurso.add(new Option('— Selecione o Curso (UnB) —', ''));
+}
+
+// Painel inicial (sem dados carregados) com a chamada para selecionar.
+function renderWelcome() {
+    const loading = document.getElementById('loading');
+    if (loading) loading.style.display = 'none';
+    const res = document.getElementById('results');
+    if (res) {
+        res.style.display = 'block';
+        res.innerHTML = `<div class="card" style="text-align:center;padding:40px 22px;max-width:760px;margin:0 auto;">
+            <h2 style="border:none;font-size:18px;color:var(--azul);">Selecione uma Área CAPES e um Programa</h2>
+            <p style="color:#555;margin-top:12px;font-size:14px;line-height:1.7;">
+                O <strong>MAPA-PG</strong> compara a produção e os indicadores dos
+                <strong>92 programas de pós-graduação da UnB</strong> com seus pares nacionais em
+                <strong>todas as 42 áreas de avaliação da CAPES</strong>, ao longo de três quadriênios (2013–2024).</p>
+            <p style="color:#555;margin-top:10px;font-size:14px;line-height:1.7;">
+                Use os seletores na barra lateral — <strong>Grande Área → Área CAPES → Curso (UnB)</strong> —
+                para iniciar a análise.</p>
+        </div>`;
+    }
+    setStatus('Selecione uma Área CAPES e um Programa para iniciar a análise.');
 }
 
 async function switchArea(slug, sufixo) {
@@ -640,6 +692,7 @@ function acceptLicense() {
     LICENSE_ACCEPTED = true;
     const ov = document.getElementById('licenseOverlay');
     if (ov) ov.remove();
+    if (!DATA) { renderWelcome(); return; }   // abertura neutra: nenhuma área carregada ainda
     initUI();
     document.getElementById('loading').style.display = 'none';
     document.getElementById('results').style.display = 'block';
