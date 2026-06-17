@@ -52,6 +52,10 @@ também em art/pesquisador/ano.
 - `investiga_quedas.py` — investigação de quedas de produção da UnB ano a ano
   (ver seção abaixo). Gera `relatorio_quedas_unb.xlsx`, `quedas_criticas.png` e
   `lista_vermelha.md`.
+- `estatisticas_por_nota.py` — gera `saida/estatisticas_unb_por_nota.xlsx` (os
+  92 programas EM FUNCIONAMENTO por nota CAPES vigente + resumo por nota com
+  fórmulas vivas). Lê só `../docs/registry.json` e `../docs/dados/area-*.json`
+  (nota vigente = `conceito[-1]`; docentes/permanentes = roster do quad. 2021-2024).
 - `cache_unb/` — caches do recálculo bruto (gerados; não versionar):
   `art_total_ano.json` (artigos distintos/programa/ano, prod_intel),
   `roster_ano.json` (n_doc/n_perm/n_pq/nota por ano, docentes),
