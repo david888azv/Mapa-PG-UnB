@@ -690,6 +690,117 @@ def aba_piso(wb, linhas, ref):
     return ws
 
 
+def _quatro_alvos(l, ref, stats):
+    """Para uma linha (programa UnB nota 3/4) devolve os 4 alvos da nota seguinte
+    e o incremento (art/pesq/ano) até cada um: piso e média ponderada da PRÓPRIA
+    área; mediana e média NACIONAIS. None onde não há referência."""
+    nota = l['nota']; alvo = nota + 1; ma = l['ma_atual']
+    r = ref.get((l['slug'], alvo))
+    nac = stats[alvo]['nac']
+    alvos = {
+        'piso':  r['min'] if r else None,
+        'wmean': r['wmean'] if r else None,
+        'mediana': nac['mediana'] if nac else None,
+        'media':   nac['media'] if nac else None,
+    }
+    incr = {k: (round(max(0.0, v - ma), 2) if v is not None else None) for k, v in alvos.items()}
+    return alvos, incr
+
+
+def aba_comparativo(wb, linhas, ref, stats):
+    """Consolida as QUATRO definições de alvo (piso da área, média ponderada da
+    área, mediana nacional, média nacional) numa única tabela: por programa, o
+    incremento (art/pesq/ano) até cada alvo; e o resumo das metas ABSOLUTAS
+    (artigos/ano a mais) por coorte. Programas em desativação/novos ficam fora."""
+    ws = wb.create_sheet('Comparativo de alvos')
+    ws.append(['COMPARATIVO DAS 4 DEFINIÇÕES DE ALVO — incremento por pesquisador/ano'])
+    ws.cell(1, 1).font = Font(bold=True, size=13, color=AZUL)
+    ws.append(['Produção em art/permanente/ano (2017-2020). Cada coluna de incremento mostra quanto '
+               'falta (art/pesq/ano) para o programa alcançar aquele alvo da NOTA SEGUINTE. '
+               'Piso e Média ponderada são da PRÓPRIA área CAPES; Mediana e Média são NACIONAIS. '
+               'Rigor crescente: piso < (média pond. / mediana) < média.'])
+    ws.cell(2, 1).font = ITAL
+
+    # ── Resumo de coorte: artigos/ano a mais por alvo ──────────────────────
+    ws.append([])
+    ws.append(['RESUMO — meta da COORTE em artigos/ano a mais (soma por programa, piso em zero)'])
+    ws.cell(ws.max_row, 1).font = Font(bold=True, size=11, color=ROSA)
+    resumo_hdr = ['Transição', 'Programas', '→ Piso da área', '→ Média ponderada da área',
+                  '→ Mediana nacional', '→ Média nacional']
+    ws.append(resumo_hdr)
+    rhr = ws.max_row
+    for i in range(1, len(resumo_hdr) + 1):
+        c = ws.cell(rhr, i); c.font = H; c.fill = HFILL; c.alignment = CENTER; c.border = BORDA
+
+    cohort = {}     # nota -> dict de totais absolutos
+    for nota in (3, 4):
+        ativos = [l for l in linhas if l['nota'] == nota and l['situacao'] == 'EM FUNCIONAMENTO'
+                  and 'fallback' not in l['baseline'] and l['ma_atual'] is not None]
+        tot = {'piso': 0, 'wmean': 0, 'mediana': 0, 'media': 0}
+        for l in ativos:
+            _, incr = _quatro_alvos(l, ref, stats)
+            n = l['n_perm'] or 0
+            for k in tot:
+                if incr[k] is not None:
+                    tot[k] += round(incr[k] * n)
+        cohort[nota] = (len(ativos), tot)
+        ws.append([f'{nota} → {nota+1}', len(ativos),
+                   tot['piso'], tot['wmean'], tot['mediana'], tot['media']])
+        for i in range(1, len(resumo_hdr) + 1):
+            c = ws.cell(ws.max_row, i); c.border = BORDA; c.alignment = CENTER
+    for col, w in zip('ABCDEF', [12, 11, 14, 22, 16, 14]):
+        ws.column_dimensions[col].width = max(ws.column_dimensions[col].width or 0, w)
+
+    # ── Detalhe por programa ───────────────────────────────────────────────
+    headers = ['Área CAPES', 'Programa', 'Nota', 'Perm. (2017-20)', 'Produção atual',
+               'Incr → PISO área', 'Incr → MÉD.POND. área', 'Incr → MEDIANA nac.', 'Incr → MÉDIA nac.']
+    larg = [24, 32, 6, 11, 12, 13, 15, 14, 13]
+    for nota in (3, 4):
+        ws.append([])
+        nac = stats[nota + 1]['nac']
+        ws.append([f'NOTA {nota} → {nota+1}   (alvos nacionais: mediana {nac["mediana"]} · média {nac["media"]} art/pesq/ano)'])
+        ws.cell(ws.max_row, 1).font = Font(bold=True, size=11, color=ROSA)
+        ws.append(headers)
+        hr = ws.max_row
+        for i in range(1, len(headers) + 1):
+            c = ws.cell(hr, i); c.font = H; c.fill = HFILL; c.alignment = CENTER; c.border = BORDA
+            col = get_column_letter(i)
+            ws.column_dimensions[col].width = max(ws.column_dimensions[col].width or 0, larg[i-1])
+
+        grupo = [l for l in linhas if l['nota'] == nota]
+        ativos = [l for l in grupo if l['situacao'] == 'EM FUNCIONAMENTO'
+                  and 'fallback' not in l['baseline'] and l['ma_atual'] is not None]
+        especiais = [l for l in grupo if l not in ativos]
+        ativos.sort(key=lambda l: (_quatro_alvos(l, ref, stats)[1]['mediana'] or 0))
+
+        for l in ativos:
+            _, incr = _quatro_alvos(l, ref, stats)
+            cell = lambda k: ('—' if incr[k] is None else incr[k])
+            ws.append([l['area'], l['programa'], nota, l['n_perm'] or 0, l['ma_atual'],
+                       cell('piso'), cell('wmean'), cell('mediana'), cell('media')])
+            row = ws.max_row
+            for i in range(1, len(headers) + 1):
+                c = ws.cell(row, i); c.border = BORDA
+                c.alignment = LEFT if i in (1, 2) else CENTER
+            # verde nas colunas cujo incremento é 0 (já atingiu)
+            for col_i, k in ((6, 'piso'), (7, 'wmean'), (8, 'mediana'), (9, 'media')):
+                if incr[k] == 0:
+                    ws.cell(row, col_i).fill = VERDE
+
+        for l in especiais:
+            obs = ('EM DESATIVAÇÃO — fora do plano' if l['situacao'] != 'EM FUNCIONAMENTO'
+                   else 'programa novo — sem produção 2017-2020')
+            ws.append([l['area'], l['programa'], nota, l['n_perm'] or 0, '—', '', '', '', obs])
+            row = ws.max_row
+            for i in range(1, len(headers) + 1):
+                c = ws.cell(row, i); c.border = BORDA
+                c.alignment = LEFT if i in (1, 2) else CENTER
+                c.font = Font(italic=True, color='777777')
+
+    rodape_periodo(ws, len(headers))
+    return ws
+
+
 def main():
     progs, area_de, areas = carregar()
     ref, cont_area = media_referencia(progs, area_de)
@@ -704,6 +815,7 @@ def main():
     aba_projecao(wb, stats)
     aba_detalhe_transicao(wb, linhas, stats)
     aba_piso(wb, linhas, ref)
+    aba_comparativo(wb, linhas, ref, stats)
     aba_faixas(wb, linhas, perf)
     aba_referencias(wb, ref, areas, cont_area)
     out = os.path.join(SAIDA, 'relatorio_pip_unb.xlsx')
