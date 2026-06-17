@@ -1,5 +1,8 @@
 # MAPA-PG — Multi-área (UnB)
 
+**Aplicativo irmão (graduação):** MAPA-GR — https://github.com/david888azv/Mapa-GR ·
+app no ar em https://david888azv.github.io/Mapa-GR/
+
 Aplicativo HTML5 + JS estático para monitoramento e análise comparativa
 de **92 programas de pós-graduação da UnB** em funcionamento (82 acadêmicos
 e 10 profissionais), agrupados em **42 Áreas de
@@ -128,3 +131,23 @@ python3 -m http.server 8000
 
 Apontar Pages para `docs/` no branch principal. Nenhum build adicional
 necessário — todo o conteúdo é estático.
+
+## Autor
+
+**Prof. Titular David Lima Azevedo**
+Grupo de Dinâmica e Ab Initio (GDAI) · Núcleo de Estrutura da Matéria
+Instituto de Física — Universidade de Brasília (UnB)
+
+- ORCID: https://orcid.org/0000-0002-3456-554X
+- Google Scholar: https://scholar.google.com.br/citations?hl=en&user=o-qWsUAAAAAJ&view_op=list_works&sortby=pubdate
+- Lattes: http://lattes.cnpq.br/3892893860696339
+- E-mail: david888azv@unb.br
+
+## Como citar
+
+AZEVEDO, D. L. **MAPA-PG — um sistema interativo para monitoramento e análise de
+produção acadêmica: aplicação à área de Astronomia e Física**. *Physicae Organum*,
+Brasília, v. 11, n. 1, 2026. DOI:
+[10.26512/2446-564X2026e62064](https://doi.org/10.26512/2446-564X2026e62064).
+
+Veja também `CITATION.cff` (formato legível por máquina).

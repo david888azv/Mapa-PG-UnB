@@ -7,8 +7,8 @@
   "license": "CC-BY-4.0",
   "creators": [
     {
-      "name": "Azevedo, David L.",
-      "affiliation": "Universidade de Brasília (UnB)",
+      "name": "Azevedo, David Lima",
+      "affiliation": "Grupo de Dinâmica e Ab Initio (GDAI), Núcleo de Estrutura da Matéria, Instituto de Física, Universidade de Brasília (UnB)",
       "orcid": "0000-0002-3456-554X"
     }
   ],
@@ -22,6 +22,11 @@
     "dados abertos"
   ],
   "related_identifiers": [
+    {
+      "relation": "isDocumentedBy",
+      "scheme": "doi",
+      "identifier": "10.26512/2446-564X2026e62064"
+    },
     {
       "relation": "isSupplementTo",
       "scheme": "url",

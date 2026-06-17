@@ -39,10 +39,25 @@
   "isAccessibleForFree": true,
   "author": {
     "@type": "Person",
-    "name": "David L. Azevedo",
+    "name": "David Lima Azevedo",
     "@id": "https://orcid.org/0000-0002-3456-554X",
-    "sameAs": "https://orcid.org/0000-0002-3456-554X",
-    "affiliation": { "@type": "Organization", "name": "Universidade de Brasília (UnB)" }
+    "sameAs": [
+      "https://orcid.org/0000-0002-3456-554X",
+      "https://scholar.google.com.br/citations?user=o-qWsUAAAAAJ",
+      "http://lattes.cnpq.br/3892893860696339"
+    ],
+    "affiliation": { "@type": "Organization", "name": "Grupo de Dinâmica e Ab Initio (GDAI), Núcleo de Estrutura da Matéria, Instituto de Física, Universidade de Brasília (UnB)" }
+  },
+  "citation": {
+    "@type": "ScholarlyArticle",
+    "name": "MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física",
+    "author": "David Lima Azevedo",
+    "isPartOf": { "@type": "Periodical", "name": "Physicae Organum", "issn": "2446-564X" },
+    "volumeNumber": "11",
+    "issueNumber": "1",
+    "datePublished": "2025-12-09",
+    "identifier": "https://doi.org/10.26512/2446-564X2026e62064",
+    "sameAs": "https://doi.org/10.26512/2446-564X2026e62064"
   },
   "description": "Sistema interativo e gratuito para comparar a produção acadêmica dos 92 programas de pós-graduação da UnB com seus pares nacionais em todas as 42 áreas de avaliação da CAPES, usando dados públicos da CAPES e do OpenAlex.",
   "keywords": "pós-graduação, CAPES, produção científica, UnB, OpenAlex, cientometria",
@@ -592,7 +607,11 @@ function showLicenseModal() {
         <h2 style="color:#2C3E50;margin-bottom:4px;font-size:22px;font-weight:800;letter-spacing:1px;">MAPA-PG</h2>
         <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>
         <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Abril 2026</p>
-        <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:16px;">Prof. David L. Azevedo</p>
+        <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:2px;">Prof. Titular David Lima Azevedo</p>
+        <p style="color:#555;font-size:11px;margin-bottom:8px;line-height:1.5;">Grupo de Dinâmica e Ab Initio (GDAI) · Núcleo de Estrutura da Matéria · Instituto de Física — UnB<br>
+            <a href="https://orcid.org/0000-0002-3456-554X" target="_blank" style="color:#1565C0;">ORCID</a> ·
+            <a href="https://scholar.google.com.br/citations?hl=en&amp;user=o-qWsUAAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" style="color:#1565C0;">Google Scholar</a> ·
+            <a href="http://lattes.cnpq.br/3892893860696339" target="_blank" style="color:#1565C0;">Lattes</a></p>
         <div style="background:#F5F7FA;border-radius:8px;padding:14px;text-align:justify;font-size:13px;color:#555;line-height:1.6;margin-bottom:12px;">
             <p><strong>Fonte dos dados:</strong> todos os dados deste sistema sao publicos e foram obtidos exclusivamente do <strong>Portal de Dados Abertos da CAPES</strong> (<a href="https://dadosabertos.capes.gov.br/" target="_blank" style="color:#1565C0;">dadosabertos.capes.gov.br</a>), ao amparo da Lei de Acesso a Informacao (Lei n. 12.527/2011). As URLs dos arquivos brutos da Coleta CAPES estao documentadas no arquivo de ajuda, acessivel pelo botao <strong>Help</strong> na barra lateral.</p>
         </div>
@@ -601,6 +620,9 @@ function showLicenseModal() {
         </div>
         <div style="background:#E3F2FD;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#1565C0;line-height:1.6;margin-bottom:16px;border-left:4px solid #2196F3;">
             <strong>Solucoes sob medida:</strong> desenvolvemos analises especificas para qualquer programa de pos-graduacao de qualquer universidade do pais — <a href="mailto:david888azv@unb.br" style="color:#E91E63;font-weight:700;">david888azv@unb.br</a>.
+        </div>
+        <div style="background:#F3E5F5;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#4A148C;line-height:1.6;margin-bottom:16px;border-left:4px solid #8E24AA;">
+            <strong>Como citar:</strong> AZEVEDO, D. L. <em>MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física</em>. Physicae Organum, v. 11, n. 1, 2026. DOI: <a href="https://doi.org/10.26512/2446-564X2026e62064" target="_blank" style="color:#8E24AA;font-weight:700;">10.26512/2446-564X2026e62064</a>.
         </div>
         <button onclick="acceptLicense()" style="background:#E91E63;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;">Concordo e desejo continuar</button>
     </div>`;

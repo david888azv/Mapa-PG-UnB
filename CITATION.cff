@@ -10,10 +10,25 @@ abstract: >-
 type: software
 authors:
   - family-names: Azevedo
-    given-names: David L.
-    affiliation: "Universidade de Brasília (UnB)"
+    given-names: David Lima
+    affiliation: "Grupo de Dinâmica e Ab Initio (GDAI), Núcleo de Estrutura da Matéria, Instituto de Física, Universidade de Brasília (UnB)"
     email: david888azv@unb.br
     orcid: "https://orcid.org/0000-0002-3456-554X"
+    website: "http://lattes.cnpq.br/3892893860696339"
+preferred-citation:
+  type: article
+  title: "MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física"
+  authors:
+    - family-names: Azevedo
+      given-names: David Lima
+      orcid: "https://orcid.org/0000-0002-3456-554X"
+  journal: "Physicae Organum"
+  issn: "2446-564X"
+  volume: 11
+  issue: 1
+  year: 2026
+  doi: "10.26512/2446-564X2026e62064"
+  url: "https://doi.org/10.26512/2446-564X2026e62064"
 repository-code: "https://github.com/david888azv/Mapa-PG-UnB"
 url: "https://david888azv.github.io/Mapa-PG-UnB/"
 keywords:
