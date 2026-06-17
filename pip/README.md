@@ -152,13 +152,17 @@ universal (4.698 programas com docentes em 2021; **0 em 2022/2023/2024**), e o
 roster de 2021 é repetido para estimar a produção por pesquisador nesses anos.
 (HTML → PDF via LibreOffice; figuras têm o DPI recarimbado p/ caber na página.)
 
-## Limitação conhecida — Qualis
+## Qualis — não usado (decisão 2026-06-17)
 
-O `SG_ESTRATO` (Qualis) só existe na coleta CAPES **até 2016**; de 2017 em
-diante vem vazio. Por isso o relatório "artigos por Qualis" **não** pode ser
-extraído diretamente para 2017-2020. As alternativas (faixa de impacto
-OpenAlex, tabela Qualis Único por ISSN, ou Qualis 2013-2016) estão em aberto —
-ver discussão no histórico do projeto.
+**O Qualis foi abandonado.** Não trabalhamos mais com estratos Qualis: a análise
+de impacto fica **apenas no fator de impacto OpenAlex**, como já está implementado
+(faixas baixo IF<2,2 / médio 2,2–8,0 / alto >8,0, campo `if_perm` em
+`build/gerar_dados_completos.py`).
+
+Contexto da decisão: o `SG_ESTRATO` (Qualis) só existe na coleta CAPES até 2016
+(de 2017 em diante vem vazio), então um corte "artigos por Qualis" não seria
+extraível para 2017-2020 sem recurso a tabelas externas — e o Qualis deixou de
+ser o instrumento vigente. Logo, mantemos a métrica de impacto unificada no IF.
 
 ## Como rodar
 
