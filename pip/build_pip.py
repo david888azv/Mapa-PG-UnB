@@ -111,7 +111,7 @@ def stats_por_nota(progs):
       mediana  — mediana das taxas por programa
     Retorna dict[nota] -> {'nac': {...}|None, 'unb': {...}|None}.
     """
-    nat = defaultdict(list)         # nota -> [(ma_perm, n_perm)]
+    nat = defaultdict(list)         # nota -> [(ma_perm, n_perm, if_perm)]
     unb = defaultdict(list)
     for cd, quads in progs.items():
         nota_reg = quads.get(QUAD_NOTA)
@@ -120,7 +120,7 @@ def stats_por_nota(progs):
             continue
         if not prod_reg or not prod_reg.get('n_perm') or prod_reg.get('ma_perm') is None:
             continue
-        par = (prod_reg['ma_perm'], prod_reg['n_perm'])
+        par = (prod_reg['ma_perm'], prod_reg['n_perm'], prod_reg.get('if_perm') or [0, 0, 0])
         nota = nota_reg.get('nota')
         nat[nota].append(par)
         if nota_reg.get('is_unb'):
@@ -129,14 +129,20 @@ def stats_por_nota(progs):
     def agg(rows):
         if not rows:
             return None
-        mas = [m for m, _ in rows]
-        peso = sum(n for _, n in rows)
+        mas = [m for m, _, _ in rows]
+        peso = sum(n for _, n, _ in rows)
+        # perfil de impacto agregado (soma dos artigos dos permanentes por faixa)
+        ift = [sum(r[2][b] for r in rows) for b in range(3)]   # [baixo, médio, alto]
+        tot_if = sum(ift)
+        ifp = [round(v / tot_if * 100, 1) for v in ift] if tot_if else [0, 0, 0]
         return {
             'n': len(rows),
             'perm': peso,
-            'pond': round(sum(m * n for m, n in rows) / peso, 2) if peso else None,
+            'pond': round(sum(m * n for m, n, _ in rows) / peso, 2) if peso else None,
             'media': round(mean(mas), 2),
             'mediana': round(median(mas), 2),
+            'if': ift,            # contagens [baixo, médio, alto]
+            'if_pct': ifp,        # percentuais [baixo, médio, alto]
         }
 
     return {nota: {'nac': agg(nat.get(nota, [])), 'unb': agg(unb.get(nota, []))}
@@ -203,6 +209,7 @@ def analisar(progs, area_de, ref):
             baseline = QUAD_NOTA + ' (fallback)'
         n_perm = prod_reg.get('n_perm') or 0
         ma_atual = prod_reg.get('ma_perm')
+        if_perm = prod_reg.get('if_perm') or [0, 0, 0]   # [baixo, médio, alto] (2017-2020)
 
         # roster atual (2021-2024) para o quantitativo de docentes/bolsa
         n_doc = nota_reg.get('n_doc') or 0
@@ -226,6 +233,7 @@ def analisar(progs, area_de, ref):
             'alvo5': alvo5, 'incr5': incr5, 'sim5': sim5, 'n5': n5,
             'baseline': baseline, 'cd': cd,
             'situacao': nota_reg.get('situacao'),
+            'if_perm': if_perm,
         })
     linhas.sort(key=lambda x: (x['nota'], x['area'], x['programa']))
     return linhas

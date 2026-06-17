@@ -170,6 +170,25 @@ def gerar_graficos(stats, linhas, ref):
 
     figs['n3'] = por_programa(3)
     figs['n4'] = por_programa(4)
+
+    # perfil de impacto agregado (Brasil × UnB por nota)
+    labels, baixo, medio, alto = [], [], [], []
+    for n in (5, 4, 3):
+        for amb, key in (('Brasil', 'nac'), ('UnB', 'unb')):
+            s = stats[n][key]
+            if not s:
+                continue
+            labels.append(f'Nota {n} — {amb}')
+            baixo.append(s['if_pct'][0]); medio.append(s['if_pct'][1]); alto.append(s['if_pct'][2])
+    fig, ax = plt.subplots(figsize=(8, 3.4))
+    ax.barh(labels, baixo, color=IF_CORES[0], label=IF_LABELS[0])
+    ax.barh(labels, medio, left=baixo, color=IF_CORES[1], label=IF_LABELS[1])
+    ax.barh(labels, alto, left=[b + m for b, m in zip(baixo, medio)], color=IF_CORES[2], label=IF_LABELS[2])
+    ax.set_xlim(0, 100); ax.invert_yaxis(); ax.set_xlabel('% dos artigos dos permanentes')
+    ax.set_title('Perfil de impacto por nota (Brasil × UnB)', fontsize=11)
+    ax.legend(fontsize=8, ncol=3, loc='lower center', bbox_to_anchor=(0.5, -0.32))
+    ax.tick_params(axis='y', labelsize=8)
+    figs['impacto'] = _b64(fig)
     return figs
 
 
@@ -203,6 +222,16 @@ def chart_data(stats, linhas, ref):
                 'titulo': f'Nota {nota} → {nota+1}: produção atual por programa', 'progs': progs}
 
     cd['n3'] = grupo(3); cd['n4'] = grupo(4)
+
+    labels, baixo, medio, alto = [], [], [], []
+    for n in (5, 4, 3):
+        for amb, key in (('Brasil', 'nac'), ('UnB', 'unb')):
+            s = stats[n][key]
+            if not s:
+                continue
+            labels.append(f'Nota {n} — {amb}')
+            baixo.append(s['if_pct'][0]); medio.append(s['if_pct'][1]); alto.append(s['if_pct'][2])
+    cd['impacto'] = {'labels': labels, 'baixo': baixo, 'medio': medio, 'alto': alto}
     return cd
 
 
@@ -230,7 +259,44 @@ p.cap { font-size:9.5pt; color:#555; margin:3px 0 0 0; font-style:italic; text-a
 ul { margin:6px 0; } li { margin:3px 0; }
 """
 CSS_SCREEN = "body{max-width:1000px;margin:0 auto;padding:10px 18px;background:#fff;}"
-CANVAS = {'nota': ('cNota', 380), 'coorte': ('cCoorte', 380), 'n3': ('cN3', 300), 'n4': ('cN4', 640)}
+CANVAS = {'nota': ('cNota', 380), 'coorte': ('cCoorte', 380), 'n3': ('cN3', 300),
+          'n4': ('cN4', 640), 'impacto': ('cImpacto', 360)}
+IF_CORES = ['#BBDEFB', '#1E88E5', '#0D47A1']   # baixo, médio, alto
+IF_LABELS = ['Baixo (IF<2,2)', 'Médio (2,2–8,0)', 'Alto (>8,0)']
+
+
+def tab_impacto(linhas, nota):
+    """Perfil de impacto por programa: % dos artigos dos permanentes (2017-2020)
+    em cada faixa de fator de impacto. Ordena por qualidade (médio+alto) desc."""
+    ativos = [l for l in linhas if l['nota'] == nota and ATIVO(l)]
+    def qual(l):
+        t = sum(l['if_perm'])
+        return (l['if_perm'][1] + l['if_perm'][2]) / t if t else -1
+    ativos.sort(key=qual, reverse=True)
+    out = ''
+    for l in ativos:
+        t = sum(l['if_perm'])
+        if t == 0:
+            pb = pm = pa = '—'; nt = '0'
+        else:
+            pb, pm, pa = (fmt(v / t * 100, 1) for v in l['if_perm']); nt = str(t)
+        out += (f"<tr><td class='l'>{l['programa']}</td><td class='l'>{l['area']}</td>"
+                f"<td>{nt}</td><td>{pb}</td><td>{pm}</td><td>{pa}</td></tr>")
+    return out
+
+
+def tab_impacto_agg(stats):
+    """Perfil de impacto agregado Brasil × UnB, por nota."""
+    out = ''
+    for n in (5, 4, 3):
+        for amb, key in (('Brasil', 'nac'), ('UnB', 'unb')):
+            s = stats[n][key]
+            if not s:
+                continue
+            b, m, a = s['if_pct']
+            out += (f"<tr><td class='l'>Nota {n} — {amb}</td><td>{sum(s['if'])}</td>"
+                    f"<td>{fmt(b,1)}</td><td>{fmt(m,1)}</td><td>{fmt(a,1)}</td></tr>")
+    return out
 
 
 def chart_el(mode, key, cap, figs):
@@ -310,8 +376,33 @@ nacional da nota 5 ({fmt(m5['mediana'])} art/pesq/ano): em valor (art/pesq/ano) 
 {tab_mediana(linhas, ref, stats, 4)}
 </table>
 
-<h2 class="pb">6. Conclusões</h2>
+<h2 class="pb">6. Perfil de impacto da produção (baixo, médio, alto)</h2>
+<p>Além do volume, a avaliação valoriza o <b>impacto</b>. Cada artigo é classificado pelo fator de
+impacto do periódico (OpenAlex, <i>2yr mean citedness</i>, equivalente ao JCR) em três faixas:
+<b>baixo</b> (IF&lt;2,2), <b>médio</b> (2,2–8,0) e <b>alto</b> (&gt;8,0). A tabela e o gráfico mostram a
+composição da produção dos docentes permanentes (2017-2020) por faixa.</p>
+<table>
+<tr><th>Âmbito</th><th>Artigos (perm.)</th><th>% Baixo</th><th>% Médio</th><th>% Alto</th></tr>
+{tab_impacto_agg(stats)}
+</table>
+{ce('impacto', 'Figura 5 — Perfil de impacto por nota (Brasil × UnB): a fração de impacto médio/alto cresce com a nota, e a UnB costuma ter menos "baixo" que a média nacional. Passe o mouse para os percentuais.')}
+<p class="sub">Perfil de impacto por programa UnB (% dos artigos dos permanentes por faixa; ordenado pela maior fração médio+alto):</p>
+<h3>Nota 3</h3>
+<table>
+<tr><th>Programa</th><th>Área CAPES</th><th>Artigos (perm.)</th><th>% Baixo</th><th>% Médio</th><th>% Alto</th></tr>
+{tab_impacto(linhas, 3)}
+</table>
+<h3>Nota 4</h3>
+<table>
+<tr><th>Programa</th><th>Área CAPES</th><th>Artigos (perm.)</th><th>% Baixo</th><th>% Médio</th><th>% Alto</th></tr>
+{tab_impacto(linhas, 4)}
+</table>
+
+<h2 class="pb">7. Conclusões</h2>
 <ul>
+<li><b>Impacto distingue as notas mais do que o volume.</b> A fração de produção em periódicos de
+impacto médio/alto cresce com a nota (Brasil: ~27% médio+alto na nota 3, ~33% na nota 5); a UnB já
+tende a publicar menos em impacto baixo que a média nacional — esse é o eixo a reforçar para subir de nota.</li>
 <li><b>Volume não é o gargalo para subir de nota.</b> Contra o piso da própria área, a produção por pesquisador da
 UnB já alcança os programas mais fracos da nota seguinte — em 3&rarr;4 para todos os 6, em 4&rarr;5 para 17 dos 23.</li>
 <li><b>O salto depende de qualidade/impacto</b> (fator de impacto, internacionalização, formação de mestres e
@@ -394,6 +485,19 @@ function progChart(canvasId, g) {
 }
 progChart('cN3', D.n3);
 progChart('cN4', D.n4);
+
+new Chart(document.getElementById('cImpacto'), {
+  type: 'bar',
+  data: { labels: D.impacto.labels, datasets: [
+    { label: 'Baixo (IF<2,2)',    data: D.impacto.baixo, backgroundColor: '#BBDEFB' },
+    { label: 'Médio (2,2-8,0)',   data: D.impacto.medio, backgroundColor: '#1E88E5' },
+    { label: 'Alto (>8,0)',       data: D.impacto.alto,  backgroundColor: '#0D47A1' } ] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    scales: { x: { stacked: true, max: 100, title: { display: true, text: '% dos artigos dos permanentes' } },
+              y: { stacked: true } },
+    plugins: { title: { display: true, text: 'Perfil de impacto por nota (Brasil x UnB)' },
+      tooltip: { callbacks: { label: function(it){ return it.dataset.label + ': ' + it.parsed.x + '%'; } } } } }
+});
 """
 
 
