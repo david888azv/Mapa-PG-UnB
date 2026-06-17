@@ -13,8 +13,7 @@ authors:
     given-names: David L.
     affiliation: "Universidade de Brasília (UnB)"
     email: david888azv@unb.br
-    # TODO: preencha seu ORCID (ex.: 0000-0002-1825-0097)
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0000-0002-3456-554X"
 repository-code: "https://github.com/david888azv/Mapa-PG-UnB"
 url: "https://david888azv.github.io/Mapa-PG-UnB/"
 keywords:
