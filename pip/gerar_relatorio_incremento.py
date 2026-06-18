@@ -189,6 +189,22 @@ def gerar_graficos(stats, linhas, ref):
     ax.legend(fontsize=8, ncol=3, loc='lower center', bbox_to_anchor=(0.5, -0.32))
     ax.tick_params(axis='y', labelsize=8)
     figs['impacto'] = _b64(fig)
+
+    # nota 5 da UnB vs referência nacional da nota 5
+    nac5 = stats[5]['nac']; med5, mean5 = nac5['mediana'], nac5['media']
+    p5 = sorted(N5_DATA, key=lambda x: x['ma'])
+    nomes = [p['programa'][:40] for p in p5]
+    cur = [p['ma'] for p in p5]
+    cores = ['#27AE60' if c >= med5 else '#E67E22' for c in cur]
+    fig, ax = plt.subplots(figsize=(8, max(3.0, 0.30 * len(p5) + 1.2)))
+    ax.barh(nomes, cur, color=cores)
+    ax.axvline(med5, color='#C0392B', ls='--', lw=1.3, label=f'Mediana nac. ({fmt(med5)})')
+    ax.axvline(mean5, color='#7D3C98', ls=':', lw=1.3, label=f'Média nac. ({fmt(mean5)})')
+    ax.invert_yaxis(); ax.set_xlabel('art/permanente/ano (2017-2020)')
+    ax.set_title('Nota 5 da UnB: produção vs referência nacional da nota 5', fontsize=11)
+    ax.legend(fontsize=8, loc='lower right'); ax.grid(axis='x', alpha=.3)
+    ax.tick_params(axis='y', labelsize=7)
+    figs['nota5'] = _b64(fig)
     return figs
 
 
@@ -232,6 +248,12 @@ def chart_data(stats, linhas, ref):
             labels.append(f'Nota {n} — {amb}')
             baixo.append(s['if_pct'][0]); medio.append(s['if_pct'][1]); alto.append(s['if_pct'][2])
     cd['impacto'] = {'labels': labels, 'baixo': baixo, 'medio': medio, 'alto': alto}
+
+    nac5 = stats[5]['nac']
+    p5 = sorted(N5_DATA, key=lambda x: x['ma'])
+    cd['nota5'] = {'med': nac5['mediana'], 'media': nac5['media'],
+                   'progs': [{'nome': p['programa'], 'area': p['area'], 'cur': round(p['ma'], 2)}
+                             for p in p5]}
     return cd
 
 
@@ -260,7 +282,28 @@ ul { margin:6px 0; } li { margin:3px 0; }
 """
 CSS_SCREEN = "body{max-width:1000px;margin:0 auto;padding:10px 18px;background:#fff;}"
 CANVAS = {'nota': ('cNota', 380), 'coorte': ('cCoorte', 380), 'n3': ('cN3', 300),
-          'n4': ('cN4', 640), 'impacto': ('cImpacto', 360)}
+          'n4': ('cN4', 640), 'impacto': ('cImpacto', 360), 'nota5': ('cNota5', 760)}
+
+# dados dos programas nota 5 da UnB (preenchido no main; evita threading)
+N5_DATA = []
+
+
+def tab_nota5(n5, med, mean):
+    """Tabela dos programas nota 5 da UnB vs a referência nacional da nota 5."""
+    out = ''
+    for p in sorted(n5, key=lambda x: x['ma']):
+        ma = p['ma']
+        fm = '—' if ma >= med else fmt(round(med - ma, 2))
+        fmn = '—' if ma >= mean else fmt(round(mean - ma, 2))
+        if ma >= mean:
+            cls = "<span class='g'>≥ mediana e média</span>"
+        elif ma >= med:
+            cls = '≥ mediana'
+        else:
+            cls = 'abaixo da mediana'
+        out += (f"<tr><td class='l'>{p['programa']}</td><td class='l'>{p['area']}</td>"
+                f"<td>{p['n_perm']}</td><td>{fmt(ma)}</td><td>{fm}</td><td>{fmn}</td><td>{cls}</td></tr>")
+    return out
 IF_CORES = ['#BBDEFB', '#1E88E5', '#0D47A1']   # baixo, médio, alto
 IF_LABELS = ['Baixo (IF<2,2)', 'Médio (2,2–8,0)', 'Alto (>8,0)']
 
@@ -310,6 +353,10 @@ def chart_el(mode, key, cap, figs):
 def build_body(mode, figs, stats, linhas, ref):
     resumo, c3, c4 = tab_resumo(linhas, ref, stats)
     m4 = stats[4]['nac']; m5 = stats[5]['nac']
+    med5, mean5 = m5['mediana'], m5['media']
+    tot5 = len(N5_DATA)
+    nbm5 = sum(1 for p in N5_DATA if p['ma'] < med5)
+    nbmn5 = sum(1 for p in N5_DATA if p['ma'] < mean5)
     rodape = ''.join(f'<li>{t}</li>' for t in B.RODAPE_PERIODO)
     ce = lambda key, cap: chart_el(mode, key, cap, figs)
     return f"""
@@ -398,8 +445,27 @@ composição da produção dos docentes permanentes (2017-2020) por faixa.</p>
 {tab_impacto(linhas, 4)}
 </table>
 
-<h2 class="pb">7. Conclusões</h2>
+<h2 class="pb">7. Nota 5 — a produção já não discrimina (o foco passa a ser infraestrutura)</h2>
+<p>Comparando os programas <b>nota 5 da UnB</b> com a referência NACIONAL da PRÓPRIA nota 5 (mesmo
+critério ponderado, programas de mesma nota): <b>{nbm5} dos {tot5}</b> estão <b>abaixo da mediana</b>
+nacional ({fmt(med5)} art/pesq/ano) e <b>{nbmn5}</b> abaixo da média ({fmt(mean5)}). Ou seja, a maioria
+dos programas nota 5 da UnB alcançou essa nota <b>com produção abaixo da referência nacional</b> — o que
+demonstra que, na nota 5, o <b>volume de produção já não é o que distingue</b> a nota. Logo, da nota 5 em
+diante (5&rarr;6&rarr;7) o ganho não vem de produzir mais artigos, e sim de <b>impacto, internacionalização
+e, sobretudo, INFRAESTRUTURA</b> (laboratórios, equipamentos, infraestrutura de pesquisa e de pós-graduação).</p>
+{ce('nota5', 'Figura 6 — Programas nota 5 da UnB vs a referência nacional da nota 5. Laranja = abaixo da mediana nacional; a maioria está abaixo e ainda assim é nota 5 — produção não é o gargalo.')}
+<p class="sub">Programas nota 5 da UnB (ordenados pela produção; verde = ≥ mediana e média nacionais):</p>
+<table>
+<tr><th>Programa</th><th>Área CAPES</th><th>Perm.</th><th>Produção</th><th>Falta p/ mediana</th><th>Falta p/ média</th><th>Status</th></tr>
+{tab_nota5(N5_DATA, med5, mean5)}
+</table>
+
+<h2 class="pb">8. Conclusões</h2>
 <ul>
+<li><b>Na nota 5, a produção já não discrimina — o foco deve ser INFRAESTRUTURA.</b> {nbm5} dos {tot5}
+programas nota 5 da UnB têm produção abaixo da mediana nacional da própria nota 5 e, ainda assim, são nota 5.
+Aumentar o volume de artigos não levaria esses programas a 6/7; o salto depende de infraestrutura de pesquisa,
+internacionalização e impacto.</li>
 <li><b>Impacto distingue as notas mais do que o volume.</b> A fração de produção em periódicos de
 impacto médio/alto cresce com a nota (Brasil: ~27% médio+alto na nota 3, ~33% na nota 5); a UnB já
 tende a publicar menos em impacto baixo que a média nacional — esse é o eixo a reforçar para subir de nota.</li>
@@ -486,6 +552,26 @@ function progChart(canvasId, g) {
 progChart('cN3', D.n3);
 progChart('cN4', D.n4);
 
+(function(){
+  const g = D.nota5;
+  const labels = g.progs.map(function(p){ return p.nome; });
+  const cur = g.progs.map(function(p){ return p.cur; });
+  const colors = g.progs.map(function(p){ return p.cur >= g.med ? '#27AE60' : '#E67E22'; });
+  new Chart(document.getElementById('cNota5'), {
+    type: 'bar',
+    data: { labels: labels, datasets: [ { label: 'Produção atual', data: cur, backgroundColor: colors } ] },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        title: { display: true, text: 'Nota 5 da UnB: produção vs referência nacional (linhas: mediana e média)' },
+        vLines: { lines: [ { value: g.med, color: '#C0392B', dash: [6,4] }, { value: g.media, color: '#7D3C98', dash: [2,3] } ] },
+        tooltip: { callbacks: {
+          label: function(it){ return 'Produção: ' + String(it.parsed.x).replace('.', ',') + ' art/pesq/ano'; },
+          afterBody: function(items){ const p = g.progs[items[0].dataIndex];
+            return [ 'Área: ' + p.area, p.cur >= g.med ? '≥ mediana nacional' : 'abaixo da mediana nacional' ]; }
+        } } } }
+  });
+})();
+
 new Chart(document.getElementById('cImpacto'), {
   type: 'bar',
   data: { labels: D.impacto.labels, datasets: [
@@ -524,6 +610,7 @@ def main():
     ref, cont = B.media_referencia(progs, area_de)
     stats = B.stats_por_nota(progs)
     linhas = B.analisar(progs, area_de, ref)
+    N5_DATA[:] = B.programas_nota_unb(progs, area_de, 5)   # programas nota 5 da UnB
     os.makedirs(SAIDA, exist_ok=True)
 
     # HTML5 interativo (Chart.js)

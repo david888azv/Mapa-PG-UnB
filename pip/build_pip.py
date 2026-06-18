@@ -149,6 +149,24 @@ def stats_por_nota(progs):
             for nota in (3, 4, 5, 6, 7)}
 
 
+def programas_nota_unb(progs, area_de, nota):
+    """Programas UnB ACADÊMICOS de uma dada NOTA VIGENTE, com produção 2017-2020
+    (art/permanente/ano). Para comparar com a referência NACIONAL da MESMA nota."""
+    out = []
+    for cd, quads in progs.items():
+        nr = quads.get(QUAD_NOTA); pr = quads.get(QUAD_PROD)
+        if not nr or not nr.get('is_unb') or not is_academico(nr.get('modalidade')):
+            continue
+        if nr.get('nota') != nota:
+            continue
+        if not pr or not pr.get('n_perm') or pr.get('ma_perm') is None:
+            continue
+        out.append({'programa': nr.get('programa'), 'area': area_de[cd][0],
+                    'n_perm': pr['n_perm'], 'ma': pr['ma_perm'],
+                    'situacao': nr.get('situacao')})
+    return sorted(out, key=lambda r: r['ma'])
+
+
 def perfil_impacto(progs, area_de):
     """
     Perfil de impacto (OpenAlex) dos programas acadêmicos por (area, nota
@@ -826,6 +844,65 @@ def aba_comparativo(wb, linhas, ref, stats):
     return ws
 
 
+def aba_nota5(wb, progs, area_de, stats):
+    """Programas nota 5 da UnB vs a referência NACIONAL da nota 5 (ponderada,
+    média e mediana). Mostra quantos estão ABAIXO da mediana/média — argumento de
+    que, na nota 5, a produção já não discrimina (o foco passa a ser infraestrutura)."""
+    nac = stats[5]['nac']
+    med, mean, pond = nac['mediana'], nac['media'], nac['pond']
+    progs5 = programas_nota_unb(progs, area_de, 5)
+
+    ws = wb.create_sheet('Nota 5 vs nacional')
+    ws.append(['PROGRAMAS NOTA 5 DA UnB — produção vs referência NACIONAL da nota 5'])
+    ws.cell(1, 1).font = Font(bold=True, size=13, color=AZUL)
+    n_med = sum(1 for p in progs5 if p['ma'] < med)
+    n_mean = sum(1 for p in progs5 if p['ma'] < mean)
+    ws.append([f'Referência nacional nota 5 (art/perm/ano, 2017-2020): ponderada {pond} · '
+               f'média {mean} · mediana {med}. Dos {len(progs5)} programas nota 5 da UnB, '
+               f'{n_med} estão ABAIXO da mediana e {n_mean} abaixo da média — ou seja, a maioria '
+               f'alcançou a nota 5 com produção abaixo da referência: o volume já não é o que '
+               f'distingue a nota. O passo seguinte (5→6→7) depende de IMPACTO e INFRAESTRUTURA.'])
+    ws.cell(2, 1).font = ITAL
+
+    headers = ['Programa', 'Área CAPES', 'Perm. (2017-20)', 'Produção (art/pesq/ano)',
+               'Mediana nac.', 'Falta p/ mediana', 'Média nac.', 'Falta p/ média', 'Situação']
+    larg = [34, 30, 11, 14, 11, 13, 11, 13, 26]
+    ws.append(headers)
+    hr = ws.max_row
+    for i in range(1, len(headers) + 1):
+        c = ws.cell(hr, i); c.font = H; c.fill = HFILL; c.alignment = CENTER; c.border = BORDA
+        ws.column_dimensions[get_column_letter(i)].width = larg[i-1]
+    ws.freeze_panes = f'A{hr+1}'
+
+    for p in progs5:
+        ma = p['ma']
+        fm = round(med - ma, 2) if ma < med else 0.0
+        fmn = round(mean - ma, 2) if ma < mean else 0.0
+        if ma >= mean:
+            stt = '≥ mediana e média'
+        elif ma >= med:
+            stt = 'abaixo só da média'
+        else:
+            stt = 'abaixo da mediana e da média'
+        ws.append([p['programa'], p['area'], p['n_perm'], ma, med,
+                   fm if fm > 0 else '—', mean, fmn if fmn > 0 else '—', stt])
+        row = ws.max_row
+        for i in range(1, len(headers) + 1):
+            c = ws.cell(row, i); c.border = BORDA
+            c.alignment = LEFT if i in (1, 2, 9) else CENTER
+        if ma >= med:
+            ws.cell(row, 6).fill = VERDE
+        if ma >= mean:
+            ws.cell(row, 8).fill = VERDE
+
+    ws.append([f'RESUMO — {len(progs5)} programas: {len(progs5)-n_med} ≥ mediana · {n_med} abaixo · '
+               f'{len(progs5)-n_mean} ≥ média · {n_mean} abaixo', '', '', '', '', '', '', '', ''])
+    sr = ws.max_row
+    ws.merge_cells(start_row=sr, start_column=1, end_row=sr, end_column=len(headers))
+    ws.cell(sr, 1).font = Font(bold=True)
+    return ws
+
+
 def main():
     progs, area_de, areas = carregar()
     ref, cont_area = media_referencia(progs, area_de)
@@ -841,6 +918,7 @@ def main():
     aba_detalhe_transicao(wb, linhas, stats)
     aba_piso(wb, linhas, ref)
     aba_comparativo(wb, linhas, ref, stats)
+    aba_nota5(wb, progs, area_de, stats)
     aba_faixas(wb, linhas, perf)
     aba_referencias(wb, ref, areas, cont_area)
     out = os.path.join(SAIDA, 'relatorio_pip_unb.xlsx')
