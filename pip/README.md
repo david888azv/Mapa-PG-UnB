@@ -206,9 +206,29 @@ Contexto da decisão: o `SG_ESTRATO` (Qualis) só existe na coleta CAPES até 20
 extraível para 2017-2020 sem recurso a tabelas externas — e o Qualis deixou de
 ser o instrumento vigente. Logo, mantemos a métrica de impacto unificada no IF.
 
+## Simulador preditivo (HTML5 interativo)
+
+`gerar_simulador.py` → `saida/simulador_pip.html` (self-contained, Chart.js inline).
+Três simuladores de incentivo à produção × transição de nota (vs mediana nacional;
+fator de impacto desconsiderado):
+1. **Nota 3 → 4 (manual)** e 2. **Nota 4 → 5 (manual)**: 3 caixas — auxílio
+   (R$ 1.000–3.000/pesq/ano), artigos/pesq/ano (A, 1 casa decimal) e adesão
+   (5–100%). Modelo: incremento médio = `A × adesão%`; "atinge" se produção +
+   incremento ≥ mediana nacional da nota seguinte. Gráfico e tabela live + orçamento/ano.
+3. **Otimizador**: fixa só o auxílio e busca, por programa, a **adesão mínima**
+   (com até `AMAX`=2,0 art/pesq/ano viáveis) que leva à mediana, ao menor orçamento;
+   marca **inviável** quando nem a 100% de adesão alcança.
+
+Achado coerente com o argumento de infraestrutura: com até 2 art/pesq/ano, **0
+programas nota 3** alcançam a mediana da nota 4 e poucos nota 4 alcançam a da nota
+5 — o salto depende de infraestrutura, não de volume.
+
 ## Como rodar
 
 ```bash
 cd mapa-pg-multi/pip
-python3 build_pip.py
+python3 build_pip.py                  # planilha (8 abas + Nota 5)
+python3 gerar_relatorio_incremento.py # relatório incremento (HTML5+PDF)
+python3 gerar_documento.py            # relatório metodologia/quedas (HTML5+PDF)
+python3 gerar_simulador.py            # simulador preditivo (HTML5)
 ```
