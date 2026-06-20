@@ -197,13 +197,8 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v3.0-multi</div>
+        <div id="headerVersion">v2.0-multi</div>
     </div>
-</div>
-
-<div style="background:#FFF8E1;border-bottom:1px solid #FFE082;padding:6px 16px;font-size:12px;color:#5D4037;text-align:center;">
-    <strong>Novo:</strong> estratificação CAPES <strong>A1–A8/C</strong> (Ficha de Avaliação 2025–2028) por percentil de fator de impacto.
-    &nbsp;·&nbsp; <a href="./faixas-if.html" style="color:#1565C0;font-weight:600;">Versão anterior (faixas de IF) ↗</a>
 </div>
 
 <div class="container">
@@ -290,26 +285,16 @@ tr:hover { background: #EEF2F7; }
         </div>
 
         <div class="filter-group">
-            <h3>Estratos CAPES (Ficha 2025-2028)</h3>
-            <div style="display:flex;gap:4px;margin-bottom:6px;">
-                <button class="btn btn-sm btn-primary" onclick="toggleEstratos(true)" style="flex:1;margin:0;">Todos</button>
-                <button class="btn btn-sm btn-secondary" onclick="toggleEstratos(false)" style="flex:1;margin:0;">Nenhum</button>
-            </div>
-            <label><input type="checkbox" id="chkAllEstr" checked onchange="toggleEstratos(this.checked)"> <strong>Todos os estratos</strong></label>
-            <label><input type="checkbox" class="estr-chk" value="A1" checked onchange="analisar()"> <span id="lblA1">A1</span></label>
-            <label><input type="checkbox" class="estr-chk" value="A2" checked onchange="analisar()"> <span id="lblA2">A2</span></label>
-            <label><input type="checkbox" class="estr-chk" value="A3" checked onchange="analisar()"> <span id="lblA3">A3</span></label>
-            <label><input type="checkbox" class="estr-chk" value="A4" checked onchange="analisar()"> <span id="lblA4">A4</span></label>
-            <label><input type="checkbox" class="estr-chk" value="A5" checked onchange="analisar()"> <span id="lblA5">A5</span></label>
-            <label><input type="checkbox" class="estr-chk" value="A6" checked onchange="analisar()"> <span id="lblA6">A6</span></label>
-            <label><input type="checkbox" class="estr-chk" value="A7" checked onchange="analisar()"> <span id="lblA7">A7</span></label>
-            <label><input type="checkbox" class="estr-chk" value="A8" checked onchange="analisar()"> <span id="lblA8">A8</span></label>
-            <label><input type="checkbox" class="estr-chk" value="C" checked onchange="analisar()"> <span id="lblC">C · sem indicador de IF</span></label>
+            <h3>Estrato de Fator de Impacto</h3>
+            <label><input type="checkbox" class="if-chk" value="lo" checked onchange="analisar()"> IF &lt; 2.2 (Baixo)</label>
+            <label><input type="checkbox" class="if-chk" value="mi" checked onchange="analisar()"> 2.2 &le; IF &le; 8.0 (Médio)</label>
+            <label><input type="checkbox" class="if-chk" value="hi" checked onchange="analisar()"> IF &gt; 8.0 (Alto)</label>
             <p style="font-size:10px;color:var(--txt2);margin-top:4px;line-height:1.3;">
-                Estrato = percentil do fator de impacto do periódico <strong>dentro da área</strong>
-                (A1 = topo 12,5%; C = sem indicador de IF). Afeta <strong>ma_all, ma_perm, ma_colab,
-                ma_visit</strong> (passam a contar só artigos nos estratos marcados). <strong>ma_pq,
-                ma_spq, avg_if</strong> e contagens por tipo de produção mantêm os valores agregados.
+                Afeta: <strong>ma_all, ma_perm, ma_colab, ma_visit</strong>
+                (médias passam a contar só artigos com IF nos estratos
+                marcados). <strong>ma_pq, ma_spq, avg_if</strong> e contagens
+                por tipo de produção não têm granularidade × estrato IF
+                no dataset CAPES e mantêm os valores agregados.
             </p>
         </div>
 
@@ -359,7 +344,7 @@ let REGISTRY = null;          // catálogo de programas UnB
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // sufixo do programa UnB selecionado
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '3.0-multi';
+const VERSION = '2.0-multi';
 // UNB_CD: programa UnB selecionado como referência (mutável quando usuário troca de curso).
 // UNB_CDS: lista de todos os códigos UnB presentes na área carregada (para destacar todos).
 let UNB_CD = '53001010002P6';
@@ -734,15 +719,6 @@ function initUI() {
             document.getElementById('chkAllIES').checked = all.length === checked.length;
         });
     });
-    // Estratos CAPES: filho → master (marca/desmarca "Todos os estratos")
-    document.querySelectorAll('.estr-chk').forEach(cb => {
-        cb.addEventListener('change', () => {
-            const all = document.querySelectorAll('.estr-chk');
-            const checked = document.querySelectorAll('.estr-chk:checked');
-            document.getElementById('chkAllEstr').checked = all.length === checked.length;
-        });
-    });
-    refreshEstratoLabels();   // rótulos percentil + corte de IF da área carregada
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -750,27 +726,6 @@ function initUI() {
 // ══════════════════════════════════════════════════════════════════
 function toggleRegioes(state) {
     document.querySelectorAll('.reg-chk').forEach(cb => cb.checked = state);
-}
-function toggleEstratos(state) {
-    document.querySelectorAll('.estr-chk').forEach(cb => cb.checked = state);
-    document.getElementById('chkAllEstr').checked = state;
-    analisar();
-}
-// Preenche os rótulos A1..C com percentil + corte de IF (limite inferior) da ÁREA atual
-function refreshEstratoLabels() {
-    const est = (DATA && DATA.metadata && DATA.metadata.estratos) || null;
-    const cortes = (est && est.cortes_if) || {};
-    const lbl = (est && est.labels_pct) || {};
-    const fmt = v => (v === undefined || v === null) ? '' : (+v).toFixed(2).replace('.', ',');
-    ['A1','A2','A3','A4','A5','A6','A7','A8'].forEach(e => {
-        const span = document.getElementById('lbl' + e);
-        if (!span) return;
-        const pct = lbl[e] || '';
-        const ifv = cortes[e];
-        span.textContent = `${e} · ${pct}` + (ifv !== undefined ? ` · IF ≥ ${fmt(ifv)}` : '');
-    });
-    const spanC = document.getElementById('lblC');
-    if (spanC) spanC.textContent = `C · ${lbl['C'] || 'sem indicador de IF'}`;
 }
 
 function toggleSubtipos(state) {
@@ -794,8 +749,7 @@ function getFilters() {
     const regChecked = [...document.querySelectorAll('.reg-chk:checked')].map(cb => cb.value);
     const catChecked = [...document.querySelectorAll('.cat-chk:checked')].map(cb => cb.value);
     const subChecked = [...document.querySelectorAll('.sub-chk:checked')].map(cb => cb.value);
-    // estratos_if agora guarda CÓDIGOS DE ESTRATO ['A1'..'A8','C'] (Ficha CAPES 2025-2028)
-    const ifChecked = [...document.querySelectorAll('.estr-chk:checked')].map(cb => cb.value);
+    const ifChecked = [...document.querySelectorAll('.if-chk:checked')].map(cb => cb.value);
 
     return { notas, quad, metrica, ies: iesChecked, regioes: regChecked, categorias: catChecked,
              subtipos: subChecked, estratos_if: ifChecked };
@@ -848,27 +802,27 @@ function getSubtypeProd(record, subtipos) {
 // Compute the effective metric value for a record given subtype and IF strata filters
 function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
     const allSubsSelected = subtipos.length === ALL_SUBTIPOS.length;
-    // estratos_if guarda códigos de estrato ['A1'..'A8','C'] (9 no total)
-    const allIFSelected = estratos_if.length === 9;
+    const allIFSelected = estratos_if.length === 3;
 
     // Fast path — todos os filtros ativos: usa valor pré-computado.
     if (allSubsSelected && allIFSelected) return d[metrica] || 0;
 
     const n_anos = 4;  // todo registro é por quadriênio
 
-    // ── Filtro de ESTRATO ativo: recalcula via estr_perm/estr_colab/estr_visit/estr_all
-    //    (eventos artigo×autor por estrato A1..A8,C — sem subtipo nem PQ).
-    //    Quando o estrato está restrito, o subtipo é ignorado por falta de dados
+    // ── Filtro IF ativo: recalcula via if_perm/if_colab/if_visit/if_all
+    //    (granularidade IF × categoria docente — não tem subtipo nem PQ).
+    //    Quando IF está restrito, o subtipo é ignorado por falta de dados
     //    cruzados; isso é informado na UI.
     if (!allIFSelected) {
-        const ORDEM = ['A1','A2','A3','A4','A5','A6','A7','A8','C'];
-        const sel = new Set(estratos_if);
-        const sumIF = arr => arr ? ORDEM.reduce((s,e,i) => s + (sel.has(e) ? (arr[i]||0) : 0), 0) : 0;
+        const wLo = estratos_if.includes('lo') ? 1 : 0;
+        const wMi = estratos_if.includes('mi') ? 1 : 0;
+        const wHi = estratos_if.includes('hi') ? 1 : 0;
+        const sumIF = arr => arr ? ((arr[0]||0)*wLo + (arr[1]||0)*wMi + (arr[2]||0)*wHi) : 0;
         switch (metrica) {
-            case 'ma_perm':  return d.n_perm  > 0 ? +(sumIF(d.estr_perm)  / d.n_perm  / n_anos).toFixed(2) : 0;
-            case 'ma_colab': return d.n_colab > 0 ? +(sumIF(d.estr_colab) / d.n_colab / n_anos).toFixed(2) : 0;
-            case 'ma_visit': return d.n_visit > 0 ? +(sumIF(d.estr_visit) / d.n_visit / n_anos).toFixed(2) : 0;
-            case 'ma_all':   return d.n_doc   > 0 ? +(sumIF(d.estr_all)   / d.n_doc   / n_anos).toFixed(2) : 0;
+            case 'ma_perm':  return d.n_perm  > 0 ? +(sumIF(d.if_perm)  / d.n_perm  / n_anos).toFixed(2) : 0;
+            case 'ma_colab': return d.n_colab > 0 ? +(sumIF(d.if_colab) / d.n_colab / n_anos).toFixed(2) : 0;
+            case 'ma_visit': return d.n_visit > 0 ? +(sumIF(d.if_visit) / d.n_visit / n_anos).toFixed(2) : 0;
+            case 'ma_all':   return d.n_doc   > 0 ? +(sumIF(d.if_all)   / d.n_doc   / n_anos).toFixed(2) : 0;
             // Sem granularidade IF × PQ nem IF × média/mediana — devolvem o pré-computado
             case 'ma_pq':
             case 'ma_spq':
@@ -898,18 +852,13 @@ function calcWeightedAvgEff(records, metrica, weightField, subtipos, estratos_if
     return records.reduce((s, r) => s + getEffectiveMetric(r, metrica, subtipos, estratos_if) * (r[weightField] || 0), 0) / totalW;
 }
 
-// Conta artigos (estr_all) nos estratos selecionados (A1..A8,C)
-const ORDEM_ESTR = ['A1','A2','A3','A4','A5','A6','A7','A8','C'];
+// Compute effective IF strata counts filtered by selected estratos
 function getEffectiveIF(d, estratos_if) {
-    const sel = new Set(estratos_if);
-    const a = d.estr_all || [];
-    let total = 0;
-    const porEstrato = ORDEM_ESTR.map((e, i) => {
-        const v = sel.has(e) ? (a[i] || 0) : 0;
-        total += v;
-        return v;
-    });
-    return { total, porEstrato };
+    let lo = 0, mi = 0, hi = 0;
+    if (estratos_if.includes('lo')) lo = d.if_lo || 0;
+    if (estratos_if.includes('mi')) mi = d.if_mi || 0;
+    if (estratos_if.includes('hi')) hi = d.if_hi || 0;
+    return { lo, mi, hi, total: lo + mi + hi };
 }
 
 // Build active subtype label for display
@@ -954,11 +903,11 @@ function analisar() {
 
     // ── ACTIVE FILTERS BANNER ──
     const allSubsSelected = subtipos.length === ALL_SUBTIPOS.length;
-    const allIFSelected = estratos_if.length === 9;
+    const allIFSelected = estratos_if.length === 3;
     if (!allSubsSelected || !allIFSelected) {
         let filterDesc = [];
         if (!allSubsSelected) filterDesc.push('Tipo: ' + subtipoLabel);
-        if (!allIFSelected) filterDesc.push('Estratos: ' + estratos_if.join(', '));
+        if (!allIFSelected) filterDesc.push('Estrato IF: ' + estratos_if.map(e => ({lo:'Baixo',mi:'Médio',hi:'Alto'}[e])).join(', '));
         html += `<div class="card" style="background:#FFF3E0;border-left:4px solid #FF9800;padding:8px 12px;">
             <strong style="font-size:12px;color:#E65100;">Filtros ativos:</strong>
             <span style="font-size:12px;color:#BF360C;"> ${filterDesc.join(' | ')}</span>
@@ -1727,7 +1676,7 @@ function gerarRelatorio() {
     p(`    Quadriênio: ${filters.quad === 'all' ? 'Todos' : filters.quad}`);
     p(`    Métrica: ${metricaLabel}`);
     p(`    Tipos de Produção: ${getSubtipoLabel(subtipos)}`);
-    p(`    Estratos CAPES: ${estratos_if.length === 9 ? 'Todos (A1-A8,C)' : estratos_if.join(', ')}`);
+    p(`    Estratos IF: ${estratos_if.length === 3 ? 'Todos' : estratos_if.map(e => ({lo:'Baixo',mi:'Médio',hi:'Alto'}[e])).join(', ')}`);
     p(`    IES selecionadas: ${filters.ies.length}`);
     p('');
 
@@ -1942,16 +1891,6 @@ function gerarRelatorioIF(programas, winRef) {
     const padR = (s, n) => String(s).padStart(n);
     const padL = (s, n) => String(s).padEnd(n);
 
-    // ── Estratos CAPES da ÁREA atual (A1..A8,C) + rótulos com corte de IF ──
-    const EST = (DATA.metadata && DATA.metadata.estratos) || {};
-    const ORD = EST.ordem || ['A1','A2','A3','A4','A5','A6','A7','A8','C'];
-    const CORT = EST.cortes_if || {};
-    const cif = e => CORT[e] !== undefined ? (+CORT[e]).toFixed(2).replace('.', ',') : '?';
-    const estCurto = e => e === 'C' ? 'C (s/IF)' : `${e} (IF≥${cif(e)})`;
-    const estLongo = e => e === 'C' ? 'C — sem indicador de IF'
-        : `${e} — ${(EST.labels_pct && EST.labels_pct[e]) || ''} — IF ≥ ${cif(e)}`;
-    const ev = (arr, e) => (arr && arr[ORD.indexOf(e)]) || 0;   // valor do estrato e no vetor de 9
-
     let h = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAPA-PG \u2014 Relat\u00f3rio Detalhado IF</title>
@@ -2005,8 +1944,10 @@ tr:nth-child(even){background:#F8F9FA;}
     pt('  Gerado em         : ' + now.toLocaleString('pt-BR'));
     pt('  Software          : MAPA-PG v' + VERSION + ' \u2014 Prof. David L. Azevedo');
     pt('');
-    pt('  Estratos CAPES (Ficha 2025-2028) \u2014 percentil de IF do peri\u00F3dico dentro da \u00E1rea:');
-    ORD.forEach(e => pt('    ' + estLongo(e)));
+    pt('  Estratos de IF (Fator de Impacto, OpenAlex 2yr mean citedness):');
+    pt('    BAIXO  \u2192 IF < 2.2');
+    pt('    M\u00C9DIO  \u2192 2.2 \u2264 IF \u2264 8.0');
+    pt('    ALTO   \u2192 IF > 8.0');
     pt('');
     pt('  Raz\u00E3o = artigos / docentes na categoria (m\u00e9dia de artigos por docente');
     pt('  durante o quadri\u00EAnio inteiro, sem normalizar por ano).');
@@ -2020,30 +1961,29 @@ tr:nth-child(even){background:#F8F9FA;}
     csvRows.push('# \u00C1rea CAPES: ' + (CURRENT_AREA_NAME || ''));
     csvRows.push('# Curso UnB de refer\u00EAncia: ' + (CURRENT_SUFIXO ? 'MAPA-PG-' + CURRENT_SUFIXO : ''));
     csvRows.push('# Gerado em: ' + now.toLocaleString('pt-BR'));
-    csvRows.push('# Estratos CAPES (Ficha 2025-2028) \u2014 percentil de IF dentro da \u00E1rea:');
-    ORD.forEach(e => csvRows.push('#   ' + estLongo(e)));
+    csvRows.push('# Estratos de IF (OpenAlex 2yr mean citedness):');
+    csvRows.push('#   BAIXO = IF < 2,2  |  M\u00C9DIO = 2,2 \u2264 IF \u2264 8,0  |  ALTO = IF > 8,0');
     csvRows.push('# Separador de campo: ponto-e-v\u00EDrgula (;)');
     csvRows.push('# Separador decimal: v\u00EDrgula (,) \u2014 compat\u00EDvel com Excel pt-BR');
     csvRows.push('#');
-    // Cabe\u00E7alho das colunas: contagens e raz\u00F5es por estrato (A1..A8,C) \u00D7 categoria
-    const colsEstr = pref => ORD.map(e => `${pref}_${e}`);
+    // Cabe\u00E7alho das colunas, com nomes leg\u00EDveis e completos
     csvRows.push([
         'IES','Programa','UF','Nota_CAPES','Quadrienio',
         'Doc_Total','Doc_Permanente','Doc_Colaborador','Doc_Visitante',
-        ...colsEstr('Artigos_Total'),
-        ...colsEstr('Artigos_Permanente'),
-        ...colsEstr('Artigos_Colaborador'),
-        ...colsEstr('Artigos_Visitante'),
-        ...colsEstr('Razao_Permanente'),
-        ...colsEstr('Razao_Colaborador'),
-        ...colsEstr('Razao_Total'),
+        'Artigos_IF_BAIXO','Artigos_IF_MEDIO','Artigos_IF_ALTO',
+        'Artigos_Permanente_BAIXO','Artigos_Permanente_MEDIO','Artigos_Permanente_ALTO',
+        'Artigos_Colaborador_BAIXO','Artigos_Colaborador_MEDIO','Artigos_Colaborador_ALTO',
+        'Artigos_Visitante_BAIXO','Artigos_Visitante_MEDIO','Artigos_Visitante_ALTO',
+        'Razao_Permanente_BAIXO','Razao_Permanente_MEDIO','Razao_Permanente_ALTO',
+        'Razao_Colaborador_BAIXO','Razao_Colaborador_MEDIO','Razao_Colaborador_ALTO',
+        'Razao_Total_BAIXO','Razao_Total_MEDIO','Razao_Total_ALTO',
         'IF_Medio_geral','IF_Mediana_geral','IF_Maximo_geral','Artigos_com_IF_Total',
         'Eh_UnB',
     ].join(';'));
 
     programas.forEach(d => {
         const np=d.n_perm||0, nc=d.n_colab||0, nv=d.n_visit||0, nt=np+nc+nv;
-        const ip=d.estr_perm||Array(9).fill(0), ic=d.estr_colab||Array(9).fill(0), iv=d.estr_visit||Array(9).fill(0), ia=d.estr_all||Array(9).fill(0);
+        const ip=d.if_perm||[0,0,0], ic=d.if_colab||[0,0,0], iv=d.if_visit||[0,0,0], ia=d.if_all||[0,0,0];
         const hdrCls = d.is_unb ? 'prog-hdr unb-hdr' : 'prog-hdr';
 
         h += `<div class="prog-card">
@@ -2060,17 +2000,19 @@ tr:nth-child(even){background:#F8F9FA;}
     <div class="box"><div class="v">${d.avg_if||0}</div><div class="l">IF M\u00e9dio</div></div>
     <div class="box"><div class="v">${d.med_if||0}</div><div class="l">IF Mediana</div></div>
 </div>
-<div class="sep">Artigos por Estrato CAPES (A1 = topo \u00b7 C = sem IF)</div>
+<div class="sep">Artigos por Estrato de IF</div>
 <div class="row">
-    ${ORD.map((e,i) => `<div class="box"><div class="v">${ia[i]||0}</div><div class="l">${estCurto(e)}</div></div>`).join('')}
+    <div class="box lo"><div class="v">${d.if_lo||0}</div><div class="l">IF &lt; 2.2</div></div>
+    <div class="box mi"><div class="v">${d.if_mi||0}</div><div class="l">2.2 &le; IF &le; 8.0</div></div>
+    <div class="box hi"><div class="v">${d.if_hi||0}</div><div class="l">IF &gt; 8.0</div></div>
 </div>
 <div class="sep">Raz\u00e3o Artigos / Docente por Estrato e Categoria</div>
 <table>
-<tr><th>Categoria</th><th>Doc</th>${ORD.map(e => `<th>${e}</th><th>Art/Doc</th>`).join('')}</tr>
-<tr style="background:#E8F5E9;"><td><b>Permanentes</b></td><td>${np}</td>${ORD.map((e,i) => `<td>${ip[i]||0}</td><td><b>${fmtR(ip[i]||0,np)}</b></td>`).join('')}</tr>
-<tr style="background:#FFF3E0;"><td><b>Colaboradores</b></td><td>${nc}</td>${ORD.map((e,i) => `<td>${ic[i]||0}</td><td><b>${fmtR(ic[i]||0,nc)}</b></td>`).join('')}</tr>
-<tr style="background:#F3E5F5;"><td><b>Visitantes</b></td><td>${nv}</td>${ORD.map((e,i) => `<td>${iv[i]||0}</td><td><b>${fmtR(iv[i]||0,nv)}</b></td>`).join('')}</tr>
-<tr style="background:#E3F2FD;font-weight:700;"><td><b>TOTAL</b></td><td>${nt}</td>${ORD.map((e,i) => `<td>${ia[i]||0}</td><td><b>${fmtR(ia[i]||0,nt)}</b></td>`).join('')}</tr>
+<tr><th>Categoria</th><th>Doc</th><th>Art IF&lt;2.2</th><th>Art/Doc</th><th>Art 2.2-8</th><th>Art/Doc</th><th>Art IF&gt;8</th><th>Art/Doc</th></tr>
+<tr style="background:#E8F5E9;"><td><b>Permanentes</b></td><td>${np}</td><td>${ip[0]}</td><td><b>${fmtR(ip[0],np)}</b></td><td>${ip[1]}</td><td><b>${fmtR(ip[1],np)}</b></td><td>${ip[2]}</td><td><b>${fmtR(ip[2],np)}</b></td></tr>
+<tr style="background:#FFF3E0;"><td><b>Colaboradores</b></td><td>${nc}</td><td>${ic[0]}</td><td><b>${fmtR(ic[0],nc)}</b></td><td>${ic[1]}</td><td><b>${fmtR(ic[1],nc)}</b></td><td>${ic[2]}</td><td><b>${fmtR(ic[2],nc)}</b></td></tr>
+<tr style="background:#F3E5F5;"><td><b>Visitantes</b></td><td>${nv}</td><td>${iv[0]}</td><td><b>${fmtR(iv[0],nv)}</b></td><td>${iv[1]}</td><td><b>${fmtR(iv[1],nv)}</b></td><td>${iv[2]}</td><td><b>${fmtR(iv[2],nv)}</b></td></tr>
+<tr style="background:#E3F2FD;font-weight:700;"><td><b>TOTAL</b></td><td>${nt}</td><td>${ia[0]}</td><td><b>${fmtR(ia[0],nt)}</b></td><td>${ia[1]}</td><td><b>${fmtR(ia[1],nt)}</b></td><td>${ia[2]}</td><td><b>${fmtR(ia[2],nt)}</b></td></tr>
 </table>
 </div></div>`;
 
@@ -2084,14 +2026,26 @@ tr:nth-child(even){background:#F8F9FA;}
         pt(`  Resumo IF:   Total artigos com IF=${d.n_if||0}   ` +
            `M\u00e9dio=${d.avg_if||0}   Mediana=${d.med_if||0}   M\u00e1ximo=${d.max_if||0}`);
         pt('');
-        pt('  Distribui\u00e7\u00e3o de artigos por estrato CAPES (total, A1..A8,C):');
-        ORD.forEach((e,i) => pt(`    ${padL(estCurto(e), 16)} ${padR(ia[i]||0, 6)} artigos    \u2192  ${padR(fmtR(ia[i]||0, nt), 6)} por docente`));
+        pt('  Distribui\u00e7\u00e3o de artigos por estrato de IF:');
+        pt(`    BAIXO (IF<2,2)         ${padR(d.if_lo||0, 6)} artigos    \u2192  ${padR(fmtR(d.if_lo||0, nt), 6)} por docente`);
+        pt(`    M\u00c9DIO (2,2\u2264IF\u22648,0)     ${padR(d.if_mi||0, 6)} artigos    \u2192  ${padR(fmtR(d.if_mi||0, nt), 6)} por docente`);
+        pt(`    ALTO  (IF>8,0)         ${padR(d.if_hi||0, 6)} artigos    \u2192  ${padR(fmtR(d.if_hi||0, nt), 6)} por docente`);
         pt('');
-        pt('  Detalhamento por categoria docente \u00d7 estrato (Art/Doc):');
-        pt('  ' + padL('Categoria', 14) + padR('Doc', 5) + '  ' + ORD.map(e => padR(e, 8)).join(''));
+        pt('  Detalhamento por categoria docente \u00d7 estrato:');
+        pt('  ' + padL('', 14) + padR('', 5) + '  ' +
+                  padL('  BAIXO (IF<2,2)', 22) +
+                  padL('  M\u00c9DIO (2,2-8,0)', 22) +
+                  padL('  ALTO  (IF>8,0)', 22));
+        pt('  ' + padL('Categoria', 14) + padR('Doc', 5) + '  ' +
+                  padR('Art', 8) + padR('Art/Doc', 12) + '  ' +
+                  padR('Art', 8) + padR('Art/Doc', 12) + '  ' +
+                  padR('Art', 8) + padR('Art/Doc', 12));
         pt('  ' + '\u2500'.repeat(W - 2));
         const linhaCat = (rotulo, n, arr) =>
-            '  ' + padL(rotulo, 14) + padR(n, 5) + '  ' + ORD.map((e,i) => padR(fmtR(arr[i]||0, n), 8)).join('');
+            '  ' + padL(rotulo, 14) + padR(n, 5) + '  ' +
+                   padR(arr[0], 8) + padR(fmtR(arr[0], n), 12) + '  ' +
+                   padR(arr[1], 8) + padR(fmtR(arr[1], n), 12) + '  ' +
+                   padR(arr[2], 8) + padR(fmtR(arr[2], n), 12);
         pt(linhaCat('Permanentes',   np, ip));
         pt(linhaCat('Colaboradores', nc, ic));
         pt(linhaCat('Visitantes',    nv, iv));
@@ -2106,13 +2060,13 @@ tr:nth-child(even){background:#F8F9FA;}
             d.nota,
             csvEsc(d.quad),
             nt, np, nc, nv,
-            ...ORD.map((e,i) => ia[i]||0),
-            ...ORD.map((e,i) => ip[i]||0),
-            ...ORD.map((e,i) => ic[i]||0),
-            ...ORD.map((e,i) => iv[i]||0),
-            ...ORD.map((e,i) => fmtR_BR(ip[i]||0, np)),
-            ...ORD.map((e,i) => fmtR_BR(ic[i]||0, nc)),
-            ...ORD.map((e,i) => fmtR_BR(ia[i]||0, nt)),
+            d.if_lo||0, d.if_mi||0, d.if_hi||0,
+            ip[0], ip[1], ip[2],
+            ic[0], ic[1], ic[2],
+            iv[0], iv[1], iv[2],
+            fmtR_BR(ip[0], np), fmtR_BR(ip[1], np), fmtR_BR(ip[2], np),
+            fmtR_BR(ic[0], nc), fmtR_BR(ic[1], nc), fmtR_BR(ic[2], nc),
+            fmtR_BR(ia[0], nt), fmtR_BR(ia[1], nt), fmtR_BR(ia[2], nt),
             fmtN_BR(d.avg_if||0), fmtN_BR(d.med_if||0), fmtN_BR(d.max_if||0),
             d.n_if||0,
             d.is_unb ? 'SIM' : 'NAO',
@@ -2120,7 +2074,9 @@ tr:nth-child(even){background:#F8F9FA;}
     });
 
     // \u2500\u2500 Sum\u00e1rio agregado no final do TXT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
-    const sumEstr = ORD.map((e,i) => programas.reduce((s, d) => s + ((d.estr_all||[])[i] || 0), 0));
+    const sumLo  = programas.reduce((s, d) => s + (d.if_lo  || 0), 0);
+    const sumMi  = programas.reduce((s, d) => s + (d.if_mi  || 0), 0);
+    const sumHi  = programas.reduce((s, d) => s + (d.if_hi  || 0), 0);
     const sumDoc = programas.reduce((s, d) =>
         s + (d.n_perm||0) + (d.n_colab||0) + (d.n_visit||0), 0);
     pt('');
@@ -2128,8 +2084,10 @@ tr:nth-child(even){background:#F8F9FA;}
     pt(`  RESUMO AGREGADO  (${programas.length} programa${programas.length === 1 ? '' : 's'})`);
     pt('\u2500'.repeat(W));
     pt(`  Docentes (soma)             : ${sumDoc}`);
-    ORD.forEach((e,i) => pt(`  Artigos ${padL(estCurto(e), 16)} (soma) : ${padR(sumEstr[i], 6)}    \u2192  ${fmtR(sumEstr[i], sumDoc)} / docente`));
-    pt(`  Artigos (soma total A1..C)  : ${sumEstr.reduce((a,b) => a+b, 0)}`);
+    pt(`  Artigos IF BAIXO (soma)     : ${padR(sumLo, 6)}    \u2192  ${fmtR(sumLo, sumDoc)} / docente`);
+    pt(`  Artigos IF M\u00c9DIO (soma)     : ${padR(sumMi, 6)}    \u2192  ${fmtR(sumMi, sumDoc)} / docente`);
+    pt(`  Artigos IF ALTO  (soma)     : ${padR(sumHi, 6)}    \u2192  ${fmtR(sumHi, sumDoc)} / docente`);
+    pt(`  Artigos com IF (soma total) : ${sumLo + sumMi + sumHi}`);
     pt('\u2550'.repeat(W));
     pt('  Fim do relat\u00f3rio \u2014 MAPA-PG v' + VERSION);
     pt('\u2550'.repeat(W));
@@ -2166,11 +2124,7 @@ function downloadIFCSV() {
 function gerarGraficoIF(programas, winRef) {
     const now = new Date();
     const fmtR = (n, d) => d > 0 ? +(n/d).toFixed(2) : 0;
-    const EST = (DATA.metadata && DATA.metadata.estratos) || {};
-    const ORD = EST.ordem || ['A1','A2','A3','A4','A5','A6','A7','A8','C'];
-    const CORT = EST.cortes_if || {};
-    const STRATA = ORD.map(e => e === 'C' ? 'C (s/IF)'
-        : `${e} (IF\u2265${CORT[e] !== undefined ? (+CORT[e]).toFixed(2).replace('.', ',') : '?'})`);
+    const STRATA = ['IF < 2.2', '2.2 \u2264 IF \u2264 8.0', 'IF > 8.0'];
     const COLORS = [
         '#E91E63','#2196F3','#4CAF50','#FF9800','#9C27B0','#00BCD4',
         '#F44336','#3F51B5','#8BC34A','#FF5722','#607D8B','#795548',
@@ -2183,13 +2137,13 @@ function gerarGraficoIF(programas, winRef) {
     const chartData = [];
     programas.forEach((d, idx) => {
         const nt = (d.n_perm||0) + (d.n_colab||0) + (d.n_visit||0);
-        const ia = d.estr_all || Array(9).fill(0);
+        const ia = d.if_all || [0,0,0];
         const label = d.is_unb
             ? `\u2605 ${d.sigla} (N${d.nota}) ${d.quad}`
             : `${d.sigla} (N${d.nota}) ${d.quad}`;
         chartData.push({
             label: label,
-            vals: ia.map(v => fmtR(v||0, nt)),
+            vals: [fmtR(ia[0],nt), fmtR(ia[1],nt), fmtR(ia[2],nt)],
             isUnb: d.is_unb,
             color: d.is_unb ? '#E91E63' : COLORS[idx % COLORS.length],
         });
@@ -2232,7 +2186,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;}
     h += `<div class="card">
 <h2>Produ\u00e7\u00e3o por Estrato de IF \u2014 Barras Agrupadas (Art/Docente)</h2>
 <div class="chart-wrap" style="height:${barH}px;"><canvas id="chartBars"></canvas></div>
-<p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo \u00b7 C = sem indicador de IF). UnB destacada com \u2605.</p>
+<p class="note">Cada programa tem 3 barras: verde (IF&lt;2.2), azul (2.2\u22642IF\u22648), vermelho (IF&gt;8). UnB destacada com \u2605.</p>
 </div>`;
 
     // Chart 2: Multi-line
@@ -2240,7 +2194,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;}
     h += `<div class="card">
 <h2>Perfil de Produ\u00e7\u00e3o por Estrato de IF \u2014 Multi-Linhas (Art/Docente)</h2>
 <div class="chart-wrap" style="height:${lineH}px;"><canvas id="chartLines"></canvas></div>
-<p class="note">Cada linha representa um programa. Eixo X: estratos A1..A8,C. Eixo Y: art/docente. UnB em magenta com linha grossa.</p>
+<p class="note">Cada linha representa um programa. Eixo X: 3 faixas de IF. Eixo Y: art/docente. UnB em magenta com linha grossa.</p>
 </div>`;
 
     // Chart 3: 3 IES mais próximas da UnB
@@ -2249,11 +2203,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;}
     let dsClosest = [];
     if (unbEntry) {
         const unbV = unbEntry.vals;
-        const others2 = chartData.filter(d => !d.isUnb && d.vals.reduce((a,b) => a+b, 0) > 0);
-        // Ordena pela soma das diferenças absolutas em todos os estratos (A1..C)
+        const others2 = chartData.filter(d => !d.isUnb && (d.vals[0]+d.vals[1]+d.vals[2]) > 0);
+        // Sort by sum of absolute differences across 3 strata
         others2.forEach(d => {
-            d._dist = d.vals.reduce((s, v, i) => s + Math.abs(v - (unbV[i]||0)), 0);
-            d._diffs = d.vals.map((v, i) => +(v - (unbV[i]||0)).toFixed(2));
+            d._dist = Math.abs(d.vals[0]-unbV[0]) + Math.abs(d.vals[1]-unbV[1]) + Math.abs(d.vals[2]-unbV[2]);
+            d._diffs = [
+                +(d.vals[0]-unbV[0]).toFixed(2),
+                +(d.vals[1]-unbV[1]).toFixed(2),
+                +(d.vals[2]-unbV[2]).toFixed(2),
+            ];
         });
         others2.sort((a,b) => a._dist - b._dist);
         closest3 = others2.slice(0, 3);
@@ -2281,7 +2239,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;}
     h += `<div class="card">
 <h2>3 IES Mais Pr\u00f3ximas da UnB \u2014 Compara\u00e7\u00e3o por Estrato de IF</h2>
 <div class="chart-wrap" style="height:450px;"><canvas id="chartClosest"></canvas></div>
-<p class="note">Compara a UnB com as 3 IES de menor diferen\u00e7a total nos estratos A1..A8,C. Na legenda: diferen\u00e7a por estrato (A1\u2026C). Sinal + = IES acima da UnB, sinal \u2013 = IES abaixo da UnB. Clique nos pontos para ver a diferen\u00e7a.</p>
+<p class="note">Compara a UnB com as 3 IES que apresentam menor diferen\u00e7a total nos 3 estratos de IF. Na legenda: [dif IF&lt;2.2 | dif 2.2-8 | dif IF&gt;8]. Sinal + = IES acima da UnB, sinal \u2013 = IES abaixo da UnB. Clique nos pontos para ver a diferen\u00e7a.</p>
 </div>`;
 
     h += `</div>
@@ -2289,11 +2247,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;}
 
     // Build chart data as JSON for the script
     const labelsBar = chartData.map(d => d.label);
-    // Paleta A1..A8 (verde\u2192vermelho, topo\u2192base) + C cinza
-    const ESTR_COR = ['#1B5E20','#388E3C','#66BB6A','#9CCC65','#FDD835','#FB8C00','#EF5350','#B71C1C','#9E9E9E'];
-    const dsBar = STRATA.map((s, i) => ({
-        label: s, data: chartData.map(d => d.vals[i] || 0), backgroundColor: ESTR_COR[i] || '#777',
-    }));
+    const dsBar = [
+        { label: 'IF < 2.2', data: chartData.map(d => d.vals[0]), backgroundColor: '#66BB6A' },
+        { label: '2.2 \u2264 IF \u2264 8.0', data: chartData.map(d => d.vals[1]), backgroundColor: '#42A5F5' },
+        { label: 'IF > 8.0', data: chartData.map(d => d.vals[2]), backgroundColor: '#EF5350' },
+    ];
 
     const dsLine = chartData.map(d => ({
         label: d.label,
