@@ -1,5 +1,26 @@
 # Changelog — MAPA-PG-UnB
 
+## v3.1.0 — TOP / Ranking de programas (2026-06-25)
+
+**Novidade principal:** painel **TOP / Ranking de programas**, portando para a pós-graduação
+o recurso "TOP de cursos" do MAPA-GR.
+
+### Adicionado
+- Botão **🏆 TOP / Ranking de programas** no sidebar. Ranqueia os programas da área pela
+  **métrica selecionada** (art/ano PQ/sem PQ/geral/por categoria docente, ou IF médio),
+  respeitando os filtros ativos (nota, quadriênio, região, IES, estratos CAPES, tipo de produção).
+- Quatro modos: **TOP melhores** e **TOP mais baixos** (nacional), **Melhor por UF** e
+  **Pior por UF** (um programa por estado). Seletor de N (10/20/50/Todos) no modo nacional.
+- Quando "Todos os quadriênios" está selecionado, usa o **quadriênio mais recente** de cada
+  programa. Programas da UnB destacados (★) e tabela com posição/IES/UF/nota/quadriênio/docentes/valor.
+- Gráfico de barras horizontais do recorte e **exportação CSV** do ranking.
+- O filtro Pública/Privada do MAPA-GR **não** foi portado: os dados de pós-graduação não têm
+  categoria administrativa e a pós stricto sensu é majoritariamente pública.
+
+### Interno
+- `METRICA_LABEL` / `WEIGHT_FIELD` extraídos para constantes compartilhadas por `analisar()` e
+  `renderRanking()`. Bump de cache do Service Worker (`mapa-pg-v3.2.0`).
+
 ## v3.0.0 — Estratos CAPES 2025–2028 (2026-06-20)
 
 **Novidade principal:** estratificação da produção de artigos em **A1–A8 + C** segundo a

@@ -197,7 +197,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v3.0-multi</div>
+        <div id="headerVersion">v3.1-multi</div>
     </div>
 </div>
 
@@ -321,9 +321,11 @@ tr:hover { background: #EEF2F7; }
         <div class="filter-group">
             <h3>Relatório Detalhado IF</h3>
             <label><input type="checkbox" id="chkIFDetail"> Análise detalhada por Fator de Impacto</label>
+            <p style="font-size:11px;color:var(--txt2,#7F8C8D);margin-top:4px;line-height:1.4;">Abre no próprio painel (sem novas abas): <strong>Página 1</strong> detalhamento numérico e <strong>Página 2</strong> gráficos, alternáveis por botão.</p>
         </div>
 
         <button class="btn btn-primary" onclick="analisar()">Analisar</button>
+        <button class="btn" onclick="renderRanking('nac', false)" style="background:#D4AF37;color:#fff;">🏆 TOP / Ranking de programas</button>
         <button class="btn btn-secondary" onclick="gerarRelatorio()">Gerar Relatório</button>
         <button class="btn btn-export" onclick="exportarCSV()">Exportar CSV</button>
         <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
@@ -331,12 +333,60 @@ tr:hover { background: #EEF2F7; }
     </div>
 
     <!-- MAIN -->
-    <div class="main" id="main">
+    <style>
+/* ===== Painel sobreposto de Detalhamento de Fator de Impacto ===== */
+#ifOverlay{display:none;flex-direction:column;background:#F5F7FA;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12);}
+#ifOverlay.show{display:flex;}
+#ifOverlayHead{position:sticky;top:0;z-index:30;background:linear-gradient(135deg,#2C3E50,#34495E);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+#ifOverlayHead h2{font-size:16px;font-weight:700;margin:0;flex:1 1 auto;letter-spacing:.5px;border:none;color:#fff;}
+#ifOverlayHead .ind{font-size:11px;opacity:.88;white-space:nowrap;}
+#ifOverlay .navbtn{padding:8px 16px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;}
+#ifOverlay #ifPageToggle{background:#E91E63;color:#fff;}
+#ifOverlay #ifClose{background:#ECF0F1;color:#2C3E50;}
+#ifOverlayBody{padding:16px;}
+#ifOverlay .btn-bar{text-align:center;margin:4px 0 16px;}
+#ifOverlay .btn{padding:9px 18px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;margin:4px;color:#fff;}
+#ifOverlay .btn-txt{background:#2C3E50;} #ifOverlay .btn-csv{background:#27AE60;} #ifOverlay .btn-png{background:#FF9800;}
+#ifOverlay .prog-card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;overflow:hidden;}
+#ifOverlay .prog-hdr{background:linear-gradient(135deg,#1A252F,#2C3E50);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+#ifOverlay .prog-hdr h2{font-size:16px;font-weight:700;border:none;color:#fff;margin:0;}
+#ifOverlay .prog-hdr .nota{background:#E91E63;padding:3px 12px;border-radius:12px;font-size:13px;font-weight:700;}
+#ifOverlay .prog-hdr.unb-hdr{background:linear-gradient(135deg,#880E4F,#E91E63);}
+#ifOverlay .prog-body{padding:16px;}
+#ifOverlay .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+#ifOverlay .box{flex:1;min-width:80px;background:#F8F9FA;border-radius:4px;padding:6px;text-align:center;border-left:3px solid #2196F3;}
+#ifOverlay .box.perm{border-color:#4CAF50;} #ifOverlay .box.colab{border-color:#FF9800;} #ifOverlay .box.visit{border-color:#9C27B0;} #ifOverlay .box.all{border-color:#2C3E50;}
+#ifOverlay .box .v{font-size:15px;font-weight:700;color:#2C3E50;} #ifOverlay .box .l{font-size:8px;color:#7F8C8D;text-transform:uppercase;line-height:1.2;}
+#ifOverlay .sep{font-size:11px;color:#7F8C8D;font-weight:600;margin:10px 0 4px;border-bottom:1px solid #E0E4E8;padding-bottom:2px;}
+#ifOverlay table{width:100%;border-collapse:collapse;font-size:11px;margin:6px 0;}
+#ifOverlay th{background:#2C3E50;color:#fff;padding:4px 6px;text-align:center;font-size:10px;}
+#ifOverlay td{padding:3px 5px;text-align:center;border-bottom:1px solid #E0E4E8;}
+#ifOverlay tr:nth-child(even){background:#F8F9FA;}
+#ifOverlay .card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:20px;margin-bottom:16px;}
+#ifOverlay .card h2{font-size:14px;color:#2C3E50;margin-bottom:12px;border-bottom:2px solid #E91E63;padding-bottom:4px;}
+#ifOverlay .chart-wrap{position:relative;width:100%;}
+#ifOverlay .note{font-size:11px;color:#7F8C8D;margin-top:8px;line-height:1.5;}
+</style>
+<div class="main" id="main">
         <div class="loading" id="loading">
             <div class="spinner"></div>
             <p id="loadingMsg">Carregando catálogo de áreas CAPES...</p>
         </div>
         <div id="results" style="display:none;"></div>
+
+        <!-- Painel sobreposto: detalhamento de Fator de Impacto (mesma área do painel principal) -->
+        <div id="ifOverlay">
+            <div id="ifOverlayHead">
+                <h2>Detalhamento de Fator de Impacto</h2>
+                <span class="ind" id="ifPageInd"></span>
+                <button class="navbtn" id="ifPageToggle" data-target="2" onclick="toggleIFPage()">Ver gráficos →</button>
+                <button class="navbtn" id="ifClose" onclick="closeIFOverlay()">✕ Fechar</button>
+            </div>
+            <div id="ifOverlayBody">
+                <div id="ifPage1"></div>
+                <div id="ifPage2" style="display:none;"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -359,7 +409,7 @@ let REGISTRY = null;          // catálogo de programas UnB
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // sufixo do programa UnB selecionado
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '3.0-multi';
+const VERSION = '3.1-multi';
 // UNB_CD: programa UnB selecionado como referência (mutável quando usuário troca de curso).
 // UNB_CDS: lista de todos os códigos UnB presentes na área carregada (para destacar todos).
 let UNB_CD = '53001010002P6';
@@ -781,6 +831,26 @@ function toggleSubtipos(state) {
 const SUBTIPO_LABELS = { '25': 'Art. Periódico', '8': 'Resumo', '9': 'Trab. Congresso', '26': 'Cap. Livro', '10': 'Texto Jornal' };
 const ALL_SUBTIPOS = ['25', '8', '9', '26', '10'];
 
+// Rótulo e campo de peso (denominador) de cada métrica — compartilhados por analisar() e renderRanking()
+const METRICA_LABEL = {
+    'ma_pq': 'Art/ano Bolsistas PQ',
+    'ma_spq': 'Art/ano Sem PQ',
+    'ma_all': 'Art/ano Média Geral',
+    'ma_perm': 'Art/ano Permanentes',
+    'ma_colab': 'Art/ano Colaboradores',
+    'ma_visit': 'Art/ano Visitantes',
+    'avg_if': 'IF Médio (OpenAlex 2yr)',
+};
+const WEIGHT_FIELD = {
+    'ma_pq': 'n_pq', 'ma_spq': 'n_spq', 'ma_all': 'n_doc',
+    'ma_perm': 'n_perm', 'ma_colab': 'n_colab', 'ma_visit': 'n_visit',
+    'avg_if': 'n_if',
+};
+// Estado do painel TOP / Ranking (escopo nacional vs por-UF; melhores vs mais baixos; N)
+let RANK_STATE = { scope: 'nac', worst: false, n: 10 };
+// Verdadeiro p/ qualquer programa da UnB na área (não só o de referência)
+function isUnbRec(d) { return UNB_CDS.includes(d.cd); }
+
 function getFilters() {
     const notas = [];
     if (document.getElementById('nota5').checked) notas.push(5);
@@ -931,20 +1001,8 @@ function analisar() {
     const estratos_if = filters.estratos_if;
     const subtipoLabel = getSubtipoLabel(subtipos);
 
-    const metricaLabel = {
-        'ma_pq': 'Art/ano Bolsistas PQ',
-        'ma_spq': 'Art/ano Sem PQ',
-        'ma_all': 'Art/ano Média Geral',
-        'ma_perm': 'Art/ano Permanentes',
-        'ma_colab': 'Art/ano Colaboradores',
-        'ma_visit': 'Art/ano Visitantes',
-        'avg_if': 'IF Médio (OpenAlex 2yr)',
-    }[metrica];
-    const weightField = {
-        'ma_pq': 'n_pq', 'ma_spq': 'n_spq', 'ma_all': 'n_doc',
-        'ma_perm': 'n_perm', 'ma_colab': 'n_colab', 'ma_visit': 'n_visit',
-        'avg_if': 'n_if',
-    }[metrica] || 'n_doc';
+    const metricaLabel = METRICA_LABEL[metrica];
+    const weightField = WEIGHT_FIELD[metrica] || 'n_doc';
 
     // Destroy old charts
     charts.forEach(c => c.destroy());
@@ -1311,55 +1369,189 @@ function analisar() {
             return a.sigla.localeCompare(b.sigla) || a.quad.localeCompare(b.quad);
         });
         if (allProgs.length > 0) {
-            const ok = confirm('ANÁLISE DETALHADA DE FATOR DE IMPACTO\n\nSerão abertas DUAS novas abas:\n\n  1ª ABA — Detalhamento numérico por programa\n  2ª ABA — Gráfico comparativo multi-programa\n\nDeseja continuar?');
-            if (ok) {
-                // Abrir ambas as abas imediatamente (antes de escrever conteúdo)
-                // para evitar bloqueio de popup do navegador.
-                const win1 = window.open('', '_blank');
-                const win2 = window.open('', '_blank');
-                if (!win1) {
-                    alert('Pop-ups bloqueados pelo navegador. Permita pop-ups deste site (Chrome: ícone com X na barra de endereços → Permitir) e tente novamente.');
-                    return;
-                }
-                gerarRelatorioIF(allProgs, win1);
-                if (win2) {
-                    gerarGraficoIF(allProgs, win2);
-                } else {
-                    // 2ª aba foi bloqueada (Chrome/Edge limita a 1 popup
-                    // por gesto). Injeta um botão na 1ª aba para o usuário
-                    // abrir o gráfico manualmente — esse novo clique conta
-                    // como gesto e contorna o bloqueio.
-                    const abrirGrafico = () => {
-                        const w = window.open('', '_blank');
-                        if (w) gerarGraficoIF(allProgs, w);
-                        else alert('Pop-up ainda bloqueado. Permita pop-ups deste site nas configurações do navegador.');
-                    };
-                    setTimeout(() => {
-                        try {
-                            const doc = win1.document;
-                            if (!doc) return;
-                            const banner = doc.createElement('div');
-                            banner.style.cssText =
-                                'background:#FFF3CD;border:2px solid #FF9800;border-radius:8px;' +
-                                'padding:14px 18px;margin:14px;color:#7C5A00;text-align:center;' +
-                                'font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.5;';
-                            banner.innerHTML =
-                                '<strong>⚠ A 2ª aba (gráfico comparativo) foi bloqueada pelo navegador.</strong><br>' +
-                                'Clique no botão abaixo para abrir o gráfico:<br>' +
-                                '<button id="abrirGrafIF" style="background:#FF9800;color:#fff;padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;">Abrir gráfico em nova aba</button>';
-                            const content = doc.querySelector('.content');
-                            if (content) content.insertBefore(banner, content.firstChild);
-                            else doc.body.insertBefore(banner, doc.body.firstChild);
-                            const btn = doc.getElementById('abrirGrafIF');
-                            if (btn) btn.onclick = abrirGrafico;
-                        } catch (e) { console.error(e); }
-                    }, 200);
-                }
-            }
+            renderIFDetailInPanel(allProgs);
         } else {
             toast('Nenhum programa selecionado para o relatório de IF.');
         }
+    } else {
+        closeIFOverlay();
     }
+}
+
+// ── TOP / RANKING ───────────────────────────────────────────────
+// Espelha o "TOP de cursos" do MAPA-GR adaptado à pós-graduação:
+// ranqueia programas pela MÉTRICA selecionada no sidebar (não por nota),
+// respeitando os filtros ativos (nota/quadriênio/região/IES/estratos/subtipos).
+// Escopo nacional (TOP N) ou por UF (melhor/pior de cada estado).
+
+// Conjunto de registros elegíveis ao ranking — mesma regra do filterData()
+// (UnB de referência sempre incluída; demais sujeitos a nota/região/IES).
+function rankingPool(filters) {
+    // Obs.: o ranking NÃO filtra por nota (ranqueia todas as notas, com a nota
+    // como coluna) — senão o "TOP melhores" esconderia os programas nota 6/7,
+    // já que o sidebar vem só com nota 5 marcada. Demais filtros são respeitados.
+    let recs = DATA.data.filter(d => {
+        if (filters.quad !== 'all' && d.quad !== filters.quad) return false;
+        if (d.is_unb) return true;
+        if (!filters.regioes.includes(d.regiao)) return false;
+        if (!filters.ies.includes(d.sigla)) return false;
+        return true;
+    });
+    // Quando "Todos os quadriênios": colapsa para o quadriênio mais recente de cada programa
+    if (filters.quad === 'all') {
+        const QORD = { '2013-2016': 1, '2017-2020': 2, '2021-2024': 3 };
+        const latest = {};
+        recs.forEach(d => {
+            const cur = latest[d.cd];
+            if (!cur || (QORD[d.quad] || 0) > (QORD[cur.quad] || 0)) latest[d.cd] = d;
+        });
+        recs = Object.values(latest);
+    }
+    return recs;
+}
+
+function renderRanking(scope, worst) {
+    if (!DATA) { toast('Selecione uma área primeiro.'); return; }
+    if (scope !== undefined) RANK_STATE.scope = scope;
+    if (worst !== undefined) RANK_STATE.worst = worst;
+    scope = RANK_STATE.scope; worst = RANK_STATE.worst;
+
+    const filters = getFilters();
+    const metrica = filters.metrica;
+    const metricaLabel = METRICA_LABEL[metrica];
+    const wf = WEIGHT_FIELD[metrica] || 'n_doc';
+    const subtipos = filters.subtipos, estratos_if = filters.estratos_if;
+
+    charts.forEach(c => c.destroy()); charts = [];
+
+    // Exclui registros sem denominador para a métrica (valor indefinido, não "baixo")
+    let pool = rankingPool(filters).filter(d => (d[wf] || 0) > 0);
+    let recs = pool.map(d => ({ rec: d, val: getEffectiveMetric(d, metrica, subtipos, estratos_if) }));
+
+    const cmp = (a, b) => worst ? (a.val - b.val) : (b.val - a.val);
+
+    if (scope === 'uf') {
+        const byUF = {};
+        recs.forEach(o => { (byUF[o.rec.uf] = byUF[o.rec.uf] || []).push(o); });
+        recs = Object.keys(byUF).map(u => { byUF[u].sort(cmp); return byUF[u][0]; });
+    }
+    recs.sort(cmp);
+
+    const N = scope === 'uf' ? recs.length : RANK_STATE.n;
+    const picks = recs.slice(0, N);
+
+    // Header / barra de controles
+    const accent = worst ? 'var(--vermelho)' : '#D4AF37';
+    const icon = worst ? '🔻' : (scope === 'uf' ? '🗺️' : '🏆');
+    let titulo;
+    if (scope === 'uf' && worst)       titulo = `Pior programa por estado — ${CURRENT_AREA_NAME}`;
+    else if (scope === 'uf' && !worst) titulo = `Melhor programa por estado — ${CURRENT_AREA_NAME}`;
+    else if (worst)                    titulo = `TOP ${picks.length} nacional — programas com menores valores — ${CURRENT_AREA_NAME}`;
+    else                               titulo = `TOP ${picks.length} nacional — programas mais bem avaliados — ${CURRENT_AREA_NAME}`;
+
+    const quadTxt = filters.quad === 'all' ? 'quadriênio mais recente de cada programa' : filters.quad;
+    const regTxt = filters.regioes.length === 5 ? 'todas as regiões' : filters.regioes.join(', ');
+    const notaTxt = 'todas as notas';
+    const btn = (s, w, lbl) => `<button class="btn btn-sm" onclick="renderRanking('${s}',${w})" style="margin:0 4px 0 0;background:${(RANK_STATE.scope===s&&RANK_STATE.worst===w)?accent:'#ECEFF1'};color:${(RANK_STATE.scope===s&&RANK_STATE.worst===w)?'#fff':'#37474F'};">${lbl}</button>`;
+
+    let html = `<div class="card" style="border-top:4px solid ${accent};">
+        <h2 style="color:${accent};border-color:${accent};">${icon} ${titulo}</h2>
+        <div style="margin-bottom:8px;">
+            ${btn('nac', false, '🏆 TOP melhores')}
+            ${btn('nac', true,  '🔻 TOP mais baixos')}
+            ${btn('uf',  false, '🗺️ Melhor por UF')}
+            ${btn('uf',  true,  '🔻 Pior por UF')}
+            <label style="font-size:12px;margin-left:8px;${scope==='uf'?'opacity:.4;':''}">N:
+                <select id="rankN" onchange="RANK_STATE.n=+this.value;renderRanking();" ${scope==='uf'?'disabled':''} style="font-size:12px;padding:2px;">
+                    <option value="10"${RANK_STATE.n===10?' selected':''}>10</option>
+                    <option value="20"${RANK_STATE.n===20?' selected':''}>20</option>
+                    <option value="50"${RANK_STATE.n===50?' selected':''}>50</option>
+                    <option value="9999"${RANK_STATE.n===9999?' selected':''}>Todos</option>
+                </select>
+            </label>
+            <button class="btn btn-sm btn-export" onclick="exportarRankingCSV()" style="margin-left:8px;display:inline-block;width:auto;">Baixar .csv</button>
+        </div>
+        <p style="font-size:12px;color:var(--txt2);margin-bottom:6px;">
+            ${picks.length} de ${pool.length} programa(s) no recorte · ordenado por <strong>${metricaLabel}</strong> (${worst?'menores primeiro':'maiores primeiro'})
+            <br>Filtros: ${notaTxt} · ${quadTxt} · ${regTxt}
+            ${(subtipos.length!==ALL_SUBTIPOS.length||estratos_if.length!==9)?'<br><span style="color:#E65100;">Filtros de tipo/estrato ativos — a métrica reflete o recorte.</span>':''}
+        </p>`;
+
+    if (!picks.length) {
+        html += `<p style="color:var(--vermelho);">Nenhum programa com a métrica disponível nos filtros atuais.</p></div>`;
+        document.getElementById('results').innerHTML = html;
+        document.getElementById('results').style.display = 'block';
+        return;
+    }
+
+    html += `<div class="chart-container" style="position:relative;height:${Math.max(180, picks.length*22)}px;"><canvas id="chartRanking"></canvas></div></div>`;
+
+    // Tabela
+    html += `<div class="card"><h2>Tabela do ranking</h2><div class="tbl-wrap"><table><thead><tr>
+        <th>#</th><th>Programa</th><th>IES</th><th>UF</th><th>Nota</th><th>Quad</th><th>Docentes</th><th>${metricaLabel}</th>
+    </tr></thead><tbody>`;
+    picks.forEach((o, i) => {
+        const c = o.rec;
+        const isU = isUnbRec(c);
+        const medal = (!worst && scope === 'nac' && i < 3) ? ['🥇','🥈','🥉'][i] + ' ' : '';
+        const rowStyle = isU ? ` style="background:#FCE4EC;font-weight:600;"` : '';
+        html += `<tr${rowStyle}>
+            <td><strong>${medal}${i + 1}º</strong></td>
+            <td style="text-align:left;">${c.programa || '—'}${isU ? ' <span style="color:var(--unb);">★ UnB</span>' : ''}</td>
+            <td><strong>${c.sigla || '—'}</strong></td>
+            <td>${c.uf || '—'}</td>
+            <td>${c.nota ?? '—'}</td>
+            <td>${c.quad || '—'}</td>
+            <td>${c.n_doc ?? '—'}</td>
+            <td><strong>${o.val.toFixed(2)}</strong></td>
+        </tr>`;
+    });
+    html += `</tbody></table></div>
+        <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Programas da UnB destacados em rosa (★). Ranking pela métrica selecionada no sidebar; troque a métrica e clique no TOP novamente para reordenar.</p></div>`;
+
+    document.getElementById('results').innerHTML = html;
+    document.getElementById('results').style.display = 'block';
+
+    // Guarda dados p/ exportação CSV
+    window._rankData = { picks, metrica, metricaLabel, scope, worst };
+
+    // Gráfico de barras horizontais
+    const ctx = document.getElementById('chartRanking');
+    if (ctx) {
+        const labels = picks.map((o, i) => `${i + 1}. ${o.rec.sigla}${o.rec.uf ? '/' + o.rec.uf : ''}`);
+        const data = picks.map(o => +o.val.toFixed(2));
+        const colors = picks.map(o => isUnbRec(o.rec) ? UNB_COLOR : accent);
+        charts.push(new Chart(ctx, {
+            type: 'bar',
+            data: { labels, datasets: [{ label: metricaLabel, data, backgroundColor: colors }] },
+            options: {
+                indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { afterLabel: ctx => {
+                        const o = picks[ctx.dataIndex]; return `${o.rec.programa} (nota ${o.rec.nota}, ${o.rec.quad})`;
+                    } } }
+                },
+                scales: { x: { beginAtZero: true, title: { display: true, text: metricaLabel } } }
+            }
+        }));
+    }
+
+    setStatus(`Ranking: ${picks.length} programas — ${metricaLabel}`);
+}
+
+function exportarRankingCSV() {
+    const d = window._rankData;
+    if (!d || !d.picks.length) { toast('Gere um ranking primeiro.'); return; }
+    let csv = 'Posicao;Programa;IES;UF;Nota;Quadrienio;Docentes;' + d.metricaLabel.replace(/;/g, ',') + ';UnB\n';
+    d.picks.forEach((o, i) => {
+        const c = o.rec;
+        csv += [i + 1, '"' + (c.programa || '') + '"', c.sigla || '', c.uf || '', c.nota ?? '',
+                c.quad || '', c.n_doc ?? '', o.val.toFixed(2), isUnbRec(c) ? 'sim' : 'nao'].join(';') + '\n';
+    });
+    const tag = (d.scope === 'uf' ? 'por-uf' : 'nacional') + (d.worst ? '-baixos' : '-melhores');
+    download(nomeArquivo('ranking', 'csv', tag), csv, 'text/csv;charset=utf-8');
+    toast('Ranking exportado em CSV.');
 }
 
 function buildChartQuad(quads, others, unbData, metrica, label, weightField, subtipos, estratos_if) {
@@ -1922,7 +2114,48 @@ function abrirHelp() {
     window.open('help-doc.html', '_blank');
 }
 
-function gerarRelatorioIF(programas, winRef) {
+// ===== Detalhamento de Fator de Impacto — no MESMO painel (overlay sobreposto) =====
+let _ifTxtData = '', _ifCsvData = '', _ifFileName = '';
+let _ifCharts = [];
+let _ifChartConfig = null;
+
+function _destroyIFCharts() {
+    _ifCharts.forEach(c => { try { c.destroy(); } catch (e) {} });
+    _ifCharts = [];
+}
+
+function renderIFDetailInPanel(programas) {
+    document.getElementById('ifPage1').innerHTML = buildIFReportHTML(programas);
+    document.getElementById('ifPage2').innerHTML = buildIFChartsHTML(programas);
+    buildIFCharts();
+    showIFPage(1);
+    const r = document.getElementById('results'); if (r) r.style.display = 'none';
+    document.getElementById('ifOverlay').classList.add('show');
+    const m = document.getElementById('main'); if (m) m.scrollTop = 0;
+}
+
+function showIFPage(n) {
+    document.getElementById('ifPage1').style.display = n === 1 ? 'block' : 'none';
+    document.getElementById('ifPage2').style.display = n === 2 ? 'block' : 'none';
+    document.getElementById('ifPageInd').textContent =
+        'Página ' + n + '/2 — ' + (n === 1 ? 'Detalhamento numérico' : 'Gráficos comparativos');
+    const btn = document.getElementById('ifPageToggle');
+    btn.textContent = n === 1 ? 'Ver gráficos →' : '← Ver detalhamento numérico';
+    btn.dataset.target = n === 1 ? '2' : '1';
+    const m = document.getElementById('main'); if (m) m.scrollTop = 0;
+}
+
+function toggleIFPage() {
+    showIFPage(document.getElementById('ifPageToggle').dataset.target === '2' ? 2 : 1);
+}
+
+function closeIFOverlay() {
+    document.getElementById('ifOverlay').classList.remove('show');
+    const r = document.getElementById('results'); if (r) r.style.display = '';
+    _destroyIFCharts();
+}
+
+function buildIFReportHTML(programas) {
     const now = new Date();
     reportSeq++;
     const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
@@ -1952,43 +2185,7 @@ function gerarRelatorioIF(programas, winRef) {
         : `${e} — ${(EST.labels_pct && EST.labels_pct[e]) || ''} — IF ≥ ${cif(e)}`;
     const ev = (arr, e) => (arr && arr[ORD.indexOf(e)]) || 0;   // valor do estrato e no vetor de 9
 
-    let h = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAPA-PG \u2014 Relat\u00f3rio Detalhado IF</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;line-height:1.5;}
-.hdr{background:linear-gradient(135deg,#2C3E50,#34495E);color:#fff;padding:14px 24px;
-    display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
-.hdr h1{font-size:18px;letter-spacing:1px;} .hdr h1 em{color:#E91E63;font-style:normal;}
-.hdr .m{font-size:11px;opacity:.8;text-align:right;}
-.content{max-width:1100px;margin:16px auto;padding:0 16px;}
-.prog-card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;overflow:hidden;}
-.prog-hdr{background:linear-gradient(135deg,#1A252F,#2C3E50);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
-.prog-hdr h2{font-size:16px;font-weight:700;} .prog-hdr .nota{background:#E91E63;padding:3px 12px;border-radius:12px;font-size:13px;font-weight:700;}
-.prog-hdr.unb-hdr{background:linear-gradient(135deg,#880E4F,#E91E63);}
-.prog-body{padding:16px;}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
-.box{flex:1;min-width:80px;background:#F8F9FA;border-radius:4px;padding:6px;text-align:center;border-left:3px solid #2196F3;}
-.box.perm{border-color:#4CAF50;} .box.colab{border-color:#FF9800;} .box.visit{border-color:#9C27B0;}
-.box.all{border-color:#2C3E50;} .box.lo{border-color:#66BB6A;} .box.mi{border-color:#42A5F5;} .box.hi{border-color:#EF5350;}
-.box .v{font-size:15px;font-weight:700;color:#2C3E50;} .box .l{font-size:8px;color:#7F8C8D;text-transform:uppercase;line-height:1.2;}
-.sep{font-size:11px;color:#7F8C8D;font-weight:600;margin:10px 0 4px;border-bottom:1px solid #E0E4E8;padding-bottom:2px;}
-table{width:100%;border-collapse:collapse;font-size:11px;margin:6px 0;}
-th{background:#2C3E50;color:#fff;padding:4px 6px;text-align:center;font-size:10px;}
-td{padding:3px 5px;text-align:center;border-bottom:1px solid #E0E4E8;}
-tr:nth-child(even){background:#F8F9FA;}
-.btn-bar{text-align:center;margin:16px 0;}
-.btn{padding:10px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;margin:4px;}
-.btn-txt{background:#2C3E50;color:#fff;} .btn-csv{background:#27AE60;color:#fff;}
-.footer{text-align:center;color:#999;font-size:10px;padding:12px;margin-top:16px;}
-</style></head><body>
-<div class="hdr">
-    <h1><em>MAPA-PG</em> \u2014 Relat\u00f3rio Detalhado de Fator de Impacto</h1>
-    <div class="m">Prof. David L. Azevedo<br>v${VERSION} | ${now.toLocaleDateString('pt-BR')}</div>
-</div>
-<div class="content">
-<div class="btn-bar">
+    let h = `<div class="btn-bar">
     <button class="btn btn-txt" onclick="downloadIFReport()">Baixar report-IF.txt</button>
     <button class="btn btn-csv" onclick="downloadIFCSV()">Baixar report-IF.csv</button>
 </div>`;
@@ -2134,43 +2331,30 @@ tr:nth-child(even){background:#F8F9FA;}
     pt('  Fim do relat\u00f3rio \u2014 MAPA-PG v' + VERSION);
     pt('\u2550'.repeat(W));
 
-    // IMPORTANTE: usar '\n' (newline real) e não '\\n' (string literal "\n")
-    // JSON.stringify cuida do escape correto p/ injetar no script do popup.
-    const txtStr = JSON.stringify(txt.join('\n'));
-    const csvStr = JSON.stringify(csvRows.join('\n'));
+    _ifTxtData = txt.join('\n');
+    _ifCsvData = csvRows.join('\n');
+    _ifFileName = nomeArquivo('report', '', 'IF');
+    return h;
+}
 
-    h += `</div>
-<div class="footer">MAPA-PG v${VERSION} | Prof. David L. Azevedo | david888azv@unb.br</div>
-<` + `script>
-const _ifTxt = ${txtStr};
-const _ifCsv = ${csvStr};
-const _ifName = '${nomeArquivo('report', '', 'IF')}';
 function downloadIFReport() {
-    // BOM UTF-8 para acentos corretos no Excel/Windows
-    const b = new Blob(['\\uFEFF' + _ifTxt], {type:'text/plain;charset=utf-8'});
+    const b = new Blob(['\uFEFF' + _ifTxtData], {type:'text/plain;charset=utf-8'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(b);
-    a.download = _ifName + '.txt'; a.click();
+    a.download = _ifFileName + '.txt'; a.click();
 }
 function downloadIFCSV() {
-    const b = new Blob(['\\uFEFF' + _ifCsv], {type:'text/csv;charset=utf-8'});
+    const b = new Blob(['\uFEFF' + _ifCsvData], {type:'text/csv;charset=utf-8'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(b);
-    a.download = _ifName + '.csv'; a.click();
-}
-<` + `/script></body></html>`;
-
-    const w = winRef || window.open('', '_blank');
-    w.document.write(h);
-    w.document.close();
+    a.download = _ifFileName + '.csv'; a.click();
 }
 
-function gerarGraficoIF(programas, winRef) {
-    const now = new Date();
+function buildIFChartsHTML(programas) {
     const fmtR = (n, d) => d > 0 ? +(n/d).toFixed(2) : 0;
     const EST = (DATA.metadata && DATA.metadata.estratos) || {};
     const ORD = EST.ordem || ['A1','A2','A3','A4','A5','A6','A7','A8','C'];
     const CORT = EST.cortes_if || {};
     const STRATA = ORD.map(e => e === 'C' ? 'C (s/IF)'
-        : `${e} (IF\u2265${CORT[e] !== undefined ? (+CORT[e]).toFixed(2).replace('.', ',') : '?'})`);
+        : `${e} (IF≥${CORT[e] !== undefined ? (+CORT[e]).toFixed(2).replace('.', ',') : '?'})`);
     const COLORS = [
         '#E91E63','#2196F3','#4CAF50','#FF9800','#9C27B0','#00BCD4',
         '#F44336','#3F51B5','#8BC34A','#FF5722','#607D8B','#795548',
@@ -2179,13 +2363,12 @@ function gerarGraficoIF(programas, winRef) {
         '#8BC34A','#FF5722','#607D8B','#795548','#CDDC39','#009688',
     ];
 
-    // Aggregate: for each program, compute Art/Doc(total) per stratum
     const chartData = [];
     programas.forEach((d, idx) => {
         const nt = (d.n_perm||0) + (d.n_colab||0) + (d.n_visit||0);
         const ia = d.estr_all || Array(9).fill(0);
         const label = d.is_unb
-            ? `\u2605 ${d.sigla} (N${d.nota}) ${d.quad}`
+            ? `★ ${d.sigla} (N${d.nota}) ${d.quad}`
             : `${d.sigla} (N${d.nota}) ${d.quad}`;
         chartData.push({
             label: label,
@@ -2195,219 +2378,167 @@ function gerarGraficoIF(programas, winRef) {
         });
     });
 
-    // Build chart page
-    let h = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAPA-PG \u2014 Gr\u00e1fico IF Comparativo</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"><\/script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#2C3E50;}
-.hdr{background:linear-gradient(135deg,#2C3E50,#34495E);color:#fff;padding:14px 24px;
-    display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
-.hdr h1{font-size:18px;letter-spacing:1px;} .hdr h1 em{color:#E91E63;font-style:normal;}
-.hdr .m{font-size:11px;opacity:.8;text-align:right;}
-.content{max-width:1200px;margin:16px auto;padding:0 16px;}
-.card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:20px;margin-bottom:16px;}
-.card h2{font-size:14px;color:#2C3E50;margin-bottom:12px;border-bottom:2px solid #E91E63;padding-bottom:4px;}
-.chart-wrap{position:relative;width:100%;}
-.footer{text-align:center;color:#999;font-size:10px;padding:12px;margin-top:16px;}
-.note{font-size:11px;color:#7F8C8D;margin-top:8px;line-height:1.5;}
-.btn-bar{text-align:center;margin:12px 0;}
-.btn{padding:8px 18px;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;margin:4px;background:#FF9800;color:#fff;}
-</style></head><body>
-<div class="hdr">
-    <h1><em>MAPA-PG</em> \u2014 Gr\u00e1fico Comparativo de Fator de Impacto</h1>
-    <div class="m">Prof. David L. Azevedo<br>v${VERSION} | ${now.toLocaleDateString('pt-BR')}</div>
-</div>
-<div class="content">
-<div class="btn-bar">
-    <button class="btn" onclick="exportPNG('chartBars')">Exportar Barras PNG</button>
-    <button class="btn" onclick="exportPNG('chartLines')">Exportar Linhas PNG</button>
-    <button class="btn" onclick="exportPNG('chartClosest')">Exportar Pr\u00f3ximas PNG</button>
-</div>`;
-
-    // Chart 1: Grouped horizontal bars
-    const barH = Math.max(500, chartData.length * 60);
-    h += `<div class="card">
-<h2>Produ\u00e7\u00e3o por Estrato de IF \u2014 Barras Agrupadas (Art/Docente)</h2>
-<div class="chart-wrap" style="height:${barH}px;"><canvas id="chartBars"></canvas></div>
-<p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo \u00b7 C = sem indicador de IF). UnB destacada com \u2605.</p>
-</div>`;
-
-    // Chart 2: Multi-line
-    const lineH = Math.max(450, 450);
-    h += `<div class="card">
-<h2>Perfil de Produ\u00e7\u00e3o por Estrato de IF \u2014 Multi-Linhas (Art/Docente)</h2>
-<div class="chart-wrap" style="height:${lineH}px;"><canvas id="chartLines"></canvas></div>
-<p class="note">Cada linha representa um programa. Eixo X: estratos A1..A8,C. Eixo Y: art/docente. UnB em magenta com linha grossa.</p>
-</div>`;
-
-    // Chart 3: 3 IES mais próximas da UnB
     const unbEntry = chartData.find(d => d.isUnb);
-    let closest3 = [];
     let dsClosest = [];
     if (unbEntry) {
         const unbV = unbEntry.vals;
         const others2 = chartData.filter(d => !d.isUnb && d.vals.reduce((a,b) => a+b, 0) > 0);
-        // Ordena pela soma das diferenças absolutas em todos os estratos (A1..C)
         others2.forEach(d => {
             d._dist = d.vals.reduce((s, v, i) => s + Math.abs(v - (unbV[i]||0)), 0);
             d._diffs = d.vals.map((v, i) => +(v - (unbV[i]||0)).toFixed(2));
         });
         others2.sort((a,b) => a._dist - b._dist);
-        closest3 = others2.slice(0, 3);
-
+        const closest3 = others2.slice(0, 3);
         const CLOSE_COLORS = ['#1565C0', '#F57F17', '#2E7D32'];
-        // UnB dataset
         dsClosest.push({
-            label: unbEntry.label,
-            data: unbEntry.vals,
+            label: unbEntry.label, data: unbEntry.vals,
             borderColor: '#E91E63', backgroundColor: '#E91E63',
             borderWidth: 4, pointRadius: 8, pointStyle: 'star', tension: 0.3,
         });
         closest3.forEach((d, i) => {
             const diffStr = d._diffs.map(v => (v >= 0 ? '+' : '') + v.toFixed(2)).join(' | ');
             dsClosest.push({
-                label: d.label + '  [' + diffStr + ']',
-                data: d.vals,
+                label: d.label + '  [' + diffStr + ']', data: d.vals,
                 borderColor: CLOSE_COLORS[i], backgroundColor: CLOSE_COLORS[i],
                 borderWidth: 3, pointRadius: 6, pointStyle: 'circle', tension: 0.3,
-                _diffs: d._diffs,
             });
         });
     }
 
-    h += `<div class="card">
-<h2>3 IES Mais Pr\u00f3ximas da UnB \u2014 Compara\u00e7\u00e3o por Estrato de IF</h2>
-<div class="chart-wrap" style="height:450px;"><canvas id="chartClosest"></canvas></div>
-<p class="note">Compara a UnB com as 3 IES de menor diferen\u00e7a total nos estratos A1..A8,C. Na legenda: diferen\u00e7a por estrato (A1\u2026C). Sinal + = IES acima da UnB, sinal \u2013 = IES abaixo da UnB. Clique nos pontos para ver a diferen\u00e7a.</p>
-</div>`;
-
-    h += `</div>
-<div class="footer">MAPA-PG v${VERSION} | Prof. David L. Azevedo | david888azv@unb.br</div>`;
-
-    // Build chart data as JSON for the script
     const labelsBar = chartData.map(d => d.label);
-    // Paleta A1..A8 (verde\u2192vermelho, topo\u2192base) + C cinza
     const ESTR_COR = ['#1B5E20','#388E3C','#66BB6A','#9CCC65','#FDD835','#FB8C00','#EF5350','#B71C1C','#9E9E9E'];
-    const dsBar = STRATA.map((s, i) => ({
-        label: s, data: chartData.map(d => d.vals[i] || 0), backgroundColor: ESTR_COR[i] || '#777',
+    const dsBar = STRATA.map((s2, i) => ({
+        label: s2, data: chartData.map(d => d.vals[i] || 0), backgroundColor: ESTR_COR[i] || '#777',
     }));
-
     const dsLine = chartData.map(d => ({
-        label: d.label,
-        data: d.vals,
-        borderColor: d.color,
-        backgroundColor: d.color,
-        borderWidth: d.isUnb ? 4 : 2,
-        pointRadius: d.isUnb ? 7 : 4,
-        pointStyle: d.isUnb ? 'star' : 'circle',
-        tension: 0.3,
+        label: d.label, data: d.vals, borderColor: d.color, backgroundColor: d.color,
+        borderWidth: d.isUnb ? 4 : 2, pointRadius: d.isUnb ? 7 : 4,
+        pointStyle: d.isUnb ? 'star' : 'circle', tension: 0.3,
     }));
 
-    h += `<` + `script>
-const labelsBar = ${JSON.stringify(labelsBar)};
-const dsBar = ${JSON.stringify(dsBar)};
-const strataLabels = ${JSON.stringify(STRATA)};
-const dsLine = ${JSON.stringify(dsLine)};
+    _ifChartConfig = {
+        labelsBar, dsBar, strataLabels: STRATA, dsLine, dsClosest,
+        unbVals: dsClosest.length ? dsClosest[0].data : [],
+    };
 
-// Bar chart
-new Chart(document.getElementById('chartBars'), {
-    type: 'bar',
-    data: { labels: labelsBar, datasets: dsBar },
-    options: {
-        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-        plugins: {
-            legend: { position: 'top', labels: { font: { size: 11 } } },
-            tooltip: {
-                callbacks: {
-                    label: ctx => ctx.dataset.label + ': ' + ctx.parsed.x.toFixed(2) + ' art/doc'
-                }
+    // Altura generosa por programa: 9 estratos/programa precisam de espaço para barras largas
+    const barH = Math.max(520, chartData.length * 150);
+    return `<div class="btn-bar">
+    <button class="btn btn-png" onclick="exportPNG('chartBars')">Exportar Barras PNG</button>
+    <button class="btn btn-png" onclick="exportPNG('chartLines')">Exportar Linhas PNG</button>
+    <button class="btn btn-png" onclick="exportPNG('chartClosest')">Exportar Próximas PNG</button>
+</div>
+<div class="card">
+    <h2>Produção por Estrato de IF — Barras Agrupadas (Art/Docente)</h2>
+    <div class="chart-wrap" style="height:${barH}px;"><canvas id="chartBars"></canvas></div>
+    <p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo · C = sem indicador de IF). UnB destacada com ★.</p>
+</div>
+<div class="card">
+    <h2>Perfil de Produção por Estrato de IF — Multi-Linhas (Art/Docente)</h2>
+    <div class="chart-wrap" style="height:450px;"><canvas id="chartLines"></canvas></div>
+    <p class="note">Cada linha representa um programa. Eixo X: estratos A1..A8,C. Eixo Y: art/docente. UnB em magenta com linha grossa.</p>
+</div>
+<div class="card">
+    <h2>3 IES Mais Próximas da UnB — Comparação por Estrato de IF</h2>
+    <div class="chart-wrap" style="height:450px;"><canvas id="chartClosest"></canvas></div>
+    <p class="note">Compara a UnB com as 3 IES de menor diferença total nos estratos A1..A8,C. Na legenda: diferença por estrato (A1…C). Sinal + = IES acima da UnB, sinal – = IES abaixo da UnB. Clique nos pontos para ver a diferença.</p>
+</div>`;
+}
+
+function buildIFCharts() {
+    _destroyIFCharts();
+    const cfg = _ifChartConfig;
+    if (!cfg) return;
+
+    _ifCharts.push(new Chart(document.getElementById('chartBars'), {
+        type: 'bar',
+        data: { labels: cfg.labelsBar, datasets: cfg.dsBar },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            categoryPercentage: 0.92, barPercentage: 0.96,
+            plugins: {
+                legend: { position: 'top', labels: { font: { size: 11 } } },
+                tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.x.toFixed(2) + ' art/doc' } }
+            },
+            scales: {
+                x: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
+                y: { ticks: { font: { size: 10 } } }
             }
-        },
-        scales: {
-            x: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
-            y: { ticks: { font: { size: 10 } } }
         }
-    }
-});
+    }));
 
-// Line chart
-new Chart(document.getElementById('chartLines'), {
-    type: 'line',
-    data: { labels: strataLabels, datasets: dsLine },
-    options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-            legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } },
-            tooltip: {
-                callbacks: {
-                    label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) + ' art/doc'
-                }
-            }
-        },
-        scales: {
-            y: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
-            x: { title: { display: true, text: 'Faixa de Fator de Impacto', font: { size: 12 } } }
-        }
-    }
-});
-
-// Chart 3: Closest to UnB
-const dsClosest = ${JSON.stringify(dsClosest)};
-if (dsClosest.length > 0) {
-    const unbVals = dsClosest[0].data;
-    new Chart(document.getElementById('chartClosest'), {
+    _ifCharts.push(new Chart(document.getElementById('chartLines'), {
         type: 'line',
-        data: { labels: strataLabels, datasets: dsClosest },
+        data: { labels: cfg.strataLabels, datasets: cfg.dsLine },
         options: {
             responsive: true, maintainAspectRatio: false,
             plugins: {
-                legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 14, padding: 12 } },
-                tooltip: {
-                    callbacks: {
-                        title: items => items[0].label.split('[')[0].trim(),
-                        afterLabel: ctx => {
-                            if (ctx.datasetIndex === 0) return '(Refer\\u00eancia)';
-                            const val = ctx.parsed.y;
-                            const unbVal = unbVals[ctx.dataIndex];
-                            const diff = val - unbVal;
-                            const sign = diff >= 0 ? '+' : '';
-                            return 'Dif. UnB: ' + sign + diff.toFixed(2) + ' art/doc';
-                        }
-                    }
-                }
+                legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } },
+                tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) + ' art/doc' } }
             },
             scales: {
                 y: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
                 x: { title: { display: true, text: 'Faixa de Fator de Impacto', font: { size: 12 } } }
-            },
-            onClick: (evt, elements) => {
-                if (elements.length > 0) {
-                    const el = elements[0];
-                    const dsIdx = el.datasetIndex;
-                    const ptIdx = el.index;
-                    if (dsIdx > 0) {
-                        const val = dsClosest[dsIdx].data[ptIdx];
-                        const unbVal = unbVals[ptIdx];
-                        const diff = val - unbVal;
-                        const sign = diff >= 0 ? '+' : '';
-                        const faixa = strataLabels[ptIdx];
-                        alert(dsClosest[dsIdx].label.split('[')[0].trim() +
-                            '\\n\\nFaixa: ' + faixa +
-                            '\\nValor: ' + val.toFixed(2) + ' art/doc' +
-                            '\\nUnB: ' + unbVal.toFixed(2) + ' art/doc' +
-                            '\\nDiferen\\u00e7a: ' + sign + diff.toFixed(2) + ' art/doc');
+            }
+        }
+    }));
+
+    if (cfg.dsClosest.length > 0) {
+        const unbVals = cfg.unbVals;
+        const strataLabels = cfg.strataLabels;
+        const dsClosest = cfg.dsClosest;
+        _ifCharts.push(new Chart(document.getElementById('chartClosest'), {
+            type: 'line',
+            data: { labels: strataLabels, datasets: dsClosest },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 14, padding: 12 } },
+                    tooltip: {
+                        callbacks: {
+                            title: items => items[0].label.split('[')[0].trim(),
+                            afterLabel: ctx => {
+                                if (ctx.datasetIndex === 0) return '(Referência)';
+                                const val = ctx.parsed.y;
+                                const unbVal = unbVals[ctx.dataIndex];
+                                const diff = val - unbVal;
+                                const sign = diff >= 0 ? '+' : '';
+                                return 'Dif. UnB: ' + sign + diff.toFixed(2) + ' art/doc';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Artigos / Docente', font: { size: 12 } } },
+                    x: { title: { display: true, text: 'Faixa de Fator de Impacto', font: { size: 12 } } }
+                },
+                onClick: (evt, elements) => {
+                    if (elements.length > 0) {
+                        const el = elements[0];
+                        const dsIdx = el.datasetIndex;
+                        const ptIdx = el.index;
+                        if (dsIdx > 0) {
+                            const val = dsClosest[dsIdx].data[ptIdx];
+                            const unbVal = unbVals[ptIdx];
+                            const diff = val - unbVal;
+                            const sign = diff >= 0 ? '+' : '';
+                            const faixa = strataLabels[ptIdx];
+                            alert(dsClosest[dsIdx].label.split('[')[0].trim() +
+                                '\n\nFaixa: ' + faixa +
+                                '\nValor: ' + val.toFixed(2) + ' art/doc' +
+                                '\nUnB: ' + unbVal.toFixed(2) + ' art/doc' +
+                                '\nDiferença: ' + sign + diff.toFixed(2) + ' art/doc');
+                        }
                     }
                 }
             }
-        }
-    });
+        }));
+    }
 }
 
 function exportPNG(canvasId) {
     const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
     const w = canvas.width, h = canvas.height;
     const off = document.createElement('canvas');
     off.width = w; off.height = h + 30;
@@ -2415,7 +2546,7 @@ function exportPNG(canvasId) {
     ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, off.width, off.height);
     ctx.drawImage(canvas, 0, 0);
     ctx.fillStyle = '#999'; ctx.font = '11px Arial'; ctx.textAlign = 'right';
-    ctx.fillText('MAPA-PG v${VERSION} | Prof. David L. Azevedo | ' + new Date().toLocaleDateString('pt-BR'), w - 10, h + 18);
+    ctx.fillText('MAPA-PG v' + VERSION + ' | Prof. David L. Azevedo | ' + new Date().toLocaleDateString('pt-BR'), w - 10, h + 18);
     off.toBlob(blob => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -2423,13 +2554,6 @@ function exportPNG(canvasId) {
         a.click();
     }, 'image/png');
 }
-<` + `/script></body></html>`;
-
-    const w = winRef || window.open('', '_blank');
-    w.document.write(h);
-    w.document.close();
-}
-
 function exportarPNGs() {
     const canvases = document.querySelectorAll('canvas');
     if (canvases.length === 0) { toast('Nenhum gráfico para exportar.'); return; }
