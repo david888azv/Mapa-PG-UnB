@@ -197,7 +197,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v3.1-multi</div>
+        <div id="headerVersion">v3.2-multi</div>
     </div>
 </div>
 
@@ -222,6 +222,8 @@ tr:hover { background: #EEF2F7; }
 
         <div class="filter-group">
             <h3>Nota CAPES</h3>
+            <label><input type="checkbox" id="nota3" value="3"> Nota 3</label>
+            <label><input type="checkbox" id="nota4" value="4"> Nota 4</label>
             <label><input type="checkbox" id="nota5" value="5" checked> Nota 5</label>
             <label><input type="checkbox" id="nota6" value="6"> Nota 6</label>
             <label><input type="checkbox" id="nota7" value="7"> Nota 7</label>
@@ -409,7 +411,7 @@ let REGISTRY = null;          // catálogo de programas UnB
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // sufixo do programa UnB selecionado
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '3.1-multi';
+const VERSION = '3.2-multi';
 // UNB_CD: programa UnB selecionado como referência (mutável quando usuário troca de curso).
 // UNB_CDS: lista de todos os códigos UnB presentes na área carregada (para destacar todos).
 let UNB_CD = '53001010002P6';
@@ -423,7 +425,7 @@ const UF_REGIAO = {
     "SC":"Sul","SE":"Nordeste","SP":"Sudeste","TO":"Norte",
 };
 
-const NOTA_COLORS = { 5: '#2196F3', 6: '#FF9800', 7: '#4CAF50' };
+const NOTA_COLORS = { 3: '#9C27B0', 4: '#00BCD4', 5: '#2196F3', 6: '#FF9800', 7: '#4CAF50' };
 const UNB_COLOR = '#E91E63';
 const NATL_COLOR = '#9E9E9E';
 
@@ -853,6 +855,8 @@ function isUnbRec(d) { return UNB_CDS.includes(d.cd); }
 
 function getFilters() {
     const notas = [];
+    if (document.getElementById('nota3').checked) notas.push(3);
+    if (document.getElementById('nota4').checked) notas.push(4);
     if (document.getElementById('nota5').checked) notas.push(5);
     if (document.getElementById('nota6').checked) notas.push(6);
     if (document.getElementById('nota7').checked) notas.push(7);

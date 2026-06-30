@@ -1,5 +1,23 @@
 # Changelog — MAPA-PG-UnB
 
+## v3.2.0 — Filtros de nota 3 e 4 (2026-06-30)
+
+**Novidade principal:** o filtro **Nota CAPES** passa a expor as notas **3** e **4**, antes
+ausentes da interface (só 5, 6 e 7 eram selecionáveis), embora os dados já as contivessem
+(≈3.900 registros nota 3 e ≈4.291 nota 4 no conjunto nacional).
+
+### Adicionado
+- Checkboxes **Nota 3** e **Nota 4** no grupo "Nota CAPES", em `index.html` e `faixas-if.html`.
+  Desmarcados por padrão, preservando a visão inicial (apenas Nota 5 marcada); como os demais
+  checkboxes de nota, são aplicados ao clicar em **Analisar**.
+- Cores próprias por nota em `NOTA_COLORS` para legendas/gráficos: nota 3 (roxo `#9C27B0`) e
+  nota 4 (ciano `#00BCD4`).
+
+### Interno
+- `getFilters()` inclui as notas 3 e 4 na lista de notas selecionadas (ambas as páginas).
+- Versão do app exibida no cabeçalho atualizada para **v3.2-multi** (`VERSION` + `#headerVersion`).
+- Bump do cache do Service Worker (`mapa-pg-v3.3.0`) para refletir o novo shell em visitantes recorrentes.
+
 ## v3.1.0 — TOP / Ranking de programas (2026-06-25)
 
 **Novidade principal:** painel **TOP / Ranking de programas**, portando para a pós-graduação
