@@ -197,7 +197,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v3.2-multi</div>
+        <div id="headerVersion">v4.0.0</div>
     </div>
 </div>
 
@@ -324,6 +324,13 @@ tr:hover { background: #EEF2F7; }
             <h3>Relatório Detalhado IF</h3>
             <label><input type="checkbox" id="chkIFDetail"> Análise detalhada por Fator de Impacto</label>
             <p style="font-size:11px;color:var(--txt2,#7F8C8D);margin-top:4px;line-height:1.4;">Abre no próprio painel (sem novas abas): <strong>Página 1</strong> detalhamento numérico e <strong>Página 2</strong> gráficos, alternáveis por botão.</p>
+            <div style="margin-top:10px;border-top:1px dashed var(--bd,#D5DBDB);padding-top:8px;">
+                <div style="font-size:11px;font-weight:700;color:var(--txt2,#7F8C8D);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;">Base do indicador de impacto (percentil dos estratos A1–A8/C)</div>
+                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="cs" checked onchange="setIFBase(this.value)"> <strong>CiteScore</strong> (Scopus) — fonte oficial CAPES <span style="color:#7F8C8D;">· padrão</span></label>
+                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="oa" onchange="setIFBase(this.value)"> OpenAlex (IF de 2 anos)</label>
+                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="hb" onchange="setIFBase(this.value)"> Híbrido: CiteScore + OpenAlex</label>
+                <p style="font-size:10.5px;color:var(--txt2,#7F8C8D);margin-top:5px;line-height:1.4;">A base escolhida recalcula os percentis de <strong>todos</strong> os estratos no app (filtro, métricas, rótulos e o Relatório Detalhado IF). No CiteScore, periódicos sem CiteScore vão para <strong>C</strong>; o Híbrido usa OpenAlex onde falta CiteScore.</p>
+            </div>
         </div>
 
         <button class="btn btn-primary" onclick="analisar()">Analisar</button>
@@ -404,6 +411,23 @@ tr:hover { background: #EEF2F7; }
 // GLOBALS
 // ══════════════════════════════════════════════════════════════════
 let DATA = null;
+// Base do indicador de impacto p/ a estratificação A1-A8/C: 'cs' (CiteScore, padrão),
+// 'oa' (OpenAlex), 'hb' (Híbrido). Todas as funções de estrato leem os campos SEM sufixo
+// (estr_perm etc. e metadata.estratos), que aplicarBaseEstrato() remapeia da base ativa.
+let IF_BASE = 'cs';
+const IF_SUF = { cs: '_cs', oa: '_oa', hb: '_hb' };
+const IF_BASE_LABEL = { cs: 'CiteScore (Scopus)', oa: 'OpenAlex', hb: 'Híbrido (CiteScore+OpenAlex)' };
+let _ultimosProgramasIF = null;   // últimos programas renderizados no Relatório Detalhado IF
+// Rótulos de estrato cientes da base: CiteScore→"CS≥x", OpenAlex→"IF≥x". No Híbrido o corte
+// mistura escalas (CiteScore+OpenAlex), então rotula-se pelo PERCENTIL (base-independente).
+const IF_PCT_LO = { A1:'87,5', A2:'75', A3:'62,5', A4:'50', A5:'37,5', A6:'25', A7:'12,5', A8:'0' };
+const estUnidadeAbrev = () => IF_BASE === 'cs' ? 'CS' : IF_BASE === 'oa' ? 'IF' : '';
+const cifG = e => {
+    const c = (DATA && DATA.metadata && DATA.metadata.estratos && DATA.metadata.estratos.cortes_if) || {};
+    return c[e] !== undefined ? (+c[e]).toFixed(2).replace('.', ',') : '?';
+};
+const estCurtoG = e => e === 'C' ? 'C (s/ind.)'
+    : (IF_BASE === 'hb' ? `${e} (pct≥${IF_PCT_LO[e]})` : `${e} (${estUnidadeAbrev()}≥${cifG(e)})`);
 let charts = [];
 let reportSeq = 0;
 let MANIFEST = null;          // catálogo geral de áreas
@@ -411,7 +435,7 @@ let REGISTRY = null;          // catálogo de programas UnB
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // sufixo do programa UnB selecionado
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '3.2-multi';
+const VERSION = '4.0.0';
 // UNB_CD: programa UnB selecionado como referência (mutável quando usuário troca de curso).
 // UNB_CDS: lista de todos os códigos UnB presentes na área carregada (para destacar todos).
 let UNB_CD = '53001010002P6';
@@ -541,6 +565,33 @@ function renderWelcome() {
     setStatus('Selecione uma Área CAPES e um Programa para iniciar a análise.');
 }
 
+// Remapeia os campos SEM sufixo (estr_perm/colab/visit/all e metadata.estratos) para a
+// base ativa (IF_BASE). Todas as funções de estrato continuam lendo os campos sem sufixo.
+function aplicarBaseEstrato() {
+    if (!DATA || !DATA.metadata) return;
+    const suf = IF_SUF[IF_BASE] || '_cs';
+    const em = DATA.metadata['estratos' + suf];
+    if (em) DATA.metadata.estratos = em;
+    const cats = ['estr_perm', 'estr_colab', 'estr_visit', 'estr_all'];
+    (DATA.data || []).forEach(r => {
+        cats.forEach(c => { if (r[c + suf]) r[c] = r[c + suf]; });
+    });
+}
+
+// Troca a base do indicador (radios sob "Relatório Detalhado IF") e re-renderiza tudo.
+function setIFBase(v) {
+    if (!IF_SUF[v]) return;
+    IF_BASE = v;
+    aplicarBaseEstrato();
+    if (!DATA) return;
+    const overlayAberto = document.getElementById('ifOverlay').classList.contains('show');
+    if (overlayAberto && typeof _ultimosProgramasIF !== 'undefined' && _ultimosProgramasIF) {
+        renderIFDetailInPanel(_ultimosProgramasIF);   // reconstrói o relatório na nova base
+    } else if (typeof analisar === 'function') {
+        analisar();                                    // re-renderiza a análise principal
+    }
+}
+
 async function switchArea(slug, sufixo) {
     const setMsg = m => { const el = document.getElementById('loadingMsg'); if (el) el.textContent = m; };
     document.getElementById('loading').style.display = '';
@@ -551,6 +602,7 @@ async function switchArea(slug, sufixo) {
     const url = areaInfo.arquivo;
     const d = await fetch(url, {cache: 'force-cache'}).then(r=>r.json());
     DATA = d;
+    aplicarBaseEstrato();          // remapeia estr_*/metadata.estratos p/ a base ativa (padrão CiteScore)
     CURRENT_AREA_SLUG = slug;
     CURRENT_AREA_NAME = d.metadata.area;
     UNB_CDS = d.metadata.unb_cds || [];
@@ -732,7 +784,7 @@ function showLicenseModal() {
     overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:32px;max-width:620px;width:92%;box-shadow:0 8px 32px rgba(0,0,0,.4);text-align:center;max-height:90vh;overflow-y:auto;">
         <h2 style="color:#2C3E50;margin-bottom:4px;font-size:22px;font-weight:800;letter-spacing:1px;">MAPA-PG</h2>
         <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>
-        <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Abril 2026</p>
+        <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Julho 2026</p>
         <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:2px;">Prof. Titular David Lima Azevedo</p>
         <p style="color:#555;font-size:11px;margin-bottom:8px;line-height:1.5;">Grupo de Dinâmica e Ab Initio (GDAI) · Núcleo de Estrutura da Matéria · Instituto de Física — UnB<br>
             <a href="https://orcid.org/0000-0002-3456-554X" target="_blank" style="color:#1565C0;">ORCID</a> ·
@@ -819,7 +871,8 @@ function refreshEstratoLabels() {
         if (!span) return;
         const pct = lbl[e] || '';
         const ifv = cortes[e];
-        span.textContent = `${e} · ${pct}` + (ifv !== undefined ? ` · IF ≥ ${fmt(ifv)}` : '');
+        const uni = estUnidadeAbrev();
+        span.textContent = `${e} · ${pct}` + ((ifv !== undefined && uni) ? ` · ${uni} ≥ ${fmt(ifv)}` : '');
     });
     const spanC = document.getElementById('lblC');
     if (spanC) spanC.textContent = `C · ${lbl['C'] || 'sem indicador de IF'}`;
@@ -1101,7 +1154,7 @@ function analisar() {
             <div class="stat-box"><div class="value">${othIF.toFixed(2)}</div><div class="label">Selecionados — IF Médio</div></div>
             <div class="stat-box"><div class="value">${othMedIF.toFixed(2)}</div><div class="label">Selecionados — IF Mediana</div></div>
         </div>
-        <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">IF baseado no OpenAlex 2yr mean citedness (equivalente ao Impact Factor JCR). Fonte: OpenAlex.org (CC0)</p>
+        <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Estratos A1–A8/C por percentil de <strong>${IF_BASE_LABEL[IF_BASE]}</strong> dentro da área. ${IF_BASE==='cs'?'Fonte: CiteScore 2025 (Scopus/Elsevier) — indicador oficial CAPES 2025–2028.':IF_BASE==='oa'?'Fonte: OpenAlex.org (IF de 2 anos, CC0).':'Fonte: CiteScore (Scopus) onde disponível; OpenAlex onde ausente.'}</p>
         </div>`;
     }
 
@@ -2129,6 +2182,7 @@ function _destroyIFCharts() {
 }
 
 function renderIFDetailInPanel(programas) {
+    _ultimosProgramasIF = programas;   // guarda p/ re-render ao trocar a base do indicador
     document.getElementById('ifPage1').innerHTML = buildIFReportHTML(programas);
     document.getElementById('ifPage2').innerHTML = buildIFChartsHTML(programas);
     buildIFCharts();
@@ -2183,13 +2237,17 @@ function buildIFReportHTML(programas) {
     const EST = (DATA.metadata && DATA.metadata.estratos) || {};
     const ORD = EST.ordem || ['A1','A2','A3','A4','A5','A6','A7','A8','C'];
     const CORT = EST.cortes_if || {};
-    const cif = e => CORT[e] !== undefined ? (+CORT[e]).toFixed(2).replace('.', ',') : '?';
-    const estCurto = e => e === 'C' ? 'C (s/IF)' : `${e} (IF≥${cif(e)})`;
-    const estLongo = e => e === 'C' ? 'C — sem indicador de IF'
-        : `${e} — ${(EST.labels_pct && EST.labels_pct[e]) || ''} — IF ≥ ${cif(e)}`;
+    const cif = cifG;
+    const estCurto = estCurtoG;
+    const estLongo = e => e === 'C' ? 'C — sem indicador'
+        : (IF_BASE === 'hb' ? `${e} — ${(EST.labels_pct && EST.labels_pct[e]) || ''}`
+           : `${e} — ${(EST.labels_pct && EST.labels_pct[e]) || ''} — ${estUnidadeAbrev()} ≥ ${cif(e)}`);
     const ev = (arr, e) => (arr && arr[ORD.indexOf(e)]) || 0;   // valor do estrato e no vetor de 9
 
-    let h = `<div class="btn-bar">
+    let h = `<div style="text-align:center;margin:0 0 12px;font-size:12px;color:#2C3E50;background:#EAF2F8;border:1px solid #AED6F1;border-radius:6px;padding:8px 12px;">
+    Base do indicador: <strong>${IF_BASE_LABEL[IF_BASE]}</strong> — ${(EST.fonte) || 'estratos por percentil dentro da área'}
+</div>
+<div class="btn-bar">
     <button class="btn btn-txt" onclick="downloadIFReport()">Baixar report-IF.txt</button>
     <button class="btn btn-csv" onclick="downloadIFCSV()">Baixar report-IF.csv</button>
 </div>`;
@@ -2200,6 +2258,7 @@ function buildIFReportHTML(programas) {
     const W = 100;  // largura da r\u00e9gua
     pt('\u2550'.repeat(W));
     pt('  MAPA-PG \u2014 Relat\u00F3rio Detalhado de Fator de Impacto');
+    pt('  Base do indicador : ' + IF_BASE_LABEL[IF_BASE]);
     pt('  \u00C1rea CAPES        : ' + (CURRENT_AREA_NAME || '\u2014'));
     pt('  Curso UnB de ref. : ' + (CURRENT_SUFIXO ? `MAPA-PG-${CURRENT_SUFIXO}` : '\u2014'));
     pt('  Programas no relat.: ' + programas.length);
@@ -2218,6 +2277,7 @@ function buildIFReportHTML(programas) {
     // mas ainda servem como legenda quando o usu\u00E1rio abre como texto puro.
     let csvRows = [];
     csvRows.push('# MAPA-PG \u2014 Relat\u00F3rio Detalhado de Fator de Impacto');
+    csvRows.push('# Base do indicador: ' + IF_BASE_LABEL[IF_BASE]);
     csvRows.push('# \u00C1rea CAPES: ' + (CURRENT_AREA_NAME || ''));
     csvRows.push('# Curso UnB de refer\u00EAncia: ' + (CURRENT_SUFIXO ? 'MAPA-PG-' + CURRENT_SUFIXO : ''));
     csvRows.push('# Gerado em: ' + now.toLocaleString('pt-BR'));
@@ -2357,8 +2417,7 @@ function buildIFChartsHTML(programas) {
     const EST = (DATA.metadata && DATA.metadata.estratos) || {};
     const ORD = EST.ordem || ['A1','A2','A3','A4','A5','A6','A7','A8','C'];
     const CORT = EST.cortes_if || {};
-    const STRATA = ORD.map(e => e === 'C' ? 'C (s/IF)'
-        : `${e} (IF≥${CORT[e] !== undefined ? (+CORT[e]).toFixed(2).replace('.', ',') : '?'})`);
+    const STRATA = ORD.map(e => estCurtoG(e));
     const COLORS = [
         '#E91E63','#2196F3','#4CAF50','#FF9800','#9C27B0','#00BCD4',
         '#F44336','#3F51B5','#8BC34A','#FF5722','#607D8B','#795548',

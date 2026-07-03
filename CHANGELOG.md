@@ -1,5 +1,35 @@
 # Changelog — MAPA-PG-UnB
 
+## v4.0.0 — Três bases de impacto para a estratificação (2026-07-03)
+
+**Novidade principal:** a estratificação **A1–A8/C** passa a poder ser calculada sob **três
+bases de indicador de impacto**, selecionáveis no grupo **"Relatório Detalhado IF"**:
+- **CiteScore (Scopus)** — indicador **oficial** prescrito pela Ficha de Avaliação CAPES
+  2025–2028; é o **padrão** (pré-marcado);
+- **OpenAlex** — IF de 2 anos (base aberta, cobertura máxima; comportamento das versões ≤ 3.2);
+- **Híbrido** — CiteScore onde há; onde falta, o percentil do OpenAlex (recupera a cobertura
+  das áreas pouco indexadas no Scopus, sobretudo Humanas/Sociais/Linguística).
+
+A base escolhida recalcula os percentis de **todos** os estratos no app (filtro por estrato,
+métricas `ma_*`, rótulos A1–A8 e o Relatório Detalhado IF). Como a comparação é sempre
+intra-área, as leituras se mantêm robustas; muda a fração que cai em **C** por ausência de
+indicador (alta no CiteScore nas Humanas, baixa no Híbrido).
+
+### Adicionado
+- Três rádios de base (`name="ifBase"`, CiteScore/OpenAlex/Híbrido) sob "Relatório Detalhado IF"
+  em `index.html`; `setIFBase()` troca a base e re-renderiza.
+- Vetores de estrato por base nos `docs/dados/area-*.json`: `estr_{perm,colab,visit,all}_{cs,oa,hb}`
+  e `metadata.estratos_{cs,oa,hb}` (com `fonte` e `frac_c`). Campos sem sufixo = CiteScore (padrão).
+- Indicador da base ativa no cabeçalho do Relatório Detalhado IF e nos exports TXT/CSV.
+
+### Interno
+- `build/gerar_estratos_app.py` computa as 3 bases (CiteScore via crosswalk ISSN→ISSN-L +
+  `citescore_2025_TODAS_AREAS.csv`; híbrido em cascata). Invariante validado: Σ dos 9 estratos
+  é igual entre as bases; paridade legada com `if_*` mantida na base OpenAlex.
+- `aplicarBaseEstrato()` remapeia os campos sem sufixo a partir da base ativa, ao carregar a
+  área e ao trocar a base (mínimo churn nas ~16 leituras de estrato).
+- Versão do app **v4.0.0** (`VERSION` + `#headerVersion`); cache do Service Worker `mapa-pg-v4.0.0`.
+
 ## v3.2.0 — Filtros de nota 3 e 4 (2026-06-30)
 
 **Novidade principal:** o filtro **Nota CAPES** passa a expor as notas **3** e **4**, antes
