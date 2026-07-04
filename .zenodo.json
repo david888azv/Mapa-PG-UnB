@@ -1,7 +1,7 @@
 {
   "title": "MAPA-PG: Monitoramento e Análise de Produção Acadêmica da Pós-Graduação (UnB)",
   "description": "Sistema interativo e gratuito (HTML5/JS estático) para comparar a produção e os indicadores dos 92 programas de pós-graduação da Universidade de Brasília (UnB) com seus pares nacionais, em todas as 42 áreas de avaliação da CAPES, ao longo de três quadriênios (2013–2024). Utiliza exclusivamente dados públicos do Portal de Dados Abertos da CAPES e metadados de periódicos do OpenAlex. A versão 4.0 permite calcular a estratificação A1–A8/C sob três bases de indicador de impacto — CiteScore (Scopus, indicador oficial CAPES 2025–2028; padrão), OpenAlex (IF de 2 anos) e Híbrido (CiteScore com complemento OpenAlex onde ausente) — selecionáveis no app. A versão 3.2 expõe filtros para as notas CAPES 3 e 4 no painel de comparação (antes restrito a 5–7). A versão 3.1 acrescentou o painel TOP/Ranking de programas. A versão 3.0 introduziu a estratificação A1–A8/C da Ficha de Avaliação CAPES 2025–2028 (classificação de artigos por percentil de fator de impacto dentro da área), com filtro por estrato; a versão anterior (faixas de fator de impacto) permanece disponível.",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "upload_type": "software",
   "language": "por",
   "access_right": "open",

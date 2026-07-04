@@ -6,6 +6,16 @@ pip/cache_unb/
 pip/cache_nac/
 pip/saida/
 
+# Pastas de pesquisa PIP-2 — NÃO PUBLICAR. Contêm o CSV bruto do CiteScore
+# (Scopus/Elsevier), cuja redistribuição é vedada pelos termos da API gratuita.
+# Só resultados agregados vão para docs/. Blindagem contra `git add` acidental.
+pip-2-refatorado/
+pip-2-refatorado-citescore/
+pip-2-refatorado-hibrido/
+pip-2-comparativo-edicoes/
+**/dados_citescore/
+**/scopus_citescore_2025/
+
 # Backups gerados (ex.: correção do registry)
 *.bak
 

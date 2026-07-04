@@ -380,6 +380,34 @@ a{color:#1565C0;}
     </table>
 </div>
 
+<!-- FONTE 10 -->
+<div class="card">
+    <h2>10. Periódicos — CiteScore 2025 (Scopus / Elsevier)</h2>
+    <p style="font-size:13px;line-height:1.7;">
+        O <strong>CiteScore</strong> é uma métrica bibliométrica <strong>de propriedade da Elsevier</strong>,
+        calculada a partir da base de dados <strong>Scopus</strong>. É o indicador de impacto
+        <strong>oficial prescrito pela Ficha de Avaliação CAPES 2025–2028</strong> (junto ao JIF/JCR),
+        e é a <strong>base padrão</strong> da estratificação A1–A8/C deste aplicativo (opção
+        "Relatório Detalhado IF"; as bases OpenAlex e Híbrida também estão disponíveis).
+    </p>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>Métrica</strong></td><td>CiteScore 2025 — © Elsevier B.V., calculada a partir da base Scopus</td></tr>
+        <tr><td><strong>Obtenção</strong></td><td>API gratuita da Elsevier (<a href="https://dev.elsevier.com/" target="_blank" style="word-break:break-all;">dev.elsevier.com</a>) — endpoints <code>api.elsevier.com</code> e <code>www.scopus.com</code></td></tr>
+        <tr><td><strong>Data de coleta</strong></td><td>3 de julho de 2026</td></tr>
+        <tr><td><strong>Uso dos dados</strong></td><td>Apenas <code>ISSN</code> e o valor CiteScore foram lidos, usados <em>transitoriamente</em> para ordenar os periódicos por <strong>percentil dentro de cada área</strong> e atribuir o estrato A1–A8/C; o valor bruto é então descartado.</td></tr>
+        <tr><td><strong>O que é publicado</strong></td><td>Somente <strong>resultados agregados</strong>: contagens por estrato e os limiares de faixa por área. <strong>Nenhum registro bruto por periódico</strong> (ISSN→CiteScore) é redistribuído.</td></tr>
+        <tr><td><strong>Licença / uso</strong></td><td>Uso <strong>acadêmico, não-comercial e sem publicidade</strong>, em conformidade com a <a href="https://dev.elsevier.com/policy.html" target="_blank">Política de Uso da API Elsevier</a> e os <a href="https://dev.elsevier.com/tecdoc_attribution_scopus.html" target="_blank">requisitos de atribuição Scopus</a>.</td></tr>
+    </table>
+    <p style="font-size:12px;line-height:1.6;color:#555;margin-top:10px;">
+        <strong>Atribuição (exigida pela Elsevier):</strong> métrica <strong>CiteScore</strong>, powered by
+        <strong>Scopus®</strong> (Elsevier). Os dados foram obtidos via API Scopus
+        (<code>api.elsevier.com</code> e <code>www.scopus.com</code>) em <strong>3 de julho de 2026</strong>.
+        Este aplicativo é gratuito, não-comercial e não substitui a base Scopus: publica apenas
+        estratificações agregadas por percentil, conforme os termos de uso da API gratuita da Elsevier.
+    </p>
+</div>
+
 <!-- RESUMO -->
 <div class="card">
     <h2>Resumo Consolidado</h2>
@@ -389,7 +417,8 @@ a{color:#1565C0;}
         <tr><td>Produção Intelectual por Autor</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
         <tr><td>Produção Intelectual Nomeada</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
         <tr><td>Programas de Pós-Graduação</td><td>CAPES Dados Abertos</td><td>2022-2024</td><td>Dados abertos governamentais</td></tr>
-        <tr><td>Periódicos (Fator de Impacto)</td><td>OpenAlex API</td><td>Atual</td><td>CC0 (Domínio Público)</td></tr>
+        <tr><td>Periódicos — Fator de Impacto (OpenAlex)</td><td>OpenAlex API</td><td>Atual</td><td>CC0 (Domínio Público)</td></tr>
+        <tr><td>Periódicos — CiteScore 2025 (estratos, base padrão)</td><td>Scopus API (Elsevier)</td><td>2025 (coleta 3 jul 2026)</td><td>Acadêmico não-comercial — atribuição Scopus/Elsevier</td></tr>
     </table>
 </div>
 
@@ -410,6 +439,8 @@ a{color:#1565C0;}
         <tr><td>v1.3</td><td>2026-04-02</td><td>Filtro por tipo de produção intelectual e estrato de fator de impacto, card de produção por tipo</td></tr>
         <tr><td>v1.4</td><td>2026-04-10</td><td>Renomeação para <strong>MAPA-PG</strong> (Monitoramento e Análise de Produção Acadêmica da Pós-Graduação). Disclaimer de abertura com informações sobre dados abertos da CAPES e Lei de Acesso à Informação. Documentação simplificada com todas as URLs de download dos dados brutos. Pasta de distribuição <code>mapa-pg/</code> para execução independente</td></tr>
         <tr><td>v1.5</td><td>2026-04-12</td><td>Programas de Física e Astronomia com <strong>Nota 4</strong> adicionados a todas as análises (filtros, tabelas, gráficos, relatórios e exportações). Textos da tela de abertura simplificados e revisão ortográfica com acentuação correta em toda a documentação</td></tr>
+        <tr><td>v4.0.0</td><td>2026-07-03</td><td>Estratos A1–A8/C em <strong>três bases de indicador</strong> selecionáveis em "Relatório Detalhado IF": <strong>CiteScore (Scopus, padrão)</strong>, OpenAlex e Híbrido</td></tr>
+        <tr><td>v4.0.1</td><td>2026-07-03</td><td><strong>Atribuição Scopus/Elsevier</strong> do CiteScore: nova FONTE 10, nota de conformidade com os termos da API gratuita da Elsevier e acknowledgement no modal de licença</td></tr>
     </table>
 
     <h3>Limitações Conhecidas</h3>
@@ -424,7 +455,7 @@ a{color:#1565C0;}
 </div><!-- content -->
 
 <div class="contact">
-    <strong>MAPA-PG</strong> v1.5 | Prof. David L. Azevedo |
+    <strong>MAPA-PG</strong> v4.0.1 | Prof. David L. Azevedo |
     <a href="mailto:david888azv@unb.br">david888azv@unb.br</a> |
     Universidade de Brasília (UnB)
 </div>

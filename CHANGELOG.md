@@ -1,5 +1,24 @@
 # Changelog — MAPA-PG-UnB
 
+## v4.0.1 — Atribuição Scopus/Elsevier do CiteScore (2026-07-03)
+
+**Manutenção — conformidade e atribuição.** Adiciona a atribuição e a nota de conformidade
+exigidas pela Elsevier para o uso do **CiteScore** (base padrão, extraída da base **Scopus**
+via API gratuita), sem alterar dados nem cálculos.
+
+### Adicionado
+- `help-doc.html`: nova **FONTE 10 — CiteScore 2025 (Scopus / Elsevier)** com métrica,
+  endpoints (`api.elsevier.com` / `www.scopus.com`), **data de coleta (3 jul 2026)**, uso
+  acadêmico não-comercial e nota de conformidade; linha correspondente no Resumo Consolidado.
+- `index.html`: parágrafo de acknowledgement Scopus/Elsevier no **modal de licença** (exibido
+  a cada abertura) e reforço da nota de fonte inline dos estratos (base CiteScore).
+
+### Notas
+- Apenas texto/atribuição; nenhum valor de dado foi modificado. Confirmado que os JSON
+  publicados contêm **apenas agregados** (contagens por estrato e limiares de faixa por área),
+  sem registros brutos por periódico. O CSV bruto do CiteScore não é versionado nem publicado.
+- Service worker atualizado para `mapa-pg-v4.0.1` (cache-first) para propagar a nova ajuda.
+
 ## v4.0.0 — Três bases de impacto para a estratificação (2026-07-03)
 
 **Novidade principal:** a estratificação **A1–A8/C** passa a poder ser calculada sob **três
