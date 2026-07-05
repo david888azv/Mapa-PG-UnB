@@ -3,14 +3,14 @@
 // (network-first com fallback para cache, para que atualizações sejam
 // refletidas quando online; offline o app continua funcional para áreas
 // já visitadas).
-const VERSION = 'mapa-pg-v4.0.1';
+const VERSION = 'mapa-pg-v4.1.0';
 const SHELL = [
   './',
   './index.html',
   './faixas-if.html',
   './chart.umd.min.js',
   './manifest.json',
-  './registry.json',
+  './registry_ies.json',
   './help-doc.html',
 ];
 

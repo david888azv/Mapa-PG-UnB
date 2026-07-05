@@ -1,5 +1,39 @@
 # Changelog — MAPA-PG-UnB
 
+## v4.1.0 — Universidade de referência configurável: 26 IFES + UnB (2026-07-05)
+
+**Nova funcionalidade.** O usuário passa a escolher **qual universidade federal** usar como
+referência (destaque em vermelho), em vez de a UnB ser fixa. Após o consentimento, uma tela
+apresenta **27 opções** (as 26 federais "capitais", uma por UF, + a UnB); escolha única, clica
+em **OK** e todos os painéis abrem padronizados, com a IFES selecionada destacada em vermelho —
+exatamente como era feito para a UnB — na comparação com todos os pares nacionais de cada área.
+
+Arquitetura: **app único** (uma fonte de verdade, um deploy). Os dados de área já são nacionais;
+o destaque sempre foi um conceito de runtime — a generalização apenas passou a derivar os códigos
+de referência da IFES escolhida (por variante de sigla CAPES) em vez de `metadata.unb_cds`.
+
+### Adicionado
+- **Tela de escolha da IFES de referência** pós-licença (`showIesPicker`), escolha única entre
+  27 universidades federais; botão **"↺ Trocar universidade de referência"** na barra lateral.
+- `build/gerar_registry_ies.py` → **`docs/registry_ies.json`**: catálogo das 27 IFES (grande área →
+  área CAPES → programas EM FUNCIONAMENTO), derivado dos próprios `docs/dados/area-*.json`. Trata
+  variantes de sigla por campus/fundação: **Piauí = FUFPI, Sergipe = FUFSE/FUFSE-ITAB, UFPB em 4
+  campi, UFSC + Blumenau**.
+- **Deep-link `?ies=SIGLA`** (persistido em `localStorage`) e **27 stubs** `docs/ies/<sigla>/` →
+  `/?ies=SIGLA` (`build/gerar_stubs_ies.py`), com URL limpa/indexável por universidade; 27 URLs
+  novas no `sitemap.xml`.
+
+### Alterado
+- `index.html`: `REGISTRY` agora é montado para a IFES de referência (mesmo shape do antigo
+  `registry.json`); rótulos, títulos, notas de gráfico, cabeçalhos de CSV e relatórios passam a
+  refletir a sigla escolhida (`refSigla()`). Deep-links `?curso=SUFIXO` da UnB seguem válidos.
+- Service worker → `mapa-pg-v4.1.0`; precache passa a incluir `registry_ies.json`.
+
+### Notas
+- Validação headless (Playwright) end-to-end: consentimento → seletor → destaque correto por
+  variante de sigla (UnB, UFMG, UFPB/campi, UFPI=FUFPI, UFS=FUFSE), stub `?ies=` sem reabrir o
+  seletor, e troca de referência ao vivo (UFMG→UFRGS).
+
 ## v4.0.1 — Atribuição Scopus/Elsevier do CiteScore (2026-07-03)
 
 **Manutenção — conformidade e atribuição.** Adiciona a atribuição e a nota de conformidade

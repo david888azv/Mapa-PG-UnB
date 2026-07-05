@@ -24,6 +24,13 @@ def main():
     lastmod = (manifest.get("atualizado_em") or manifest.get("gerado_em") or "")[:10]
 
     urls = [(SITE, "1.0")]
+    # 1 por IFES de referência (stub /ies/<sigla>/ → ?ies=SIGLA)
+    n_ies = 0
+    ri_path = os.path.join(DOCS, "registry_ies.json")
+    if os.path.exists(ri_path):
+        for i in json.load(open(ri_path, encoding="utf-8"))["ifes"]:
+            urls.append((SITE + "ies/" + i["sigla"].lower() + "/", "0.7"))
+            n_ies += 1
     for a in manifest["areas"]:
         urls.append((SITE + "?area=" + a["slug"], "0.8"))
     for p in registry["programas_unb"]:
@@ -46,8 +53,8 @@ def main():
               "Sitemap: %ssitemap.xml\n" % SITE)
     open(os.path.join(DOCS, "robots.txt"), "w", encoding="utf-8").write(robots)
 
-    print("sitemap.xml: %d URLs (1 home + %d areas + %d cursos)" %
-          (len(urls), len(manifest["areas"]), len(registry["programas_unb"])))
+    print("sitemap.xml: %d URLs (1 home + %d IFES + %d areas + %d cursos)" %
+          (len(urls), n_ies, len(manifest["areas"]), len(registry["programas_unb"])))
     print("robots.txt: OK  | lastmod=%s" % (lastmod or "(sem data)"))
 
 

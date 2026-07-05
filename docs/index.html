@@ -197,7 +197,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v4.0.1</div>
+        <div id="headerVersion">v4.1.0</div>
     </div>
 </div>
 
@@ -210,12 +210,13 @@ tr:hover { background: #EEF2F7; }
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <div class="filter-group" style="border:2px solid var(--accent);padding:10px;border-radius:8px;background:#FFF0F5;">
-            <h3 style="color:var(--accent);">Selecionar Programa UnB</h3>
+            <h3 id="refHead" style="color:var(--accent);">Selecionar Programa</h3>
+            <button id="trocarIesBtn" onclick="trocarIes()" style="display:none;width:100%;margin-bottom:8px;background:#FCE4EC;color:#E91E63;border:1.5px solid #E91E63;border-radius:6px;padding:6px 8px;font-size:11.5px;font-weight:700;cursor:pointer;">↺ Trocar universidade de referência</button>
             <label style="font-size:12px;">Grande Área CNPq</label>
             <select id="selGrandeArea" onchange="onGrandeAreaChange()"></select>
             <label style="font-size:12px;margin-top:6px;display:block;">Área de Avaliação CAPES</label>
             <select id="selArea" onchange="onAreaChange()"></select>
-            <label style="font-size:12px;margin-top:6px;display:block;">Curso (UnB) — referência</label>
+            <label id="refCursoLbl" style="font-size:12px;margin-top:6px;display:block;">Curso — referência</label>
             <select id="selCurso" onchange="onCursoChange()"></select>
             <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Comparações são feitas dentro da mesma Área CAPES (regra CAPES).</p>
         </div>
@@ -431,13 +432,23 @@ const estCurtoG = e => e === 'C' ? 'C (s/ind.)'
 let charts = [];
 let reportSeq = 0;
 let MANIFEST = null;          // catálogo geral de áreas
-let REGISTRY = null;          // catálogo de programas UnB
+let REGISTRY = null;          // catálogo de programas da IFES de REFERÊNCIA (shape do registry.json)
+let REG_IES = null;           // registry_ies.json — catálogo das 27 IFES
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
-let CURRENT_SUFIXO = null;    // sufixo do programa UnB selecionado
+let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '4.0.1';
-// UNB_CD: programa UnB selecionado como referência (mutável quando usuário troca de curso).
-// UNB_CDS: lista de todos os códigos UnB presentes na área carregada (para destacar todos).
+const VERSION = '4.1.0';
+// ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
+//    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
+let REF = 'UNB';                    // sigla canônica da IFES de referência
+let REF_SIGLAS_CAPES = ['UNB'];     // variantes de sigla CAPES dessa IFES (campi/fundação)
+let REF_NOME = 'Universidade de Brasília';
+let REF_UF = 'DF';
+let PENDING_AREA = null, PENDING_CURSO = null;  // seleção adiada até REF + licença
+// Rótulo curto da referência: "UnB" para a UnB; a própria sigla (UFMG, UFPB…) p/ as demais.
+function refSigla() { return REF === 'UNB' ? 'UnB' : REF; }
+// UNB_CD: programa de referência selecionado (mutável ao trocar de curso).
+// UNB_CDS: todos os códigos da IFES de referência presentes na área carregada (destaca todos).
 let UNB_CD = '53001010002P6';
 let UNB_CDS = [];
 const UF_REGIAO = {
@@ -491,24 +502,30 @@ async function loadData() {
     const setMsg = m => { const el = document.getElementById('loadingMsg'); if (el) el.textContent = m; };
     try {
         setMsg('Carregando catálogo de áreas CAPES...');
-        const [mf, rg] = await Promise.all([
+        const [mf, ri] = await Promise.all([
             fetch('manifest.json', {cache: 'force-cache'}).then(r=>r.json()),
-            fetch('registry.json', {cache: 'force-cache'}).then(r=>r.json()),
+            fetch('registry_ies.json', {cache: 'force-cache'}).then(r=>r.json()),
         ]);
-        MANIFEST = mf; REGISTRY = rg;
-        // Seleção inicial APENAS via querystring (?curso=SUFIXO e/ou ?area=slug).
-        // Sem querystring → ABERTURA NEUTRA: o app cobre as 42 áreas CAPES e NÃO
-        // pré-seleciona Física (evita dar a impressão de ser um app só de Física).
+        MANIFEST = mf; REG_IES = ri;
+        // Seleção inicial via querystring (?ies=SIGLA, ?curso=TOKEN, ?area=slug).
         const params = new URLSearchParams(location.search);
-        const sufQS = (params.get('curso') || '').toUpperCase();
-        const areaQS = params.get('area');
-        const prog = sufQS ? REGISTRY.programas_unb.find(p => p.sufixo === sufQS) : null;
-        const areaSlug = areaQS || (prog ? prog.slug_area : null);
-        if (areaSlug) {
-            await switchArea(areaSlug, prog ? prog.sufixo : null);
+        PENDING_CURSO = (params.get('curso') || '').toUpperCase() || null;
+        PENDING_AREA = params.get('area') || null;
+        // IFES de referência: querystring > preferência salva > (indefinido → pergunta).
+        const iesQS = (params.get('ies') || '').toUpperCase();
+        if (iesQS && REG_IES.por_ies[iesQS]) {
+            REF = iesQS;
+        } else if (PENDING_CURSO || PENDING_AREA) {
+            // Deep-link legado (?curso=/?area= sem ?ies=) → referência UnB, como antes.
+            REF = 'UNB';
         } else {
-            showLanding();
+            let saved = null;
+            try { saved = localStorage.getItem('mapapg_ref'); } catch(_) {}
+            REF = (saved && REG_IES.por_ies[saved]) ? saved : null;
         }
+        // A licença é sempre exibida primeiro; o seletor de IFES vem em seguida
+        // (se a referência ainda não estiver definida).
+        showLicenseModal();
     } catch (e) {
         console.error(e);
         document.getElementById('loading').innerHTML =
@@ -517,17 +534,51 @@ async function loadData() {
     }
 }
 
-// Abertura neutra: nenhuma área pré-carregada. Mostra os seletores em branco e
-// um painel de boas-vindas; o subtítulo do header indica a cobertura total.
-function showLanding() {
-    populateSelectsLanding();
-    const areaTit = document.getElementById('headerArea');
-    if (areaTit) areaTit.textContent = 'Todas as 42 áreas CAPES — selecione um programa';
-    if (!LICENSE_ACCEPTED) {
-        showLicenseModal();
+// Constrói REGISTRY (mesmo shape do antigo registry.json) para a IFES de
+// referência atual, a partir de REG_IES. Programas sem sufixo (não-UnB) recebem
+// o cd_programa como token único p/ o seletor de curso e para a URL ?curso=.
+function buildRegistryForRef() {
+    const info = REG_IES.ifes.find(i => i.sigla === REF);
+    REF_SIGLAS_CAPES = info ? info.siglas_capes : [REF];
+    REF_NOME = info ? info.nome : REF;
+    REF_UF   = info ? info.uf : '';
+    const src = REG_IES.por_ies[REF] || { grandes_areas: {}, programas: [] };
+    const programas = src.programas.map(p => ({ ...p, sufixo: p.sufixo || p.cd_programa }));
+    const areas = {};
+    programas.forEach(p => {
+        if (!areas[p.area_capes]) areas[p.area_capes] = { slug: p.slug_area, n_unb: 0 };
+        areas[p.area_capes].n_unb++;
+    });
+    REGISTRY = { grandes_areas: src.grandes_areas, areas_capes: areas, programas_unb: programas };
+}
+
+// Chamado após licença aceita E referência definida: monta o app para a IFES REF.
+function startWithRef() {
+    try { localStorage.setItem('mapapg_ref', REF); } catch(_) {}
+    buildRegistryForRef();
+    aplicarRotulosRef();
+    // reflete ?ies= na URL (sem recarregar)
+    const u = new URL(location.href); u.searchParams.set('ies', REF);
+    history.replaceState(null, '', u.toString());
+    // resolve a seleção pendente de área/curso (deep-link) ou abre neutro
+    const prog = PENDING_CURSO ? REGISTRY.programas_unb.find(p => p.sufixo === PENDING_CURSO) : null;
+    const areaSlug = PENDING_AREA || (prog ? prog.slug_area : null);
+    if (areaSlug && (REGISTRY.grandes_areas && Object.keys(REGISTRY.grandes_areas).length)) {
+        switchArea(areaSlug, prog ? prog.sufixo : null);
     } else {
+        populateSelectsLanding();
+        const areaTit = document.getElementById('headerArea');
+        if (areaTit) areaTit.textContent = `${REF_NOME} (${refSigla()}) — selecione um programa`;
         renderWelcome();
     }
+}
+
+// Atualiza rótulos fixos da interface que citavam "UnB" para a IFES de referência.
+function aplicarRotulosRef() {
+    const rs = refSigla();
+    const h = document.getElementById('refHead');       if (h) h.textContent = `Selecionar Programa ${rs}`;
+    const l = document.getElementById('refCursoLbl');   if (l) l.textContent = `Curso (${rs}) — referência`;
+    const b = document.getElementById('trocarIesBtn');  if (b) b.style.display = '';
 }
 
 // Popula só a Grande Área (com opção-placeholder); Área e Curso ficam em branco.
@@ -541,7 +592,7 @@ function populateSelectsLanding() {
     Object.keys(REGISTRY.grandes_areas).sort().forEach(g => selGA.add(new Option(g, g)));
     selGA.value = '';
     selArea.innerHTML = ''; selArea.add(new Option('— Selecione a Área CAPES —', ''));
-    selCurso.innerHTML = ''; selCurso.add(new Option('— Selecione o Curso (UnB) —', ''));
+    selCurso.innerHTML = ''; selCurso.add(new Option(`— Selecione o Curso (${refSigla()}) —`, ''));
 }
 
 // Painel inicial (sem dados carregados) com a chamada para selecionar.
@@ -551,15 +602,17 @@ function renderWelcome() {
     const res = document.getElementById('results');
     if (res) {
         res.style.display = 'block';
+        const nProg = (REGISTRY && REGISTRY.programas_unb) ? REGISTRY.programas_unb.length : 0;
         res.innerHTML = `<div class="card" style="text-align:center;padding:40px 22px;max-width:760px;margin:0 auto;">
             <h2 style="border:none;font-size:18px;color:var(--azul);">Selecione uma Área CAPES e um Programa</h2>
             <p style="color:#555;margin-top:12px;font-size:14px;line-height:1.7;">
                 O <strong>MAPA-PG</strong> compara a produção e os indicadores dos
-                <strong>92 programas de pós-graduação da UnB</strong> com seus pares nacionais em
-                <strong>todas as 42 áreas de avaliação da CAPES</strong>, ao longo de três quadriênios (2013–2024).</p>
+                <strong>${nProg} programas de pós-graduação da ${REF_NOME} (${refSigla()})</strong>
+                com seus pares nacionais em <strong>todas as 42 áreas de avaliação da CAPES</strong>,
+                ao longo de três quadriênios (2013–2024).</p>
             <p style="color:#555;margin-top:10px;font-size:14px;line-height:1.7;">
-                Use os seletores na barra lateral — <strong>Grande Área → Área CAPES → Curso (UnB)</strong> —
-                para iniciar a análise.</p>
+                Use os seletores na barra lateral — <strong>Grande Área → Área CAPES → Curso (${refSigla()})</strong> —
+                para iniciar a análise. <span style="color:#7F8C8D;">A referência (${refSigla()}) aparece destacada em vermelho.</span></p>
         </div>`;
     }
     setStatus('Selecione uma Área CAPES e um Programa para iniciar a análise.');
@@ -605,9 +658,11 @@ async function switchArea(slug, sufixo) {
     aplicarBaseEstrato();          // remapeia estr_*/metadata.estratos p/ a base ativa (padrão CiteScore)
     CURRENT_AREA_SLUG = slug;
     CURRENT_AREA_NAME = d.metadata.area;
-    UNB_CDS = d.metadata.unb_cds || [];
-    // Definir programa UnB de referência (destaque) — se sufixo informado, usa o cd dele;
-    // senão, primeiro UnB da área
+    // Códigos da IFES de REFERÊNCIA presentes nesta área (por variante de sigla CAPES).
+    // Substitui o antigo d.metadata.unb_cds (fixo na UnB) — agora depende de REF.
+    UNB_CDS = [...new Set(d.data.filter(r => REF_SIGLAS_CAPES.includes(r.sigla)).map(r => r.cd))];
+    // Definir programa de referência (destaque) — se token informado, usa o cd dele;
+    // senão, primeiro programa da IFES de referência na área
     if (sufixo) {
         const p = REGISTRY.programas_unb.find(x => x.sufixo === sufixo);
         if (p && UNB_CDS.includes(p.cd_programa)) {
@@ -650,9 +705,13 @@ function onDataLoaded() {
 }
 
 function getRefName() {
-    if (!CURRENT_SUFIXO || !REGISTRY) return 'UnB';
+    const rs = refSigla();
+    if (!CURRENT_SUFIXO || !REGISTRY) return rs;
     const p = REGISTRY.programas_unb.find(x => x.sufixo === CURRENT_SUFIXO);
-    return p ? `${p.nome} (UnB) — MAPA-PG-${p.sufixo}` : 'UnB';
+    if (!p) return rs;
+    // Para a UnB mantém o token MAPA-PG-SUFIXO; para as demais, só nome + sigla.
+    const tag = (REF === 'UNB') ? ` — MAPA-PG-${p.sufixo}` : '';
+    return `${p.nome} (${rs})${tag}`;
 }
 // Nome curto do programa UnB selecionado, em maiúsculas/título (ex: "Física",
 // "Química", "Enfermagem"). Usado em todos os labels que antes tinham "UnB Física"
@@ -719,7 +778,7 @@ function rebuildAreaOptions() {
     areasDaGA.forEach(a => {
         const slug = REGISTRY.areas_capes[a].slug;
         const n = REGISTRY.areas_capes[a].n_unb;
-        selArea.add(new Option(`${a} (${n} UnB)`, slug));
+        selArea.add(new Option(`${a} (${n} ${refSigla()})`, slug));
     });
 }
 function rebuildCursoOptions() {
@@ -731,7 +790,8 @@ function rebuildCursoOptions() {
         .filter(p => p.slug_area === slugA)
         .sort((a,b) => a.nome.localeCompare(b.nome));
     progs.forEach(p => {
-        selCurso.add(new Option(`${p.nome} — MAPA-PG-${p.sufixo}`, p.sufixo));
+        const tag = (REF === 'UNB') ? ` — MAPA-PG-${p.sufixo}` : '';
+        selCurso.add(new Option(`${p.nome}${tag}`, p.sufixo));
     });
 }
 function onGrandeAreaChange() {
@@ -814,12 +874,65 @@ function acceptLicense() {
     LICENSE_ACCEPTED = true;
     const ov = document.getElementById('licenseOverlay');
     if (ov) ov.remove();
-    if (!DATA) { renderWelcome(); return; }   // abertura neutra: nenhuma área carregada ainda
-    initUI();
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('results').style.display = 'block';
-    setStatus(`${DATA.data.length} registros carregados — ${DATA.metadata.n_programas} programas`);
-    analisar();
+    // Referência ainda não definida → tela de escolha da IFES; senão, segue direto.
+    if (!REF) { showIesPicker(); return; }
+    startWithRef();
+}
+
+// ── Tela de escolha da universidade federal de referência (pós-consentimento).
+//    27 opções (26 UF + UnB), escolha única; a referência aparecerá destacada
+//    em vermelho, como a UnB. Também acessível depois pelo botão "trocar".
+function showIesPicker() {
+    const lista = REG_IES.ifes.slice().sort((a,b)=> a.uf.localeCompare(b.uf));
+    const prech = REF || '';
+    const cards = lista.map(i => {
+        const rot = i.sigla === 'UNB' ? 'UnB' : i.sigla;
+        return `<label class="ies-opt" data-sig="${i.sigla}" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #E0E0E0;border-radius:8px;cursor:pointer;font-size:12.5px;">
+            <input type="radio" name="iesRef" value="${i.sigla}" ${i.sigla===prech?'checked':''} style="accent-color:#E91E63;">
+            <span><strong>${rot}</strong> <span style="color:#7F8C8D;">(${i.uf})</span><br>
+            <span style="color:#7F8C8D;font-size:10.5px;">${i.nome} · ${i.n_prog} progs</span></span>
+        </label>`;
+    }).join('');
+    const overlay = document.createElement('div');
+    overlay.id = 'iesPickerOverlay';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:26px 26px 20px;max-width:760px;width:94%;box-shadow:0 8px 32px rgba(0,0,0,.4);max-height:92vh;overflow-y:auto;">
+        <h2 style="color:#E91E63;margin:0 0 4px;font-size:20px;font-weight:800;text-align:center;">Escolha a universidade de referência</h2>
+        <p style="color:#555;font-size:13px;line-height:1.5;text-align:center;margin:0 0 16px;">
+            Selecione <strong>uma</strong> universidade federal. Ela será usada como referência —
+            <span style="color:#E91E63;font-weight:700;">destacada em vermelho</span> — na comparação com todos os
+            programas de pós-graduação de cada área da CAPES. (Você pode trocar depois.)</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;">${cards}</div>
+        <div style="text-align:center;margin-top:18px;">
+            <button id="iesPickerOk" ${prech?'':'disabled'} onclick="confirmIesPicker()"
+                style="background:#E91E63;color:#fff;border:none;padding:11px 46px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;opacity:${prech?1:.5};">OK</button>
+        </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const ok = overlay.querySelector('#iesPickerOk');
+    overlay.querySelectorAll('.ies-opt').forEach(lb => {
+        lb.addEventListener('click', () => {
+            overlay.querySelectorAll('.ies-opt').forEach(x => { x.style.borderColor = '#E0E0E0'; x.style.background='#fff'; });
+            lb.style.borderColor = '#E91E63'; lb.style.background = '#FCE4EC';
+            ok.disabled = false; ok.style.opacity = 1;
+        });
+    });
+    const cur = overlay.querySelector('.ies-opt input:checked');
+    if (cur) cur.closest('.ies-opt').click();
+}
+function confirmIesPicker() {
+    const sel = document.querySelector('#iesPickerOverlay input[name="iesRef"]:checked');
+    if (!sel) return;
+    REF = sel.value;
+    const ov = document.getElementById('iesPickerOverlay');
+    if (ov) ov.remove();
+    startWithRef();
+}
+// Reabre o seletor para trocar a IFES de referência (botão na sidebar).
+function trocarIes() {
+    // limpa a seleção atual de área/curso para reabrir neutro na nova IFES
+    PENDING_AREA = CURRENT_AREA_SLUG; PENDING_CURSO = null;
+    showIesPicker();
 }
 
 loadData();
@@ -1328,7 +1441,7 @@ function analisar() {
         dynList.sort((a, b) => b.avg - a.avg);
 
         html += `<div class="card"><h2 class="unb">Produção Dinâmica — Médias Ano a Ano por Pesquisador (${metricaLabel})</h2>`;
-        html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Análise dinâmica: produção intelectual média por pesquisador, ano a ano, para cada programa selecionado. Passe o mouse sobre os pontos do gráfico para ver nota, nº de pesquisadores e média naquele ano. UnB e média nacional destacados.${mIdxNote}</p>`;
+        html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Análise dinâmica: produção intelectual média por pesquisador, ano a ano, para cada programa selecionado. Passe o mouse sobre os pontos do gráfico para ver nota, nº de pesquisadores e média naquele ano. ${refSigla()} e média nacional destacados.${mIdxNote}</p>`;
 
         // Summary stats: overall averages
         html += `<div class="stats-row">
@@ -1557,7 +1670,7 @@ function renderRanking(scope, worst) {
         const rowStyle = isU ? ` style="background:#FCE4EC;font-weight:600;"` : '';
         html += `<tr${rowStyle}>
             <td><strong>${medal}${i + 1}º</strong></td>
-            <td style="text-align:left;">${c.programa || '—'}${isU ? ' <span style="color:var(--unb);">★ UnB</span>' : ''}</td>
+            <td style="text-align:left;">${c.programa || '—'}${isU ? ` <span style="color:var(--unb);">★ ${refSigla()}</span>` : ''}</td>
             <td><strong>${c.sigla || '—'}</strong></td>
             <td>${c.uf || '—'}</td>
             <td>${c.nota ?? '—'}</td>
@@ -1567,7 +1680,7 @@ function renderRanking(scope, worst) {
         </tr>`;
     });
     html += `</tbody></table></div>
-        <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Programas da UnB destacados em rosa (★). Ranking pela métrica selecionada no sidebar; troque a métrica e clique no TOP novamente para reordenar.</p></div>`;
+        <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Programas da ${refSigla()} destacados em rosa (★). Ranking pela métrica selecionada no sidebar; troque a métrica e clique no TOP novamente para reordenar.</p></div>`;
 
     document.getElementById('results').innerHTML = html;
     document.getElementById('results').style.display = 'block';
@@ -1603,7 +1716,7 @@ function renderRanking(scope, worst) {
 function exportarRankingCSV() {
     const d = window._rankData;
     if (!d || !d.picks.length) { toast('Gere um ranking primeiro.'); return; }
-    let csv = 'Posicao;Programa;IES;UF;Nota;Quadrienio;Docentes;' + d.metricaLabel.replace(/;/g, ',') + ';UnB\n';
+    let csv = 'Posicao;Programa;IES;UF;Nota;Quadrienio;Docentes;' + d.metricaLabel.replace(/;/g, ',') + ';' + refSigla() + '\n';
     d.picks.forEach((o, i) => {
         const c = o.rec;
         csv += [i + 1, '"' + (c.programa || '') + '"', c.sigla || '', c.uf || '', c.nota ?? '',
@@ -1638,7 +1751,7 @@ function buildChartQuad(quads, others, unbData, metrica, label, weightField, sub
         const r = unbData.find(d => d.quad === q);
         return r ? getEffectiveMetric(r, metrica, subtipos, estratos_if) : 0;
     });
-    const UNB_LBL = `UnB ${unbShortName()}`;
+    const UNB_LBL = `${refSigla()} ${unbShortName()}`;
     datasets.push({
         label: UNB_LBL, data: unbVals,
         backgroundColor: UNB_COLOR,
@@ -1741,10 +1854,10 @@ function buildChartIES(others, unbData, metrica, label, quads, weightField, subt
     const colors = iesVals.map(v => v >= unbAvg ? '#4CAF50' : '#2196F3');
 
     // Add UnB at the beginning
-    iesNames.unshift('UnB ★');
+    iesNames.unshift(`${refSigla()} ★`);
     iesVals.unshift(unbAvg);
     colors.unshift(UNB_COLOR);
-    iesTooltip['UnB ★'] = { notas: unbNotas.map(n => `N ${n}`).join('/'), nDocs: unbDocs, nPQ: unbPQ, isUnb: true };
+    iesTooltip[`${refSigla()} ★`] = { notas: unbNotas.map(n => `N ${n}`).join('/'), nDocs: unbDocs, nPQ: unbPQ, isUnb: true };
 
     // National average vertical line dataset
     const iesDatasets = [{
@@ -1859,7 +1972,7 @@ function buildDynamicChart(metricaLabel) {
             pointHoverRadius: 10,
             pointStyle: 'star',
             tension: 0.3,
-            _pInfo: { sigla: 'UnB', nota: unbP.nota, yD: unbP.yD },
+            _pInfo: { sigla: refSigla(), nota: unbP.nota, yD: unbP.yD },
         });
     }
 
@@ -2011,7 +2124,7 @@ function gerarRelatorio() {
     p(`  UnB ${metricaLabel}: ${unbAvg.toFixed(2)}`);
     p(`  Média selecionados: ${othersAvg.toFixed(2)}`);
     p(`  Diferença: ${diff > 0 ? '+' : ''}${diff.toFixed(2)} (${pctDiff > 0 ? '+' : ''}${pctDiff.toFixed(1)}%)`);
-    p(`  UnB está ${diff >= 0 ? 'ACIMA' : 'ABAIXO'} da média dos programas selecionados.`);
+    p(`  ${refSigla()} está ${diff >= 0 ? 'ACIMA' : 'ABAIXO'} da média dos programas selecionados.`);
     p('');
 
     // Category breakdown in report
@@ -2089,7 +2202,7 @@ function downloadReport() {
 function downloadReportCSV() {
     if (!window._lastFiltered) return;
     const rows = window._lastFiltered;
-    let csv = 'IES;Programa;UF;Nota;Quadrienio;Doc;PQ;%PQ;Art_a_PQ;Art_a_sPQ;Art_a_Ger;Razao;UnB\n';
+    let csv = 'IES;Programa;UF;Nota;Quadrienio;Doc;PQ;%PQ;Art_a_PQ;Art_a_sPQ;Art_a_Ger;Razao;' + refSigla() + '\n';
     rows.forEach(d => {
         csv += `${d.sigla};${d.programa};${d.uf};${d.nota};${d.quad};${d.n_doc};${d.n_pq};${d.pct_pq};` +
                `${d.ma_pq};${d.ma_spq};${d.ma_all};${d.razao};${d.is_unb ? 'SIM' : 'NAO'}\n`;
@@ -2112,7 +2225,7 @@ function exportarCSV() {
 
     let csv = '\uFEFF'; // BOM for Excel
     csv += 'IES;Programa;UF;Nota;Quadrienio;Docentes;PQ;Sem_PQ;Pct_PQ;Art_ano_PQ;Art_ano_sPQ;Art_ano_Geral;Razao_PQ_sPQ;Permanentes;Colaboradores;Visitantes;Art_ano_Perm;Art_ano_Colab;Art_ano_Visit;Razao_Perm_Colab_x;IF_Medio;IF_Mediana;IF_Maximo;Arts_com_IF;' +
-           'Prod_ArtPeriodico;Prod_Resumo;Prod_TrabCongresso;Prod_CapLivro;Prod_TextoJornal;Filtro_Tipos;Referencia_UnB\n';
+           'Prod_ArtPeriodico;Prod_Resumo;Prod_TrabCongresso;Prod_CapLivro;Prod_TextoJornal;Filtro_Tipos;Referencia_' + refSigla() + '\n';
     all.forEach(d => {
         const ePQ = getEffectiveMetric(d, 'ma_pq', subtipos, estratos_if);
         const eSPQ = getEffectiveMetric(d, 'ma_spq', subtipos, estratos_if);
@@ -2263,7 +2376,7 @@ function buildIFReportHTML(programas) {
     pt('  MAPA-PG \u2014 Relat\u00F3rio Detalhado de Fator de Impacto');
     pt('  Base do indicador : ' + IF_BASE_LABEL[IF_BASE]);
     pt('  \u00C1rea CAPES        : ' + (CURRENT_AREA_NAME || '\u2014'));
-    pt('  Curso UnB de ref. : ' + (CURRENT_SUFIXO ? `MAPA-PG-${CURRENT_SUFIXO}` : '\u2014'));
+    pt('  Curso ' + refSigla() + ' de ref. : ' + (CURRENT_SUFIXO ? (REF === 'UNB' ? `MAPA-PG-${CURRENT_SUFIXO}` : getRefName()) : '\u2014'));
     pt('  Programas no relat.: ' + programas.length);
     pt('  Gerado em         : ' + now.toLocaleString('pt-BR'));
     pt('  Software          : MAPA-PG v' + VERSION + ' \u2014 Prof. David L. Azevedo');
@@ -2282,7 +2395,7 @@ function buildIFReportHTML(programas) {
     csvRows.push('# MAPA-PG \u2014 Relat\u00F3rio Detalhado de Fator de Impacto');
     csvRows.push('# Base do indicador: ' + IF_BASE_LABEL[IF_BASE]);
     csvRows.push('# \u00C1rea CAPES: ' + (CURRENT_AREA_NAME || ''));
-    csvRows.push('# Curso UnB de refer\u00EAncia: ' + (CURRENT_SUFIXO ? 'MAPA-PG-' + CURRENT_SUFIXO : ''));
+    csvRows.push('# Curso ' + refSigla() + ' de refer\u00EAncia: ' + (CURRENT_SUFIXO ? (REF === 'UNB' ? 'MAPA-PG-' + CURRENT_SUFIXO : getRefName()) : ''));
     csvRows.push('# Gerado em: ' + now.toLocaleString('pt-BR'));
     csvRows.push('# Estratos CAPES (Ficha 2025-2028) \u2014 percentil de IF dentro da \u00E1rea:');
     ORD.forEach(e => csvRows.push('#   ' + estLongo(e)));
@@ -2302,7 +2415,7 @@ function buildIFReportHTML(programas) {
         ...colsEstr('Razao_Colaborador'),
         ...colsEstr('Razao_Total'),
         'IF_Medio_geral','IF_Mediana_geral','IF_Maximo_geral','Artigos_com_IF_Total',
-        'Eh_UnB',
+        'Eh_' + refSigla(),
     ].join(';'));
 
     programas.forEach(d => {
@@ -2497,17 +2610,17 @@ function buildIFChartsHTML(programas) {
 <div class="card">
     <h2>Produção por Estrato de IF — Barras Agrupadas (Art/Docente)</h2>
     <div class="chart-wrap" style="height:${barH}px;"><canvas id="chartBars"></canvas></div>
-    <p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo · C = sem indicador de IF). UnB destacada com ★.</p>
+    <p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo · C = sem indicador de IF). ${refSigla()} destacada com ★.</p>
 </div>
 <div class="card">
     <h2>Perfil de Produção por Estrato de IF — Multi-Linhas (Art/Docente)</h2>
     <div class="chart-wrap" style="height:450px;"><canvas id="chartLines"></canvas></div>
-    <p class="note">Cada linha representa um programa. Eixo X: estratos A1..A8,C. Eixo Y: art/docente. UnB em magenta com linha grossa.</p>
+    <p class="note">Cada linha representa um programa. Eixo X: estratos A1..A8,C. Eixo Y: art/docente. ${refSigla()} em magenta com linha grossa.</p>
 </div>
 <div class="card">
-    <h2>3 IES Mais Próximas da UnB — Comparação por Estrato de IF</h2>
+    <h2>3 IES Mais Próximas da ${refSigla()} — Comparação por Estrato de IF</h2>
     <div class="chart-wrap" style="height:450px;"><canvas id="chartClosest"></canvas></div>
-    <p class="note">Compara a UnB com as 3 IES de menor diferença total nos estratos A1..A8,C. Na legenda: diferença por estrato (A1…C). Sinal + = IES acima da UnB, sinal – = IES abaixo da UnB. Clique nos pontos para ver a diferença.</p>
+    <p class="note">Compara a ${refSigla()} com as 3 IES de menor diferença total nos estratos A1..A8,C. Na legenda: diferença por estrato (A1…C). Sinal + = IES acima da ${refSigla()}, sinal – = IES abaixo da ${refSigla()}. Clique nos pontos para ver a diferença.</p>
 </div>`;
 }
 
@@ -2569,7 +2682,7 @@ function buildIFCharts() {
                                 const unbVal = unbVals[ctx.dataIndex];
                                 const diff = val - unbVal;
                                 const sign = diff >= 0 ? '+' : '';
-                                return 'Dif. UnB: ' + sign + diff.toFixed(2) + ' art/doc';
+                                return 'Dif. ' + refSigla() + ': ' + sign + diff.toFixed(2) + ' art/doc';
                             }
                         }
                     }
@@ -2592,7 +2705,7 @@ function buildIFCharts() {
                             alert(dsClosest[dsIdx].label.split('[')[0].trim() +
                                 '\n\nFaixa: ' + faixa +
                                 '\nValor: ' + val.toFixed(2) + ' art/doc' +
-                                '\nUnB: ' + unbVal.toFixed(2) + ' art/doc' +
+                                '\n' + refSigla() + ': ' + unbVal.toFixed(2) + ' art/doc' +
                                 '\nDiferença: ' + sign + diff.toFixed(2) + ' art/doc');
                         }
                     }
