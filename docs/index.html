@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAPA-PG — Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</title>
-<meta name="description" content="MAPA-PG: sistema interativo e gratuito para comparar a produção e os indicadores dos 92 programas de pós-graduação da UnB com seus pares nacionais, em todas as 42 áreas de avaliação da CAPES, ao longo de três quadriênios (2013–2024). Dados públicos da CAPES e do OpenAlex.">
+<meta name="description" content="MAPA-PG: sistema interativo e gratuito para comparar a produção e os indicadores de mais de 4.300 programas de pós-graduação do Brasil (478 instituições) em todas as 42 áreas de avaliação da CAPES. Escolha uma das 27 universidades federais como referência e compare-a com seus pares nacionais ao longo de três quadriênios (2013–2024). Dados públicos da CAPES.">
 <meta name="keywords" content="MAPA-PG, pós-graduação, CAPES, avaliação CAPES, conceito CAPES, produção acadêmica, produtividade científica, programas de pós-graduação, UnB, Universidade de Brasília, OpenAlex, fator de impacto, quadriênio, dados abertos, cientometria, bolsa produtividade CNPq">
 <meta name="author" content="Prof. David L. Azevedo — Universidade de Brasília (UnB)">
 <meta name="robots" content="index, follow">
@@ -13,8 +13,8 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MAPA-PG">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="MAPA-PG — Produção da pós-graduação da UnB vs. pares nacionais (CAPES)">
-<meta property="og:description" content="Compare os 92 programas de pós-graduação da UnB com seus pares nacionais em todas as 42 áreas CAPES. Gratuito, sem instalação, com dados públicos da CAPES e do OpenAlex.">
+<meta property="og:title" content="MAPA-PG — Produção da pós-graduação brasileira por área CAPES">
+<meta property="og:description" content="Compare mais de 4.300 programas de pós-graduação do Brasil em todas as 42 áreas CAPES. Escolha uma das 27 universidades federais como referência e compare-a com seus pares nacionais. Gratuito, sem instalação, com dados públicos da CAPES.">
 <meta property="og:url" content="https://david888azv.github.io/Mapa-PG-UnB/">
 <meta property="og:image" content="https://david888azv.github.io/Mapa-PG-UnB/logos/unb_marca.jpg">
 <!-- Twitter / X -->
@@ -59,7 +59,7 @@
     "identifier": "https://doi.org/10.26512/2446-564X2026e62064",
     "sameAs": "https://doi.org/10.26512/2446-564X2026e62064"
   },
-  "description": "Sistema interativo e gratuito para comparar a produção acadêmica dos 92 programas de pós-graduação da UnB com seus pares nacionais em todas as 42 áreas de avaliação da CAPES, usando dados públicos da CAPES e do OpenAlex.",
+  "description": "Sistema interativo e gratuito para comparar a produção acadêmica de mais de 4.300 programas de pós-graduação do Brasil (478 instituições) em todas as 42 áreas de avaliação da CAPES; escolha uma das 27 universidades federais como referência e compare-a com seus pares nacionais, usando dados públicos da CAPES.",
   "keywords": "pós-graduação, CAPES, produção científica, UnB, OpenAlex, cientometria",
   "codeRepository": "https://github.com/david888azv/Mapa-PG-UnB"
 }
@@ -197,7 +197,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v4.1.2</div>
+        <div id="headerVersion">v4.1.3</div>
     </div>
 </div>
 
@@ -437,7 +437,7 @@ let REG_IES = null;           // registry_ies.json — catálogo das 27 IFES
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '4.1.2';
+const VERSION = '4.1.3';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
