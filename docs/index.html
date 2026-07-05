@@ -197,7 +197,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v4.1.5</div>
+        <div id="headerVersion">v4.1.6</div>
     </div>
 </div>
 
@@ -436,7 +436,7 @@ let REG_IES = null;           // registry_ies.json — catálogo das 27 IFES
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '4.1.5';
+const VERSION = '4.1.6';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -1615,10 +1615,8 @@ function renderRanking(scope, worst) {
     const accent = worst ? 'var(--vermelho)' : '#D4AF37';
     const icon = worst ? '🔻' : (scope === 'uf' ? '🗺️' : '🏆');
     let titulo;
-    if (scope === 'uf' && worst)       titulo = `Pior programa por estado — ${CURRENT_AREA_NAME}`;
-    else if (scope === 'uf' && !worst) titulo = `Melhor programa por estado — ${CURRENT_AREA_NAME}`;
-    else if (worst)                    titulo = `TOP ${picks.length} nacional — programas com menores valores — ${CURRENT_AREA_NAME}`;
-    else                               titulo = `TOP ${picks.length} nacional — programas mais bem avaliados — ${CURRENT_AREA_NAME}`;
+    if (scope === 'uf') titulo = `Melhores programas por estado — ${CURRENT_AREA_NAME}`;
+    else                titulo = `TOP ${picks.length} nacional — programas mais bem avaliados — ${CURRENT_AREA_NAME}`;
 
     const quadTxt = filters.quad === 'all' ? 'quadriênio mais recente de cada programa' : filters.quad;
     const regTxt = filters.regioes.length === 5 ? 'todas as regiões' : filters.regioes.join(', ');
@@ -1628,16 +1626,13 @@ function renderRanking(scope, worst) {
     let html = `<div class="card" style="border-top:4px solid ${accent};">
         <h2 style="color:${accent};border-color:${accent};">${icon} ${titulo}</h2>
         <div style="margin-bottom:8px;">
-            ${btn('nac', false, '🏆 TOP melhores')}
-            ${btn('nac', true,  '🔻 TOP mais baixos')}
-            ${btn('uf',  false, '🗺️ Melhor por UF')}
-            ${btn('uf',  true,  '🔻 Pior por UF')}
+            ${btn('nac', false, '🏆 Top melhores N')}
+            ${btn('uf',  false, '🗺️ Melhores por UF')}
             <label style="font-size:12px;margin-left:8px;${scope==='uf'?'opacity:.4;':''}">N:
                 <select id="rankN" onchange="RANK_STATE.n=+this.value;renderRanking();" ${scope==='uf'?'disabled':''} style="font-size:12px;padding:2px;">
                     <option value="10"${RANK_STATE.n===10?' selected':''}>10</option>
                     <option value="20"${RANK_STATE.n===20?' selected':''}>20</option>
                     <option value="50"${RANK_STATE.n===50?' selected':''}>50</option>
-                    <option value="9999"${RANK_STATE.n===9999?' selected':''}>Todos</option>
                 </select>
             </label>
             <button class="btn btn-sm btn-export" onclick="exportarRankingCSV()" style="margin-left:8px;display:inline-block;width:auto;">Baixar .csv</button>
