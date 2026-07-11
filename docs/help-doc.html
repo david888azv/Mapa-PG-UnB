@@ -4,19 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAPA-PG — Documentação e Fontes de Dados</title>
+<link rel="icon" type="image/png" href="mark-da-ciencia.png">
+<meta name="theme-color" content="#0F244A">
 <style>
-:root { --azul:#2C3E50; --azul2:#34495E; --azul3:#1A252F; --accent:#E91E63;
+:root { --azul:#0F244A; --azul2:#113B8B; --azul3:#0B1B38; --accent:#E8145F;
     --verde:#27AE60; --bg:#F5F7FA; --card:#FFF; --borda:#E0E4E8; --txt:#2C3E50; --txt2:#7F8C8D; }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;}
 .header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;padding:14px 28px;
     display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;
     box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.header .left{display:flex;align-items:center;gap:12px;min-width:0;}
+.header .brand{flex:none;line-height:0;}
+.header .brand img{display:block;height:34px;width:auto;}
 .header h1{font-size:22px;font-weight:700;letter-spacing:1px;}
 .header h1 em{color:var(--accent);font-style:normal;}
 .header .meta{text-align:right;font-size:12px;opacity:.85;line-height:1.5;}
 nav{background:var(--azul3);padding:8px 28px;display:flex;gap:16px;flex-wrap:wrap;}
-nav a{color:#aaa;text-decoration:none;font-size:13px;font-weight:600;padding:4px 12px;border-radius:4px;transition:.2s;cursor:pointer;}
+nav a{color:#9FB3D0;text-decoration:none;font-size:13px;font-weight:600;padding:4px 12px;border-radius:4px;transition:.2s;cursor:pointer;}
 nav a:hover,nav a.active{color:#fff;background:var(--accent);}
 .content{max-width:1100px;margin:24px auto;padding:0 20px;}
 .card{background:var(--card);border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:24px;margin-bottom:20px;}
@@ -34,13 +39,16 @@ code{background:#E8EDF2;padding:2px 6px;border-radius:3px;font-size:12px;font-fa
 .section{display:none;} .section.active{display:block;}
 .contact{background:var(--azul3);color:#ccc;padding:12px 28px;font-size:12px;text-align:center;margin-top:24px;}
 .contact a{color:var(--accent);text-decoration:none;}
-a{color:#1565C0;}
+a{color:#2563EB;}
 </style>
 </head>
 <body>
 
 <div class="header">
-    <h1><em>MAPA-PG</em> — Documentação</h1>
+    <div class="left">
+        <a class="brand" href="https://daciencia.org" target="_blank" rel="noopener" title="DA ciência — daciencia.org"><img src="mark-da-ciencia.png" alt="DA ciência" width="232" height="233"></a>
+        <h1><em>MAPA-PG</em> — Documentação</h1>
+    </div>
     <div class="meta">
         <div>Prof. David L. Azevedo</div>
         <div>v1.5</div>

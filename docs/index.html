@@ -65,7 +65,7 @@
 }
 </script>
 <link rel="manifest" href="app.webmanifest">
-<meta name="theme-color" content="#2C3E50">
+<meta name="theme-color" content="#0F244A">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
   if ('serviceWorker' in navigator) {
@@ -74,13 +74,13 @@
 </script>
 <style>
 :root {
-    --azul: #2C3E50; --azul2: #34495E; --azul3: #1A252F;
-    --accent: #E91E63; --accent2: #F48FB1;
+    --azul: #0F244A; --azul2: #113B8B; --azul3: #0B1B38;
+    --accent: #E8145F; --accent2: #F472A0;
     --verde: #27AE60; --laranja: #F39C12; --vermelho: #E74C3C;
     --bg: #F5F7FA; --card: #FFFFFF; --borda: #E0E4E8;
     --txt: #2C3E50; --txt2: #7F8C8D;
     --n5: #2196F3; --n6: #FF9800; --n7: #4CAF50;
-    --unb: #E91E63;
+    --unb: #E8145F;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -841,7 +841,7 @@ function showLicenseModal() {
     overlay.id = 'licenseOverlay';
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
     overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:32px;max-width:620px;width:92%;box-shadow:0 8px 32px rgba(0,0,0,.4);text-align:center;max-height:90vh;overflow-y:auto;">
-        <h2 style="color:#2C3E50;margin-bottom:4px;font-size:22px;font-weight:800;letter-spacing:1px;">MAPA-PG</h2>
+        <h2 style="color:#0F244A;margin-bottom:4px;font-size:22px;font-weight:800;letter-spacing:1px;">MAPA-PG</h2>
         <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>
         <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Julho 2026</p>
         <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:2px;">Prof. Titular David Lima Azevedo</p>
