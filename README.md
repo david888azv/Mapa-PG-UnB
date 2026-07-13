@@ -1,14 +1,45 @@
-# MAPA-PG — Multi-área (UnB)
+# MAPA-PG — Monitoramento e Análise da Produção Acadêmica da Pós-Graduação
 
-**Aplicativo irmão (graduação):** MAPA-GR — https://github.com/david888azv/Mapa-GR ·
-app no ar em https://david888azv.github.io/Mapa-GR/
+Sistema interativo e gratuito para comparar a produção e os indicadores de **mais de 4.300
+programas de pós-graduação** do Brasil (**478 instituições**) em todas as **42 Áreas de
+Avaliação da CAPES**, ao longo de três quadriênios (2013–2024). Cada programa é comparado
+sempre **dentro da própria Área CAPES** — a única comparação válida segundo a metodologia
+da CAPES.
 
-Aplicativo HTML5 + JS estático para monitoramento e análise comparativa
-de **92 programas de pós-graduação da UnB** em funcionamento (82 acadêmicos
-e 10 profissionais), agrupados em **42 Áreas de
-Avaliação CAPES** (todas as 9 Grandes Áreas do CNPq), comparando-os
-sempre dentro da própria Área CAPES — única forma de comparação válida
-segundo a metodologia da CAPES.
+### 🔗 Abrir o aplicativo: **https://david888azv.github.io/Mapa-PG-UnB/**
+
+Escolha uma das **27 universidades federais** como referência e compare-a com seus pares
+nacionais. Uma página por instituição, por exemplo:
+
+| | |
+|---|---|
+| 🏛️ **UnB** | https://david888azv.github.io/Mapa-PG-UnB/ies/unb/ |
+| 🏛️ **UFRN** | https://david888azv.github.io/Mapa-PG-UnB/ies/ufrn/ |
+| 🏛️ **UFPE** | https://david888azv.github.io/Mapa-PG-UnB/ies/ufpe/ |
+| 🏛️ **UFBA** | https://david888azv.github.io/Mapa-PG-UnB/ies/ufba/ |
+
+Parte do projeto de divulgação científica **DA ciência** — https://daciencia.org
+
+## Projeto irmão (graduação): MAPA-GR
+
+Os mesmos princípios, aplicados à graduação sob o INEP/SINAES (CPC, ENADE, IDD, IGC),
+em 47.091 cursos:
+
+- Aplicativo: https://david888azv.github.io/Mapa-GR/
+- Repositório: https://github.com/david888azv/Mapa-GR
+
+| | MAPA-PG | MAPA-GR |
+|---|---|---|
+| Nível | Pós-graduação | Graduação |
+| Órgão | CAPES | INEP/SINAES |
+| Escala | 1–7 | 1–5 |
+| Unidade | Programa | Curso |
+
+## Programas da UnB
+
+O aplicativo nasceu do acompanhamento dos **92 programas de pós-graduação da UnB** em
+funcionamento (82 acadêmicos e 10 profissionais), que seguem sendo o recorte de referência
+do projeto, e se generalizou para as demais instituições.
 
 ## Identificação dos programas
 
