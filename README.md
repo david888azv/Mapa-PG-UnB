@@ -1,7 +1,7 @@
 # MAPA-PG — Monitoramento e Análise da Produção Acadêmica da Pós-Graduação
 
-Sistema interativo e gratuito para comparar a produção e os indicadores de **mais de 4.300
-programas de pós-graduação** do Brasil (**478 instituições**) em todas as **42 Áreas de
+Sistema interativo e gratuito para comparar a produção e os indicadores de **4.776
+programas de pós-graduação** do Brasil (**500 instituições**) em todas as **49 Áreas de
 Avaliação da CAPES**, ao longo de três quadriênios (2013–2024). Cada programa é comparado
 sempre **dentro da própria Área CAPES** — a única comparação válida segundo a metodologia
 da CAPES.
@@ -19,6 +19,13 @@ nacionais. Uma página por instituição, por exemplo:
 | 🏛️ **UFBA** | https://david888azv.github.io/Mapa-PG-UnB/ies/ufba/ |
 
 Parte do projeto de divulgação científica **DA ciência** — https://daciencia.org
+
+> **Cobertura (16/07/2026):** as **49** Áreas de Avaliação da CAPES. Até esta data eram 42 —
+> o catálogo de áreas era derivado da pegada da UnB (`gerar_registry.py` montava `areas_capes`
+> iterando sobre os programas dela), então as 7 áreas em que a UnB não atua sumiam do app
+> inteiro: CIÊNCIAS BIOLÓGICAS II, ENGENHARIAS II, ZOOTECNIA/RECURSOS PESQUEIROS, CIÊNCIA DE
+> ALIMENTOS, MEDICINA III, PLANEJAMENTO URBANO E REGIONAL/DEMOGRAFIA e CIÊNCIAS DA RELIGIÃO E
+> TEOLOGIA (442 programas). O catálogo agora é nacional; áreas sem UnB entram com `n_unb=0`.
 
 ## Projeto irmão (graduação): MAPA-GR
 
@@ -76,9 +83,9 @@ Acesso direto via deeplink: `index.html?curso=FISICA`.
 
 ## Camadas de dados
 
-1. **Camada mínima** (já gerada — 42 áreas): metadados de programas,
+1. **Camada mínima** (já gerada — 49 áreas): metadados de programas,
    conceito CAPES por quadriênio, modalidade, situação. Total ≈ 4 MB.
-2. **Camada com métricas completas** (já gerada para **todas as 42 áreas** —
+2. **Camada com métricas completas** (já gerada para **todas as 49 áreas** —
    `docs/dados/area-*.json`, ~11,8 MB no total; `manifest.json` marca
    `tem_metricas: true` nas 42): n_doc, médias por categoria, fator de
    impacto OpenAlex, produção por subtipo bibliográfico. A migração inicial
@@ -104,7 +111,7 @@ Total: ~16 min na 1ª execução; subsequentes ~3,5 min se reaproveitar
 o cache. Comandos:
 
 ```bash
-# Listar as 42 áreas, slugs e estado de métricas
+# Listar as 49 áreas, slugs e estado de métricas
 python3 build/gerar_dados_completos.py --list
 
 # Tudo do zero (Fase 1 + Fase 2) — ~16 min

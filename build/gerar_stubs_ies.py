@@ -5,6 +5,13 @@ dando uma URL limpa e indexável por universidade de referência
 (ex.: /ies/ufmg/ abre o app com a UFMG destacada) sem duplicar o app.
 
 Fonte da lista: docs/registry_ies.json (as 27 IFES).
+
+SEO — o app cobre as 49 Áreas de Avaliação da CAPES (taxonomia 2017-2020) desde 16/07/2026.
+Até então eram 42: o catálogo era derivado da pegada da UnB (gerar_registry.py montava
+`areas_capes` iterando sobre os programas dela), e as 7 áreas em que a UnB não atua sumiam
+do app — foi o que fez usuários de SC não acharem, p.ex., ENGENHARIA QUÍMICA da UFSC
+(ENGENHARIAS II). Se este número mudar, conferir `docs/registry.json.areas_capes` antes de
+escrever: prometer cobertura sem conferir foi exatamente o erro anterior.
 """
 import json, os
 
@@ -21,7 +28,7 @@ TPL = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MAPA-PG — {rot} ({uf}) como referência | Pós-graduação CAPES</title>
-<meta name="description" content="MAPA-PG com a {nome} ({rot}) como referência: compare a produção e os indicadores dos programas de pós-graduação da {rot} com seus pares nacionais em todas as áreas da CAPES.">
+<meta name="description" content="MAPA-PG com a {nome} ({rot}) como referência: compare a produção e os indicadores dos programas de pós-graduação da {rot} com seus pares nacionais, sempre dentro da mesma Área de Avaliação da CAPES, nas 49 áreas e ao longo de três quadriênios (2013–2024). Gratuito, com dados públicos da CAPES.">
 <link rel="canonical" href="{site}?ies={sigla}">
 <meta name="robots" content="index,follow">
 <meta http-equiv="refresh" content="0; url=../../index.html?ies={sigla}">
