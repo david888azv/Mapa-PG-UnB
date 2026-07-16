@@ -248,7 +248,8 @@ tr:hover { background: #EEF2F7; }
 
         <div class="filter-group">
             <h3>Quadriênio</h3>
-            <select id="selQuad">
+            <!-- onchange: sem ele, trocar o quadriênio não redesenhava (mesmo bug dos .sub-chk) -->
+            <select id="selQuad" onchange="analisar()">
                 <option value="all">Todos os quadriênios</option>
                 <option value="2013-2016">2013–2016 (Q1)</option>
                 <option value="2017-2020">2017–2020 (Q2)</option>
@@ -258,7 +259,7 @@ tr:hover { background: #EEF2F7; }
 
         <div class="filter-group">
             <h3>Métrica de Comparação</h3>
-            <select id="selMetrica">
+            <select id="selMetrica" onchange="analisar()">
                 <option value="ma_pq">Art/ano — Bolsistas PQ</option>
                 <option value="ma_spq">Art/ano — Sem bolsa PQ</option>
                 <option value="ma_all" selected>Art/ano — Média geral (PQ + sem PQ)</option>
@@ -271,6 +272,12 @@ tr:hover { background: #EEF2F7; }
 
         <div class="filter-group">
             <h3>Categoria de Docente</h3>
+            <!-- ATENÇÃO: este filtro NÃO tem efeito. `getFilters()` coleta `categorias`, mas
+                 nenhum código lê o campo — `filterData()` filtra por nota/quadriênio/região/IES
+                 apenas. A escolha de categoria é feita no seletor de MÉTRICA (Art/ano
+                 Permanentes / Colaboradores / Visitantes). Não adianta pôr onchange aqui: ele
+                 redesenharia com o mesmo resultado, fingindo responder. Ou se implementa o
+                 filtro, ou se remove o controle — decisão pendente. -->
             <label><input type="checkbox" class="cat-chk" value="PERMANENTE" checked> Permanente</label>
             <label><input type="checkbox" class="cat-chk" value="COLABORADOR" checked> Colaborador</label>
             <label><input type="checkbox" class="cat-chk" value="VISITANTE" checked> Visitante</label>
@@ -282,11 +289,11 @@ tr:hover { background: #EEF2F7; }
                 <button class="btn btn-sm btn-primary" onclick="toggleRegioes(true)" style="flex:1;margin:0;">Todas</button>
                 <button class="btn btn-sm btn-secondary" onclick="toggleRegioes(false)" style="flex:1;margin:0;">Nenhuma</button>
             </div>
-            <label><input type="checkbox" class="reg-chk" value="Centro-Oeste" checked> Centro-Oeste (CO)</label>
-            <label><input type="checkbox" class="reg-chk" value="Nordeste" checked> Nordeste (NE)</label>
-            <label><input type="checkbox" class="reg-chk" value="Norte" checked> Norte (N)</label>
-            <label><input type="checkbox" class="reg-chk" value="Sudeste" checked> Sudeste (SE)</label>
-            <label><input type="checkbox" class="reg-chk" value="Sul" checked> Sul (S)</label>
+            <label><input type="checkbox" class="reg-chk" value="Centro-Oeste" checked onchange="analisar()"> Centro-Oeste (CO)</label>
+            <label><input type="checkbox" class="reg-chk" value="Nordeste" checked onchange="analisar()"> Nordeste (NE)</label>
+            <label><input type="checkbox" class="reg-chk" value="Norte" checked onchange="analisar()"> Norte (N)</label>
+            <label><input type="checkbox" class="reg-chk" value="Sudeste" checked onchange="analisar()"> Sudeste (SE)</label>
+            <label><input type="checkbox" class="reg-chk" value="Sul" checked onchange="analisar()"> Sul (S)</label>
         </div>
 
         <div class="filter-group">
@@ -301,11 +308,14 @@ tr:hover { background: #EEF2F7; }
                 <button class="btn btn-sm btn-primary" onclick="toggleSubtipos(true)" style="flex:1;margin:0;">Todos</button>
                 <button class="btn btn-sm btn-secondary" onclick="toggleSubtipos(false)" style="flex:1;margin:0;">Nenhum</button>
             </div>
-            <label><input type="checkbox" class="sub-chk" value="25" checked> Artigo em Periódico</label>
-            <label><input type="checkbox" class="sub-chk" value="8"> Resumo</label>
-            <label><input type="checkbox" class="sub-chk" value="9"> Trabalho de Congresso</label>
-            <label><input type="checkbox" class="sub-chk" value="26"> Capítulo de Livro</label>
-            <label><input type="checkbox" class="sub-chk" value="10"> Texto em Jornal</label>
+            <!-- onchange="analisar()" — sem ele o clique não redesenhava NADA: o filtro de
+                 tipo de produção existia na tela e não fazia efeito. Os filtros de estrato
+                 (.estr-chk) sempre tiveram o handler; estes ficaram sem. -->
+            <label><input type="checkbox" class="sub-chk" value="25" checked onchange="analisar()"> Artigo em Periódico</label>
+            <label><input type="checkbox" class="sub-chk" value="8" onchange="analisar()"> Resumo</label>
+            <label><input type="checkbox" class="sub-chk" value="9" onchange="analisar()"> Trabalho de Congresso</label>
+            <label><input type="checkbox" class="sub-chk" value="26" onchange="analisar()"> Capítulo de Livro</label>
+            <label><input type="checkbox" class="sub-chk" value="10" onchange="analisar()"> Texto em Jornal</label>
         </div>
 
         <div class="filter-group">
@@ -956,11 +966,12 @@ function initUI() {
     const container = document.getElementById('iesContainer');
     const iesList = DATA.ies_list;
     container.innerHTML = iesList.map(ies =>
-        `<label><input type="checkbox" class="ies-chk" value="${ies.sigla}" checked> ${ies.sigla} (${ies.uf})</label>`
+        `<label><input type="checkbox" class="ies-chk" value="${ies.sigla}" checked onchange="analisar()"> ${ies.sigla} (${ies.uf})</label>`
     ).join('');
 
     document.getElementById('chkAllIES').addEventListener('change', function() {
         document.querySelectorAll('.ies-chk').forEach(cb => cb.checked = this.checked);
+        analisar();   // faltava: marcava as caixas sem redesenhar
     });
     document.querySelectorAll('.ies-chk').forEach(cb => {
         cb.addEventListener('change', () => {
@@ -985,6 +996,7 @@ function initUI() {
 // ══════════════════════════════════════════════════════════════════
 function toggleRegioes(state) {
     document.querySelectorAll('.reg-chk').forEach(cb => cb.checked = state);
+    analisar();   // faltava, como em toggleSubtipos: marcava as caixas sem redesenhar
 }
 function toggleEstratos(state) {
     document.querySelectorAll('.estr-chk').forEach(cb => cb.checked = state);
@@ -1011,6 +1023,8 @@ function refreshEstratoLabels() {
 
 function toggleSubtipos(state) {
     document.querySelectorAll('.sub-chk').forEach(cb => cb.checked = state);
+    analisar();   // faltava: os botões marcavam as caixas e não redesenhavam nada
+                  // (o toggleEstratos, logo acima, sempre chamou — este ficou sem)
 }
 
 // Subtype labels for display
@@ -1105,13 +1119,21 @@ function getSubtypeProd(record, subtipos) {
 
 // Compute the effective metric value for a record given subtype and IF strata filters
 function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
-    const allSubsSelected = subtipos.length === ALL_SUBTIPOS.length;
     // estratos_if guarda códigos de estrato ['A1'..'A8','C'] (9 no total)
     const allIFSelected = estratos_if.length === 9;
 
-    // Fast path — todos os filtros ativos: usa valor pré-computado.
-    if (allSubsSelected && allIFSelected) return d[metrica] || 0;
-
+    // NÃO existe fast path para as métricas ma_* (as que dependem de subtipo).
+    // Havia um: `if (allSubsSelected && allIFSelected) return d[metrica]`, que devolvia
+    // o campo pré-computado — e o campo pré-computado NÃO é a soma dos 5 subtipos
+    // rastreados. `gerar_dados_completos.py` calcula ma_* sem filtro de subtipo, sobre
+    // os 15 subtipos que a CAPES publica (artigo, resumo, congresso, capítulo, jornal,
+    // e mais 10 que o prod_sub não guarda e o filtro não mostra). Resultado: marcar os
+    // 5 tipos dava um valor MAIOR do que a soma deles. No PPGDIP/UFRJ: 10,22 com os 5
+    // marcados (= 654 eventos de 15 subtipos) contra 7,72 (= 494, a soma real dos 5) —
+    // e desmarcar "Texto em Jornal", 5 eventos de 654, derrubava o número para 7,64,
+    // porque trocava de caminho de cálculo. O padrão do app (só Artigo em Periódico)
+    // nunca passou por aqui e sempre esteve correto.
+    // Computar sempre de prod_sub custa um laço de 5 posições por registro.
     const n_anos = 4;  // todo registro é por quadriênio
 
     // ── Filtro de ESTRATO ativo: recalcula via estr_perm/estr_colab/estr_visit/estr_all
@@ -1208,6 +1230,27 @@ function analisar() {
         html += `<div class="card" style="background:#FFF3E0;border-left:4px solid #FF9800;padding:8px 12px;">
             <strong style="font-size:12px;color:#E65100;">Filtros ativos:</strong>
             <span style="font-size:12px;color:#BF360C;"> ${filterDesc.join(' | ')}</span>
+        </div>`;
+    }
+
+    // ── AVISO: 2021-2024 só tem ARTIGO EM PERIÓDICO ──────────────────────────
+    // A fonte da CAPES desse quadriênio (prod_intel_2021a2024_artpe) traz somente o
+    // subtipo 25. Verificado em toda a base: 1.342.439 artigos e ZERO resumos,
+    // trabalhos de congresso, capítulos de livro e textos de jornal — contra ~1,3 mi de
+    // resumos e ~379 mil capítulos em 2017-2020. Sem este aviso, quem marca "Resumo" vê
+    // 2021-2024 despencar a zero e lê como colapso de produção, quando é ausência de
+    // coleta. Só aparece quando o usuário pede algum tipo além de artigo E o quadriênio
+    // está no recorte — não polui o caso padrão (só Artigo), que é comparável nos três.
+    const OUTROS_TIPOS = subtipos.filter(s => s !== '25');
+    const inclui2124 = (filters.quad === 'all' || filters.quad === '2021-2024');
+    if (OUTROS_TIPOS.length && inclui2124) {
+        const nomes = OUTROS_TIPOS.map(s => (SUBTIPO_LABELS[s] || s)).join(', ');
+        html += `<div class="card" style="background:#FDECEA;border-left:4px solid #B03A2E;padding:8px 12px;">
+            <strong style="font-size:12px;color:#922B21;">Atenção — 2021-2024 só tem Artigo em Periódico:</strong>
+            <span style="font-size:12px;color:#7B241C;"> a coleta da CAPES desse quadriênio não
+            inclui ${nomes}. Os valores de 2021-2024 aparecem como zero para esses tipos por
+            <em>ausência de dado</em>, não por queda de produção. Para comparar os três
+            quadriênios, deixe marcado apenas <strong>Artigo em Periódico</strong>.</span>
         </div>`;
     }
 
