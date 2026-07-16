@@ -1,43 +1,18 @@
 {
-  "gerado_em": "2026-06-17 07:04:45",
+  "gerado_em": "2026-07-16 16:13:00",
   "n_programas_unb": 92,
+  "n_areas_capes": 49,
   "grandes_areas": {
-    "CIÊNCIAS SOCIAIS APLICADAS": [
-      "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
-      "ARQUITETURA, URBANISMO E DESIGN",
-      "COMUNICAÇÃO E INFORMAÇÃO",
-      "DIREITO",
-      "ECONOMIA",
-      "SERVIÇO SOCIAL"
-    ],
-    "MULTIDISCIPLINAR": [
-      "BIOTECNOLOGIA",
-      "CIÊNCIAS AMBIENTAIS",
-      "ENSINO",
-      "INTERDISCIPLINAR",
-      "MATERIAIS"
-    ],
     "CIÊNCIAS AGRÁRIAS": [
+      "CIÊNCIA DE ALIMENTOS",
       "CIÊNCIAS AGRÁRIAS I",
-      "MEDICINA VETERINÁRIA"
-    ],
-    "CIÊNCIAS HUMANAS": [
-      "ANTROPOLOGIA / ARQUEOLOGIA",
-      "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
-      "EDUCAÇÃO",
-      "FILOSOFIA",
-      "GEOGRAFIA",
-      "HISTÓRIA",
-      "PSICOLOGIA",
-      "SOCIOLOGIA"
-    ],
-    "LINGÜÍSTICA, LETRAS E ARTES": [
-      "ARTES",
-      "LINGUÍSTICA E LITERATURA"
+      "MEDICINA VETERINÁRIA",
+      "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
       "BIODIVERSIDADE",
       "CIÊNCIAS BIOLÓGICAS I",
+      "CIÊNCIAS BIOLÓGICAS II",
       "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -46,14 +21,10 @@
       "FARMÁCIA",
       "MEDICINA I",
       "MEDICINA II",
+      "MEDICINA III",
       "NUTRIÇÃO",
       "ODONTOLOGIA",
       "SAÚDE COLETIVA"
-    ],
-    "ENGENHARIAS": [
-      "ENGENHARIAS I",
-      "ENGENHARIAS III",
-      "ENGENHARIAS IV"
     ],
     "CIÊNCIAS EXATAS E DA TERRA": [
       "ASTRONOMIA / FÍSICA",
@@ -61,22 +32,329 @@
       "GEOCIÊNCIAS",
       "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA",
       "QUÍMICA"
+    ],
+    "CIÊNCIAS HUMANAS": [
+      "ANTROPOLOGIA / ARQUEOLOGIA",
+      "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+      "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
+      "EDUCAÇÃO",
+      "FILOSOFIA",
+      "GEOGRAFIA",
+      "HISTÓRIA",
+      "PSICOLOGIA",
+      "SOCIOLOGIA"
+    ],
+    "CIÊNCIAS SOCIAIS APLICADAS": [
+      "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "ARQUITETURA, URBANISMO E DESIGN",
+      "COMUNICAÇÃO E INFORMAÇÃO",
+      "DIREITO",
+      "ECONOMIA",
+      "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+      "SERVIÇO SOCIAL"
+    ],
+    "ENGENHARIAS": [
+      "ENGENHARIAS I",
+      "ENGENHARIAS II",
+      "ENGENHARIAS III",
+      "ENGENHARIAS IV"
+    ],
+    "LINGÜÍSTICA, LETRAS E ARTES": [
+      "ARTES",
+      "LINGUÍSTICA E LITERATURA"
+    ],
+    "MULTIDISCIPLINAR": [
+      "BIOTECNOLOGIA",
+      "CIÊNCIAS AMBIENTAIS",
+      "ENSINO",
+      "INTERDISCIPLINAR",
+      "MATERIAIS"
     ]
   },
   "areas_capes": {
     "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO": {
       "slug": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
+      "cd_area_capes": "27",
       "sufixos_unb": [
-        "ADMINP",
         "ADMIN",
+        "ADMINP",
         "CONTAB",
         "CONUNB",
         "GESPUB"
       ],
       "n_unb": 5
     },
+    "ANTROPOLOGIA / ARQUEOLOGIA": {
+      "slug": "antropologia-arqueologia",
+      "cd_area_capes": "35",
+      "sufixos_unb": [
+        "ANTROP"
+      ],
+      "n_unb": 1
+    },
+    "ARQUITETURA, URBANISMO E DESIGN": {
+      "slug": "arquitetura-urbanismo-e-design",
+      "cd_area_capes": "29",
+      "sufixos_unb": [
+        "ARQURB",
+        "DESIGN"
+      ],
+      "n_unb": 2
+    },
+    "ARTES": {
+      "slug": "artes",
+      "cd_area_capes": "11",
+      "sufixos_unb": [
+        "ARTCEN",
+        "ARTVIS",
+        "MUSICA"
+      ],
+      "n_unb": 3
+    },
+    "ASTRONOMIA / FÍSICA": {
+      "slug": "astronomia-fisica",
+      "cd_area_capes": "3",
+      "sufixos_unb": [
+        "FISICA"
+      ],
+      "n_unb": 1
+    },
+    "BIODIVERSIDADE": {
+      "slug": "biodiversidade",
+      "cd_area_capes": "7",
+      "sufixos_unb": [
+        "BOTANI",
+        "ECOLOG",
+        "ZOOLOG"
+      ],
+      "n_unb": 3
+    },
+    "BIOTECNOLOGIA": {
+      "slug": "biotecnologia",
+      "cd_area_capes": "48",
+      "sufixos_unb": [
+        "BIOTEC"
+      ],
+      "n_unb": 1
+    },
+    "CIÊNCIA DA COMPUTAÇÃO": {
+      "slug": "ciencia-da-computacao",
+      "cd_area_capes": "2",
+      "sufixos_unb": [
+        "COMPAP",
+        "INFORM"
+      ],
+      "n_unb": 2
+    },
+    "CIÊNCIA DE ALIMENTOS": {
+      "slug": "ciencia-de-alimentos",
+      "cd_area_capes": "25",
+      "sufixos_unb": [],
+      "n_unb": 0
+    },
+    "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS": {
+      "slug": "ciencia-politica-e-relacoes-internacionais",
+      "cd_area_capes": "39",
+      "sufixos_unb": [
+        "POLITI",
+        "RELINT"
+      ],
+      "n_unb": 2
+    },
+    "CIÊNCIAS AGRÁRIAS I": {
+      "slug": "ciencias-agrarias-i",
+      "cd_area_capes": "42",
+      "sufixos_unb": [
+        "AGRONO",
+        "FITOPA",
+        "FLORES"
+      ],
+      "n_unb": 3
+    },
+    "CIÊNCIAS AMBIENTAIS": {
+      "slug": "ciencias-ambientais",
+      "cd_area_capes": "49",
+      "sufixos_unb": [
+        "CIAMBI",
+        "DESSUS"
+      ],
+      "n_unb": 2
+    },
+    "CIÊNCIAS BIOLÓGICAS I": {
+      "slug": "ciencias-biologicas-i",
+      "cd_area_capes": "6",
+      "sufixos_unb": [
+        "BIOANI",
+        "BIOMOL"
+      ],
+      "n_unb": 2
+    },
+    "CIÊNCIAS BIOLÓGICAS II": {
+      "slug": "ciencias-biologicas-ii",
+      "cd_area_capes": "8",
+      "sufixos_unb": [],
+      "n_unb": 0
+    },
+    "CIÊNCIAS BIOLÓGICAS III": {
+      "slug": "ciencias-biologicas-iii",
+      "cd_area_capes": "9",
+      "sufixos_unb": [
+        "BIOMIC",
+        "PATMOL"
+      ],
+      "n_unb": 2
+    },
+    "CIÊNCIAS DA RELIGIÃO E TEOLOGIA": {
+      "slug": "ciencias-da-religiao-e-teologia",
+      "cd_area_capes": "44",
+      "sufixos_unb": [],
+      "n_unb": 0
+    },
+    "COMUNICAÇÃO E INFORMAÇÃO": {
+      "slug": "comunicacao-e-informacao",
+      "cd_area_capes": "31",
+      "sufixos_unb": [
+        "COMUNI",
+        "INFOCI"
+      ],
+      "n_unb": 2
+    },
+    "DIREITO": {
+      "slug": "direito",
+      "cd_area_capes": "26",
+      "sufixos_unb": [
+        "DIREIT",
+        "DIRREG"
+      ],
+      "n_unb": 2
+    },
+    "ECONOMIA": {
+      "slug": "economia",
+      "cd_area_capes": "28",
+      "sufixos_unb": [
+        "ECONOM",
+        "ECONOP"
+      ],
+      "n_unb": 2
+    },
+    "EDUCAÇÃO": {
+      "slug": "educacao",
+      "cd_area_capes": "38",
+      "sufixos_unb": [
+        "EDUCAC",
+        "EDUCAP"
+      ],
+      "n_unb": 2
+    },
+    "EDUCAÇÃO FÍSICA": {
+      "slug": "educacao-fisica",
+      "cd_area_capes": "21",
+      "sufixos_unb": [
+        "EDUFIS",
+        "REABIL"
+      ],
+      "n_unb": 2
+    },
+    "ENFERMAGEM": {
+      "slug": "enfermagem",
+      "cd_area_capes": "20",
+      "sufixos_unb": [
+        "ENFERM"
+      ],
+      "n_unb": 1
+    },
+    "ENGENHARIAS I": {
+      "slug": "engenharias-i",
+      "cd_area_capes": "10",
+      "sufixos_unb": [
+        "ESTRCC",
+        "GEOTEC",
+        "TECARH",
+        "TRANSP"
+      ],
+      "n_unb": 4
+    },
+    "ENGENHARIAS II": {
+      "slug": "engenharias-ii",
+      "cd_area_capes": "12",
+      "sufixos_unb": [],
+      "n_unb": 0
+    },
+    "ENGENHARIAS III": {
+      "slug": "engenharias-iii",
+      "cd_area_capes": "13",
+      "sufixos_unb": [
+        "INTMAT",
+        "MECANI",
+        "MECATR"
+      ],
+      "n_unb": 3
+    },
+    "ENGENHARIAS IV": {
+      "slug": "engenharias-iv",
+      "cd_area_capes": "14",
+      "sufixos_unb": [
+        "ENGBIO",
+        "ENGELE",
+        "ENGELP",
+        "ESELET"
+      ],
+      "n_unb": 4
+    },
+    "ENSINO": {
+      "slug": "ensino",
+      "cd_area_capes": "46",
+      "sufixos_unb": [
+        "EDUCIE",
+        "ENSCIE"
+      ],
+      "n_unb": 2
+    },
+    "FARMÁCIA": {
+      "slug": "farmacia",
+      "cd_area_capes": "19",
+      "sufixos_unb": [
+        "FARMAC"
+      ],
+      "n_unb": 1
+    },
+    "FILOSOFIA": {
+      "slug": "filosofia",
+      "cd_area_capes": "33",
+      "sufixos_unb": [
+        "FILOSO",
+        "METAFI"
+      ],
+      "n_unb": 2
+    },
+    "GEOCIÊNCIAS": {
+      "slug": "geociencias",
+      "cd_area_capes": "5",
+      "sufixos_unb": [
+        "GEOAPL",
+        "GEOLOG"
+      ],
+      "n_unb": 2
+    },
+    "GEOGRAFIA": {
+      "slug": "geografia",
+      "cd_area_capes": "36",
+      "sufixos_unb": [
+        "GEOGRA"
+      ],
+      "n_unb": 1
+    },
+    "HISTÓRIA": {
+      "slug": "historia",
+      "cd_area_capes": "40",
+      "sufixos_unb": [
+        "HISTOR"
+      ],
+      "n_unb": 1
+    },
     "INTERDISCIPLINAR": {
       "slug": "interdisciplinar",
+      "cd_area_capes": "45",
       "sufixos_unb": [
         "AGRNEG",
         "BIOETI",
@@ -89,291 +367,69 @@
       ],
       "n_unb": 8
     },
-    "CIÊNCIAS AGRÁRIAS I": {
-      "slug": "ciencias-agrarias-i",
+    "LINGUÍSTICA E LITERATURA": {
+      "slug": "linguistica-e-literatura",
+      "cd_area_capes": "41",
       "sufixos_unb": [
-        "AGRONO",
-        "FLORES",
-        "FITOPA"
-      ],
-      "n_unb": 3
-    },
-    "ANTROPOLOGIA / ARQUEOLOGIA": {
-      "slug": "antropologia-arqueologia",
-      "sufixos_unb": [
-        "ANTROP"
-      ],
-      "n_unb": 1
-    },
-    "ARQUITETURA, URBANISMO E DESIGN": {
-      "slug": "arquitetura-urbanismo-e-design",
-      "sufixos_unb": [
-        "ARQURB",
-        "DESIGN"
-      ],
-      "n_unb": 2
-    },
-    "ARTES": {
-      "slug": "artes",
-      "sufixos_unb": [
-        "ARTCEN",
-        "ARTVIS",
-        "MUSICA"
-      ],
-      "n_unb": 3
-    },
-    "CIÊNCIAS BIOLÓGICAS I": {
-      "slug": "ciencias-biologicas-i",
-      "sufixos_unb": [
-        "BIOANI",
-        "BIOMOL"
-      ],
-      "n_unb": 2
-    },
-    "CIÊNCIAS BIOLÓGICAS III": {
-      "slug": "ciencias-biologicas-iii",
-      "sufixos_unb": [
-        "BIOMIC",
-        "PATMOL"
-      ],
-      "n_unb": 2
-    },
-    "BIOTECNOLOGIA": {
-      "slug": "biotecnologia",
-      "sufixos_unb": [
-        "BIOTEC"
-      ],
-      "n_unb": 1
-    },
-    "BIODIVERSIDADE": {
-      "slug": "biodiversidade",
-      "sufixos_unb": [
-        "BOTANI",
-        "ECOLOG",
-        "ZOOLOG"
-      ],
-      "n_unb": 3
-    },
-    "MEDICINA I": {
-      "slug": "medicina-i",
-      "sufixos_unb": [
-        "CIAMED"
-      ],
-      "n_unb": 1
-    },
-    "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS": {
-      "slug": "ciencia-politica-e-relacoes-internacionais",
-      "sufixos_unb": [
-        "POLITI",
-        "RELINT"
-      ],
-      "n_unb": 2
-    },
-    "CIÊNCIAS AMBIENTAIS": {
-      "slug": "ciencias-ambientais",
-      "sufixos_unb": [
-        "CIAMBI",
-        "DESSUS"
-      ],
-      "n_unb": 2
-    },
-    "MEDICINA VETERINÁRIA": {
-      "slug": "medicina-veterinaria",
-      "sufixos_unb": [
-        "CIANIM",
-        "SAUANI"
-      ],
-      "n_unb": 2
-    },
-    "COMUNICAÇÃO E INFORMAÇÃO": {
-      "slug": "comunicacao-e-informacao",
-      "sufixos_unb": [
-        "INFOCI",
-        "COMUNI"
-      ],
-      "n_unb": 2
-    },
-    "EDUCAÇÃO FÍSICA": {
-      "slug": "educacao-fisica",
-      "sufixos_unb": [
-        "REABIL",
-        "EDUFIS"
-      ],
-      "n_unb": 2
-    },
-    "MEDICINA II": {
-      "slug": "medicina-ii",
-      "sufixos_unb": [
-        "CIASAU",
-        "MEDTRO"
-      ],
-      "n_unb": 2
-    },
-    "MATERIAIS": {
-      "slug": "materiais",
-      "sufixos_unb": [
-        "MATERI"
-      ],
-      "n_unb": 1
-    },
-    "PSICOLOGIA": {
-      "slug": "psicologia",
-      "sufixos_unb": [
-        "PSCCOM",
-        "PSCCLI",
-        "PSCDES",
-        "PSCSTO"
-      ],
-      "n_unb": 4
-    },
-    "FARMÁCIA": {
-      "slug": "farmacia",
-      "sufixos_unb": [
-        "FARMAC"
-      ],
-      "n_unb": 1
-    },
-    "ENGENHARIAS III": {
-      "slug": "engenharias-iii",
-      "sufixos_unb": [
-        "MECANI",
-        "INTMAT",
-        "MECATR"
-      ],
-      "n_unb": 3
-    },
-    "CIÊNCIA DA COMPUTAÇÃO": {
-      "slug": "ciencia-da-computacao",
-      "sufixos_unb": [
-        "COMPAP",
-        "INFORM"
-      ],
-      "n_unb": 2
-    },
-    "DIREITO": {
-      "slug": "direito",
-      "sufixos_unb": [
-        "DIREIT",
-        "DIRREG"
-      ],
-      "n_unb": 2
-    },
-    "ECONOMIA": {
-      "slug": "economia",
-      "sufixos_unb": [
-        "ECONOP",
-        "ECONOM"
-      ],
-      "n_unb": 2
-    },
-    "EDUCAÇÃO": {
-      "slug": "educacao",
-      "sufixos_unb": [
-        "EDUCAP",
-        "EDUCAC"
-      ],
-      "n_unb": 2
-    },
-    "ENSINO": {
-      "slug": "ensino",
-      "sufixos_unb": [
-        "EDUCIE",
-        "ENSCIE"
-      ],
-      "n_unb": 2
-    },
-    "ENFERMAGEM": {
-      "slug": "enfermagem",
-      "sufixos_unb": [
-        "ENFERM"
-      ],
-      "n_unb": 1
-    },
-    "ENGENHARIAS IV": {
-      "slug": "engenharias-iv",
-      "sufixos_unb": [
-        "ENGBIO",
-        "ESELET",
-        "ENGELE",
-        "ENGELP"
+        "LINAPL",
+        "LINGUI",
+        "LITERA",
+        "TRADUC"
       ],
       "n_unb": 4
     },
     "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA": {
       "slug": "matematica-probabilidade-e-estatistica",
+      "cd_area_capes": "1",
       "sufixos_unb": [
         "ESTATI",
         "MATEMA"
       ],
       "n_unb": 2
     },
-    "ENGENHARIAS I": {
-      "slug": "engenharias-i",
+    "MATERIAIS": {
+      "slug": "materiais",
+      "cd_area_capes": "47",
       "sufixos_unb": [
-        "ESTRCC",
-        "GEOTEC",
-        "TECARH",
-        "TRANSP"
-      ],
-      "n_unb": 4
-    },
-    "SOCIOLOGIA": {
-      "slug": "sociologia",
-      "sufixos_unb": [
-        "AMERIC",
-        "SOCIOL"
-      ],
-      "n_unb": 2
-    },
-    "LINGUÍSTICA E LITERATURA": {
-      "slug": "linguistica-e-literatura",
-      "sufixos_unb": [
-        "TRADUC",
-        "LINGUI",
-        "LINAPL",
-        "LITERA"
-      ],
-      "n_unb": 4
-    },
-    "FILOSOFIA": {
-      "slug": "filosofia",
-      "sufixos_unb": [
-        "FILOSO",
-        "METAFI"
-      ],
-      "n_unb": 2
-    },
-    "ASTRONOMIA / FÍSICA": {
-      "slug": "astronomia-fisica",
-      "sufixos_unb": [
-        "FISICA"
+        "MATERI"
       ],
       "n_unb": 1
     },
-    "GEOCIÊNCIAS": {
-      "slug": "geociencias",
+    "MEDICINA I": {
+      "slug": "medicina-i",
+      "cd_area_capes": "15",
       "sufixos_unb": [
-        "GEOAPL",
-        "GEOLOG"
+        "CIAMED"
+      ],
+      "n_unb": 1
+    },
+    "MEDICINA II": {
+      "slug": "medicina-ii",
+      "cd_area_capes": "16",
+      "sufixos_unb": [
+        "CIASAU",
+        "MEDTRO"
       ],
       "n_unb": 2
     },
-    "GEOGRAFIA": {
-      "slug": "geografia",
-      "sufixos_unb": [
-        "GEOGRA"
-      ],
-      "n_unb": 1
+    "MEDICINA III": {
+      "slug": "medicina-iii",
+      "cd_area_capes": "17",
+      "sufixos_unb": [],
+      "n_unb": 0
     },
-    "HISTÓRIA": {
-      "slug": "historia",
+    "MEDICINA VETERINÁRIA": {
+      "slug": "medicina-veterinaria",
+      "cd_area_capes": "24",
       "sufixos_unb": [
-        "HISTOR"
+        "CIANIM",
+        "SAUANI"
       ],
-      "n_unb": 1
+      "n_unb": 2
     },
     "NUTRIÇÃO": {
       "slug": "nutricao",
+      "cd_area_capes": "50",
       "sufixos_unb": [
         "NUTRIC"
       ],
@@ -381,20 +437,32 @@
     },
     "ODONTOLOGIA": {
       "slug": "odontologia",
+      "cd_area_capes": "18",
       "sufixos_unb": [
         "ODONTO"
       ],
       "n_unb": 1
     },
-    "SERVIÇO SOCIAL": {
-      "slug": "servico-social",
+    "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA": {
+      "slug": "planejamento-urbano-e-regional-demografia",
+      "cd_area_capes": "30",
+      "sufixos_unb": [],
+      "n_unb": 0
+    },
+    "PSICOLOGIA": {
+      "slug": "psicologia",
+      "cd_area_capes": "37",
       "sufixos_unb": [
-        "POLSOC"
+        "PSCCLI",
+        "PSCCOM",
+        "PSCDES",
+        "PSCSTO"
       ],
-      "n_unb": 1
+      "n_unb": 4
     },
     "QUÍMICA": {
       "slug": "quimica",
+      "cd_area_capes": "4",
       "sufixos_unb": [
         "QUIMIC"
       ],
@@ -402,11 +470,35 @@
     },
     "SAÚDE COLETIVA": {
       "slug": "saude-coletiva",
+      "cd_area_capes": "22",
       "sufixos_unb": [
-        "SAUCOP",
-        "SAUCOL"
+        "SAUCOL",
+        "SAUCOP"
       ],
       "n_unb": 2
+    },
+    "SERVIÇO SOCIAL": {
+      "slug": "servico-social",
+      "cd_area_capes": "32",
+      "sufixos_unb": [
+        "POLSOC"
+      ],
+      "n_unb": 1
+    },
+    "SOCIOLOGIA": {
+      "slug": "sociologia",
+      "cd_area_capes": "34",
+      "sufixos_unb": [
+        "AMERIC",
+        "SOCIOL"
+      ],
+      "n_unb": 2
+    },
+    "ZOOTECNIA / RECURSOS PESQUEIROS": {
+      "slug": "zootecnia-recursos-pesqueiros",
+      "cd_area_capes": "23",
+      "sufixos_unb": [],
+      "n_unb": 0
     }
   },
   "programas_unb": [
