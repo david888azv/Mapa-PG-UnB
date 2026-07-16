@@ -17,7 +17,10 @@ Decisões metodológicas (acordadas com o usuário em 2026-06-17):
      COMPLETO (2017-2020), pois 2021-2024 ainda está com coleta incompleta.
   2. SÓ PERMANENTES: a produtividade por pesquisador usa apenas docentes
      permanentes (campos n_perm / ma_perm). ma_perm = artigos em periódico por
-     docente permanente por ANO (média do quadriênio).
+     docente permanente por ANO (média do quadriênio) — ATENÇÃO: o campo `ma_perm`
+     do `area-*.json` NÃO é isso; ele soma os 15 subtipos de produção intelectual.
+     `carregar()` o substitui pela taxa de artigos de verdade (subtipo 25, via
+     prod_sub) e preserva o original em `ma_perm_prod_total`. Ver o comentário lá.
   3. SÓ ACADÊMICOS: programas profissionais ficam fora da análise e das médias
      de referência (modalidade != PROFISSIONAL).
 
@@ -57,6 +60,26 @@ def carregar():
         meta = d['metadata']
         areas[meta['slug']] = meta['area']
         for r in d['data']:
+            # ── CORREÇÃO ma_perm (mesma de pip-2-refatorado-citescore/build_pip.py) ──
+            # O campo `ma_perm` do `area-*.json` NÃO é uma taxa de artigos, apesar do
+            # nome e da documentação. `gerar_dados_completos.py:340-362` calcula ma_*
+            # filtrando só por ano e programa, SEM filtro de subtipo, e `prod.csv` traz
+            # 15 subtipos de produção intelectual (25=Artigo em Periódico, 26=Capítulo,
+            # 8=Resumo, 9=Congresso, 10=Texto em Jornal, e mais 10). Todo o eixo de
+            # VOLUME do PIP vinha medindo produção total, não artigos.
+            #
+            # PPGDIP/UFRJ (2017-2020, 16 permanentes): 15 subtipos = 654 eventos →
+            # ma_perm 10,22; só subtipo 25 = 428 → 6,69. Nacional, nota 5: 12,03 → 3,70.
+            #
+            # `prod_sub['25']['perm']` são os artigos, com paridade verificada contra a
+            # soma dos estratos (311/311 em MEDICINA II) e presente nos 13.216 registros
+            # com n_perm>0. Ambos contam EVENTOS artigo×autor — a unidade do app.
+            # Original preservado em `ma_perm_prod_total`.
+            ps = (r.get('prod_sub') or {}).get('25') or {}
+            npm = r.get('n_perm') or 0
+            if npm and 'perm' in ps:
+                r['ma_perm_prod_total'] = r.get('ma_perm')
+                r['ma_perm'] = round(ps['perm'] / npm / 4.0, 2)
             progs[r['cd']][r['quad']] = r
             area_de[r['cd']] = (meta['area'], meta['slug'])
     return progs, area_de, areas
