@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-07-05 07:38:31",
+ "gerado_em": "2026-07-16 16:22:03",
  "padrao": "UNB",
  "n_ifes": 27,
  "ifes": [
@@ -19,7 +19,7 @@
    "siglas_capes": [
     "UFAL"
    ],
-   "n_prog": 35
+   "n_prog": 36
   },
   {
    "sigla": "UFAM",
@@ -28,7 +28,7 @@
    "siglas_capes": [
     "UFAM"
    ],
-   "n_prog": 33
+   "n_prog": 36
   },
   {
    "sigla": "UNIFAP",
@@ -37,7 +37,7 @@
    "siglas_capes": [
     "UNIFAP"
    ],
-   "n_prog": 9
+   "n_prog": 10
   },
   {
    "sigla": "UFBA",
@@ -46,7 +46,7 @@
    "siglas_capes": [
     "UFBA"
    ],
-   "n_prog": 76
+   "n_prog": 80
   },
   {
    "sigla": "UFC",
@@ -55,7 +55,7 @@
    "siglas_capes": [
     "UFC"
    ],
-   "n_prog": 64
+   "n_prog": 73
   },
   {
    "sigla": "UNB",
@@ -73,7 +73,7 @@
    "siglas_capes": [
     "UFES"
    ],
-   "n_prog": 52
+   "n_prog": 56
   },
   {
    "sigla": "UFG",
@@ -82,7 +82,7 @@
    "siglas_capes": [
     "UFG"
    ],
-   "n_prog": 67
+   "n_prog": 70
   },
   {
    "sigla": "UFMA",
@@ -91,7 +91,7 @@
    "siglas_capes": [
     "UFMA"
    ],
-   "n_prog": 39
+   "n_prog": 40
   },
   {
    "sigla": "UFMG",
@@ -100,7 +100,7 @@
    "siglas_capes": [
     "UFMG"
    ],
-   "n_prog": 72
+   "n_prog": 87
   },
   {
    "sigla": "UFMS",
@@ -109,7 +109,7 @@
    "siglas_capes": [
     "UFMS"
    ],
-   "n_prog": 40
+   "n_prog": 41
   },
   {
    "sigla": "UFMT",
@@ -118,7 +118,7 @@
    "siglas_capes": [
     "UFMT"
    ],
-   "n_prog": 40
+   "n_prog": 43
   },
   {
    "sigla": "UFPA",
@@ -127,7 +127,7 @@
    "siglas_capes": [
     "UFPA"
    ],
-   "n_prog": 79
+   "n_prog": 83
   },
   {
    "sigla": "UFPB",
@@ -140,7 +140,7 @@
     "UFPB/RT",
     "UFPB"
    ],
-   "n_prog": 62
+   "n_prog": 67
   },
   {
    "sigla": "UFPE",
@@ -149,7 +149,7 @@
    "siglas_capes": [
     "UFPE"
    ],
-   "n_prog": 75
+   "n_prog": 81
   },
   {
    "sigla": "UFPI",
@@ -158,7 +158,7 @@
    "siglas_capes": [
     "FUFPI"
    ],
-   "n_prog": 35
+   "n_prog": 40
   },
   {
    "sigla": "UFPR",
@@ -167,7 +167,7 @@
    "siglas_capes": [
     "UFPR"
    ],
-   "n_prog": 68
+   "n_prog": 79
   },
   {
    "sigla": "UFRJ",
@@ -176,7 +176,7 @@
    "siglas_capes": [
     "UFRJ"
    ],
-   "n_prog": 105
+   "n_prog": 124
   },
   {
    "sigla": "UFRN",
@@ -185,7 +185,7 @@
    "siglas_capes": [
     "UFRN"
    ],
-   "n_prog": 74
+   "n_prog": 83
   },
   {
    "sigla": "UNIR",
@@ -212,7 +212,7 @@
    "siglas_capes": [
     "UFRGS"
    ],
-   "n_prog": 82
+   "n_prog": 93
   },
   {
    "sigla": "UFSC",
@@ -222,7 +222,7 @@
     "UFSC",
     "UFSC - BLUMENAU"
    ],
-   "n_prog": 70
+   "n_prog": 79
   },
   {
    "sigla": "UFS",
@@ -232,7 +232,7 @@
     "FUFSE",
     "FUFSE/ITAB"
    ],
-   "n_prog": 45
+   "n_prog": 51
   },
   {
    "sigla": "UNIFESP",
@@ -241,7 +241,7 @@
    "siglas_capes": [
     "UNIFESP"
    ],
-   "n_prog": 53
+   "n_prog": 66
   },
   {
    "sigla": "UFT",
@@ -250,7 +250,7 @@
    "siglas_capes": [
     "UFT"
    ],
-   "n_prog": 22
+   "n_prog": 27
   }
  ],
  "por_ies": {
@@ -448,7 +448,8 @@
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
-     "ENGENHARIAS I"
+     "ENGENHARIAS I",
+     "ENGENHARIAS II"
     ],
     "LINGÜÍSTICA, LETRAS E ARTES": [
      "LINGUÍSTICA E LITERATURA"
@@ -701,6 +702,14 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "26001012022P7",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "26001012001P0",
      "nome": "LETRAS E LINGÜÍSTICA",
      "nota": 4,
@@ -755,6 +764,9 @@
      "EDUCAÇÃO",
      "GEOGRAFIA",
      "HISTÓRIA"
+    ],
+    "CIÊNCIAS SOCIAIS APLICADAS": [
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA"
     ],
     "LINGÜÍSTICA, LETRAS E ARTES": [
      "LINGUÍSTICA E LITERATURA"
@@ -814,6 +826,14 @@
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
+     "cd_programa": "14001012001P6",
+     "nome": "MESTRADO INTEGRADO EM DESENVOLVIMENTO REGIONAL",
+     "nota": 3,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
      "cd_programa": "14001012160P7",
      "nome": "LETRAS",
      "nota": 3,
@@ -842,7 +862,8 @@
   "UFAM": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
-     "CIÊNCIAS AGRÁRIAS I"
+     "CIÊNCIAS AGRÁRIAS I",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
@@ -852,6 +873,7 @@
      "ENFERMAGEM",
      "FARMÁCIA",
      "MEDICINA II",
+     "MEDICINA III",
      "ODONTOLOGIA"
     ],
     "CIÊNCIAS EXATAS E DA TERRA": [
@@ -906,6 +928,22 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
+     "cd_programa": "12001015066P5",
+     "nome": "CIÊNCIA ANIMAL",
+     "nota": 3,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "12001015025P7",
+     "nome": "CIÊNCIAS PESQUEIRAS NOS TRÓPICOS",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "12001015063P6",
      "nome": "ZOOLOGIA",
      "nota": 4,
@@ -943,6 +981,14 @@
      "nota": 2,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "12001015065P9",
+     "nome": "MESTRADO PROFISSIONAL EM CIRURGIA",
+     "nota": 3,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -1158,7 +1204,9 @@
   "UFBA": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
-     "MEDICINA VETERINÁRIA"
+     "CIÊNCIA DE ALIMENTOS",
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
@@ -1201,6 +1249,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -1216,11 +1265,27 @@
    },
    "programas": [
     {
+     "cd_programa": "28001010057P4",
+     "nome": "CIÊNCIA DE ALIMENTOS",
+     "nota": 4,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "28001010036P7",
      "nome": "CIÊNCIA ANIMAL NOS TRÓPICOS",
      "nota": 5,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "28001010088P7",
+     "nome": "ZOOTECNIA",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -1640,6 +1705,22 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "28001010021P0",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 1,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "28001010059P7",
+     "nome": "ENGENHARIA QUÍMICA - UFBA-UNIFACS",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "28001010062P8",
      "nome": "ENGENHARIA INDUSTRIAL",
      "nota": 5,
@@ -1828,10 +1909,13 @@
   "UFC": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
-     "CIÊNCIAS AGRÁRIAS I"
+     "CIÊNCIA DE ALIMENTOS",
+     "CIÊNCIAS AGRÁRIAS I",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -1840,6 +1924,7 @@
      "FARMÁCIA",
      "MEDICINA I",
      "MEDICINA II",
+     "MEDICINA III",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
     ],
@@ -1868,6 +1953,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -1884,6 +1970,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "22001018017P2",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 4,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "22001018012P0",
      "nome": "AGRONOMIA (FITOTECNIA)",
@@ -1909,6 +2003,22 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
+     "cd_programa": "22001018020P3",
+     "nome": "ENGENHARIA DE PESCA",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "22001018016P6",
+     "nome": "ZOOTECNIA",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "22001018058P0",
      "nome": "ECOLOGIA E RECURSOS NATURAIS",
      "nota": 4,
@@ -1922,6 +2032,38 @@
      "nota": 4,
      "area_capes": "BIODIVERSIDADE",
      "slug_area": "biodiversidade",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "22001018006P0",
+     "nome": "BIOQUÍMICA",
+     "nota": 6,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "22001018082P9",
+     "nome": "CIÊNCIAS MORFOFUNCIONAIS",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "22001018007P7",
+     "nome": "FARMACOLOGIA",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "22001018052P2",
+     "nome": "FARMACOLOGIA",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -2002,6 +2144,14 @@
      "nota": 3,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "22001018023P2",
+     "nome": "CIÊNCIAS MÉDICO-CIRÚRGICAS",
+     "nota": 5,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -2250,6 +2400,14 @@
      "nota": 6,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "22001018035P0",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 7,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
@@ -3311,11 +3469,13 @@
   "UFES": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
      "MEDICINA VETERINÁRIA"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
-     "BIODIVERSIDADE"
+     "BIODIVERSIDADE",
+     "CIÊNCIAS BIOLÓGICAS II"
     ],
     "CIÊNCIAS DA SAÚDE": [
      "EDUCAÇÃO FÍSICA",
@@ -3351,6 +3511,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -3366,6 +3527,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "30001013046P5",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 4,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "30001013042P0",
      "nome": "AGRICULTURA TROPICAL",
@@ -3428,6 +3597,22 @@
      "nota": 5,
      "area_capes": "BIODIVERSIDADE",
      "slug_area": "biodiversidade",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "30001013049P4",
+     "nome": "BIOQUÍMICA E FARMACOLOGIA",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "30001013002P8",
+     "nome": "CIÊNCIAS FISIOLÓGICAS",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -3695,6 +3880,14 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "30001013054P8",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "30001013011P7",
      "nome": "ENGENHARIA MECÂNICA",
      "nota": 4,
@@ -3787,8 +3980,10 @@
   "UFG": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
@@ -3829,6 +4024,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -3844,6 +4040,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "52001016029P5",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 4,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "52001016006P5",
      "nome": "AGRONOMIA",
@@ -3882,6 +4086,14 @@
      "nota": 5,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "52001016064P5",
+     "nome": "ZOOTECNIA",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -4237,6 +4449,14 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "52001016069P7",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "52001016106P0",
      "nome": "ENGENHARIA DE PRODUÇÃO",
      "nota": 3,
@@ -4384,6 +4604,9 @@
   },
   "UFMA": {
    "grandes_areas": {
+    "CIÊNCIAS AGRÁRIAS": [
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
+    ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE"
     ],
@@ -4431,6 +4654,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "20001010026P6",
+     "nome": "CIÊNCIA ANIMAL",
+     "nota": 3,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "20001010012P5",
      "nome": "BIODIVERSIDADE E CONSERVAÇÃO",
@@ -4749,7 +4980,8 @@
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
@@ -4831,6 +5063,30 @@
      "nota": 5,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "50001019014P2",
+     "nome": "CIÊNCIA ANIMAL",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "50001019033P7",
+     "nome": "ZOOTECNIA",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "50001019173P3",
+     "nome": "ZOOTECNIA",
+     "nota": 3,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -5119,7 +5375,8 @@
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE"
@@ -5176,6 +5433,14 @@
      "nota": 4,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "51001012013P9",
+     "nome": "CIÊNCIA ANIMAL",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -5487,12 +5752,15 @@
   "UFMG": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -5501,6 +5769,7 @@
      "FARMÁCIA",
      "MEDICINA I",
      "MEDICINA II",
+     "MEDICINA III",
      "NUTRIÇÃO",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
@@ -5527,10 +5796,12 @@
      "ARQUITETURA, URBANISMO E DESIGN",
      "COMUNICAÇÃO E INFORMAÇÃO",
      "DIREITO",
-     "ECONOMIA"
+     "ECONOMIA",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA"
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -5544,6 +5815,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "32001010031P3",
+     "nome": "CIÊNCIAS DE ALIMENTOS",
+     "nota": 4,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "32001010177P8",
      "nome": "CIÊNCIAS FLORESTAIS",
@@ -5566,6 +5845,22 @@
      "nota": 7,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "32001010098P0",
+     "nome": "PRODUÇÃO ANIMAL",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "32001010029P9",
+     "nome": "ZOOTECNIA",
+     "nota": 5,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -5622,6 +5917,38 @@
      "nota": 5,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "32001010006P9",
+     "nome": "BIOQUÍMICA E IMUNOLOGIA",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "32001010007P5",
+     "nome": "CIÊNCIAS BIOLÓGICAS (FISIOLOGIA E FARMACOLOGIA)",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "32001010171P0",
+     "nome": "INOVAÇÃO TECNOLÓGICA E BIOFARMACÊUTICA",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "32001010085P6",
+     "nome": "INOVAÇÃO TECNOLÓGICA E PROPRIEDADE INTELECTUAL",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -5750,6 +6077,22 @@
      "nota": 6,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "32001010069P0",
+     "nome": "CIÊNCIAS APLICADAS À CIRURGIA E À OFTALMOLOGIA",
+     "nota": 5,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "32001010022P4",
+     "nome": "SAÚDE DA MULHER",
+     "nota": 3,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -5993,6 +6336,22 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "32001010034P2",
+     "nome": "DEMOGRAFIA",
+     "nota": 7,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
+     "cd_programa": "32001010100P5",
+     "nome": "SOCIEDADE, AMBIENTE E TERRITÓRIO",
+     "nota": 4,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
      "cd_programa": "32001010071P5",
      "nome": "CONSTRUÇÃO CIVIL",
      "nota": 4,
@@ -6022,6 +6381,38 @@
      "nota": 7,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "32001010018P7",
+     "nome": "CIÊNCIAS TÉCNICAS NUCLEARES",
+     "nota": 5,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "32001010017P0",
+     "nome": "ENGENHARIA METALÚRGICA E DE MINAS",
+     "nota": 6,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "32001010174P9",
+     "nome": "ENGENHARIA METALÚRGICA, MATERIAIS E DE MINAS",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "32001010044P8",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
@@ -6125,11 +6516,14 @@
   "UFPA": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
-     "MEDICINA VETERINÁRIA"
+     "CIÊNCIA DE ALIMENTOS",
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -6168,6 +6562,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -6184,11 +6579,27 @@
    },
    "programas": [
     {
+     "cd_programa": "15001016038P0",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 5,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "15001016057P4",
      "nome": "SAÚDE ANIMAL NA AMAZÔNIA",
      "nota": 4,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "15001016028P4",
+     "nome": "CIÊNCIA ANIMAL",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -6245,6 +6656,14 @@
      "nota": 6,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "15001016044P0",
+     "nome": "NEUROCIÊNCIAS E BIOLOGIA CELULAR",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -6624,6 +7043,14 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "15001016010P8",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "15001016075P2",
      "nome": "ENGENHARIA DE PROCESSOS",
      "nota": 3,
@@ -6820,8 +7247,10 @@
   "UFPB": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
@@ -6844,6 +7273,7 @@
     "CIÊNCIAS HUMANAS": [
      "ANTROPOLOGIA / ARQUEOLOGIA",
      "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+     "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
      "EDUCAÇÃO",
      "FILOSOFIA",
      "GEOGRAFIA",
@@ -6861,6 +7291,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -6876,6 +7307,22 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "24001015025P0",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 5,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "24001015054P0",
+     "nome": "TECNOLOGIA AGROALIMENTAR",
+     "nota": 3,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "24001031020P0",
      "nome": "AGRONOMIA",
@@ -6906,6 +7353,14 @@
      "nota": 4,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "24001031024P5",
+     "nome": "ZOOTECNIA",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -7066,6 +7521,14 @@
      "nota": 4,
      "area_capes": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
      "slug_area": "ciencia-politica-e-relacoes-internacionais",
+     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
+    },
+    {
+     "cd_programa": "24001015050P5",
+     "nome": "CIÊNCIAS DAS RELIGIÕES",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
+     "slug_area": "ciencias-da-religiao-e-teologia",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
@@ -7245,6 +7708,14 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "24001015076P4",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "24001015072P9",
      "nome": "ENERGIAS RENOVÁVEIS",
      "nota": 4,
@@ -7377,12 +7848,15 @@
   "UFPR": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -7391,6 +7865,7 @@
      "FARMÁCIA",
      "MEDICINA I",
      "MEDICINA II",
+     "MEDICINA III",
      "NUTRIÇÃO",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
@@ -7417,10 +7892,12 @@
      "ARQUITETURA, URBANISMO E DESIGN",
      "COMUNICAÇÃO E INFORMAÇÃO",
      "DIREITO",
-     "ECONOMIA"
+     "ECONOMIA",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA"
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -7437,6 +7914,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "40001016019P6",
+     "nome": "ENGENHARIA DE ALIMENTOS",
+     "nota": 6,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "40001016031P6",
      "nome": "AGRONOMIA (PRODUÇÃO VEGETAL)",
@@ -7475,6 +7960,22 @@
      "nota": 6,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "40001016078P2",
+     "nome": "AQUICULTURA E DESENVOLVIMENTO SUSTENTÁVEL",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "40001016082P0",
+     "nome": "ZOOTECNIA",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -7542,6 +8043,38 @@
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
+     "cd_programa": "40001016007P8",
+     "nome": "BIOLOGIA CELULAR E MOLECULAR",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "40001016003P2",
+     "nome": "CIÊNCIAS (BIOQUÍMICA)",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "40001016038P0",
+     "nome": "FARMACOLOGIA",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "40001016072P4",
+     "nome": "FISIOLOGIA",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
      "cd_programa": "40001016044P0",
      "nome": "MICROBIOLOGIA, PARASITOLOGIA E PATOLOGIA",
      "nota": 5,
@@ -7595,6 +8128,22 @@
      "nota": 3,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "40001016018P0",
+     "nome": "MEDICINA (CLÍNICA CIRÚRGICA)",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "40001016084P2",
+     "nome": "TOCOGINECOLOGIA",
+     "nota": 3,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -7822,6 +8371,14 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "40001016104P3",
+     "nome": "PLANEJAMENTO URBANO",
+     "nota": 3,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
      "cd_programa": "40001016075P3",
      "nome": "ENGENHARIA AMBIENTAL",
      "nota": 4,
@@ -7851,6 +8408,14 @@
      "nota": 4,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "40001016056P9",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
@@ -7987,13 +8552,15 @@
    "grandes_areas": {
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
-     "CIÊNCIAS BIOLÓGICAS I"
+     "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II"
     ],
     "CIÊNCIAS DA SAÚDE": [
      "EDUCAÇÃO FÍSICA",
      "ENFERMAGEM",
      "FARMÁCIA",
      "MEDICINA II",
+     "MEDICINA III",
      "NUTRIÇÃO",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
@@ -8021,10 +8588,12 @@
      "COMUNICAÇÃO E INFORMAÇÃO",
      "DIREITO",
      "ECONOMIA",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -8106,6 +8675,22 @@
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
+     "cd_programa": "25001019009P8",
+     "nome": "BIOQUÍMICA E FISIOLOGIA",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "25001019097P4",
+     "nome": "MORFOTECNOLOGIA",
+     "nota": 3,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
      "cd_programa": "25001019156P0",
      "nome": "EDUCAÇÃO FÍSICA",
      "nota": 3,
@@ -8183,6 +8768,14 @@
      "nota": 3,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "25001019023P0",
+     "nome": "CIRURGIA",
+     "nota": 3,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -8490,6 +9083,14 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "25001019030P7",
+     "nome": "DESENVOLVIMENTO URBANO",
+     "nota": 4,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
      "cd_programa": "25001019031P3",
      "nome": "SERVIÇO SOCIAL",
      "nota": 6,
@@ -8511,6 +9112,22 @@
      "nota": 4,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "25001019044P8",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 5,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "25001019020P1",
+     "nome": "TECNOLOGIAS ENERGÉTICAS NUCLEARES",
+     "nota": 5,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
@@ -8646,16 +9263,20 @@
   "UFPI": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
-     "BIODIVERSIDADE"
+     "BIODIVERSIDADE",
+     "CIÊNCIAS BIOLÓGICAS II"
     ],
     "CIÊNCIAS DA SAÚDE": [
      "ENFERMAGEM",
      "FARMÁCIA",
      "MEDICINA I",
+     "MEDICINA III",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
     ],
@@ -8694,6 +9315,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "21001014020P0",
+     "nome": "ALIMENTOS E NUTRIÇÃO",
+     "nota": 4,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "21001014007P4",
      "nome": "AGRONOMIA",
@@ -8735,11 +9364,35 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
+     "cd_programa": "21001014002P2",
+     "nome": "CIÊNCIA ANIMAL",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "21001014029P8",
+     "nome": "ZOOTECNIA",
+     "nota": 3,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "21001014084P9",
      "nome": "BIODIVERSIDADE E CONSERVAÇÃO",
      "nota": 3,
      "area_capes": "BIODIVERSIDADE",
      "slug_area": "biodiversidade",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "21001014013P4",
+     "nome": "FARMACOLOGIA",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -8764,6 +9417,14 @@
      "nota": 3,
      "area_capes": "MEDICINA I",
      "slug_area": "medicina-i",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "21001014076P6",
+     "nome": "SAÚDE DA MULHER",
+     "nota": 3,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -8978,9 +9639,13 @@
   },
   "UFRJ": {
    "grandes_areas": {
+    "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS"
+    ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -8989,6 +9654,7 @@
      "FARMÁCIA",
      "MEDICINA I",
      "MEDICINA II",
+     "MEDICINA III",
      "NUTRIÇÃO",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
@@ -9016,10 +9682,12 @@
      "COMUNICAÇÃO E INFORMAÇÃO",
      "DIREITO",
      "ECONOMIA",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -9035,6 +9703,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "31001017112P0",
+     "nome": "CIÊNCIA DE ALIMENTOS",
+     "nota": 6,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "31001017146P2",
      "nome": "BIODIVERSIDADE E BIOLOGIA EVOLUTIVA",
@@ -9073,6 +9749,78 @@
      "nota": 7,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017012P6",
+     "nome": "CIÊNCIAS BIOLÓGICAS (BIOFÍSICA)",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017015P5",
+     "nome": "CIÊNCIAS BIOLÓGICAS (FARMACOLOGIA E QUÍMICA MEDICINAL)",
+     "nota": 6,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017108P3",
+     "nome": "CIÊNCIAS BIOLÓGICAS (FISIOLOGIA)",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017105P4",
+     "nome": "CIÊNCIAS MORFOLÓGICAS",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017144P0",
+     "nome": "FORMAÇÃO CIENTÍFICA PARA PROFESSORES DE BIOLOGIA",
+     "nota": 3,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017148P5",
+     "nome": "FORMAÇÃO PARA A PESQUISA BIOMÉDICA",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017153P9",
+     "nome": "NEUROCIÊNCIA TRANSLACIONAL",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017087P6",
+     "nome": "QUÍMICA BIOLÓGICA",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "31001017149P1",
+     "nome": "QUÍMICA BIOLÓGICA",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -9201,6 +9949,14 @@
      "nota": 3,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "31001017128P4",
+     "nome": "CIÊNCIAS CIRÚRGICAS",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -9580,6 +10336,14 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "31001017065P2",
+     "nome": "PLANEJAMENTO URBANO E REGIONAL",
+     "nota": 5,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
      "cd_programa": "31001017066P9",
      "nome": "SERVIÇO SOCIAL",
      "nota": 5,
@@ -9633,6 +10397,62 @@
      "nota": 3,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "31001017008P9",
+     "nome": "CIÊNCIA E TECNOLOGIA DE POLÍMEROS",
+     "nota": 6,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "31001017158P0",
+     "nome": "ENGENHARIA DA NANOTECNOLOGIA",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "31001017031P0",
+     "nome": "ENGENHARIA METALÚRGICA E DE MATERIAIS",
+     "nota": 6,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "31001017033P3",
+     "nome": "ENGENHARIA NUCLEAR",
+     "nota": 6,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "31001017036P2",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 7,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "31001017037P9",
+     "nome": "TECNOLOGIA DE PROCESSOS QUÍMICOS E BIOQUÍMICOS",
+     "nota": 6,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "31001017136P7",
+     "nome": "TECNOLOGIA DE PROCESSOS QUÍMICOS E BIOQUÍMICOS",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
@@ -9880,11 +10700,13 @@
   "UFRN": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
-     "CIÊNCIAS AGRÁRIAS I"
+     "CIÊNCIAS AGRÁRIAS I",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -9892,6 +10714,7 @@
      "ENFERMAGEM",
      "FARMÁCIA",
      "MEDICINA II",
+     "MEDICINA III",
      "NUTRIÇÃO",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
@@ -9918,10 +10741,12 @@
      "COMUNICAÇÃO E INFORMAÇÃO",
      "DIREITO",
      "ECONOMIA",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -9943,6 +10768,14 @@
      "nota": 3,
      "area_capes": "CIÊNCIAS AGRÁRIAS I",
      "slug_area": "ciencias-agrarias-i",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "23001011050P2",
+     "nome": "PRODUÇÃO ANIMAL",
+     "nota": 3,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -9975,6 +10808,30 @@
      "nota": 3,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "23001011070P3",
+     "nome": "BIOLOGIA ESTRUTURAL E FUNCIONAL",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "23001011020P6",
+     "nome": "BIOQUÍMICA",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "23001011054P8",
+     "nome": "NEUROCIÊNCIAS",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -10047,6 +10904,14 @@
      "nota": 6,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "23001011175P0",
+     "nome": "GESTÃO E INOVAÇÃO EM SAÚDE",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -10338,6 +11203,22 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "23001011058P3",
+     "nome": "DEMOGRAFIA",
+     "nota": 5,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
+     "cd_programa": "23001011055P4",
+     "nome": "ESTUDOS URBANOS E REGIONAIS",
+     "nota": 4,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
      "cd_programa": "23001011027P0",
      "nome": "SERVIÇO SOCIAL",
      "nota": 4,
@@ -10359,6 +11240,22 @@
      "nota": 4,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "23001011011P7",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 5,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "23001011176P6",
+     "nome": "ENGENHARIA TÊXTIL",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
@@ -10534,12 +11431,15 @@
   "UFRGS": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
-     "CIÊNCIAS BIOLÓGICAS I"
+     "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II"
     ],
     "CIÊNCIAS DA SAÚDE": [
      "EDUCAÇÃO FÍSICA",
@@ -10547,6 +11447,7 @@
      "FARMÁCIA",
      "MEDICINA I",
      "MEDICINA II",
+     "MEDICINA III",
      "NUTRIÇÃO",
      "ODONTOLOGIA",
      "SAÚDE COLETIVA"
@@ -10574,10 +11475,12 @@
      "COMUNICAÇÃO E INFORMAÇÃO",
      "DIREITO",
      "ECONOMIA",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -10592,6 +11495,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "42001013079P4",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 5,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "42001013037P0",
      "nome": "CIÊNCIA DO SOLO",
@@ -10641,6 +11552,14 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
+     "cd_programa": "42001013036P3",
+     "nome": "ZOOTECNIA",
+     "nota": 6,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "42001013057P0",
      "nome": "BIOLOGIA ANIMAL",
      "nota": 5,
@@ -10678,6 +11597,38 @@
      "nota": 7,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "42001013006P7",
+     "nome": "CIÊNCIAS BIOLÓGICAS (BIOQUÍMICA)",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "42001013009P6",
+     "nome": "CIÊNCIAS BIOLÓGICAS (FISIOLOGIA)",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "42001013011P0",
+     "nome": "CIÊNCIAS BIOLÓGICAS (NEUROCIÊNCIAS)",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "42001013105P5",
+     "nome": "CIÊNCIAS BIOLÓGICAS: FARMACOLOGIA E TERAPÊUTICA",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -10766,6 +11717,22 @@
      "nota": 5,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "42001013106P1",
+     "nome": "CIÊNCIAS DA SAÚDE: GINECOLOGIA E OBSTETRÍCIA",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "42001013054P1",
+     "nome": "MEDICINA: CIÊNCIAS CIRÚRGICAS",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -11073,6 +12040,14 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "42001013026P8",
+     "nome": "PLANEJAMENTO URBANO E REGIONAL",
+     "nota": 5,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
      "cd_programa": "42001013158P1",
      "nome": "POLÍTICA SOCIAL E SERVIÇO SOCIAL",
      "nota": 4,
@@ -11102,6 +12077,22 @@
      "nota": 6,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "42001013016P2",
+     "nome": "ENGENHARIA DE MINAS, METALÚRGICA E DE MATERIAIS",
+     "nota": 7,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "42001013058P7",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 6,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
@@ -11429,16 +12420,14 @@
     "CIÊNCIAS AGRÁRIAS": [
      "CIÊNCIAS AGRÁRIAS I"
     ],
-    "CIÊNCIAS EXATAS E DA TERRA": [
-     "ASTRONOMIA / FÍSICA"
-    ],
     "CIÊNCIAS HUMANAS": [
      "ANTROPOLOGIA / ARQUEOLOGIA",
      "EDUCAÇÃO",
      "GEOGRAFIA"
     ],
     "CIÊNCIAS SOCIAIS APLICADAS": [
-     "COMUNICAÇÃO E INFORMAÇÃO"
+     "COMUNICAÇÃO E INFORMAÇÃO",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA"
     ],
     "LINGÜÍSTICA, LETRAS E ARTES": [
      "LINGUÍSTICA E LITERATURA"
@@ -11456,14 +12445,6 @@
      "area_capes": "CIÊNCIAS AGRÁRIAS I",
      "slug_area": "ciencias-agrarias-i",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
-     "cd_programa": "13001019002P0",
-     "nome": "FÍSICA",
-     "nota": 2,
-     "area_capes": "ASTRONOMIA / FÍSICA",
-     "slug_area": "astronomia-fisica",
-     "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
     },
     {
      "cd_programa": "13001019039P0",
@@ -11495,6 +12476,14 @@
      "nota": 3,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
+     "cd_programa": "13001019009P4",
+     "nome": "DESENVOLVIMENTO REGIONAL DA AMAZÔNIA",
+     "nota": 2,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
@@ -11534,11 +12523,14 @@
   "UFSC": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
-     "CIÊNCIAS AGRÁRIAS I"
+     "CIÊNCIA DE ALIMENTOS",
+     "CIÊNCIAS AGRÁRIAS I",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
-     "CIÊNCIAS BIOLÓGICAS I"
+     "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II"
     ],
     "CIÊNCIAS DA SAÚDE": [
      "EDUCAÇÃO FÍSICA",
@@ -11576,6 +12568,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -11592,6 +12585,22 @@
    },
    "programas": [
     {
+     "cd_programa": "41001010021P7",
+     "nome": "CIÊNCIAS DOS ALIMENTOS",
+     "nota": 6,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "41001010046P0",
+     "nome": "ENGENHARIA DE ALIMENTOS",
+     "nota": 7,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "41001010161P3",
      "nome": "ECOSSISTEMAS AGRÍCOLAS E NATURAIS",
      "nota": 4,
@@ -11605,6 +12614,14 @@
      "nota": 6,
      "area_capes": "CIÊNCIAS AGRÁRIAS I",
      "slug_area": "ciencias-agrarias-i",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "41001010019P2",
+     "nome": "AQÜÍCULTURA",
+     "nota": 6,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -11637,6 +12654,38 @@
      "nota": 4,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "41001010069P0",
+     "nome": "BIOQUÍMICA",
+     "nota": 6,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "41001010024P6",
+     "nome": "FARMACOLOGIA",
+     "nota": 6,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "41001010076P6",
+     "nome": "FARMACOLOGIA",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "41001010027P5",
+     "nome": "NEUROCIÊNCIAS",
+     "nota": 6,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -11976,6 +13025,22 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "41001010028P1",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 7,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "41001028001P8",
+     "nome": "ENGENHARIA TÊXTIL",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "41001010159P9",
      "nome": "ENERGIA E SUSTENTABILIDADE",
      "nota": 4,
@@ -12158,6 +13223,7 @@
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -12166,6 +13232,7 @@
      "FARMÁCIA",
      "MEDICINA I",
      "MEDICINA II",
+     "MEDICINA III",
      "NUTRIÇÃO",
      "SAÚDE COLETIVA"
     ],
@@ -12185,6 +13252,7 @@
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
+     "ENGENHARIAS II",
      "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
@@ -12231,6 +13299,22 @@
      "nota": 5,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "33009015001P0",
+     "nome": "CIÊNCIAS BIOLÓGICAS (BIOLOGIA MOLECULAR)",
+     "nota": 7,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "33009015002P7",
+     "nome": "FARMACOLOGIA",
+     "nota": 6,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -12402,6 +13486,86 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
+     "cd_programa": "33009015038P1",
+     "nome": "CIRURGIA TRANSLACIONAL",
+     "nota": 6,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015009P1",
+     "nome": "CIÊNCIA CIRÚRGICA INTERDISCIPLINAR",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015173P6",
+     "nome": "CIÊNCIAS DA SAÚDE APLICADA AO ESPORTE E À ATIVIDADE FÍSICA",
+     "nota": 3,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015014P5",
+     "nome": "MEDICINA (GINECOLOGIA)",
+     "nota": 5,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015013P9",
+     "nome": "MEDICINA (OBSTETRÍCIA)",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015018P0",
+     "nome": "MEDICINA (OTORRINOLARINGOLOGIA)",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015021P1",
+     "nome": "MEDICINA (UROLOGIA)",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015093P2",
+     "nome": "MESTRADO PROFISSIONAL EM CIÊNCIA, TECNOLOGIA E GESTÃO APLICADAS À REGENERAÇÃO TECIDUAL",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015024P0",
+     "nome": "OFTALMOLOGIA E CIÊNCIAS VISUAIS",
+     "nota": 7,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "33009015082P0",
+     "nome": "OFTALMOLOGIA E CIÊNCIAS VISUAIS",
+     "nota": 3,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
      "cd_programa": "33009015088P9",
      "nome": "ALIMENTOS, NUTRIÇÃO E SAÚDE",
      "nota": 3,
@@ -12496,6 +13660,14 @@
      "area_capes": "SERVIÇO SOCIAL",
      "slug_area": "servico-social",
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
+     "cd_programa": "33009015176P5",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
     },
     {
      "cd_programa": "33009015094P9",
@@ -12630,10 +13802,13 @@
   "UFS": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
-     "CIÊNCIAS AGRÁRIAS I"
+     "CIÊNCIA DE ALIMENTOS",
+     "CIÊNCIAS AGRÁRIAS I",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -12654,6 +13829,7 @@
     ],
     "CIÊNCIAS HUMANAS": [
      "ANTROPOLOGIA / ARQUEOLOGIA",
+     "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
      "EDUCAÇÃO",
      "FILOSOFIA",
      "GEOGRAFIA",
@@ -12670,6 +13846,7 @@
     ],
     "ENGENHARIAS": [
      "ENGENHARIAS I",
+     "ENGENHARIAS II",
      "ENGENHARIAS IV"
     ],
     "LINGÜÍSTICA, LETRAS E ARTES": [
@@ -12683,6 +13860,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "27001016016P0",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 3,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "27001016049P5",
      "nome": "AGRICULTURA E BIODIVERSIDADE",
@@ -12700,11 +13885,27 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
+     "cd_programa": "27001016030P2",
+     "nome": "ZOOTECNIA",
+     "nota": 3,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "27001016017P6",
      "nome": "ECOLOGIA E CONSERVAÇÃO",
      "nota": 5,
      "area_capes": "BIODIVERSIDADE",
      "slug_area": "biodiversidade",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "27001016031P9",
+     "nome": "CIÊNCIAS FISIOLÓGICAS",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -12844,6 +14045,14 @@
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
+     "cd_programa": "27001016046P6",
+     "nome": "CIÊNCIAS DA RELIGIÃO",
+     "nota": 3,
+     "area_capes": "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
+     "slug_area": "ciencias-da-religiao-e-teologia",
+     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
+    },
+    {
      "cd_programa": "27001016003P5",
      "nome": "EDUCAÇÃO",
      "nota": 5,
@@ -12972,6 +14181,22 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "27001016015P3",
+     "nome": "CIÊNCIA E ENGENHARIA DE MATERIAIS",
+     "nota": 4,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
+     "cd_programa": "27001016014P7",
+     "nome": "ENGENHARIA QUÍMICA",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "27001016027P1",
      "nome": "ENGENHARIA ELÉTRICA",
      "nota": 3,
@@ -13048,8 +14273,10 @@
   "UFT": {
    "grandes_areas": {
     "CIÊNCIAS AGRÁRIAS": [
+     "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA"
+     "MEDICINA VETERINÁRIA",
+     "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE"
@@ -13064,6 +14291,7 @@
     ],
     "CIÊNCIAS SOCIAIS APLICADAS": [
      "COMUNICAÇÃO E INFORMAÇÃO",
+     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
@@ -13080,6 +14308,14 @@
     ]
    },
    "programas": [
+    {
+     "cd_programa": "16003012012P6",
+     "nome": "CIÊNCIA E TECNOLOGIA DE ALIMENTOS",
+     "nota": 4,
+     "area_capes": "CIÊNCIA DE ALIMENTOS",
+     "slug_area": "ciencia-de-alimentos",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
     {
      "cd_programa": "16003012005P0",
      "nome": "AGROENERGIA",
@@ -13110,6 +14346,14 @@
      "nota": 3,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
+     "cd_programa": "16003012002P0",
+     "nome": "CIÊNCIA ANIMAL TROPICAL",
+     "nota": 4,
+     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
+     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -13166,6 +14410,30 @@
      "nota": 3,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
+     "cd_programa": "16003012172P3",
+     "nome": "DEMANDAS POPULARES E DINÂMICAS REGIONAIS",
+     "nota": 3,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
+     "cd_programa": "16003012004P3",
+     "nome": "DESENVOLVIMENTO REGIONAL",
+     "nota": 5,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
+     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
+    },
+    {
+     "cd_programa": "16003012017P8",
+     "nome": "GESTÃO DE POLÍTICAS PÚBLICAS",
+     "nota": 4,
+     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+     "slug_area": "planejamento-urbano-e-regional-demografia",
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {

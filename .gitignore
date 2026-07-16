@@ -30,3 +30,12 @@ __pycache__/
 *.swp
 .DS_Store
 docs/SUMMARY.txt
+
+# Backups do patch_fisica_meta.py. A regra `*.bak` acima NÃO os pega: o nome é
+# `area-astronomia-fisica.json.bak-<timestamp>`, com sufixo depois do .bak.
+docs/dados/*.bak-*
+
+# Recorte de pesquisa por programa (PPGDIP/UFRJ) — mesma política das pastas pip*:
+# análise interna, não faz parte do app publicado. Lê o estratos_por_programa.json do
+# PIP-2, que é derivado do CSV bruto do CiteScore (redistribuição vedada).
+ppgdip-medicina-ufrj/

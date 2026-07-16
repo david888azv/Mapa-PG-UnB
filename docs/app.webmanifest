@@ -1,7 +1,7 @@
 {
   "name": "MAPA-PG — Multi-área",
   "short_name": "MAPA-PG",
-  "description": "Monitoramento e Análise de Produção Acadêmica da Pós-Graduação (UnB / CAPES)",
+  "description": "Compare a produção dos programas de pós-graduação do Brasil nas 49 áreas de avaliação da CAPES, com uma entre 27 universidades federais como referência",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

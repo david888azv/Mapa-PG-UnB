@@ -110,6 +110,16 @@
       "tem_metricas": true
     },
     {
+      "slug": "ciencia-de-alimentos",
+      "nome": "CIÊNCIA DE ALIMENTOS",
+      "arquivo": "dados/area-ciencia-de-alimentos.json",
+      "tamanho_kb": 176,
+      "n_registros": 177,
+      "n_unb": 0,
+      "sufixos_unb": [],
+      "tem_metricas": true
+    },
+    {
       "slug": "ciencia-politica-e-relacoes-internacionais",
       "nome": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
       "arquivo": "dados/area-ciencia-politica-e-relacoes-internacionais.json",
@@ -163,6 +173,16 @@
       "tem_metricas": true
     },
     {
+      "slug": "ciencias-biologicas-ii",
+      "nome": "CIÊNCIAS BIOLÓGICAS II",
+      "arquivo": "dados/area-ciencias-biologicas-ii.json",
+      "tamanho_kb": 227,
+      "n_registros": 229,
+      "n_unb": 0,
+      "sufixos_unb": [],
+      "tem_metricas": true
+    },
+    {
       "slug": "ciencias-biologicas-iii",
       "nome": "CIÊNCIAS BIOLÓGICAS III",
       "arquivo": "dados/area-ciencias-biologicas-iii.json",
@@ -173,6 +193,16 @@
         "BIOMIC",
         "PATMOL"
       ],
+      "tem_metricas": true
+    },
+    {
+      "slug": "ciencias-da-religiao-e-teologia",
+      "nome": "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
+      "arquivo": "dados/area-ciencias-da-religiao-e-teologia.json",
+      "tamanho_kb": 62,
+      "n_registros": 63,
+      "n_unb": 0,
+      "sufixos_unb": [],
       "tem_metricas": true
     },
     {
@@ -265,6 +295,16 @@
         "TECARH",
         "TRANSP"
       ],
+      "tem_metricas": true
+    },
+    {
+      "slug": "engenharias-ii",
+      "nome": "ENGENHARIAS II",
+      "arquivo": "dados/area-engenharias-ii.json",
+      "tamanho_kb": 285,
+      "n_registros": 289,
+      "n_unb": 0,
+      "sufixos_unb": [],
       "tem_metricas": true
     },
     {
@@ -456,6 +496,16 @@
       "tem_metricas": true
     },
     {
+      "slug": "medicina-iii",
+      "nome": "MEDICINA III",
+      "arquivo": "dados/area-medicina-iii.json",
+      "tamanho_kb": 145,
+      "n_registros": 148,
+      "n_unb": 0,
+      "sufixos_unb": [],
+      "tem_metricas": true
+    },
+    {
       "slug": "medicina-veterinaria",
       "nome": "MEDICINA VETERINÁRIA",
       "arquivo": "dados/area-medicina-veterinaria.json",
@@ -490,6 +540,16 @@
       "sufixos_unb": [
         "ODONTO"
       ],
+      "tem_metricas": true
+    },
+    {
+      "slug": "planejamento-urbano-e-regional-demografia",
+      "nome": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+      "arquivo": "dados/area-planejamento-urbano-e-regional-demografia.json",
+      "tamanho_kb": 142,
+      "n_registros": 143,
+      "n_unb": 0,
+      "sufixos_unb": [],
       "tem_metricas": true
     },
     {
@@ -556,45 +616,29 @@
         "SOCIOL"
       ],
       "tem_metricas": true
+    },
+    {
+      "slug": "zootecnia-recursos-pesqueiros",
+      "nome": "ZOOTECNIA / RECURSOS PESQUEIROS",
+      "arquivo": "dados/area-zootecnia-recursos-pesqueiros.json",
+      "tamanho_kb": 201,
+      "n_registros": 205,
+      "n_unb": 0,
+      "sufixos_unb": [],
+      "tem_metricas": true
     }
   ],
   "grandes_areas": {
-    "CIÊNCIAS SOCIAIS APLICADAS": [
-      "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
-      "ARQUITETURA, URBANISMO E DESIGN",
-      "COMUNICAÇÃO E INFORMAÇÃO",
-      "DIREITO",
-      "ECONOMIA",
-      "SERVIÇO SOCIAL"
-    ],
-    "MULTIDISCIPLINAR": [
-      "BIOTECNOLOGIA",
-      "CIÊNCIAS AMBIENTAIS",
-      "ENSINO",
-      "INTERDISCIPLINAR",
-      "MATERIAIS"
-    ],
     "CIÊNCIAS AGRÁRIAS": [
+      "CIÊNCIA DE ALIMENTOS",
       "CIÊNCIAS AGRÁRIAS I",
-      "MEDICINA VETERINÁRIA"
-    ],
-    "CIÊNCIAS HUMANAS": [
-      "ANTROPOLOGIA / ARQUEOLOGIA",
-      "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
-      "EDUCAÇÃO",
-      "FILOSOFIA",
-      "GEOGRAFIA",
-      "HISTÓRIA",
-      "PSICOLOGIA",
-      "SOCIOLOGIA"
-    ],
-    "LINGÜÍSTICA, LETRAS E ARTES": [
-      "ARTES",
-      "LINGUÍSTICA E LITERATURA"
+      "MEDICINA VETERINÁRIA",
+      "ZOOTECNIA / RECURSOS PESQUEIROS"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
       "BIODIVERSIDADE",
       "CIÊNCIAS BIOLÓGICAS I",
+      "CIÊNCIAS BIOLÓGICAS II",
       "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -603,14 +647,10 @@
       "FARMÁCIA",
       "MEDICINA I",
       "MEDICINA II",
+      "MEDICINA III",
       "NUTRIÇÃO",
       "ODONTOLOGIA",
       "SAÚDE COLETIVA"
-    ],
-    "ENGENHARIAS": [
-      "ENGENHARIAS I",
-      "ENGENHARIAS III",
-      "ENGENHARIAS IV"
     ],
     "CIÊNCIAS EXATAS E DA TERRA": [
       "ASTRONOMIA / FÍSICA",
@@ -618,7 +658,44 @@
       "GEOCIÊNCIAS",
       "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA",
       "QUÍMICA"
+    ],
+    "CIÊNCIAS HUMANAS": [
+      "ANTROPOLOGIA / ARQUEOLOGIA",
+      "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+      "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
+      "EDUCAÇÃO",
+      "FILOSOFIA",
+      "GEOGRAFIA",
+      "HISTÓRIA",
+      "PSICOLOGIA",
+      "SOCIOLOGIA"
+    ],
+    "CIÊNCIAS SOCIAIS APLICADAS": [
+      "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
+      "ARQUITETURA, URBANISMO E DESIGN",
+      "COMUNICAÇÃO E INFORMAÇÃO",
+      "DIREITO",
+      "ECONOMIA",
+      "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
+      "SERVIÇO SOCIAL"
+    ],
+    "ENGENHARIAS": [
+      "ENGENHARIAS I",
+      "ENGENHARIAS II",
+      "ENGENHARIAS III",
+      "ENGENHARIAS IV"
+    ],
+    "LINGÜÍSTICA, LETRAS E ARTES": [
+      "ARTES",
+      "LINGUÍSTICA E LITERATURA"
+    ],
+    "MULTIDISCIPLINAR": [
+      "BIOTECNOLOGIA",
+      "CIÊNCIAS AMBIENTAIS",
+      "ENSINO",
+      "INTERDISCIPLINAR",
+      "MATERIAIS"
     ]
   },
-  "atualizado_em": "2026-06-17 07:05:22"
+  "atualizado_em": "2026-07-16 16:21:44"
 }

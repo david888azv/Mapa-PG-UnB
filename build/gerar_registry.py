@@ -214,26 +214,73 @@ sufs = [e['sufixo'] for e in registry]
 dups = {s: sufs.count(s) for s in sufs if sufs.count(s) > 1}
 assert not dups, f'Sufixos duplicados: {dups}'
 
-# Catálogo agregado
-areas = defaultdict(list)
-grandes = defaultdict(set)
+# ── 5. Catálogo agregado ────────────────────────────────────────────
+# DUAS responsabilidades distintas, deliberadamente separadas:
+#
+#   (a) o CATÁLOGO DE ÁREAS é da CAPES — nacional, independente da UnB;
+#   (b) `sufixos_unb`/`n_unb`/`programas_unb` são atributos da UnB, legitimamente.
+#
+# Antes, (a) era derivado de `registry` (que o filtro da linha ~29 restringe à UnB):
+# `for e in registry: areas[e['area_capes']].append(...)`. Consequência — uma Área de
+# Avaliação em que a UnB não tem NENHUM programa jamais ganhava chave, e como
+# `gerar_dados_completos.py` usa `catalog['areas_capes'].keys()` como universo de áreas,
+# ela sumia do app INTEIRO. Eram 7 áreas e 437 programas invisíveis (CIÊNCIAS BIOLÓGICAS
+# II, ENGENHARIAS II, ZOOTECNIA/RECURSOS PESQUEIROS, CIÊNCIA DE ALIMENTOS, MEDICINA III,
+# PLANEJAMENTO URBANO E REGIONAL/DEMOGRAFIA, CIÊNCIAS DA RELIGIÃO E TEOLOGIA) — a origem
+# UnB do projeto fossilizada num app que hoje é nacional. Usuários de SC reportaram
+# programas "faltando" por causa disto.
+#
+# Agora (a) vem de uma passada pelos CSVs SEM filtro de IES. Áreas sem UnB entram com
+# n_unb=0 e sufixos_unb=[] — presentes no catálogo, sem fingir presença da UnB.
+# TAXONOMIA ATUAL, e só ela: o catálogo sai de `programas_2017a2020` (o mesmo `files` já
+# lido acima), NÃO de 2013a2016. A CAPES renomeia e reorganiza Áreas de Avaliação entre
+# quadriênios, e varrer também 2013-2016 traz 8 nomes LEGADOS que não existem mais —
+# davam 57 áreas em vez de 49, e cada legado viraria uma área fantasma no app. Os
+# programas desses nomes antigos não se perdem: eles reaparecem sob o nome atual, porque
+# `gerar_dados_completos.py` mapeia cd→área lendo 2013-2016 e depois 2017-2020, ficando
+# com o último (a taxonomia vigente). Este é também o critério sob o qual as 42 áreas
+# originais foram construídas — mudá-lo aqui seria uma alteração silenciosa de escopo.
+areas_nac = {}      # area_capes -> {'grande': ..., 'cd': ...}
+for f in files:
+    with open(f, encoding='latin-1') as fh:
+        for r in csv.DictReader(fh, delimiter=';'):
+            a = (r.get('NM_AREA_AVALIACAO') or '').strip()
+            if not a:
+                continue
+            areas_nac.setdefault(a, {'grande': (r.get('NM_GRANDE_AREA_CONHECIMENTO') or '').strip(),
+                                     'cd': (r.get('CD_AREA_AVALIACAO') or '').strip()})
+
+# Atributos da UnB por área (vazios onde a UnB não atua)
+areas_unb = defaultdict(list)
 for e in registry:
-    areas[e['area_capes']].append(e['sufixo'])
-    grandes[e['grande_area_cnpq']].add(e['area_capes'])
+    areas_unb[e['area_capes']].append(e['sufixo'])
+
+# Sanidade: toda área com programa da UnB precisa existir no catálogo nacional.
+orfas = sorted(set(areas_unb) - set(areas_nac))
+assert not orfas, f'Áreas da UnB ausentes do catálogo nacional: {orfas}'
+
+grandes = defaultdict(set)
+for a, info in areas_nac.items():
+    grandes[info['grande']].add(a)
 
 catalog = {
     'gerado_em': __import__('time').strftime('%Y-%m-%d %H:%M:%S'),
     'n_programas_unb': len(registry),
-    'grandes_areas': {g: sorted(a) for g, a in grandes.items()},
+    'n_areas_capes': len(areas_nac),
+    'grandes_areas': {g: sorted(a) for g, a in sorted(grandes.items())},
     'areas_capes': {
         a: {
             'slug': slugify_area(a),
-            'sufixos_unb': sufs,
-            'n_unb': len(sufs),
-        } for a, sufs in areas.items()
+            'cd_area_capes': areas_nac[a]['cd'],
+            'sufixos_unb': sorted(areas_unb.get(a, [])),
+            'n_unb': len(areas_unb.get(a, [])),
+        } for a in sorted(areas_nac)
     },
     'programas_unb': registry,
 }
+print(f'  catálogo: {len(areas_nac)} áreas CAPES '
+      f'({sum(1 for a in areas_nac if areas_unb.get(a))} com programa da UnB, '
+      f'{sum(1 for a in areas_nac if not areas_unb.get(a))} sem)')
 
 os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
 with open(OUT_PATH, 'w', encoding='utf-8') as fh:
@@ -241,7 +288,7 @@ with open(OUT_PATH, 'w', encoding='utf-8') as fh:
 
 print(f'✓ {OUT_PATH}')
 print(f'  Programas: {len(registry)}')
-print(f'  Áreas CAPES: {len(areas)}')
+print(f'  Áreas CAPES: {len(areas_nac)}')
 print(f'  Grandes Áreas CNPq: {len(grandes)}')
 print(f'  Tamanho: {os.path.getsize(OUT_PATH)/1024:.1f} KB')
 
