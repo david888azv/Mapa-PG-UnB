@@ -1,0 +1,432 @@
+<!doctype html><html lang='pt-br'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>MAPA-PG v5.0.0 — Como a produção passou a ser calculada</title><meta name='description' content='Documento das mudanças de medida do MAPA-PG v5.0.0: artigos distintos, anos-docente, estratos A1-A4 e os docentes 2022-2024.'><style>
+@page { size: A4; margin: 2.0cm 1.8cm 2.0cm 1.8cm; }
+* { box-sizing: border-box; }
+body { font-family: Carlito, Calibri, 'Segoe UI', Arial, sans-serif; color: #222;
+       line-height: 1.55; font-size: 10.5pt; max-width: 900px; margin: 0 auto;
+       padding: 18px 22px 60px; background: #fff; }
+h1 { font-size: 21pt; color: #1F3A5F; line-height: 1.2; margin: 0 0 4px; }
+h2 { font-size: 14pt; color: #1F3A5F; border-bottom: 2px solid #AED6F1;
+     padding-bottom: 3px; margin: 22px 0 9px; break-after: avoid; page-break-after: avoid; }
+h3 { font-size: 11.6pt; color: #1F618D; margin: 14px 0 5px;
+     break-after: avoid; page-break-after: avoid; }
+h4 { font-size: 10.6pt; color: #1F618D; margin: 10px 0 4px;
+     break-after: avoid; page-break-after: avoid; }
+p { text-align: justify; margin: 6px 0; }
+ul, ol { margin: 6px 0 6px 18px; } li { margin: 3px 0; }
+code { font-family: 'DejaVu Sans Mono', Consolas, monospace; font-size: 9.2pt;
+       background: #F4F6F7; padding: 0 3px; border-radius: 3px; }
+table { border-collapse: collapse; width: 100%; font-size: 9.2pt; margin: 9px 0; }
+thead { display: table-header-group; }
+th { background: #e8eef5; color: #13243a; font-weight: bold; padding: 4px 6px;
+     text-align: center; border: 1px solid #c8d4e0; white-space: nowrap; }
+td { border: 1px solid #dfe6ec; padding: 3px 6px; text-align: center; }
+td.l { text-align: left; }
+tr { page-break-inside: avoid; }
+.keep { break-inside: avoid; page-break-inside: avoid; }
+.sub { color: #5D6D7E; font-size: 11.5pt; margin: 2px 0 0; }
+.meta { color: #7B8A8B; font-size: 9pt; margin-top: 6px; }
+.box { border-left: 4px solid #2E86C1; background: #EAF2F8; padding: 9px 13px;
+       border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.warn { border-left: 4px solid #E59866; background: #FEF5E7; padding: 9px 13px;
+        border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.bad { border-left: 4px solid #B03A2E; background: #FDEDEC; padding: 9px 13px;
+       border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.ok { border-left: 4px solid #1E8449; background: #E9F7EF; padding: 9px 13px;
+      border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.toc { background: #FBFCFD; border: 1px solid #E5E8E8; border-radius: 6px;
+       padding: 10px 16px; font-size: 10pt; }
+.toc ol { margin-left: 16px; } .toc li { margin: 2px 0; }
+.toc a { color: #1F618D; text-decoration: none; }
+.up { color: #1E8449; font-weight: bold; } .down { color: #B03A2E; font-weight: bold; }
+.cap { font-size: 8.8pt; color: #7B8A8B; text-align: center; margin-top: -4px; }
+.pb { page-break-before: always; }
+hr { border: 0; border-top: 1px solid #E5E8E8; margin: 18px 0; }
+</style></head><body><p style='margin:0 0 14px'><a href='./' style='color:#1F618D;text-decoration:none'>← voltar ao aplicativo</a> &nbsp;·&nbsp; <a href='mudancas-v5.0.0.pdf' style='color:#1F618D'>baixar em PDF</a></p><h1>MAPA-PG · Revisão de medida v5.0.0</h1><p class='sub'>Como a produção acadêmica passou a ser calculada — e por quê</p><p class='meta'>Publicado em 17 de julho de 2026 · Prof. David L. Azevedo · Instituto de Física · Universidade de Brasília · <a href='https://david888azv.github.io/Mapa-PG-UnB/'>david888azv.github.io/Mapa-PG-UnB</a></p><hr><div class='toc'><b>Sumário</b><ol style='list-style:none;padding-left:0'><li><a href='#s1'>1 O que mudou, em uma página</a></li><li><a href='#s2'>2 Índice das mudanças</a></li><li><a href='#s3'>3 As três correções de medida</a></li><li><a href='#s3-1'>3.1 Artigos distintos, não eventos artigo×autor</a></li><li><a href='#s3-2'>3.2 Denominador em anos-docente, não docentes × 4</a></li><li><a href='#s3-3'>3.3 Recorte de topo A1–A4, não A1–A3</a></li><li><a href='#s4'>4 Dados novos: os docentes de 2022 a 2024</a></li><li><a href='#s5'>5 Os efeitos: o que muda nos números e no ranking</a></li><li><a href='#s6'>6 Por que era necessário</a></li><li><a href='#s7'>7 As fichas de avaliação por área</a></li><li><a href='#s7-1'>7.1 Por que padronizar entre áreas é tão difícil</a></li><li><a href='#s7-2'>7.2 O que cada área usa no quesito de produção</a></li><li><a href='#s7-3'>7.3 O que dá para implementar e o que não dá</a></li><li><a href='#s8'>8 O que o aplicativo faz hoje — e o que não faz</a></li><li><a href='#s9'>9 Limitações e ressalvas</a></li></ol></div>
+<h2 id='s1'>1. O que mudou, em uma página</h2>
+<p>A versão <b>5.0.0</b> do MAPA-PG corrige <b>três defeitos na forma de medir a
+produção acadêmica</b> e incorpora <b>dados de docentes que a CAPES publicou</b> e que o
+aplicativo ainda não usava. As três correções são da mesma família: em cada uma, um fator
+que <b>varia de programa para programa</b> estava dentro de uma taxa e, por isso,
+<b>não se cancelava na comparação</b> — inflava uns e penalizava outros.</p>
+
+<div class='bad'><b>Os números mudaram, e o ranking também.</b> Não se trata de ajuste
+cosmético: a produtividade exibida sobe em <b>96%</b> dos programas em 2013-2016 e
+2017-2020, e <b>83</b> programas da UnB trocaram de posição dentro da própria
+área só no quadriênio 2017-2020. Um programa chegou a subir 80 posições; outro caiu 32.
+Quem comparar a v5.0.0 com uma tela salva da versão anterior vai encontrar valores
+diferentes — e os novos são os corretos.</div>
+
+<div class='ok'><b>O que não mudou.</b> A fonte dos dados (CAPES/Plataforma Sucupira), o
+recorte por área de avaliação, a estratificação A1–A8/C por percentil e o princípio de
+que <b>a comparação só é válida dentro da mesma área CAPES</b>. Nenhuma conclusão do
+aplicativo dependia dos valores errados de um jeito que agora se inverta: o que muda é a
+posição relativa de quem era medido com régua torta.</div>
+
+<h2 id='s2' class='pb'>2. Índice das mudanças</h2>
+<table class='keep'>
+<thead><tr><th>#</th><th>Mudança</th><th>Antes</th><th>Agora</th><th>Efeito</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class='l'><b>Unidade de contagem</b><br><span style='font-size:8.5pt'>§3.1</span></td>
+<td class='l'>Eventos artigo×autor: um artigo com 3 autores permanentes contava 3 vezes</td>
+<td class='l'>Artigos distintos: conta 1 vez por programa</td>
+<td class='l'>Reduz a produção de quem tem coautoria interna. Fator variava de 1,00 a 7,52</td></tr>
+
+<tr><td>2</td><td class='l'><b>Denominador das taxas</b><br><span style='font-size:8.5pt'>§3.2</span></td>
+<td class='l'><code>docentes × 4 anos</code>, tratando quem entrou no último ano como presente nos quatro</td>
+<td class='l'><code>anos-docente</code>: soma, ano a ano, dos docentes daquele ano</td>
+<td class='l'>Eleva a produtividade de quem cresce ou tem rotatividade. Erro chegava a 4×</td></tr>
+
+<tr><td>3</td><td class='l'><b>Recorte de topo</b><br><span style='font-size:8.5pt'>§3.3</span></td>
+<td class='l'>A1–A3 (percentil ≥ 62,5)</td>
+<td class='l'>A1–A4 (percentil ≥ 50)</td>
+<td class='l'>Alinha ao corte dominante nas fichas de área. Não altera a predição</td></tr>
+
+<tr><td>4</td><td class='l'><b>Roster de docentes</b><br><span style='font-size:8.5pt'>§4</span></td>
+<td class='l'>2021-2024 com o roster de <b>um ano só</b> (2021)</td>
+<td class='l'>Os <b>quatro anos</b> (2021, 2022, 2023, 2024)</td>
+<td class='l'>82% dos programas do país tiveram o nº de permanentes alterado</td></tr>
+</tbody></table>
+<p style='font-size:9.5pt'>As mudanças 1 a 3 são <b>correções de método</b> — o cálculo
+anterior estava errado. A mudança 4 é <b>atualização de dados</b> — o cálculo estava certo,
+faltava o dado.</p>
+
+<h2 id='s3' class='pb'>3. As três correções de medida</h2>
+<p>As três compartilham a mesma anatomia, e vale enunciá-la antes: uma <b>taxa</b>
+(produção por docente por ano) só permite comparar dois programas se o erro embutido nela
+for <b>o mesmo nos dois</b>. Quando o fator de erro varia entre programas, ele deixa de
+ser uma questão de escala e passa a ser uma questão de <b>ordem</b> — e a comparação, que
+é o produto inteiro deste aplicativo, deixa de valer.</p>
+
+<h3 id='s3-1'>3.1 Artigos distintos, não eventos artigo×autor</h3>
+<p>A base da CAPES não traz uma linha por artigo: traz <b>uma linha por (artigo, autor)</b>.
+O aplicativo contava essas linhas. Um artigo assinado por três professores permanentes do
+mesmo programa entrava <b>três vezes</b> na produção daquele programa.</p>
+<p>Como a métrica é uma taxa, isso não media "quanto o programa publica", e sim "quanto o
+programa publica <b>vezes</b> o quanto seus permanentes coassinam entre si". Colaboração
+interna virava produtividade. Na Física da UnB (2017-2020), 380 artigos distintos viravam
+547 eventos — fator 1,44. Se o fator fosse igual para todos, cancelaria; mas ele vai de
+<b>1,00</b> (Filosofia, Artes, onde a autoria única é a norma) a <b>7,52</b> entre os
+4.375 programas, com mediana 1,18.</p>
+<div class='box'><b>Efeito:</b> grande nas áreas de coautoria intensa (Odontologia:
+4,75 → 2,42 artigos/permanente/ano), quase nulo nas de autoria única (Filosofia:
+7,89 → 7,61). A Física da UnB, cujo fator (1,44) era maior que a mediana da sua área
+(1,23), caiu de <b>9º para 17º entre 65</b> programas — não por ter piorado, mas porque o
+indicador anterior lhe creditava uma vantagem que era artefato.</div>
+
+<h3 id='s3-2'>3.2 Denominador em anos-docente, não docentes × 4</h3>
+<p>Esta é a correção de maior alcance, e a mais sutil. O aplicativo calculava
+<code>artigos ÷ n_docentes ÷ 4</code>, onde <code>n_docentes</code> é a <b>união</b> dos
+professores que passaram pelo programa no quadriênio. Isso supõe que <b>todos estiveram
+lá os quatro anos</b>.</p>
+<p>Um exemplo real. O programa de Saúde Coletiva da UnB tinha, ano a ano,
+<b>22, 22, 27 e 35</b> permanentes — ele cresceu. A união é 37 pessoas. O cálculo antigo
+dividia por 37 × 4 = <b>148</b> anos-pesquisador. Mas o esforço docente real foi
+22+22+27+35 = <b>106</b> anos-pesquisador. O programa aparecia com 3,43 artigos por
+permanente por ano quando o valor correto é <b>4,78</b>.</p>
+<div class='bad'><b>O caso extremo é o mais grave.</b> Programas que existiram em
+<b>um único ano</b> do quadriênio — tipicamente programas <b>novos</b> — eram divididos
+por quatro anos que não viveram. Eles apareciam com <b>um quarto</b> da produtividade
+real. Dois exemplos em 2013-2016: Ciências da Reabilitação (0,71 → <b>2,85</b>) e
+Metafísica (0,82 → <b>3,28</b>), ambos fator 4,00×. Ou seja: o aplicativo penalizava
+sistematicamente, em até 4 vezes, justamente os programas em implantação.</div>
+<p>Medido nos 13.536 registros programa×quadriênio, o
+fator <code>(união×4 ÷ anos-docente)</code> tem mediana entre <b>1,15 e 1,19</b>, chega a
+<b>2,0</b> no percentil 90 e a <b>4,0</b> no extremo. Varia entre programas: não cancela.</p>
+<p>O campo "nº de permanentes" continua na tela e continua sendo o <b>headcount</b> — é
+informação legítima e correta para o que ela diz. O que mudou é que ele deixou de ser o
+denominador das taxas.</p>
+
+<h3 id='s3-3'>3.3 Recorte de topo A1–A4, não A1–A3</h3>
+<p>A Ficha de Avaliação 2025-2028 classifica cada artigo em estratos <b>A1 a A8</b> pelo
+percentil do periódico <b>dentro da área</b>, em classes de 12,5% (A1 ≥ 87,5; A2 75–87,5;
+… A8 0–12,5), mais o estrato <b>C</b> para periódicos sem indicador. O aplicativo já
+seguia essa construção.</p>
+<p>O que não tinha respaldo era o agrupamento chamado "topo". Ele somava <b>A1–A3</b> — um
+recorte que, na auditoria das 48 fichas de área disponíveis, aparece em <b>uma única
+área</b> (Zootecnia, sob o nome "Restrito 1"). O corte <b>dominante</b> é <b>A1–A4</b>
+(percentil ≥ 50): é a faixa "<i>≥ 50%, os 4 estratos mais altos</i>" da própria ficha de
+Astronomia/Física, e reaparece em Ciência Política, Psicologia, Engenharias II, Ensino,
+Serviço Social, Computação, Interdisciplinar, Filosofia e Artes.</p>
+<div class='box'><b>Efeito:</b> nenhum na capacidade de predição — e não era para haver.
+Esta mudança é de <b>fidelidade à norma</b>, não de desempenho estatístico. O agrupamento
+"elite" (A1–A2) foi mantido: corresponde à faixa "<i>≥ 75%, os 2 estratos mais altos</i>".</div>
+
+<h2 id='s4' class='pb'>4. Dados novos: os docentes de 2022 a 2024</h2>
+<p>Até esta versão, o quadriênio 2021-2024 era calculado com o roster de docentes de
+<b>2021 apenas</b> — o único ano então publicado. Isso tinha duas consequências: o número
+de permanentes era o de um ano, e um artigo de 2022, 2023 ou 2024 só era creditado ao
+programa se o seu autor já constasse da lista de 2021.</p>
+<p>A CAPES publicou o restante da série: <b>2022 e 2023 em 25/03/2025</b> e <b>2024 em
+1º/12/2025</b>. Esta versão incorpora os quatro anos. A verificação de proveniência foi
+feita antes de qualquer processamento: o arquivo de 2021 baixado do portal é
+<b>byte-idêntico</b> ao que o projeto já usava, o que confirma a mesma origem e a
+continuidade da série.</p>
+<div class='box'><b>Efeito:</b> <b>82%</b> dos programas do país tiveram o número de
+permanentes alterado (razão mediana <b>1,18</b> — o roster de um ano subestimava o corpo
+docente em cerca de 15%) e <b>78%</b> tiveram a produção alterada. Nos programas em rede o
+efeito é grande: Saúde da Família/FIOCRUZ passa de 194 para <b>440</b> permanentes.</div>
+<p class='warn'><b>Ressalva:</b> as colunas do conjunto de dados novo são idênticas às
+anteriores. Ele completa a série, mas <b>não traz</b> nenhuma informação nova sobre
+categorias de docente (licença, jovem doutor, sênior) — o que, como se verá na §7.3,
+é justamente o que impediria seguir as regras de cada área.</p>
+
+<h2 id='s5' class='pb'>5. Os efeitos: o que muda nos números e no ranking</h2>
+<h3>5.1 A taxa exibida</h3>
+<p>A tabela compara a taxa que o aplicativo exibe por padrão (artigos em periódico por
+docente permanente por ano) entre a versão anterior e a v5.0.0, em
+13.067 registros programa×quadriênio:</p>
+<table class='keep'>
+<thead><tr><th>Quadriênio</th><th>Programas</th><th>Razão mediana</th>
+<th>Percentil 90</th><th>Máximo</th><th>Subiu em</th></tr></thead>
+<tbody><tr><td class='l'><b>2013-2016</b></td><td>4.218</td><td><b>1,185×</b></td><td>2,00×</td><td>4,00×</td><td>96%</td></tr><tr><td class='l'><b>2017-2020</b></td><td>4.375</td><td><b>1,158×</b></td><td>1,39×</td><td>4,00×</td><td>96%</td></tr><tr><td class='l'><b>2021-2024</b></td><td>4.474</td><td><b>1,061×</b></td><td>1,24×</td><td>4,00×</td><td>79%</td></tr></tbody></table>
+<p class='cap'>Razão = taxa na v5.0.0 ÷ taxa na versão anterior.</p>
+<p>A leitura importante não é a mediana: é a <b>dispersão</b>. No mesmo quadriênio há
+programas cuja taxa praticamente não muda e programas cuja taxa <b>dobra</b> ou
+<b>quadruplica</b>. É essa variação — e não o deslocamento médio — que provava que o erro
+não se cancelava.</p>
+
+<h3>5.2 O ranking</h3>
+<p>O teste decisivo é se a correção apenas desloca a escala ou se <b>reordena</b>. Só no
+quadriênio 2017-2020, <b>83 programas da UnB</b> mudaram de posição dentro da
+própria área:</p>
+<div class='keep'>
+<table>
+<thead><tr><th>Programa</th><th>Área</th><th>Antes</th><th>Agora</th><th>de</th></tr></thead>
+<tbody><tr><td class='l'>CONTABILIDADE - UNB - UFPB - UFRN</td><td class='l'>ADMINISTRAÇÃO PÚBLICA E DE</td><td>130°</td><td><span class='up'>▲</span> 50°</td><td>189</td></tr><tr><td class='l'>ENGENHARIA ELÉTRICA</td><td class='l'>ENGENHARIAS IV</td><td>70°</td><td><span class='up'>▲</span> 35°</td><td>92</td></tr><tr><td class='l'>DESENVOLVIMENTO, SOCIEDADE E COOPERAÇÃO INTE</td><td class='l'>INTERDISCIPLINAR</td><td>175°</td><td><span class='down'>▼</span> 209°</td><td>353</td></tr><tr><td class='l'>AGRONOMIA</td><td class='l'>CIÊNCIAS AGRÁRIAS I</td><td>73°</td><td><span class='down'>▼</span> 105°</td><td>224</td></tr><tr><td class='l'>BOTÂNICA</td><td class='l'>BIODIVERSIDADE</td><td>77°</td><td><span class='down'>▼</span> 107°</td><td>146</td></tr><tr><td class='l'>TECNOLOGIAS QUÍMICA E BIOLÓGICA</td><td class='l'>INTERDISCIPLINAR</td><td>329°</td><td><span class='up'>▲</span> 304°</td><td>353</td></tr><tr><td class='l'>DIREITOS HUMANOS E CIDADANIA</td><td class='l'>INTERDISCIPLINAR</td><td>251°</td><td><span class='down'>▼</span> 275°</td><td>353</td></tr><tr><td class='l'>ADMINISTRAÇÃO</td><td class='l'>ADMINISTRAÇÃO PÚBLICA E DE</td><td>151°</td><td><span class='up'>▲</span> 130°</td><td>189</td></tr><tr><td class='l'>ENGENHARIA BIOMÉDICA</td><td class='l'>ENGENHARIAS IV</td><td>42°</td><td><span class='up'>▲</span> 22°</td><td>92</td></tr><tr><td class='l'>NANOCIÊNCIA E NANOBIOTECNOLOGIA</td><td class='l'>INTERDISCIPLINAR</td><td>52°</td><td><span class='down'>▼</span> 72°</td><td>353</td></tr></tbody></table>
+</div>
+<p>Sobe <b>e</b> desce — que é exatamente a assinatura de um viés que não cancelava. Se o
+erro fosse uniforme, todos se moveriam juntos e ninguém trocaria de posição.</p>
+
+<h2 id='s6' class='pb'>6. Por que era necessário</h2>
+<p>Um aplicativo de comparação vive de uma promessa implícita: a de que dois programas
+lado a lado estão sendo medidos com a mesma régua. Quando o denominador de uma taxa
+carrega um fator que varia de 1,0 a 4,0 conforme o programa, essa promessa se rompe — e se
+rompe de forma invisível, porque o número continua parecendo um número. O leitor via
+"2,85 artigos por docente por ano" e não tinha como saber que aquele programa específico
+estava sendo dividido por quatro anos que ele não viveu, enquanto o programa da linha
+seguinte, estável há uma década, era medido corretamente. O erro não era ruído: era
+<b>sistemático e correlacionado</b> com características reais dos programas — crescimento,
+rotatividade, coautoria interna, idade. Programas novos, programas em expansão e programas
+de áreas colaborativas eram penalizados <b>precisamente por essas características</b>, que
+nada têm a ver com produtividade.</p>
+<p>Corrigir isso muda posições, e mudar posições incomoda — especialmente quando o número
+antigo já circulou. Mas a alternativa era preservar a estabilidade de um indicador que
+sabíamos estar errado, e cuja principal função é subsidiar decisão sobre programas reais.
+Manter o erro por conforto seria escolher a aparência de consistência em detrimento da
+medida correta. Um programa que aparecia em 9º lugar e agora aparece em 17º não piorou: a
+régua anterior lhe creditava uma vantagem que era artefato de contagem. Um programa que
+sobe 80 posições não melhorou: ele estava sendo dividido por professores-ano que não
+existiam. <b>Em ambos os casos, o número de hoje é mais honesto que o de ontem</b> — e é
+por isso que o aplicativo mudou de versão maior, e não de subversão.</p>
+
+<h2 id='s7' class='pb'>7. As fichas de avaliação por área</h2>
+<p>Esta seção responde a uma pergunta que precede o aplicativo: <b>o que, afinal, a CAPES
+avalia no quesito de produção?</b> Para respondê-la com fatos, foram baixadas e lidas as
+fichas de avaliação por área do ciclo 2025-2028 publicadas no portal da CAPES.</p>
+<table class='keep'>
+<thead><tr><th>Situação da ficha</th><th>Áreas</th></tr></thead>
+<tbody>
+<tr><td class='l'>Ficha publicada do ciclo 2025-2028</td><td><b>43</b></td></tr>
+<tr><td class='l'>Apenas versão de consulta (não é norma)</td><td><b>5</b></td></tr>
+<tr><td class='l'>Sem ficha do ciclo novo localizada</td><td><b>1</b></td></tr>
+</tbody></table>
+
+<h3 id='s7-1'>7.1 Por que padronizar entre áreas é tão difícil</h3>
+<p>A resposta curta é que <b>a CAPES não padroniza</b>, e isso é deliberado. As Diretrizes
+comuns definem a arquitetura (três quesitos, itens, pesos mínimos) e o método de
+estratificação por percentil — mas dizem explicitamente que os indicadores quantitativos
+são "<i>definidos por cada área de avaliação</i>". Cada uma das ~49 áreas publica a sua
+ficha e escolhe o que medir. O resultado é um sistema em que a mesma palavra —
+"produção" — significa coisas diferentes em cada lugar.</p>
+<p>A auditoria encontrou <b>quatro dimensões de divergência</b>, e qualquer uma delas já
+inviabilizaria uma régua comum:</p>
+<h4>a) A unidade não é a mesma</h4>
+<p><b>31 das 48</b> áreas usam alguma <b>taxa por docente</b> — várias com fórmula fechada,
+como Economia (<code>I = (Ta₁/n₁ + … + Ta₄/n₄)/4</code>), Engenharias I
+(<code>[1,00·A1 + 0,90·A2 + … ] / (DP − JDP)</code>) ou Psicologia, cujo item se chama
+literalmente "Produção bibliográfica qualificada / DP". Mas <b>17 não usam taxa nenhuma</b>.
+Astronomia/Física, Enfermagem, Medicina II, Artes, Ensino, História e outras medem o
+<b>percentual de docentes</b> que passa uma barra individual. A ficha da Física, por
+exemplo, avalia o "<i>percentual de DPR com publicações classificadas nos estratos
+superiores</i>" e o "<i>percentual de DPR … que tenha no mínimo 8 artigos publicados no
+quadriênio</i>". Nela, "artigos por docente por ano" simplesmente <b>não existe</b>.</p>
+<h4>b) A régua de qualidade não é a mesma</h4>
+<p>Apenas <b>Farmácia, Psicologia e Materiais</b> constroem A1–A8 por percentil de 12,5%
+como as Diretrizes comuns descrevem — e ainda assim variam a <b>fonte</b> do percentil.
+Engenharias III usa cortes próprios (A1 exige percentil ≥ 95) <b>e</b> um segundo eixo
+baseado no <b>FWCI do artigo</b>. Sociologia pontua por índice h5 ou percentil do JCR.
+Medicina Veterinária, Educação Física e Ciências Agrárias I ainda usam <b>Qualis com faixa
+B</b>. Educação usa classes qualitativas ("consolidados; em processo de consolidação; não
+consolidados"). <b>História e Medicina I não usam estrato algum</b> no quesito de produção
+docente.</p>
+<h4>c) O denominador não é o mesmo — e às vezes nem é um dado</h4>
+<p>Praticamente nenhuma área usa o número de permanentes puro. Quase todas subtraem
+categorias, por regras incompatíveis entre si: <code>DP − JDP</code> (Química, Materiais,
+Engenharias I), <code>DP* = DP − DPRec − DLM</code> (Farmácia),
+<code>DP − JDP − LP − LS</code> (Engenharias II), <b>DP-ano</b> em vez de DP (Sociologia,
+Comunicação), exclusão de até 25% dos docentes a critério do programa (Antropologia,
+Sociologia). Só a Astronomia/Física define a redução com fórmula fechada:
+<code>DPR = DP − DL − DM − mín(DJ+DT, 20%·CDT)</code>, com piso de 50% do DP.</p>
+<h4>d) Em ~10 áreas, publicar mais não pontua</h4>
+<p>Direito, Linguística, Odontologia, Saúde Coletiva, Administração, Filosofia,
+Psicologia, Artes, Teologia e Comunicação usam <b>cota fixa por docente</b>: só os
+<i>n</i> melhores produtos de <b>cada</b> professor entram na avaliação (n proporcional
+aos anos de atuação). Nessas áreas, o volume total do programa é <b>irrelevante por
+construção</b> — a alavanca é trocar os <i>n</i> produtos por outros de estrato melhor,
+não produzir mais.</p>
+<div class='warn'><b>Um ponto que merece destaque</b>, porque contraria a intuição de que
+uma média por docente seria neutra: várias fichas <b>penalizam explicitamente</b> aquilo
+que uma média esconde. A ficha da Física pede "<i>evitando-se alta concentração de
+qualquer destas atividades em alguns docentes</i>". O item 2.4 de Medicina II
+<b>chama-se</b> "Homogeneidade da produção intelectual" e exige que "<i>pelo menos 70% do
+corpo docente permanente atinja a pontuação mínima</i>" da nota pretendida. Planejamento
+Urbano dedica 20% do peso do item ao <b>coeficiente de variação</b> da produção entre
+docentes. Uma média por docente é cega para concentração; essas áreas não são.</div>
+
+<h3 id='s7-2' class='pb'>7.2 O que cada área usa no quesito de produção</h3>
+<p>Resumo do item 2.4 (produção do corpo docente) de cada ficha. <b>T</b> = taxa por
+docente; <b>%D</b> = percentual de docentes que passa barra individual; <b>F</b> = fração
+da produção em certos estratos; <b>O</b> = outro (destaques curados, índices h/FWCI,
+escalas conceituais). O asterisco marca as áreas cuja ficha ainda é <b>versão de
+consulta</b>, e cujos parâmetros podem mudar.</p>
+<table>
+<thead><tr><th>Área</th><th>Unidade</th><th>Recorte de estrato</th><th>Denominador</th></tr></thead>
+<tbody>
+<tr><td class='l'>Administração, C. Contábeis e Turismo</td><td>T + %D</td><td class='l'>MB/B/R/F (ABDC, ABS, quartis)</td><td class='l'>NDP</td></tr>
+<tr><td class='l'>Antropologia / Arqueologia</td><td>T + O</td><td class='l'>percentil máx. CiteScore/JCR</td><td class='l'>DP − parental − até 25%</td></tr>
+<tr><td class='l'>Arquitetura, Urbanismo e Design</td><td>%D + O</td><td class='l'>"estratos superiores", indefinido</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Artes</td><td><b>%D</b></td><td class='l'>MB/B; A1–A4 (artístico)</td><td class='l'>DP</td></tr>
+<tr><td class='l'><b>Astronomia / Física</b></td><td><b>%D</b></td><td class='l'><b>A1–A2 (≥75%) e A1–A4 (≥50%)</b></td><td class='l'><b>DPR (fórmula fechada)</b></td></tr>
+<tr><td class='l'>Biodiversidade*</td><td>O</td><td class='l'>percentil WoS/Scopus</td><td class='l'>até 15 docentes</td></tr>
+<tr><td class='l'>Biotecnologia</td><td>T + %D</td><td class='l'>percentil &gt;75 / &gt;50 / &gt;12,5</td><td class='l'>DP − DPE</td></tr>
+<tr><td class='l'>Ciência da Computação</td><td>T</td><td class='l'>A1–A4 com pesos</td><td class='l'>DP − PPJ − PPS</td></tr>
+<tr><td class='l'>Ciência de Alimentos</td><td>T</td><td class='l'>percentil ≥ 50%</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Ciência Política e RI</td><td>T + O</td><td class='l'><b>A1–A4</b></td><td class='l'>DP − parental</td></tr>
+<tr><td class='l'>Ciências Agrárias I*</td><td>T + F</td><td class='l'>A1–A2; Qualis A1–B4</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Ciências Ambientais</td><td><b>T</b></td><td class='l'>E1–E8 com pesos; teto p/ E5–E8</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Ciências Biológicas I</td><td colspan='3' class='l'>ficha do ciclo 2025-2028 não localizada</td></tr>
+<tr><td class='l'>Ciências Biológicas II*</td><td>T + %D</td><td class='l'>A1+A2</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Ciências Biológicas III</td><td>T + F + %D</td><td class='l'>"dois níveis mais superiores"</td><td class='l'>DP − JDP (facultativo)</td></tr>
+<tr><td class='l'>Ciências da Religião e Teologia</td><td>%D + O</td><td class='l'>sem estrato</td><td class='l'>DP − parental</td></tr>
+<tr><td class='l'>Comunicação e Informação</td><td>T + O</td><td class='l'>sem estrato</td><td class='l'><b>DP-ano</b></td></tr>
+<tr><td class='l'>Direito</td><td>T + %D</td><td class='l'>MB/B/R/F/I (consolidação × mérito)</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Economia</td><td>T</td><td class='l'>percentil &gt;62,5 / &gt;75 / &gt;87,5</td><td class='l'>DP − DPCE (teto 20%)</td></tr>
+<tr><td class='l'>Educação</td><td>F + %D</td><td class='l'>classes qualitativas de periódico</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Educação Física*</td><td><b>%D</b></td><td class='l'>Qualis A1–B4; barra B2/C3/L3</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Enfermagem</td><td><b>%D</b></td><td class='l'>2 estratos sup. (≥4 art.); 4 sup. (≥8)</td><td class='l'>DP médio</td></tr>
+<tr><td class='l'>Engenharias I</td><td>T + %D</td><td class='l'>A1–A8 com pesos; A1–A4; A1–A2</td><td class='l'><b>DP − JDP</b></td></tr>
+<tr><td class='l'>Engenharias II</td><td>T + %D</td><td class='l'>A1–A5 c/ pesos; A1–A4</td><td class='l'><b>DP − JDP − LP − LS</b></td></tr>
+<tr><td class='l'>Engenharias III</td><td>T + %D + O</td><td class='l'><b>P1–P8 (A1 exige ≥95) + FWCI</b></td><td class='l'>60% dos docente-ano</td></tr>
+<tr><td class='l'>Engenharias IV</td><td>O + %D</td><td class='l'>E1–E4 (métricas não publicadas)</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Ensino</td><td><b>%D</b></td><td class='l'><b>A1–A4</b></td><td class='l'>DP</td></tr>
+<tr><td class='l'>Farmácia</td><td>T + F + %D</td><td class='l'><b>A1–A8 por percentil de 12,5%</b></td><td class='l'><b>DP* = DP − DPRec − DLM</b></td></tr>
+<tr><td class='l'>Filosofia</td><td>O + %D</td><td class='l'>"estratos 1 a 4"</td><td class='l'>DP − várias exclusões</td></tr>
+<tr><td class='l'>Geociências</td><td>T</td><td class='l'>A1–A8 com pesos</td><td class='l'>DP − parental</td></tr>
+<tr><td class='l'>Geografia</td><td>O + %D</td><td class='l'>índice H5, sem cortes publicados</td><td class='l'>não declarado</td></tr>
+<tr><td class='l'>História</td><td><b>%D + O</b></td><td class='l'><b>nenhum</b></td><td class='l'>DP − parental</td></tr>
+<tr><td class='l'>Interdisciplinar</td><td>T + O</td><td class='l'>A1–A4 + L + C + T; teto p/ A7–A8</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Linguística e Literatura</td><td><b>O (cota)</b></td><td class='l'>quartis por h5</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Matemática / Prob. e Estatística</td><td>T</td><td class='l'><b>percentil SJR contínuo</b></td><td class='l'>DP médio − parental</td></tr>
+<tr><td class='l'>Materiais</td><td>T + %D + O</td><td class='l'><b>P1–P8 por percentil</b> (cascata de fontes)</td><td class='l'><b>DP − JDP</b></td></tr>
+<tr><td class='l'>Medicina I</td><td>%D + T</td><td class='l'><b>nenhum</b> (FWCI &gt; 1; índice h)</td><td class='l'>DP − parental</td></tr>
+<tr><td class='l'>Medicina II</td><td><b>%D</b></td><td class='l'><b>nenhum</b> (percentil JIF somado)</td><td class='l'>DP − parental</td></tr>
+<tr><td class='l'>Medicina III</td><td>T + O</td><td class='l'>estratos definidos a posteriori</td><td class='l'>DP médio − parental</td></tr>
+<tr><td class='l'>Medicina Veterinária*</td><td>T</td><td class='l'><b>Qualis A1–B1</b> com pesos</td><td class='l'>DP − JDP</td></tr>
+<tr><td class='l'>Nutrição</td><td>T + %D</td><td class='l'>"estratos superiores", indefinido</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Odontologia</td><td><b>O</b> (mediana de percentis)</td><td class='l'>percentil contínuo</td><td class='l'>DP − parental</td></tr>
+<tr><td class='l'>Planejamento Urbano e Regional</td><td>T + O (coef. variação)</td><td class='l'><b>nenhum</b> (indexação × citações)</td><td class='l'>DP − recorte demográfico</td></tr>
+<tr><td class='l'>Psicologia</td><td>T + O</td><td class='l'><b>A1–A8 por percentil</b>; A1–A4 no item</td><td class='l'>DP − recém-doutor (20%)</td></tr>
+<tr><td class='l'>Química</td><td>%D + T + F</td><td class='l'><b>AP1–AP8 por percentil</b>; top 10%</td><td class='l'><b>DP − JDP</b></td></tr>
+<tr><td class='l'>Saúde Coletiva</td><td><b>F</b></td><td class='l'>binário qualificado / não</td><td class='l'>DP − jovens doutores</td></tr>
+<tr><td class='l'>Serviço Social</td><td>T</td><td class='l'><b>A1–A4</b> (docente)</td><td class='l'>DP</td></tr>
+<tr><td class='l'>Sociologia</td><td>T (<b>DP-ano</b>)</td><td class='l'>h5 ou percentil JCR</td><td class='l'><b>DP-ano</b> − exclusões</td></tr>
+<tr><td class='l'>Zootecnia / Recursos Pesqueiros</td><td>T + %D</td><td class='l'>A1–A8; "Restrito 1" = <b>A1–A3</b></td><td class='l'>DP médio − JDP − parental</td></tr>
+</tbody></table>
+
+<h3 id='s7-3' class='pb'>7.3 O que dá para implementar e o que não dá</h3>
+<p>A pergunta natural é: se cada área tem a sua régua, por que o aplicativo não usa a régua
+de cada área? A resposta foi levantada área por área, classificando cada uma conforme o que
+seria preciso para segui-la:</p>
+<table class='keep'>
+<thead><tr><th>Classe</th><th>Significado</th><th>Áreas</th></tr></thead>
+<tbody>
+<tr><td><b>A</b></td><td class='l'>Dá para implementar com os dados que já existem</td><td><b>2</b></td></tr>
+<tr><td><b>B</b></td><td class='l'>Dá, mas exige emitir campo novo no pipeline</td><td><b>5</b></td></tr>
+<tr><td><b>C</b></td><td class='l'>Exige dado que não existe em nenhuma base pública</td><td><b>26</b></td></tr>
+<tr><td><b>D</b></td><td class='l'>A própria ficha não publica o critério, ou o critério é julgamento de comissão</td><td><b>16</b></td></tr>
+</tbody></table>
+<p><b>Cerca de 86% das áreas não são implementáveis</b> com o que existe hoje, e 16 delas
+não o são <i>em princípio</i>.</p>
+<div class='bad'><b>O bloqueio principal não é bibliométrico — é o denominador, e ele não
+é um dado.</b> Quase toda área subtrai do corpo docente uma categoria (licença parental,
+licença saúde, jovem doutor, sênior) que <b>o próprio programa declara à CAPES</b>, quase
+sempre em caráter facultativo — "<i>poderão não ser incluídos(as), <b>se assim preferir o
+PPG</b></i>". Dois professores em situação idêntica entram em denominadores diferentes
+conforme o que cada coordenação anexou ao Sucupira. Isso não é coleta pendente: é uma
+<b>escolha do programa</b>, que não consta de nenhuma base pública e não é reconstituível
+por inferência.</div>
+<p>Somam-se a isso três obstáculos verificados nos dados:</p>
+<ul>
+<li>A <b>Ficha 2025-2028 não governa nenhum quadriênio que o aplicativo exibe</b>
+(2013-2016, 2017-2020 e 2021-2024 já foram avaliados — o primeiro sob Qualis). Aplicá-la
+retroativamente produziria um número que nenhuma comissão calculou e que contradiz a
+avaliação real.</li>
+<li>O <b>Qualis deixou de ser coletado a partir de 2017</b>. As áreas que ainda usam faixa
+B ficariam sem base — e não há o que coletar, porque o dado não existe.</li>
+<li><b>FWCI e índice h de autor</b> (exigidos por Engenharias III, Medicina I, Medicina III
+e outras) não estão em nenhuma base à disposição do projeto. A própria CAPES os obtém
+pedindo o identificador Scopus ao programa.</li>
+</ul>
+<div class='warn'><b>Por que uma implementação parcial seria pior que a régua única.</b>
+Sete áreas seguindo a ficha e 42 na régua comum não é meio caminho andado: é o pior dos
+dois mundos. O aplicativo perderia a única coisa que o torna útil — a garantia de que a
+comparação significa a mesma coisa em todas as telas — e o leitor compararia assim mesmo,
+sem saber que está somando medidas incomensuráveis.</div>
+
+<h2 id='s8' class='pb'>8. O que o aplicativo faz hoje — e o que não faz</h2>
+<div class='ok'><b>O que faz:</b> classifica cada artigo em <b>A1–A8/C pelo percentil do
+periódico dentro da área</b>, em classes de 12,5%, reproduzindo o <b>método</b> do
+Procedimento 1 das Diretrizes comuns 2025-2028; conta <b>artigos distintos</b>; divide por
+<b>anos-docente</b>; e compara <b>sempre dentro da mesma área CAPES</b>.</div>
+<div class='bad'><b>O que NÃO faz — e é importante ser explícito:</b>
+<ul style='margin-bottom:0'>
+<li><b>Não reproduz a avaliação da CAPES.</b> Nenhum número aqui é a nota, nem prevê a
+nota, nem é o indicador que a comissão da sua área vai calcular.</li>
+<li><b>Não segue a ficha da sua área.</b> Usa uma régua única nas 49 áreas, pelas razões
+da §7.3. Onde a sua ficha usa percentual de docentes, cota fixa, Qualis, FWCI ou índice h,
+o aplicativo <b>não</b> os usa.</li>
+<li><b>Não usa o denominador da sua ficha.</b> Usa anos-docente de todos os permanentes,
+sem as exclusões (jovem doutor, licenças) que quase toda área aplica.</li>
+<li><b>Não avalia os quesitos 1 e 3</b> (proposta do programa e impacto), que pesam na
+nota tanto quanto a produção.</li>
+</ul></div>
+<p>O aplicativo é um <b>instrumento de comparação descritiva</b>: mostra onde um programa
+se situa entre os seus pares de área segundo uma medida explícita e uniforme. Essa
+uniformidade é uma <b>escolha</b>, e o preço dela é não corresponder à régua de nenhuma
+área em particular. A alternativa — seguir 49 réguas diferentes, das quais 42 não são
+computáveis — não produziria um aplicativo melhor, produziria um aplicativo incoerente.</p>
+
+<h2 id='s9'>9. Limitações e ressalvas</h2>
+<ul>
+<li><b>2013-2016 tem outra régua.</b> Aquele quadriênio foi avaliado sob Qualis; os
+estratos A1–A8 exibidos para ele são uma reconstrução por percentil, não o que a CAPES
+usou.</li>
+<li><b>Os quadriênios não estão na mesma unidade de produção.</b> A fonte de 2021-2024 só
+traz artigos em periódico; 2013-2020 traz 15 subtipos. Comparar <i>artigos</i> entre
+quadriênios é válido — e é o padrão do aplicativo; comparar <i>produção total</i> não é.</li>
+<li><b>O indicador de impacto é substituto.</b> As Diretrizes prescrevem CiteScore
+(Scopus) ou JIF (JCR). O aplicativo oferece três bases, e a escolha entre elas muda o
+estrato de parte dos artigos.</li>
+<li><b>Estrato C não é demérito</b> — é ausência de indicador na base. Em Humanas, Sociais
+Aplicadas e Linguística, boa parte dos periódicos nacionais cai em C, e ali os estratos
+têm poder descritivo limitado.</li>
+<li><b>Anos-docente ainda é aproximação.</b> Um professor conta como unidade inteira no
+ano em que aparece no roster, independentemente de quando entrou.</li>
+<li><b>5 fichas de área são versões de consulta</b> e 1 não foi localizada; os parâmetros
+da §7.2 para elas podem mudar quando a CAPES publicar as definitivas.</li>
+</ul>
+<hr>
+<p class='meta'>MAPA-PG v5.0.0 · 17 de julho de 2026 · Dados: CAPES/Plataforma Sucupira
+(programas, docentes e produção intelectual, 2013–2024) · Este documento e o aplicativo
+são trabalho acadêmico independente, sem vínculo com a CAPES.</p>
+</body></html>

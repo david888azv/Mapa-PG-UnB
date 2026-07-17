@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v4.2.0</div>
+        <div id="headerVersion">v5.0.0</div>
     </div>
 </div>
 
@@ -375,6 +375,7 @@ tr:hover { background: #EEF2F7; }
         <button class="btn btn-export" onclick="exportarCSV()">Exportar CSV</button>
         <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
         <button class="btn" onclick="abrirHelp()" style="background:#607D8B;color:#fff;margin-top:16px;">? Ajuda / Documentação</button>
+        <button class="btn" onclick="window.open('mudancas-v5.0.0.html','_blank')" style="background:#B03A2E;color:#fff;margin-top:16px;">★ O que mudou na v5.0</button>
     </div>
 
     <!-- MAIN -->
@@ -472,7 +473,7 @@ let REG_IES = null;           // registry_ies.json — catálogo das 27 IFES
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '4.2.0';
+const VERSION = '5.0.0';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -1143,7 +1144,14 @@ function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
     // porque trocava de caminho de cálculo. O padrão do app (só Artigo em Periódico)
     // nunca passou por aqui e sempre esteve correto.
     // Computar sempre de prod_sub custa um laço de 5 posições por registro.
-    const n_anos = 4;  // todo registro é por quadriênio
+    // DENOMINADOR = ANOS-DOCENTE (ad_*), não headcount × 4. A união dos rosters do
+    // quadriênio tratava quem entrou no último ano como presente nos quatro; o fator
+    // (união×4 / anos-docente) tem mediana ~1,15-1,19 e chega a 4,0, varia entre
+    // programas e por isso NÃO se cancela na comparação. `ad(d, cat)` cai para o
+    // comportamento antigo em registro sem ad_* (dado de release anterior em cache).
+    const n_anos = 4;
+    const ad = (rec, key, headcount) => (rec[key] != null && rec[key] > 0)
+        ? rec[key] : (headcount > 0 ? headcount * n_anos : 0);
 
     // ── Filtro de ESTRATO ativo: recalcula via estr_perm/estr_colab/estr_visit/estr_all
     //    (eventos artigo×autor por estrato A1..A8,C — sem subtipo nem PQ).
@@ -1154,10 +1162,10 @@ function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
         const sel = new Set(estratos_if);
         const sumIF = arr => arr ? ORDEM.reduce((s,e,i) => s + (sel.has(e) ? (arr[i]||0) : 0), 0) : 0;
         switch (metrica) {
-            case 'ma_perm':  return d.n_perm  > 0 ? +(sumIF(d.estr_perm)  / d.n_perm  / n_anos).toFixed(2) : 0;
-            case 'ma_colab': return d.n_colab > 0 ? +(sumIF(d.estr_colab) / d.n_colab / n_anos).toFixed(2) : 0;
-            case 'ma_visit': return d.n_visit > 0 ? +(sumIF(d.estr_visit) / d.n_visit / n_anos).toFixed(2) : 0;
-            case 'ma_all':   return d.n_doc   > 0 ? +(sumIF(d.estr_all)   / d.n_doc   / n_anos).toFixed(2) : 0;
+            case 'ma_perm':  { const q = ad(d,'ad_perm', d.n_perm);  return q > 0 ? +(sumIF(d.estr_perm)  / q).toFixed(2) : 0; }
+            case 'ma_colab': { const q = ad(d,'ad_colab',d.n_colab); return q > 0 ? +(sumIF(d.estr_colab) / q).toFixed(2) : 0; }
+            case 'ma_visit': { const q = ad(d,'ad_visit',d.n_visit); return q > 0 ? +(sumIF(d.estr_visit) / q).toFixed(2) : 0; }
+            case 'ma_all':   { const q = ad(d,'ad_all',  d.n_doc);   return q > 0 ? +(sumIF(d.estr_all)   / q).toFixed(2) : 0; }
             // Sem granularidade IF × PQ nem IF × média/mediana — devolvem o pré-computado
             case 'ma_pq':
             case 'ma_spq':
@@ -1170,12 +1178,12 @@ function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
     if (metrica === 'avg_if') return d[metrica] || 0;
     const sp = getSubtypeProd(d, subtipos);
     switch (metrica) {
-        case 'ma_pq':   return d.n_pq    > 0 ? +(sp.pq    / d.n_pq    / n_anos).toFixed(2) : 0;
-        case 'ma_spq':  return d.n_spq   > 0 ? +(sp.spq   / d.n_spq   / n_anos).toFixed(2) : 0;
-        case 'ma_all':  return d.n_doc   > 0 ? +(sp.total / d.n_doc   / n_anos).toFixed(2) : 0;
-        case 'ma_perm': return d.n_perm  > 0 ? +(sp.perm  / d.n_perm  / n_anos).toFixed(2) : 0;
-        case 'ma_colab': return d.n_colab > 0 ? +(sp.colab / d.n_colab / n_anos).toFixed(2) : 0;
-        case 'ma_visit': return d.n_visit > 0 ? +(sp.visit / d.n_visit / n_anos).toFixed(2) : 0;
+        case 'ma_pq':    { const q = ad(d,'ad_pq',   d.n_pq);    return q > 0 ? +(sp.pq    / q).toFixed(2) : 0; }
+        case 'ma_spq':   { const q = ad(d,'ad_spq',  d.n_spq);   return q > 0 ? +(sp.spq   / q).toFixed(2) : 0; }
+        case 'ma_all':   { const q = ad(d,'ad_all',  d.n_doc);   return q > 0 ? +(sp.total / q).toFixed(2) : 0; }
+        case 'ma_perm':  { const q = ad(d,'ad_perm', d.n_perm);  return q > 0 ? +(sp.perm  / q).toFixed(2) : 0; }
+        case 'ma_colab': { const q = ad(d,'ad_colab',d.n_colab); return q > 0 ? +(sp.colab / q).toFixed(2) : 0; }
+        case 'ma_visit': { const q = ad(d,'ad_visit',d.n_visit); return q > 0 ? +(sp.visit / q).toFixed(2) : 0; }
         default: return d[metrica] || 0;
     }
 }
