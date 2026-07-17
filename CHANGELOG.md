@@ -1,5 +1,28 @@
 # Changelog — MAPA-PG-UnB
 
+## v4.2.0 — A produção passa a ser contada em artigos distintos (2026-07-17)
+
+**Correção de medida. Os números exibidos mudam.** Até aqui o app contava *eventos
+artigo×autor*: um artigo assinado por três docentes permanentes do programa entrava três vezes
+na contagem daquele programa. Como todas as métricas são taxas (por docente, por ano), isso
+embutia a coautoria interna no indicador — e o fator de inflação **não é constante**: varia de
+1,00 (Filosofia, Artes, onde a autoria única é a norma) a 7,52 entre os 4.375 programas, com
+mediana 1,18. Por não ser uniforme, ele não se cancelava na comparação entre programas:
+quem tinha muita coautoria interna aparecia inflado, quem tinha pouca aparecia penalizado.
+
+Agora cada artigo é contado **uma vez** por categoria de docente, se tiver ao menos um autor
+naquela categoria. O efeito é maior nas áreas de coautoria intensa (Odontologia: 4,75 → 2,42
+artigos por permanente/ano) e quase nulo nas de autoria única (Filosofia: 7,89 → 7,61).
+
+Atinge `ma_pq`/`ma_spq`/`ma_all`/`ma_perm`/`ma_colab`/`ma_visit`, `prod_sub`, `prod_ano`, as
+faixas de IF (`if_perm`/`if_colab`/`if_visit`/`if_all`) e os vetores de estrato A1–A8/C
+(`estr_*`) nas três bases (CiteScore, OpenAlex, híbrida). `avg_if`/`med_if`/`max_if`/`n_if` já
+eram sobre artigos distintos e ficaram **inalterados** — serviram de controle da migração.
+
+Os dois caminhos do app (filtro de tipo via `prod_sub` e filtro de estrato via `estr_*`)
+continuam na mesma unidade, e a invariante de paridade `sum(if_perm) == sum(estr_perm_oa[:8])`
+fecha nas 49 áreas, sem erros.
+
 ## v4.1.0 — Universidade de referência configurável: 26 IFES + UnB (2026-07-05)
 
 **Nova funcionalidade.** O usuário passa a escolher **qual universidade federal** usar como
