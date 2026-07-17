@@ -1,5 +1,53 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.0.0 — Revisão de medida: a produtividade agora é calculada de forma correta e honesta (2026-07-17)
+
+**Versão maior — os números mudaram e o ranking também.** Esta revisão corrige três
+defeitos na forma de medir a produção acadêmica e incorpora dados de docentes que a CAPES
+publicou e que o aplicativo ainda não usava. As três correções são da mesma família: um
+fator que **varia de programa para programa** estava embutido numa taxa e, por isso,
+**não se cancelava na comparação** — inflava uns programas e penalizava outros. Como isso
+altera a posição relativa dos programas dentro de cada área, a versão sobe de 4.x para
+5.0. Um documento dedicado explica cada mudança, seus efeitos e sua justificativa:
+**"O que mudou na v5.0"** (botão no painel; `mudancas-v5.0.0.html` / `.pdf`).
+
+**As três correções de medida:**
+
+1. **Artigos distintos, não eventos artigo×autor.** A base da CAPES traz uma linha por
+   (artigo, autor); o app contava essas linhas, então um artigo com 3 permanentes contava
+   3 vezes. O fator de inflação variava de 1,00 (autoria única) a 7,52 entre os programas.
+   *(já entregue na v4.2.0, consolidada aqui.)*
+
+2. **Denominador em anos-docente, não docentes × 4.** O app dividia por `n_perm × 4`,
+   tratando quem entrou no último ano como presente nos quatro. Programas que existiram em
+   um único ano do quadriênio — tipicamente **novos** — apareciam com **um quarto** da
+   produtividade real. O fator `(n_perm×4 ÷ anos-docente)` tinha mediana ~1,17, chegava a
+   2,0 no p90 e a 4,0 no extremo. Agora o denominador é a soma, ano a ano, dos docentes
+   daquele ano. Novo campo `ad_*` no JSON; `n_perm` continua na tela como headcount.
+
+3. **Recorte de topo A1–A4 (percentil ≥ 50), não A1–A3.** Alinha ao corte dominante nas
+   fichas de área da CAPES (A1–A3 aparecia em uma única área). Não altera a predição — é
+   fidelidade à norma. O grupo "elite" (A1–A2, ≥ 75%) foi mantido.
+
+**Dados novos — os docentes de 2022 a 2024.** A CAPES publicou 2022/2023 em 25/03/2025 e
+2024 em 01/12/2025; o quadriênio 2021-2024 usava só o roster de 2021. Proveniência
+confirmada (o arquivo de 2021 baixado é byte-idêntico ao já usado). **82%** dos programas
+do país tiveram o nº de permanentes alterado.
+
+**Efeitos medidos:** a taxa exibida sobe em ~96% dos programas em 2013-2016 e 2017-2020
+(razão mediana ~1,17); **83 programas da UnB** mudaram de posição dentro da própria área só
+em 2017-2020 (um subiu 80 posições; outro caiu 32). Sobe **e** desce — a assinatura de um
+viés que não se cancelava. O que **não** mudou: fonte (CAPES/Sucupira), recorte por área,
+estratificação A1–A8/C e o princípio de comparar só dentro da mesma área.
+
+**Nota sobre as fichas por área (no documento):** a auditoria das 48 fichas de avaliação
+disponíveis mostra que a CAPES **não padroniza** o quesito de produção — 31 áreas usam taxa
+por docente, 17 usam percentual de docentes, ~10 usam cota fixa (onde publicar mais não
+pontua), e os denominadores e réguas de estrato divergem. Seguir a ficha de cada área é
+inviável para ~86% delas (o bloqueio é o denominador, que depende de declaração do próprio
+programa e não existe em base pública). Por isso o app mantém uma **régua única, explícita
+e uniforme**, e o documento é transparente sobre o que ela **não** faz.
+
 ## v4.2.0 — A produção passa a ser contada em artigos distintos (2026-07-17)
 
 **Correção de medida. Os números exibidos mudam.** Até aqui o app contava *eventos

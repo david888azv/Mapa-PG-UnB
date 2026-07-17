@@ -366,18 +366,49 @@ def calcular_area(slug):
                     return int(d[d['ID_PESSOA_DOCENTE'].isin(ids)]
                                ['ID_ADD_PRODUCAO_INTELECTUAL'].dropna().nunique())
 
+                # ── DENOMINADOR = ANOS-DOCENTE, não headcount × 4 ───────────────────
+                # Antes: `ma_X = artigos / len(ids_X) / 4`, onde ids_X é a UNIÃO dos
+                # rosters do quadriênio — o que trata quem entrou no último ano como se
+                # estivesse presente os quatro. Medido nos 13.536 registros
+                # programa×quadriênio, `união×4 / anos-docente` tem mediana 1,15-1,19,
+                # p90 até 2,0 e máximo 4,0 (corpo docente inteiramente novo a cada ano).
+                # Como o fator varia entre programas, NÃO se cancela na comparação:
+                # penaliza quem cresce ou tem rotatividade. Mesmo defeito de medida que
+                # eventos-vs-artigos-distintos (ver _ndist), e pela mesma razão.
+                # Agora: soma, ano a ano, dos docentes distintos DAQUELA categoria
+                # naquele ano. `n_perm` & cia. seguem sendo o headcount (a união), que é
+                # o que a tela mostra como "nº de permanentes" e continua correto p/ isso.
+                def _anos_doc(mask):
+                    """Anos-docente: Σ_ano (docentes distintos da categoria naquele ano)."""
+                    sub = dd[mask]
+                    if sub.empty:
+                        return 0
+                    return int(sub.groupby('AN_BASE')['ID_PESSOA'].nunique().sum())
+
+                _cat_up = (dd[cat_col].astype(str).str.strip().str.upper()
+                           if cat_col in dd.columns else None)
+                ad_all = _anos_doc(dd['ID_PESSOA'].notna())
+                ad_pq = _anos_doc(dd['ID_PESSOA'].isin(ids_pq)) if ids_pq else 0
+                ad_spq = _anos_doc(dd['ID_PESSOA'].isin(ids_spq)) if ids_spq else 0
+                if _cat_up is not None:
+                    ad_perm = _anos_doc(_cat_up == 'PERMANENTE')
+                    ad_colab = _anos_doc(_cat_up == 'COLABORADOR')
+                    ad_visit = _anos_doc(_cat_up == 'VISITANTE')
+                else:
+                    ad_perm = ad_colab = ad_visit = 0
+
                 t_pq = _ndist(ids_pq)
                 t_spq = _ndist(ids_spq)
                 t_all = _ndist(ids_all)
-                ma_pq = round(t_pq / npq / n_anos, 2) if npq > 0 else 0
-                ma_spq = round(t_spq / nspq / n_anos, 2) if nspq > 0 else 0
-                ma_all = round(t_all / n / n_anos, 2) if n > 0 else 0
+                ma_pq = round(t_pq / ad_pq, 2) if ad_pq > 0 else 0
+                ma_spq = round(t_spq / ad_spq, 2) if ad_spq > 0 else 0
+                ma_all = round(t_all / ad_all, 2) if ad_all > 0 else 0
                 t_perm = _ndist(ids_perm)
                 t_colab = _ndist(ids_colab)
                 t_visit = _ndist(ids_visit)
-                ma_perm = round(t_perm / n_perm / n_anos, 2) if n_perm > 0 else 0
-                ma_colab = round(t_colab / n_colab / n_anos, 2) if n_colab > 0 else 0
-                ma_visit = round(t_visit / n_visit / n_anos, 2) if n_visit > 0 else 0
+                ma_perm = round(t_perm / ad_perm, 2) if ad_perm > 0 else 0
+                ma_colab = round(t_colab / ad_colab, 2) if ad_colab > 0 else 0
+                ma_visit = round(t_visit / ad_visit, 2) if ad_visit > 0 else 0
                 razao_pc = round(ma_perm / ma_colab, 2) if ma_colab > 0 else 0
 
                 # subtipos
@@ -442,15 +473,21 @@ def calcular_area(slug):
                     all_lo=all_mi=all_hi=0
 
                 # produção por ano
+                # Denominador = o roster DAQUELE ano, não a união do quadriênio (que era
+                # o defeito: dividia os artigos de 1 ano pelo headcount de 4). Para uma
+                # série anual isso é o próprio anos-docente do ano.
                 prod_ano = {}
                 for ano in anos:
                     # artigos DISTINTOS no ano (ver _ndist): era soma por docente = eventos
                     da = dp[dp['AN_BASE'] == ano] if not dp.empty else dp.iloc[0:0]
-                    mp = round(_ndist(ids_pq, da) / npq, 2) if npq > 0 else 0
-                    ms = round(_ndist(ids_spq, da) / nspq, 2) if nspq > 0 else 0
-                    mg = round(_ndist(ids_all, da) / n, 2) if n > 0 else 0
                     dd_ano = dd[dd['AN_BASE'] == ano]
                     n_doc_ano = int(dd_ano['ID_PESSOA'].nunique()) if len(dd_ano) > 0 else 0
+                    ids_ano = set(dd_ano['ID_PESSOA'].dropna().unique())
+                    npq_ano = len(ids_pq & ids_ano)
+                    nspq_ano = len(ids_spq & ids_ano)
+                    mp = round(_ndist(ids_pq, da) / npq_ano, 2) if npq_ano > 0 else 0
+                    ms = round(_ndist(ids_spq, da) / nspq_ano, 2) if nspq_ano > 0 else 0
+                    mg = round(_ndist(ids_all, da) / n_doc_ano, 2) if n_doc_ano > 0 else 0
                     prod_ano[str(ano)] = [mp, ms, mg, n_doc_ano]
 
                 m = meta['cd_meta'][cd]
@@ -464,6 +501,11 @@ def calcular_area(slug):
                     'n_perm': n_perm, 'n_colab': n_colab, 'n_visit': n_visit,
                     'ma_perm': ma_perm, 'ma_colab': ma_colab, 'ma_visit': ma_visit,
                     'razao_pc': razao_pc,
+                    # ANOS-DOCENTE por categoria = denominador das taxas ma_*.
+                    # n_* acima é headcount (união do quadriênio) e serve p/ exibir
+                    # "nº de docentes"; NÃO usar n_*×4 como denominador (ver _anos_doc).
+                    'ad_all': ad_all, 'ad_pq': ad_pq, 'ad_spq': ad_spq,
+                    'ad_perm': ad_perm, 'ad_colab': ad_colab, 'ad_visit': ad_visit,
                     'avg_if': avg_if, 'med_if': med_if, 'max_if': max_if, 'n_if': n_if,
                     'if_lo': n_lo, 'if_mi': n_mi, 'if_hi': n_hi,
                     'if_perm':  [perm_lo, perm_mi, perm_hi],
