@@ -655,8 +655,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--workers', type=int, default=8)
     ap.add_argument('--skip-fase1', action='store_true', help='reaproveita cache existente')
-    ap.add_argument('--skip-fisica', action='store_true', default=True,
-                    help='pula astronomia-fisica (já vem do migrar_fisica.py)')
+    # Astronomia/Física É processada por padrão (default=False). O default=True
+    # anterior era legado de quando a Física vinha do migrar_fisica.py; com
+    # store_true ele deixava a flag SEMPRE ligada, e um build completo excluía
+    # silenciosamente a área central do projeto (só um --only a alcançava). Passar
+    # --skip-fisica ainda pula, mas agora é escolha explícita, não o padrão.
+    ap.add_argument('--skip-fisica', action='store_true', default=False,
+                    help='pula astronomia-fisica (NÃO recomendado; a Física entra por padrão)')
     ap.add_argument('--only', help='só uma área (slug)')
     ap.add_argument('--list', action='store_true', help='lista as 42 áreas e seus slugs e sai')
     args = ap.parse_args()
