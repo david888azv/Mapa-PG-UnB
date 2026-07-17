@@ -609,13 +609,22 @@ são trabalho acadêmico independente, sem vínculo com a CAPES.</p>
     voltar = ("<p style='margin:0 0 14px'><a href='./' style='color:#1F618D;text-decoration:none'>"
               "← voltar ao aplicativo</a> &nbsp;·&nbsp; "
               "<a href='mudancas-v%s.pdf' style='color:#1F618D'>baixar em PDF</a></p>" % VERSAO)
+    # Override SÓ para a leitura em tela: o CSS base usa 10,5pt (calibrado para a
+    # paginação A4 do PDF, que não deve mudar). Na web esse tamanho fica pequeno —
+    # aqui o corpo sobe para ~13pt e os títulos/tabelas escalam junto. O PDF
+    # (para_pdf=True) não recebe este bloco.
+    CSS_WEB = ("body{font-size:13pt;line-height:1.6;max-width:820px}"
+               "h1{font-size:26pt}h2{font-size:18pt}h3{font-size:14.5pt}h4{font-size:13pt}"
+               "table{font-size:11.5pt}code{font-size:11.5pt}"
+               ".sub{font-size:14.5pt}.box,.warn,.bad,.ok,.toc{font-size:12.5pt}"
+               ".cap{font-size:10.5pt}.meta{font-size:11pt}")
     return ("<!doctype html><html lang='pt-br'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width,initial-scale=1'>"
             "<title>MAPA-PG v%s — Como a produção passou a ser calculada</title>"
             "<meta name='description' content='Documento das mudanças de medida do MAPA-PG "
             "v%s: artigos distintos, anos-docente, estratos A1-A4 e os docentes 2022-2024.'>"
-            "<style>%s</style></head><body>%s%s</body></html>"
-            % (VERSAO, VERSAO, CSS, voltar, corpo))
+            "<style>%s</style><style>%s</style></head><body>%s%s</body></html>"
+            % (VERSAO, VERSAO, CSS, CSS_WEB, voltar, corpo))
 
 
 def main():
