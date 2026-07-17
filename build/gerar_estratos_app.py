@@ -236,7 +236,17 @@ def computar_estratos_area(slug, issn2cs, ca):
         col = 'E_' + base
 
         def vetor(grupo):
-            vc = grupo[col].value_counts().to_dict()
+            # ARTIGOS DISTINTOS, não eventos artigo×autor. Antes era
+            # `grupo[col].value_counts()`, que conta uma linha por (artigo, autor): um
+            # artigo com 3 autores permanentes entrava 3x no estrato. Como o app usa
+            # estr_* como TAXA (soma/n_perm/4) no caminho de filtro de estrato, isso
+            # embutia a coautoria interna — e o fator eventos/distintos varia de 1,00
+            # (Filosofia, Artes) a 7,52 (mediana 1,18) entre os 4.375 programas, logo
+            # não se cancela na comparação. `nunique` conta o artigo UMA vez.
+            # Precisa casar com prod_sub/ma_*/if_perm do gerar_dados_completos.py, que
+            # também passaram a distintos — a validação de paridade abaixo cobre isso.
+            vc = (grupo.groupby(col)['ID_ADD_PRODUCAO_INTELECTUAL'].nunique().to_dict()
+                  if not grupo.empty else {})
             return [int(vc.get(e, 0)) for e in ESTRATOS]
 
         programas = {}
@@ -365,7 +375,21 @@ def main():
         del resultado
         gc.collect()
 
-    if (alvo is None or alvo == FISICA_SLUG) and os.path.exists(FISICA_JSON):
+    # ── mapa-pg (app LEGADO, repositório SEPARADO e PUBLICADO) ──────────────────
+    # DESLIGADO em 16/07/2026. Este bloco enriquecia ../mapa-pg/docs/dados_fisica.json,
+    # que é de OUTRO app publicado (github.com/david888azv/Mapa-PG) e cujo pipeline
+    # (preparar_dados_pos_d.py) está fora deste repositório.
+    #
+    # Ao migrar o mapa-pg-multi para ARTIGOS DISTINTOS, este bloco levava junto os
+    # `estr_*` do app legado — mas o `if_perm` dele continua em EVENTOS, porque não há
+    # como regerá-lo daqui. Resultado: o legado ficava com metade dos campos em cada
+    # unidade, e a validação de paridade acusava 439 erros (que eram REAIS: o arquivo
+    # publicado ficava incoerente).
+    #
+    # Enquanto os dois apps não estiverem na mesma unidade, este enriquecimento
+    # cross-repo faz mais mal que bem. Para reativar: regerar o dados_fisica.json pelo
+    # pipeline do próprio mapa-pg, em artigos distintos, e só então religar.
+    if os.environ.get('ENRIQUECER_MAPA_PG_LEGADO') and os.path.exists(FISICA_JSON):
         if fisica_res is None:
             fisica_res = computar_estratos_area(FISICA_SLUG, issn2cs, ca)
         total_err += enriquecer(FISICA_JSON, fisica_res, 'dados_fisica.json (mapa-pg)')

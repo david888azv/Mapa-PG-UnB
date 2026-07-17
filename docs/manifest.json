@@ -35,7 +35,7 @@
       "slug": "arquitetura-urbanismo-e-design",
       "nome": "ARQUITETURA, URBANISMO E DESIGN",
       "arquivo": "dados/area-arquitetura-urbanismo-e-design.json",
-      "tamanho_kb": 187,
+      "tamanho_kb": 186,
       "n_registros": 192,
       "n_unb": 2,
       "sufixos_unb": [
@@ -48,7 +48,7 @@
       "slug": "artes",
       "nome": "ARTES",
       "arquivo": "dados/area-artes.json",
-      "tamanho_kb": 176,
+      "tamanho_kb": 175,
       "n_registros": 183,
       "n_unb": 3,
       "sufixos_unb": [
@@ -62,7 +62,7 @@
       "slug": "astronomia-fisica",
       "nome": "ASTRONOMIA / FÍSICA",
       "arquivo": "dados/area-astronomia-fisica.json",
-      "tamanho_kb": 183,
+      "tamanho_kb": 188,
       "n_registros": 193,
       "n_unb": 1,
       "sufixos_unb": [
@@ -74,7 +74,7 @@
       "slug": "biodiversidade",
       "nome": "BIODIVERSIDADE",
       "arquivo": "dados/area-biodiversidade.json",
-      "tamanho_kb": 430,
+      "tamanho_kb": 429,
       "n_registros": 435,
       "n_unb": 3,
       "sufixos_unb": [
@@ -100,7 +100,7 @@
       "slug": "ciencia-da-computacao",
       "nome": "CIÊNCIA DA COMPUTAÇÃO",
       "arquivo": "dados/area-ciencia-da-computacao.json",
-      "tamanho_kb": 236,
+      "tamanho_kb": 235,
       "n_registros": 241,
       "n_unb": 2,
       "sufixos_unb": [
@@ -136,7 +136,7 @@
       "slug": "ciencias-agrarias-i",
       "nome": "CIÊNCIAS AGRÁRIAS I",
       "arquivo": "dados/area-ciencias-agrarias-i.json",
-      "tamanho_kb": 664,
+      "tamanho_kb": 663,
       "n_registros": 675,
       "n_unb": 3,
       "sufixos_unb": [
@@ -150,7 +150,7 @@
       "slug": "ciencias-ambientais",
       "nome": "CIÊNCIAS AMBIENTAIS",
       "arquivo": "dados/area-ciencias-ambientais.json",
-      "tamanho_kb": 378,
+      "tamanho_kb": 377,
       "n_registros": 381,
       "n_unb": 2,
       "sufixos_unb": [
@@ -176,7 +176,7 @@
       "slug": "ciencias-biologicas-ii",
       "nome": "CIÊNCIAS BIOLÓGICAS II",
       "arquivo": "dados/area-ciencias-biologicas-ii.json",
-      "tamanho_kb": 227,
+      "tamanho_kb": 226,
       "n_registros": 229,
       "n_unb": 0,
       "sufixos_unb": [],
@@ -199,7 +199,7 @@
       "slug": "ciencias-da-religiao-e-teologia",
       "nome": "CIÊNCIAS DA RELIGIÃO E TEOLOGIA",
       "arquivo": "dados/area-ciencias-da-religiao-e-teologia.json",
-      "tamanho_kb": 62,
+      "tamanho_kb": 61,
       "n_registros": 63,
       "n_unb": 0,
       "sufixos_unb": [],
@@ -248,7 +248,7 @@
       "slug": "educacao",
       "nome": "EDUCAÇÃO",
       "arquivo": "dados/area-educacao.json",
-      "tamanho_kb": 518,
+      "tamanho_kb": 517,
       "n_registros": 531,
       "n_unb": 2,
       "sufixos_unb": [
@@ -274,7 +274,7 @@
       "slug": "enfermagem",
       "nome": "ENFERMAGEM",
       "arquivo": "dados/area-enfermagem.json",
-      "tamanho_kb": 221,
+      "tamanho_kb": 220,
       "n_registros": 225,
       "n_unb": 1,
       "sufixos_unb": [
@@ -286,7 +286,7 @@
       "slug": "engenharias-i",
       "nome": "ENGENHARIAS I",
       "arquivo": "dados/area-engenharias-i.json",
-      "tamanho_kb": 365,
+      "tamanho_kb": 364,
       "n_registros": 373,
       "n_unb": 4,
       "sufixos_unb": [
@@ -301,7 +301,7 @@
       "slug": "engenharias-ii",
       "nome": "ENGENHARIAS II",
       "arquivo": "dados/area-engenharias-ii.json",
-      "tamanho_kb": 285,
+      "tamanho_kb": 284,
       "n_registros": 289,
       "n_unb": 0,
       "sufixos_unb": [],
@@ -311,7 +311,7 @@
       "slug": "engenharias-iii",
       "nome": "ENGENHARIAS III",
       "arquivo": "dados/area-engenharias-iii.json",
-      "tamanho_kb": 374,
+      "tamanho_kb": 373,
       "n_registros": 381,
       "n_unb": 3,
       "sufixos_unb": [
@@ -340,7 +340,7 @@
       "slug": "ensino",
       "nome": "ENSINO",
       "arquivo": "dados/area-ensino.json",
-      "tamanho_kb": 469,
+      "tamanho_kb": 468,
       "n_registros": 479,
       "n_unb": 2,
       "sufixos_unb": [
@@ -353,7 +353,7 @@
       "slug": "farmacia",
       "nome": "FARMÁCIA",
       "arquivo": "dados/area-farmacia.json",
-      "tamanho_kb": 201,
+      "tamanho_kb": 200,
       "n_registros": 202,
       "n_unb": 1,
       "sufixos_unb": [
@@ -415,7 +415,7 @@
       "slug": "interdisciplinar",
       "nome": "INTERDISCIPLINAR",
       "arquivo": "dados/area-interdisciplinar.json",
-      "tamanho_kb": 1047,
+      "tamanho_kb": 1045,
       "n_registros": 1065,
       "n_unb": 8,
       "sufixos_unb": [
@@ -462,7 +462,7 @@
       "slug": "materiais",
       "nome": "MATERIAIS",
       "arquivo": "dados/area-materiais.json",
-      "tamanho_kb": 113,
+      "tamanho_kb": 112,
       "n_registros": 113,
       "n_unb": 1,
       "sufixos_unb": [
@@ -474,7 +474,7 @@
       "slug": "medicina-i",
       "nome": "MEDICINA I",
       "arquivo": "dados/area-medicina-i.json",
-      "tamanho_kb": 309,
+      "tamanho_kb": 308,
       "n_registros": 313,
       "n_unb": 1,
       "sufixos_unb": [
@@ -486,7 +486,7 @@
       "slug": "medicina-ii",
       "nome": "MEDICINA II",
       "arquivo": "dados/area-medicina-ii.json",
-      "tamanho_kb": 308,
+      "tamanho_kb": 307,
       "n_registros": 311,
       "n_unb": 2,
       "sufixos_unb": [
@@ -509,7 +509,7 @@
       "slug": "medicina-veterinaria",
       "nome": "MEDICINA VETERINÁRIA",
       "arquivo": "dados/area-medicina-veterinaria.json",
-      "tamanho_kb": 241,
+      "tamanho_kb": 240,
       "n_registros": 243,
       "n_unb": 2,
       "sufixos_unb": [
@@ -534,7 +534,7 @@
       "slug": "odontologia",
       "nome": "ODONTOLOGIA",
       "arquivo": "dados/area-odontologia.json",
-      "tamanho_kb": 306,
+      "tamanho_kb": 304,
       "n_registros": 312,
       "n_unb": 1,
       "sufixos_unb": [
@@ -583,7 +583,7 @@
       "slug": "saude-coletiva",
       "nome": "SAÚDE COLETIVA",
       "arquivo": "dados/area-saude-coletiva.json",
-      "tamanho_kb": 274,
+      "tamanho_kb": 273,
       "n_registros": 277,
       "n_unb": 2,
       "sufixos_unb": [
@@ -697,5 +697,5 @@
       "MATERIAIS"
     ]
   },
-  "atualizado_em": "2026-07-16 16:21:44"
+  "atualizado_em": "2026-07-16 19:36:24"
 }

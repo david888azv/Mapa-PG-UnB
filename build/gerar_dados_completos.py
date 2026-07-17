@@ -346,19 +346,35 @@ def calcular_area(slug):
                     dp = pd.DataFrame()
 
                 n_anos = len(anos)
-                art = {}
-                if not dp.empty and 'ID_PESSOA_DOCENTE' in dp.columns and 'ID_ADD_PRODUCAO_INTELECTUAL' in dp.columns:
-                    art = dp.groupby('ID_PESSOA_DOCENTE')['ID_ADD_PRODUCAO_INTELECTUAL'].nunique().to_dict()
+                # ── ARTIGOS DISTINTOS, não eventos artigo×autor ─────────────────────
+                # Antes: `art = dp.groupby('ID_PESSOA_DOCENTE')[...].nunique()` seguido de
+                # `sum(art.get(x,0) for x in ids_*)` — isso conta EVENTOS: um artigo com 3
+                # autores permanentes entrava 3 vezes. Como as métricas são TAXAS (por
+                # docente, por ano), elas embutiam a coautoria interna do programa, e o
+                # fator eventos/distintos varia de 1,00 (Filosofia, Artes — autoria única)
+                # a 7,52 (mediana 1,18) entre os 4.375 programas. Por não ser constante,
+                # não se cancelava na comparação entre programas.
+                # Agora: nº de artigos DISTINTOS com ao menos um autor na categoria.
+                _tem = (not dp.empty and 'ID_PESSOA_DOCENTE' in dp.columns
+                        and 'ID_ADD_PRODUCAO_INTELECTUAL' in dp.columns)
 
-                t_pq = sum(art.get(x, 0) for x in ids_pq)
-                t_spq = sum(art.get(x, 0) for x in ids_spq)
-                t_all = sum(art.get(x, 0) for x in ids_all)
+                def _ndist(ids, base=None):
+                    """Artigos distintos com >=1 autor em `ids`."""
+                    d = dp if base is None else base
+                    if not _tem or d.empty or not ids:
+                        return 0
+                    return int(d[d['ID_PESSOA_DOCENTE'].isin(ids)]
+                               ['ID_ADD_PRODUCAO_INTELECTUAL'].dropna().nunique())
+
+                t_pq = _ndist(ids_pq)
+                t_spq = _ndist(ids_spq)
+                t_all = _ndist(ids_all)
                 ma_pq = round(t_pq / npq / n_anos, 2) if npq > 0 else 0
                 ma_spq = round(t_spq / nspq / n_anos, 2) if nspq > 0 else 0
                 ma_all = round(t_all / n / n_anos, 2) if n > 0 else 0
-                t_perm = sum(art.get(x, 0) for x in ids_perm)
-                t_colab = sum(art.get(x, 0) for x in ids_colab)
-                t_visit = sum(art.get(x, 0) for x in ids_visit)
+                t_perm = _ndist(ids_perm)
+                t_colab = _ndist(ids_colab)
+                t_visit = _ndist(ids_visit)
                 ma_perm = round(t_perm / n_perm / n_anos, 2) if n_perm > 0 else 0
                 ma_colab = round(t_colab / n_colab / n_anos, 2) if n_colab > 0 else 0
                 ma_visit = round(t_visit / n_visit / n_anos, 2) if n_visit > 0 else 0
@@ -368,19 +384,18 @@ def calcular_area(slug):
                 prod_sub = {}
                 has_sub = ('ID_SUBTIPO_PRODUCAO' in dp.columns) and not dp.empty
                 for st_id in SUBTIPOS_BIBLIO:
-                    if has_sub:
-                        dp_st = dp[dp['ID_SUBTIPO_PRODUCAO'] == st_id]
-                        art_st = (dp_st.groupby('ID_PESSOA_DOCENTE')['ID_ADD_PRODUCAO_INTELECTUAL']
-                                  .nunique().to_dict()) if not dp_st.empty and 'ID_PESSOA_DOCENTE' in dp_st.columns else {}
-                    else:
-                        art_st = {}
+                    # artigos DISTINTOS por subtipo (ver o comentário em _ndist): era
+                    # `sum(art_st.get(x,0) for x in ids_*)`, que contava eventos. O app usa
+                    # prod_sub no caminho de filtro de tipo — precisa da MESMA unidade dos
+                    # ma_*, senão os dois caminhos discordam.
+                    dp_st = dp[dp['ID_SUBTIPO_PRODUCAO'] == st_id] if has_sub else dp.iloc[0:0]
                     prod_sub[str(st_id)] = {
-                        'total': sum(art_st.get(x, 0) for x in ids_all),
-                        'perm':  sum(art_st.get(x, 0) for x in ids_perm),
-                        'colab': sum(art_st.get(x, 0) for x in ids_colab),
-                        'visit': sum(art_st.get(x, 0) for x in ids_visit),
-                        'pq':    sum(art_st.get(x, 0) for x in ids_pq),
-                        'spq':   sum(art_st.get(x, 0) for x in ids_spq),
+                        'total': _ndist(ids_all, dp_st),
+                        'perm':  _ndist(ids_perm, dp_st),
+                        'colab': _ndist(ids_colab, dp_st),
+                        'visit': _ndist(ids_visit, dp_st),
+                        'pq':    _ndist(ids_pq, dp_st),
+                        'spq':   _ndist(ids_spq, dp_st),
                     }
 
                 # IF
@@ -394,21 +409,25 @@ def calcular_area(slug):
                     n_lo = sum(1 for x in ifs if x < 2.2)
                     n_mi = sum(1 for x in ifs if 2.2 <= x <= 8.0)
                     n_hi = sum(1 for x in ifs if x > 8.0)
-                    doc_ifs = defaultdict(set)
-                    for _, rp in dp.iterrows():
-                        pid_p = rp.get('ID_ADD_PRODUCAO_INTELECTUAL')
-                        pid_d = rp.get('ID_PESSOA_DOCENTE')
-                        if pd.notna(pid_p) and pd.notna(pid_d):
-                            info_if = prod_if.get(int(pid_p))
-                            if info_if and info_if['if2'] > 0:
-                                doc_ifs[int(pid_d)].add((int(pid_p), info_if['if2']))
+                    # Faixas de IF por categoria de docente, em artigos DISTINTOS.
+                    # Antes o `cnt()` percorria docente por docente somando os artigos de
+                    # cada um: um artigo com 3 autores permanentes entrava 3x na faixa.
+                    # Agora conta o artigo UMA vez se tiver >=1 autor na categoria — mesma
+                    # unidade de avg_if/n_if (que sempre foram sobre pids distintos) e de
+                    # ma_*/prod_sub. Ver o comentário em _ndist.
                     def cnt(idset):
-                        lo=mi=hi=0
-                        for did in idset:
-                            for _, ifv in doc_ifs.get(did, set()):
-                                if ifv < 2.2: lo += 1
-                                elif ifv <= 8.0: mi += 1
-                                else: hi += 1
+                        lo = mi = hi = 0
+                        if not _tem or dp.empty or not idset:
+                            return lo, mi, hi
+                        sub = dp[dp['ID_PESSOA_DOCENTE'].isin(idset)]
+                        for p in sub['ID_ADD_PRODUCAO_INTELECTUAL'].dropna().unique():
+                            info_if = prod_if.get(int(p))
+                            if not info_if or info_if['if2'] <= 0:
+                                continue
+                            ifv = info_if['if2']
+                            if ifv < 2.2: lo += 1
+                            elif ifv <= 8.0: mi += 1
+                            else: hi += 1
                         return lo, mi, hi
                     perm_lo, perm_mi, perm_hi = cnt(ids_perm)
                     colab_lo, colab_mi, colab_hi = cnt(ids_colab)
@@ -425,12 +444,11 @@ def calcular_area(slug):
                 # produção por ano
                 prod_ano = {}
                 for ano in anos:
-                    da = dp[dp['AN_BASE'] == ano] if not dp.empty else pd.DataFrame()
-                    aa = (da.groupby('ID_PESSOA_DOCENTE')['ID_ADD_PRODUCAO_INTELECTUAL']
-                          .nunique().to_dict()) if not da.empty and 'ID_PESSOA_DOCENTE' in da.columns else {}
-                    mp = round(sum(aa.get(x, 0) for x in ids_pq) / npq, 2) if npq > 0 else 0
-                    ms = round(sum(aa.get(x, 0) for x in ids_spq) / nspq, 2) if nspq > 0 else 0
-                    mg = round(sum(aa.get(x, 0) for x in ids_all) / n, 2) if n > 0 else 0
+                    # artigos DISTINTOS no ano (ver _ndist): era soma por docente = eventos
+                    da = dp[dp['AN_BASE'] == ano] if not dp.empty else dp.iloc[0:0]
+                    mp = round(_ndist(ids_pq, da) / npq, 2) if npq > 0 else 0
+                    ms = round(_ndist(ids_spq, da) / nspq, 2) if nspq > 0 else 0
+                    mg = round(_ndist(ids_all, da) / n, 2) if n > 0 else 0
                     dd_ano = dd[dd['AN_BASE'] == ano]
                     n_doc_ano = int(dd_ano['ID_PESSOA'].nunique()) if len(dd_ano) > 0 else 0
                     prod_ano[str(ano)] = [mp, ms, mg, n_doc_ano]
