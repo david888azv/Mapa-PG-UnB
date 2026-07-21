@@ -19,12 +19,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 279,
-        "n_distintas": 249,
-        "n_programas": 39
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo-2013-2016.json",
+            "n_declaracoes": 49,
+            "n_distintas": 49,
+            "n_programas": 15
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo-2017-2020.json",
+            "n_declaracoes": 236,
+            "n_distintas": null,
+            "n_programas": 24
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo-2021-2024.json",
+            "n_declaracoes": 279,
+            "n_distintas": 249,
+            "n_programas": 39
+          }
+        }
       }
     },
     {
@@ -39,12 +54,15 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-antropologia-arqueologia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 0,
-        "n_distintas": 0,
-        "n_programas": 0
+        "quadrienios": {
+          "2017-2020": {
+            "arquivo": "dados/tec-antropologia-arqueologia-2017-2020.json",
+            "n_declaracoes": 4,
+            "n_distintas": null,
+            "n_programas": 2
+          }
+        }
       }
     },
     {
@@ -60,12 +78,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-arquitetura-urbanismo-e-design.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 74,
-        "n_distintas": 69,
-        "n_programas": 27
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-arquitetura-urbanismo-e-design-2013-2016.json",
+            "n_declaracoes": 52,
+            "n_distintas": 52,
+            "n_programas": 19
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-arquitetura-urbanismo-e-design-2017-2020.json",
+            "n_declaracoes": 82,
+            "n_distintas": null,
+            "n_programas": 29
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-arquitetura-urbanismo-e-design-2021-2024.json",
+            "n_declaracoes": 74,
+            "n_distintas": 69,
+            "n_programas": 27
+          }
+        }
       }
     },
     {
@@ -82,12 +115,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-artes.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 5,
-        "n_distintas": 5,
-        "n_programas": 3
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-artes-2013-2016.json",
+            "n_declaracoes": 1,
+            "n_distintas": 1,
+            "n_programas": 1
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-artes-2017-2020.json",
+            "n_declaracoes": 15,
+            "n_distintas": null,
+            "n_programas": 8
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-artes-2021-2024.json",
+            "n_declaracoes": 5,
+            "n_distintas": 5,
+            "n_programas": 3
+          }
+        }
       }
     },
     {
@@ -102,12 +150,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-astronomia-fisica.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 311,
-        "n_distintas": 287,
-        "n_programas": 49
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-astronomia-fisica-2013-2016.json",
+            "n_declaracoes": 184,
+            "n_distintas": 183,
+            "n_programas": 38
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-astronomia-fisica-2017-2020.json",
+            "n_declaracoes": 270,
+            "n_distintas": null,
+            "n_programas": 49
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-astronomia-fisica-2021-2024.json",
+            "n_declaracoes": 311,
+            "n_distintas": 287,
+            "n_programas": 49
+          }
+        }
       }
     },
     {
@@ -124,12 +187,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-biodiversidade.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 117,
-        "n_distintas": 111,
-        "n_programas": 52
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-biodiversidade-2013-2016.json",
+            "n_declaracoes": 140,
+            "n_distintas": 140,
+            "n_programas": 42
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-biodiversidade-2017-2020.json",
+            "n_declaracoes": 158,
+            "n_distintas": null,
+            "n_programas": 64
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-biodiversidade-2021-2024.json",
+            "n_declaracoes": 117,
+            "n_distintas": 111,
+            "n_programas": 52
+          }
+        }
       }
     },
     {
@@ -144,12 +222,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-biotecnologia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 1534,
-        "n_distintas": 1350,
-        "n_programas": 60
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-biotecnologia-2013-2016.json",
+            "n_declaracoes": 1186,
+            "n_distintas": 1104,
+            "n_programas": 58
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-biotecnologia-2017-2020.json",
+            "n_declaracoes": 1940,
+            "n_distintas": null,
+            "n_programas": 65
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-biotecnologia-2021-2024.json",
+            "n_declaracoes": 1534,
+            "n_distintas": 1350,
+            "n_programas": 60
+          }
+        }
       }
     },
     {
@@ -165,12 +258,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencia-da-computacao.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 211,
-        "n_distintas": 194,
-        "n_programas": 59
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ciencia-da-computacao-2013-2016.json",
+            "n_declaracoes": 83,
+            "n_distintas": 83,
+            "n_programas": 32
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencia-da-computacao-2017-2020.json",
+            "n_declaracoes": 202,
+            "n_distintas": null,
+            "n_programas": 54
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencia-da-computacao-2021-2024.json",
+            "n_declaracoes": 211,
+            "n_distintas": 194,
+            "n_programas": 59
+          }
+        }
       }
     },
     {
@@ -183,12 +291,27 @@
       "sufixos_unb": [],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencia-de-alimentos.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 572,
-        "n_distintas": 538,
-        "n_programas": 54
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ciencia-de-alimentos-2013-2016.json",
+            "n_declaracoes": 287,
+            "n_distintas": 285,
+            "n_programas": 43
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencia-de-alimentos-2017-2020.json",
+            "n_declaracoes": 530,
+            "n_distintas": null,
+            "n_programas": 53
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencia-de-alimentos-2021-2024.json",
+            "n_declaracoes": 572,
+            "n_distintas": 538,
+            "n_programas": 54
+          }
+        }
       }
     },
     {
@@ -204,12 +327,21 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencia-politica-e-relacoes-internacionais.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 3,
-        "n_distintas": 3,
-        "n_programas": 2
+        "quadrienios": {
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencia-politica-e-relacoes-internacionais-2017-2020.json",
+            "n_declaracoes": 2,
+            "n_distintas": null,
+            "n_programas": 2
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencia-politica-e-relacoes-internacionais-2021-2024.json",
+            "n_declaracoes": 3,
+            "n_distintas": 3,
+            "n_programas": 2
+          }
+        }
       }
     },
     {
@@ -226,12 +358,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencias-agrarias-i.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 790,
-        "n_distintas": 625,
-        "n_programas": 143
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ciencias-agrarias-i-2013-2016.json",
+            "n_declaracoes": 373,
+            "n_distintas": 367,
+            "n_programas": 104
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencias-agrarias-i-2017-2020.json",
+            "n_declaracoes": 694,
+            "n_distintas": null,
+            "n_programas": 143
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencias-agrarias-i-2021-2024.json",
+            "n_declaracoes": 790,
+            "n_distintas": 625,
+            "n_programas": 143
+          }
+        }
       }
     },
     {
@@ -247,12 +394,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencias-ambientais.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 481,
-        "n_distintas": 415,
-        "n_programas": 87
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ciencias-ambientais-2013-2016.json",
+            "n_declaracoes": 125,
+            "n_distintas": 121,
+            "n_programas": 44
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencias-ambientais-2017-2020.json",
+            "n_declaracoes": 459,
+            "n_distintas": null,
+            "n_programas": 85
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencias-ambientais-2021-2024.json",
+            "n_declaracoes": 481,
+            "n_distintas": 415,
+            "n_programas": 87
+          }
+        }
       }
     },
     {
@@ -268,12 +430,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencias-biologicas-i.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 582,
-        "n_distintas": 500,
-        "n_programas": 55
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ciencias-biologicas-i-2013-2016.json",
+            "n_declaracoes": 366,
+            "n_distintas": 361,
+            "n_programas": 43
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencias-biologicas-i-2017-2020.json",
+            "n_declaracoes": 657,
+            "n_distintas": null,
+            "n_programas": 55
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencias-biologicas-i-2021-2024.json",
+            "n_declaracoes": 582,
+            "n_distintas": 500,
+            "n_programas": 55
+          }
+        }
       }
     },
     {
@@ -286,12 +463,27 @@
       "sufixos_unb": [],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencias-biologicas-ii.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 592,
-        "n_distintas": 521,
-        "n_programas": 61
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ciencias-biologicas-ii-2013-2016.json",
+            "n_declaracoes": 359,
+            "n_distintas": 353,
+            "n_programas": 47
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencias-biologicas-ii-2017-2020.json",
+            "n_declaracoes": 715,
+            "n_distintas": null,
+            "n_programas": 67
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencias-biologicas-ii-2021-2024.json",
+            "n_declaracoes": 592,
+            "n_distintas": 521,
+            "n_programas": 61
+          }
+        }
       }
     },
     {
@@ -307,12 +499,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ciencias-biologicas-iii.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 312,
-        "n_distintas": 275,
-        "n_programas": 32
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ciencias-biologicas-iii-2013-2016.json",
+            "n_declaracoes": 237,
+            "n_distintas": 227,
+            "n_programas": 26
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ciencias-biologicas-iii-2017-2020.json",
+            "n_declaracoes": 335,
+            "n_distintas": null,
+            "n_programas": 32
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ciencias-biologicas-iii-2021-2024.json",
+            "n_declaracoes": 312,
+            "n_distintas": 275,
+            "n_programas": 32
+          }
+        }
       }
     },
     {
@@ -323,15 +530,7 @@
       "n_registros": 63,
       "n_unb": 0,
       "sufixos_unb": [],
-      "tem_metricas": true,
-      "tec": {
-        "arquivo": "dados/tec-ciencias-da-religiao-e-teologia.json",
-        "quadrienio": "2021-2024",
-        "subtipo": "PATENTE",
-        "n_declaracoes": 0,
-        "n_distintas": 0,
-        "n_programas": 0
-      }
+      "tem_metricas": true
     },
     {
       "slug": "comunicacao-e-informacao",
@@ -346,12 +545,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-comunicacao-e-informacao.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 23,
-        "n_distintas": 22,
-        "n_programas": 13
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-comunicacao-e-informacao-2013-2016.json",
+            "n_declaracoes": 3,
+            "n_distintas": 3,
+            "n_programas": 3
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-comunicacao-e-informacao-2017-2020.json",
+            "n_declaracoes": 8,
+            "n_distintas": null,
+            "n_programas": 5
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-comunicacao-e-informacao-2021-2024.json",
+            "n_declaracoes": 23,
+            "n_distintas": 22,
+            "n_programas": 13
+          }
+        }
       }
     },
     {
@@ -367,12 +581,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-direito.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 10,
-        "n_distintas": 10,
-        "n_programas": 8
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-direito-2013-2016.json",
+            "n_declaracoes": 3,
+            "n_distintas": 3,
+            "n_programas": 1
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-direito-2017-2020.json",
+            "n_declaracoes": 3,
+            "n_distintas": null,
+            "n_programas": 2
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-direito-2021-2024.json",
+            "n_declaracoes": 10,
+            "n_distintas": 10,
+            "n_programas": 8
+          }
+        }
       }
     },
     {
@@ -388,12 +617,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-economia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 8,
-        "n_distintas": 5,
-        "n_programas": 2
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-economia-2013-2016.json",
+            "n_declaracoes": 34,
+            "n_distintas": 34,
+            "n_programas": 2
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-economia-2017-2020.json",
+            "n_declaracoes": 16,
+            "n_distintas": null,
+            "n_programas": 4
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-economia-2021-2024.json",
+            "n_declaracoes": 8,
+            "n_distintas": 5,
+            "n_programas": 2
+          }
+        }
       }
     },
     {
@@ -409,12 +653,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-educacao.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 31,
-        "n_distintas": 29,
-        "n_programas": 20
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-educacao-2013-2016.json",
+            "n_declaracoes": 1,
+            "n_distintas": 1,
+            "n_programas": 1
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-educacao-2017-2020.json",
+            "n_declaracoes": 18,
+            "n_distintas": null,
+            "n_programas": 11
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-educacao-2021-2024.json",
+            "n_declaracoes": 31,
+            "n_distintas": 29,
+            "n_programas": 20
+          }
+        }
       }
     },
     {
@@ -430,12 +689,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-educacao-fisica.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 45,
-        "n_distintas": 43,
-        "n_programas": 26
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-educacao-fisica-2013-2016.json",
+            "n_declaracoes": 26,
+            "n_distintas": 26,
+            "n_programas": 11
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-educacao-fisica-2017-2020.json",
+            "n_declaracoes": 68,
+            "n_distintas": null,
+            "n_programas": 35
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-educacao-fisica-2021-2024.json",
+            "n_declaracoes": 45,
+            "n_distintas": 43,
+            "n_programas": 26
+          }
+        }
       }
     },
     {
@@ -450,12 +724,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-enfermagem.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 91,
-        "n_distintas": 80,
-        "n_programas": 30
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-enfermagem-2013-2016.json",
+            "n_declaracoes": 34,
+            "n_distintas": 34,
+            "n_programas": 14
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-enfermagem-2017-2020.json",
+            "n_declaracoes": 39,
+            "n_distintas": null,
+            "n_programas": 21
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-enfermagem-2021-2024.json",
+            "n_declaracoes": 91,
+            "n_distintas": 80,
+            "n_programas": 30
+          }
+        }
       }
     },
     {
@@ -473,12 +762,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-engenharias-i.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 238,
-        "n_distintas": 216,
-        "n_programas": 84
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-engenharias-i-2013-2016.json",
+            "n_declaracoes": 124,
+            "n_distintas": 124,
+            "n_programas": 55
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-engenharias-i-2017-2020.json",
+            "n_declaracoes": 367,
+            "n_distintas": null,
+            "n_programas": 89
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-engenharias-i-2021-2024.json",
+            "n_declaracoes": 238,
+            "n_distintas": 216,
+            "n_programas": 84
+          }
+        }
       }
     },
     {
@@ -491,12 +795,27 @@
       "sufixos_unb": [],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-engenharias-ii.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 1161,
-        "n_distintas": 1009,
-        "n_programas": 83
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-engenharias-ii-2013-2016.json",
+            "n_declaracoes": 623,
+            "n_distintas": 608,
+            "n_programas": 76
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-engenharias-ii-2017-2020.json",
+            "n_declaracoes": 1359,
+            "n_distintas": null,
+            "n_programas": 91
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-engenharias-ii-2021-2024.json",
+            "n_declaracoes": 1161,
+            "n_distintas": 1009,
+            "n_programas": 83
+          }
+        }
       }
     },
     {
@@ -513,12 +832,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-engenharias-iii.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 771,
-        "n_distintas": 653,
-        "n_programas": 100
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-engenharias-iii-2013-2016.json",
+            "n_declaracoes": 513,
+            "n_distintas": 488,
+            "n_programas": 87
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-engenharias-iii-2017-2020.json",
+            "n_declaracoes": 980,
+            "n_distintas": null,
+            "n_programas": 116
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-engenharias-iii-2021-2024.json",
+            "n_declaracoes": 771,
+            "n_distintas": 653,
+            "n_programas": 100
+          }
+        }
       }
     },
     {
@@ -536,12 +870,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-engenharias-iv.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 615,
-        "n_distintas": 563,
-        "n_programas": 73
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-engenharias-iv-2013-2016.json",
+            "n_declaracoes": 292,
+            "n_distintas": 290,
+            "n_programas": 59
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-engenharias-iv-2017-2020.json",
+            "n_declaracoes": 635,
+            "n_distintas": null,
+            "n_programas": 81
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-engenharias-iv-2021-2024.json",
+            "n_declaracoes": 615,
+            "n_distintas": 563,
+            "n_programas": 73
+          }
+        }
       }
     },
     {
@@ -557,12 +906,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-ensino.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 52,
-        "n_distintas": 46,
-        "n_programas": 24
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-ensino-2013-2016.json",
+            "n_declaracoes": 25,
+            "n_distintas": 25,
+            "n_programas": 16
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-ensino-2017-2020.json",
+            "n_declaracoes": 113,
+            "n_distintas": null,
+            "n_programas": 37
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-ensino-2021-2024.json",
+            "n_declaracoes": 52,
+            "n_distintas": 46,
+            "n_programas": 24
+          }
+        }
       }
     },
     {
@@ -577,12 +941,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-farmacia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 549,
-        "n_distintas": 500,
-        "n_programas": 59
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-farmacia-2013-2016.json",
+            "n_declaracoes": 775,
+            "n_distintas": 747,
+            "n_programas": 56
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-farmacia-2017-2020.json",
+            "n_declaracoes": 908,
+            "n_distintas": null,
+            "n_programas": 68
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-farmacia-2021-2024.json",
+            "n_declaracoes": 549,
+            "n_distintas": 500,
+            "n_programas": 59
+          }
+        }
       }
     },
     {
@@ -598,12 +977,21 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-filosofia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 4,
-        "n_distintas": 4,
-        "n_programas": 1
+        "quadrienios": {
+          "2017-2020": {
+            "arquivo": "dados/tec-filosofia-2017-2020.json",
+            "n_declaracoes": 1,
+            "n_distintas": null,
+            "n_programas": 1
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-filosofia-2021-2024.json",
+            "n_declaracoes": 4,
+            "n_distintas": 4,
+            "n_programas": 1
+          }
+        }
       }
     },
     {
@@ -619,12 +1007,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-geociencias.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 39,
-        "n_distintas": 34,
-        "n_programas": 16
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-geociencias-2013-2016.json",
+            "n_declaracoes": 23,
+            "n_distintas": 23,
+            "n_programas": 12
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-geociencias-2017-2020.json",
+            "n_declaracoes": 29,
+            "n_distintas": null,
+            "n_programas": 12
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-geociencias-2021-2024.json",
+            "n_declaracoes": 39,
+            "n_distintas": 34,
+            "n_programas": 16
+          }
+        }
       }
     },
     {
@@ -639,12 +1042,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-geografia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 19,
-        "n_distintas": 17,
-        "n_programas": 12
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-geografia-2013-2016.json",
+            "n_declaracoes": 2,
+            "n_distintas": 2,
+            "n_programas": 2
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-geografia-2017-2020.json",
+            "n_declaracoes": 13,
+            "n_distintas": null,
+            "n_programas": 8
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-geografia-2021-2024.json",
+            "n_declaracoes": 19,
+            "n_distintas": 17,
+            "n_programas": 12
+          }
+        }
       }
     },
     {
@@ -659,12 +1077,21 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-historia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 5,
-        "n_distintas": 5,
-        "n_programas": 3
+        "quadrienios": {
+          "2017-2020": {
+            "arquivo": "dados/tec-historia-2017-2020.json",
+            "n_declaracoes": 4,
+            "n_distintas": null,
+            "n_programas": 4
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-historia-2021-2024.json",
+            "n_declaracoes": 5,
+            "n_distintas": 5,
+            "n_programas": 3
+          }
+        }
       }
     },
     {
@@ -686,12 +1113,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-interdisciplinar.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 774,
-        "n_distintas": 702,
-        "n_programas": 138
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-interdisciplinar-2013-2016.json",
+            "n_declaracoes": 436,
+            "n_distintas": 431,
+            "n_programas": 107
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-interdisciplinar-2017-2020.json",
+            "n_declaracoes": 867,
+            "n_distintas": null,
+            "n_programas": 155
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-interdisciplinar-2021-2024.json",
+            "n_declaracoes": 774,
+            "n_distintas": 702,
+            "n_programas": 138
+          }
+        }
       }
     },
     {
@@ -709,12 +1151,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-linguistica-e-literatura.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 7,
-        "n_distintas": 7,
-        "n_programas": 6
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-linguistica-e-literatura-2013-2016.json",
+            "n_declaracoes": 1,
+            "n_distintas": 1,
+            "n_programas": 1
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-linguistica-e-literatura-2017-2020.json",
+            "n_declaracoes": 6,
+            "n_distintas": null,
+            "n_programas": 5
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-linguistica-e-literatura-2021-2024.json",
+            "n_declaracoes": 7,
+            "n_distintas": 7,
+            "n_programas": 6
+          }
+        }
       }
     },
     {
@@ -730,12 +1187,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-matematica-probabilidade-e-estatistica.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 7,
-        "n_distintas": 7,
-        "n_programas": 4
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-matematica-probabilidade-e-estatistica-2013-2016.json",
+            "n_declaracoes": 4,
+            "n_distintas": 4,
+            "n_programas": 3
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-matematica-probabilidade-e-estatistica-2017-2020.json",
+            "n_declaracoes": 14,
+            "n_distintas": null,
+            "n_programas": 5
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-matematica-probabilidade-e-estatistica-2021-2024.json",
+            "n_declaracoes": 7,
+            "n_distintas": 7,
+            "n_programas": 4
+          }
+        }
       }
     },
     {
@@ -750,12 +1222,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-materiais.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 443,
-        "n_distintas": 430,
-        "n_programas": 38
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-materiais-2013-2016.json",
+            "n_declaracoes": 289,
+            "n_distintas": 286,
+            "n_programas": 27
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-materiais-2017-2020.json",
+            "n_declaracoes": 506,
+            "n_distintas": null,
+            "n_programas": 38
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-materiais-2021-2024.json",
+            "n_declaracoes": 443,
+            "n_distintas": 430,
+            "n_programas": 38
+          }
+        }
       }
     },
     {
@@ -770,12 +1257,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-medicina-i.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 257,
-        "n_distintas": 242,
-        "n_programas": 58
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-medicina-i-2013-2016.json",
+            "n_declaracoes": 222,
+            "n_distintas": 219,
+            "n_programas": 37
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-medicina-i-2017-2020.json",
+            "n_declaracoes": 366,
+            "n_distintas": null,
+            "n_programas": 58
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-medicina-i-2021-2024.json",
+            "n_declaracoes": 257,
+            "n_distintas": 242,
+            "n_programas": 58
+          }
+        }
       }
     },
     {
@@ -791,12 +1293,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-medicina-ii.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 280,
-        "n_distintas": 266,
-        "n_programas": 57
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-medicina-ii-2013-2016.json",
+            "n_declaracoes": 189,
+            "n_distintas": 188,
+            "n_programas": 42
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-medicina-ii-2017-2020.json",
+            "n_declaracoes": 318,
+            "n_distintas": null,
+            "n_programas": 55
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-medicina-ii-2021-2024.json",
+            "n_declaracoes": 280,
+            "n_distintas": 266,
+            "n_programas": 57
+          }
+        }
       }
     },
     {
@@ -809,12 +1326,27 @@
       "sufixos_unb": [],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-medicina-iii.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 137,
-        "n_distintas": 132,
-        "n_programas": 26
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-medicina-iii-2013-2016.json",
+            "n_declaracoes": 58,
+            "n_distintas": 58,
+            "n_programas": 15
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-medicina-iii-2017-2020.json",
+            "n_declaracoes": 177,
+            "n_distintas": null,
+            "n_programas": 30
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-medicina-iii-2021-2024.json",
+            "n_declaracoes": 137,
+            "n_distintas": 132,
+            "n_programas": 26
+          }
+        }
       }
     },
     {
@@ -830,12 +1362,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-medicina-veterinaria.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 415,
-        "n_distintas": 366,
-        "n_programas": 59
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-medicina-veterinaria-2013-2016.json",
+            "n_declaracoes": 174,
+            "n_distintas": 172,
+            "n_programas": 41
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-medicina-veterinaria-2017-2020.json",
+            "n_declaracoes": 379,
+            "n_distintas": null,
+            "n_programas": 58
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-medicina-veterinaria-2021-2024.json",
+            "n_declaracoes": 415,
+            "n_distintas": 366,
+            "n_programas": 59
+          }
+        }
       }
     },
     {
@@ -850,12 +1397,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-nutricao.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 86,
-        "n_distintas": 86,
-        "n_programas": 17
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-nutricao-2013-2016.json",
+            "n_declaracoes": 58,
+            "n_distintas": 58,
+            "n_programas": 16
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-nutricao-2017-2020.json",
+            "n_declaracoes": 103,
+            "n_distintas": null,
+            "n_programas": 18
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-nutricao-2021-2024.json",
+            "n_declaracoes": 86,
+            "n_distintas": 86,
+            "n_programas": 17
+          }
+        }
       }
     },
     {
@@ -870,12 +1432,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-odontologia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 283,
-        "n_distintas": 247,
-        "n_programas": 68
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-odontologia-2013-2016.json",
+            "n_declaracoes": 253,
+            "n_distintas": 219,
+            "n_programas": 56
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-odontologia-2017-2020.json",
+            "n_declaracoes": 490,
+            "n_distintas": null,
+            "n_programas": 72
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-odontologia-2021-2024.json",
+            "n_declaracoes": 283,
+            "n_distintas": 247,
+            "n_programas": 68
+          }
+        }
       }
     },
     {
@@ -888,12 +1465,27 @@
       "sufixos_unb": [],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-planejamento-urbano-e-regional-demografia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 3,
-        "n_distintas": 3,
-        "n_programas": 2
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-planejamento-urbano-e-regional-demografia-2013-2016.json",
+            "n_declaracoes": 4,
+            "n_distintas": 4,
+            "n_programas": 4
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-planejamento-urbano-e-regional-demografia-2017-2020.json",
+            "n_declaracoes": 14,
+            "n_distintas": null,
+            "n_programas": 7
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-planejamento-urbano-e-regional-demografia-2021-2024.json",
+            "n_declaracoes": 3,
+            "n_distintas": 3,
+            "n_programas": 2
+          }
+        }
       }
     },
     {
@@ -911,12 +1503,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-psicologia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 10,
-        "n_distintas": 10,
-        "n_programas": 9
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-psicologia-2013-2016.json",
+            "n_declaracoes": 11,
+            "n_distintas": 11,
+            "n_programas": 2
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-psicologia-2017-2020.json",
+            "n_declaracoes": 14,
+            "n_distintas": null,
+            "n_programas": 9
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-psicologia-2021-2024.json",
+            "n_declaracoes": 10,
+            "n_distintas": 10,
+            "n_programas": 9
+          }
+        }
       }
     },
     {
@@ -931,12 +1538,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-quimica.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 1148,
-        "n_distintas": 1041,
-        "n_programas": 68
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-quimica-2013-2016.json",
+            "n_declaracoes": 793,
+            "n_distintas": 774,
+            "n_programas": 60
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-quimica-2017-2020.json",
+            "n_declaracoes": 1365,
+            "n_distintas": null,
+            "n_programas": 71
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-quimica-2021-2024.json",
+            "n_declaracoes": 1148,
+            "n_distintas": 1041,
+            "n_programas": 68
+          }
+        }
       }
     },
     {
@@ -952,12 +1574,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-saude-coletiva.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 41,
-        "n_distintas": 41,
-        "n_programas": 14
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-saude-coletiva-2013-2016.json",
+            "n_declaracoes": 11,
+            "n_distintas": 11,
+            "n_programas": 9
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-saude-coletiva-2017-2020.json",
+            "n_declaracoes": 46,
+            "n_distintas": null,
+            "n_programas": 27
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-saude-coletiva-2021-2024.json",
+            "n_declaracoes": 41,
+            "n_distintas": 41,
+            "n_programas": 14
+          }
+        }
       }
     },
     {
@@ -972,12 +1609,27 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-servico-social.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 1,
-        "n_distintas": 1,
-        "n_programas": 1
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-servico-social-2013-2016.json",
+            "n_declaracoes": 1,
+            "n_distintas": 1,
+            "n_programas": 1
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-servico-social-2017-2020.json",
+            "n_declaracoes": 4,
+            "n_distintas": null,
+            "n_programas": 2
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-servico-social-2021-2024.json",
+            "n_declaracoes": 1,
+            "n_distintas": 1,
+            "n_programas": 1
+          }
+        }
       }
     },
     {
@@ -993,12 +1645,21 @@
       ],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-sociologia.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 2,
-        "n_distintas": 2,
-        "n_programas": 2
+        "quadrienios": {
+          "2017-2020": {
+            "arquivo": "dados/tec-sociologia-2017-2020.json",
+            "n_declaracoes": 2,
+            "n_distintas": null,
+            "n_programas": 1
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-sociologia-2021-2024.json",
+            "n_declaracoes": 2,
+            "n_distintas": 2,
+            "n_programas": 2
+          }
+        }
       }
     },
     {
@@ -1011,12 +1672,27 @@
       "sufixos_unb": [],
       "tem_metricas": true,
       "tec": {
-        "arquivo": "dados/tec-zootecnia-recursos-pesqueiros.json",
-        "quadrienio": "2021-2024",
         "subtipo": "PATENTE",
-        "n_declaracoes": 87,
-        "n_distintas": 82,
-        "n_programas": 32
+        "quadrienios": {
+          "2013-2016": {
+            "arquivo": "dados/tec-zootecnia-recursos-pesqueiros-2013-2016.json",
+            "n_declaracoes": 48,
+            "n_distintas": 48,
+            "n_programas": 27
+          },
+          "2017-2020": {
+            "arquivo": "dados/tec-zootecnia-recursos-pesqueiros-2017-2020.json",
+            "n_declaracoes": 104,
+            "n_distintas": null,
+            "n_programas": 34
+          },
+          "2021-2024": {
+            "arquivo": "dados/tec-zootecnia-recursos-pesqueiros-2021-2024.json",
+            "n_declaracoes": 87,
+            "n_distintas": 82,
+            "n_programas": 32
+          }
+        }
       }
     }
   ],
@@ -1091,12 +1767,74 @@
   },
   "atualizado_em": "2026-07-17 10:44:50",
   "tecnica": {
-    "quadrienio": "2021-2024",
     "subtipos": [
       "PATENTE"
     ],
-    "n_nacional_declaracoes": 13505,
-    "n_nacional_distintas": 8381,
-    "atualizado_em": "2026-07-21 17:47:40"
+    "quadrienios": {
+      "2013-2016": {
+        "dedup": "parcial",
+        "n_nacional_declaracoes": 8472,
+        "n_nacional_distintas": 7960,
+        "cobertura_nacional": {
+          "tit": 100.0,
+          "cod": 40.9,
+          "dep": 38.8,
+          "con": 5.6,
+          "res": 16.0,
+          "est": 0.0
+        },
+        "campo_coletado": {
+          "tit": true,
+          "cod": true,
+          "dep": true,
+          "con": true,
+          "res": true,
+          "est": false
+        }
+      },
+      "2017-2020": {
+        "dedup": "indisponivel",
+        "n_nacional_declaracoes": 15635,
+        "n_nacional_distintas": null,
+        "cobertura_nacional": {
+          "tit": 100.0,
+          "cod": 0.0,
+          "dep": 75.5,
+          "con": 10.0,
+          "res": 32.8,
+          "est": 32.5
+        },
+        "campo_coletado": {
+          "tit": true,
+          "cod": false,
+          "dep": true,
+          "con": true,
+          "res": true,
+          "est": true
+        }
+      },
+      "2021-2024": {
+        "dedup": "completa",
+        "n_nacional_declaracoes": 13505,
+        "n_nacional_distintas": 8381,
+        "cobertura_nacional": {
+          "tit": 100.0,
+          "cod": 95.1,
+          "dep": 96.2,
+          "con": 11.1,
+          "res": 22.1,
+          "est": 24.9
+        },
+        "campo_coletado": {
+          "tit": true,
+          "cod": true,
+          "dep": true,
+          "con": true,
+          "res": true,
+          "est": true
+        }
+      }
+    },
+    "atualizado_em": "2026-07-21 18:58:38"
   }
 }

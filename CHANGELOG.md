@@ -1,5 +1,58 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.2.0 — Patentes nos três quadriênios, com seletor próprio (2026-07-21)
+
+A v5.1 trouxe patentes só de 2021-2024. Esta versão completa a série — **2013-2016,
+2017-2020 e 2021-2024** — e dá ao painel um **seletor de quadriênio próprio**.
+
+**O seletor muda a contabilidade.** Cada quadriênio é uma coleta distinta da CAPES;
+trocar de quadriênio recarrega a camada inteira e a contagem de patentes de cada
+programa muda com ela. O painel abre alinhado ao filtro de quadriênio da barra lateral
+quando este aponta um só; em "Todos", abre no mais recente com dado. Quadriênios sem
+patente declarada na área aparecem desabilitados, e área sem patente alguma não abre o
+painel — avisa.
+
+**E as coletas não são comparáveis campo a campo.** Esta é a parte que exigiu mais
+cuidado, porque afeta o que o aplicativo pode legitimamente afirmar:
+
+| Campo | 2013-2016 | 2017-2020 | 2021-2024 |
+|---|---|---|---|
+| Título | 100% | 100% | 100% |
+| Nº de registro | 40,9% | *não coletado* | 95,1% |
+| Data de depósito | 38,8% | 75,5% | 96,2% |
+| Descrição da invenção | 16,0% | 32,8% | 22,1% |
+| Estágio da tecnologia | *não coletado* | 32,5% | 24,9% |
+| Data de concessão | 5,6% | 10,0% | 11,1% |
+| **Deduplicação de coautoria** | **parcial** | **impossível** | **completa** |
+| Declarações (país) | 8.472 | 15.635 | 13.505 |
+| Patentes distintas (país) | 7.960 | — | 8.381 |
+
+1. **Em 2017-2020 o número de registro não existe na base.** Sem ele não há como
+   reconhecer a mesma patente declarada por programas coautores. O painel exibe
+   "patentes distintas" como **não apurável** naquele quadriênio, em vez de inventar um
+   número. Em 2013-2016 o campo existe mas cobre 40,9%: a deduplicação é **parcial** e o
+   total ainda contém repetições. Só 2021-2024 é confiável — e lá **38% das declarações
+   nacionais são repetição por coautoria**.
+2. **"Não coletado" ≠ 0%.** O gerador registra quais campos existiam no formulário de
+   cada coleta (`metadata.campo_coletado`), e a interface escreve *não coletado* em vez
+   de 0% — que sugeriria desleixo do programa em vez de ausência do campo.
+3. **Comparar quadriênios exige cuidado**, e o painel diz isso: a variação entre coletas
+   pode refletir mudança de prática declaratória ou de formulário, não só de atividade
+   inventiva.
+
+**Documentação.** Nova seção **"Patentes"** no `help-doc.html`, com o painel explicado,
+a tabela de cobertura por quadriênio e as ressalvas; **FONTES 11 e 12** (os datasets de
+produção técnica e a fatia técnica da produção intelectual, com as URLs dos três
+quadriênios); e o histórico de versões atualizado até aqui. Dentro do próprio painel, o
+cartão "Como ler estes dados" traz a mesma tabela, **recalculada a partir dos dados em
+uso** — os percentuais vêm do manifest, não do código.
+
+**Arquivos.** A camada passou de um arquivo por área para **um por (área, quadriênio)** —
+`docs/dados/tec-<área>-<quadriênio>.json`, 138 arquivos, 14 MB. O app carrega só o
+quadriênio em exibição (o maior fica em 920 KB em vez de ~1,8 MB). `gerar_tecnica.py`
+processa os três de uma vez por padrão, e áreas sem patente no quadriênio não geram
+arquivo.
+
 ## v5.1.0 — Patentes: a produção técnica entra no app (2026-07-21)
 
 **Nova dimensão de dados.** Até aqui o MAPA-PG só media produção *bibliográfica*: o
