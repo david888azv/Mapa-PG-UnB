@@ -1,5 +1,52 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.1.0 — Patentes: a produção técnica entra no app (2026-07-21)
+
+**Nova dimensão de dados.** Até aqui o MAPA-PG só media produção *bibliográfica*: o
+pipeline lê os arquivos ARTPE da CAPES e classifica cinco subtipos, todos
+`ID_TIPO_PRODUCAO = 2`. Patente e demais produtos tecnológicos moram em datasets
+distintos do portal de Dados Abertos e simplesmente não estavam no aplicativo. Esta
+versão traz o primeiro deles: **PATENTE, quadriênio 2021-2024**.
+
+**O que aparece na interface** — botão *"⚙ Patentes (2021-2024)"*, painel novo com:
+
+- panorama da área: declarações, patentes distintas, quantos programas patenteiam,
+  e a participação da área no total nacional;
+- o programa da universidade de referência em destaque: patentes por ano, patentes por
+  docente permanente, posição no ranking da área, e **a lista das patentes** — título,
+  número de registro (INPI e congêneres), instituição de depósito, datas de depósito e
+  concessão, estágio da tecnologia, linha de pesquisa e a **descrição declarada**;
+- ranking dos programas da área, em número absoluto e por docente permanente;
+- busca textual em títulos e descrições de todas as patentes da área;
+- dois CSVs: o agregado por programa e a lista completa de patentes.
+
+**Fontes** (CAPES, Dados Abertos): *Detalhes da Produção Intelectual Técnica* (campos
+próprios da patente) cruzado com *Produção Intelectual* (título e linha de pesquisa),
+ambos por `CD_PROGRAMA_IES`. Das 13.796 patentes nacionais do quadriênio, **13.505
+(97,9%) casam com as 49 áreas do app**; as 291 restantes são de programas fora do
+recorte. Scripts: `build/baixar_tecnica.py` e `build/gerar_tecnica.py`; saída em
+`docs/dados/tec-<área>.json` (4,9 MB no total, carregada sob demanda — os
+`area-*.json` não mudaram).
+
+**Três cuidados que a interface deixa explícitos:**
+
+1. **Coautoria infla contagens agregadas.** A mesma patente é declarada por todos os
+   programas que participaram dela: 13.505 declarações correspondem a 8.381 patentes
+   distintas. A contagem *por programa* usa a declaração (é o que a CAPES avalia); os
+   totais de área e nacionais são deduplicados pelo número de registro normalizado.
+2. **Cobertura declaratória desigual.** Título 100% e número de registro 95,1%, mas
+   descrição em 22,1% e data de concessão em apenas 11,1%. Campo em branco é
+   *não declarado*, não ausência do fato — e o painel diz isso item a item.
+3. **`DS_FINALIDADE` é campo livre.** Na maioria descreve a invenção, mas em ~3% dos
+   preenchidos traz só a categoria do ativo ("PATENTE DE INVENÇÃO", "REGISTRO DE
+   CULTIVAR"). Esses viram etiqueta, não descrição, para não anunciar como resumo o
+   que é rótulo.
+
+**Não incluído nesta versão:** os outros 17 subtipos de produção técnica (serviços
+técnicos, desenvolvimento de produto, aplicativo, técnica, etc.) e os quadriênios
+2013-2016 e 2017-2020 — os scripts já os aceitam por parâmetro. A versão offline
+(`mapa-pg-offline/`) ainda não embarca a camada de patentes.
+
 ## v5.0.0 — Revisão de medida: a produtividade agora é calculada de forma correta e honesta (2026-07-17)
 
 **Versão maior — os números mudaram e o ranking também.** Esta revisão corrige três
