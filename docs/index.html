@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.1.0</div>
+        <div id="headerVersion">v5.2.0</div>
     </div>
 </div>
 
@@ -371,7 +371,7 @@ tr:hover { background: #EEF2F7; }
 
         <button class="btn btn-primary" onclick="analisar()">Analisar</button>
         <button class="btn" onclick="renderRanking('nac', false)" style="background:#D4AF37;color:#fff;">🏆 TOP / Ranking de programas</button>
-        <button class="btn" id="patBtn" onclick="abrirPatentes()" style="background:#00897B;color:#fff;">⚙ Patentes (2021-2024)</button>
+        <button class="btn" id="patBtn" onclick="abrirPatentes()" style="background:#00897B;color:#fff;">⚙ Patentes / Produção Técnica</button>
         <button class="btn btn-secondary" onclick="gerarRelatorio()">Gerar Relatório</button>
         <button class="btn btn-export" onclick="exportarCSV()">Exportar CSV</button>
         <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
@@ -446,6 +446,17 @@ tr:hover { background: #EEF2F7; }
 #patOverlay input.busca{width:100%;padding:8px 10px;border:1.5px solid #B0BEC5;border-radius:6px;font-size:12.5px;}
 #patOverlay .note{font-size:11px;color:#7F8C8D;margin-top:10px;line-height:1.55;}
 #patOverlay .scroll{max-height:420px;overflow-y:auto;}
+#patOverlay .card.quad-card{padding:14px 18px;}
+#patOverlay .quadsel{display:flex;gap:8px;flex-wrap:wrap;}
+#patOverlay .quadbtn{flex:1;min-width:150px;background:#fff;border:1.5px solid #CFD8DC;border-radius:8px;padding:9px 12px;cursor:pointer;text-align:left;transition:.15s;}
+#patOverlay .quadbtn:hover:not(:disabled):not(.on){border-color:#00897B;background:#F1F8F7;}
+#patOverlay .quadbtn.on{background:#00897B;border-color:#00695C;box-shadow:0 2px 6px rgba(0,137,123,.3);}
+#patOverlay .quadbtn .q{display:block;font-size:14px;font-weight:700;color:#2C3E50;}
+#patOverlay .quadbtn .s{display:block;font-size:9.5px;color:#7F8C8D;text-transform:uppercase;letter-spacing:.3px;margin-top:2px;}
+#patOverlay .quadbtn.on .q,#patOverlay .quadbtn.on .s{color:#fff;}
+#patOverlay .quadbtn:disabled{opacity:.45;cursor:not-allowed;}
+#patOverlay .box.na{border-left-color:#B0BEC5;background:#F4F6F7;}
+#patOverlay .box.na .v{color:#90A4AE;}
 </style>
 <div class="main" id="main">
         <div class="loading" id="loading">
@@ -517,7 +528,7 @@ let REG_IES = null;           // registry_ies.json — catálogo das 27 IFES
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '5.1.0';
+const VERSION = '5.2.0';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -736,7 +747,7 @@ async function switchArea(slug, sufixo) {
     const d = await fetch(url, {cache: 'force-cache'}).then(r=>r.json());
     DATA = d;
     closePatOverlay();             // a camada de patentes é por área; fecha ao trocar
-    TEC = null; TEC_SLUG = null;
+    TEC = null; TEC_CACHE = {};
     aplicarBaseEstrato();          // remapeia estr_*/metadata.estratos p/ a base ativa (padrão CiteScore)
     CURRENT_AREA_SLUG = slug;
     CURRENT_AREA_NAME = d.metadata.area;
@@ -2452,42 +2463,75 @@ function closeIFOverlay() {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// PATENTES — produção técnica (dados/tec-<area>.json)
+// PATENTES — produção técnica (dados/tec-<area>-<quadriênio>.json)
 //
 // Camada independente dos area-*.json: a produção técnica não vem nos
 // arquivos bibliográficos do pipeline principal (ver build/gerar_tecnica.py).
-// Carregada sob demanda, só quando o usuário abre o painel.
+// Um arquivo por (área, quadriênio), carregado só quando pedido.
 //
-// Contagem POR PROGRAMA usa as declarações como a CAPES as recebe; os totais
-// de área/nacionais já vêm deduplicados por número de registro no gerador,
-// porque uma patente com coautoria é declarada por cada programa envolvido.
+// Contagem POR PROGRAMA usa as declarações como a CAPES as recebe. Os totais
+// de área/nacionais só viram "patentes distintas" onde há número de registro
+// para deduplicar coautoria — e isso MUDA por quadriênio:
+//   2021-2024  registro em 95,1% → dedup completa
+//   2013-2016  registro em 40,9% → dedup parcial (o excedente sobrevive)
+//   2017-2020  a base NÃO traz o campo → dedup impossível
+// `metadata.dedup` carrega qual caso vale e a interface é obrigada a respeitar:
+// em 2017-2020 não se exibe número de patentes distintas.
 // ══════════════════════════════════════════════════════════════════
-let TEC = null;              // conteúdo de tec-<slug>.json da área corrente
-let TEC_SLUG = null;         // slug já carregado (evita refetch)
+const PAT_QUADS = ['2013-2016', '2017-2020', '2021-2024'];
+const PAT_QUAD_PADRAO = '2021-2024';
+let TEC = null;              // camada do (slug, quadriênio) em exibição
+let TEC_CACHE = {};          // 'slug|quad' → JSON já baixado
+let PAT_QUAD = PAT_QUAD_PADRAO;
 let _patBusca = '';
 
 const escHTML = s => String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 
-async function carregarTec(slug) {
-    if (TEC_SLUG === slug && TEC) return TEC;
+// Metadados do quadriênio no manifest (cobertura e regime de dedup nacionais).
+function patMetaQuad(quad) {
+    return ((MANIFEST.tecnica || {}).quadrienios || {})[quad] || null;
+}
+
+// Quadriênios em que ESTA área tem alguma patente declarada.
+function patQuadsArea(slug) {
     const info = (MANIFEST.areas || []).find(a => a.slug === slug);
-    const url = (info && info.tec && info.tec.arquivo) || `dados/tec-${slug}.json`;
-    const r = await fetch(url, {cache: 'force-cache'});
-    if (!r.ok) throw new Error(`sem camada de patentes para ${slug} (HTTP ${r.status})`);
-    TEC = await r.json();
-    TEC_SLUG = slug;
-    return TEC;
+    const qs = (info && info.tec && info.tec.quadrienios) || {};
+    return PAT_QUADS.filter(q => qs[q]);
+}
+
+async function carregarTec(slug, quad) {
+    const chave = `${slug}|${quad}`;
+    if (TEC_CACHE[chave]) return TEC_CACHE[chave];
+    const info = (MANIFEST.areas || []).find(a => a.slug === slug);
+    const ref = info && info.tec && info.tec.quadrienios && info.tec.quadrienios[quad];
+    if (!ref) throw new Error(`sem patentes declaradas em ${quad} nesta área`);
+    const r = await fetch(ref.arquivo, {cache: 'force-cache'});
+    if (!r.ok) throw new Error(`falha ao carregar ${ref.arquivo} (HTTP ${r.status})`);
+    TEC_CACHE[chave] = await r.json();
+    return TEC_CACHE[chave];
 }
 
 async function abrirPatentes() {
     if (!DATA || !CURRENT_AREA_SLUG) { toast('Carregue uma área primeiro.'); return; }
+    const disp = patQuadsArea(CURRENT_AREA_SLUG);
+    if (!disp.length) {
+        toast('Esta área não tem patentes declaradas em nenhum quadriênio.');
+        return;
+    }
+    // Segue o filtro de quadriênio do painel principal quando ele aponta um só;
+    // em "Todos", abre no mais recente com dado.
+    const doFiltro = document.getElementById('selQuad').value;
+    const inicial = disp.includes(doFiltro) ? doFiltro
+                  : disp.includes(PAT_QUAD_PADRAO) ? PAT_QUAD_PADRAO
+                  : disp[disp.length - 1];
     const btn = document.getElementById('patBtn');
     const rot = btn ? btn.textContent : '';
     if (btn) { btn.textContent = 'Carregando...'; btn.disabled = true; }
     try {
-        await carregarTec(CURRENT_AREA_SLUG);
+        TEC = await carregarTec(CURRENT_AREA_SLUG, inicial);
+        PAT_QUAD = inicial;
         _patBusca = '';
         renderPatentes();
         document.getElementById('results').style.display = 'none';
@@ -2501,12 +2545,47 @@ async function abrirPatentes() {
     }
 }
 
+async function setPatQuad(quad) {
+    if (quad === PAT_QUAD) return;
+    const body = document.getElementById('patOverlayBody');
+    body.innerHTML = `<div class="card"><p class="note">Carregando ${quad}...</p></div>`;
+    try {
+        TEC = await carregarTec(CURRENT_AREA_SLUG, quad);
+        PAT_QUAD = quad;
+        _patBusca = '';
+        renderPatentes();
+        const m = document.getElementById('main'); if (m) m.scrollTop = 0;
+    } catch (e) {
+        body.innerHTML = `<div class="card"><h2>${escHTML(quad)}</h2>
+            <p class="note">${escHTML(e.message)}.</p></div>` + patSeletorHTML();
+    }
+}
+
 function closePatOverlay() {
     document.getElementById('patOverlay').classList.remove('show');
     const r = document.getElementById('results'); if (r) r.style.display = '';
 }
 
-// Um registro por programa no quadriênio da camada técnica — dá nota, docentes
+function patSeletorHTML() {
+    const disp = patQuadsArea(CURRENT_AREA_SLUG);
+    return `<div class="card quad-card"><h2>Quadriênio</h2><div class="quadsel">` +
+        PAT_QUADS.map(q => {
+            const tem = disp.includes(q);
+            const on = q === PAT_QUAD;
+            const mq = patMetaQuad(q) || {};
+            const sub = !tem ? 'sem patente na área'
+                : (mq.dedup === 'indisponivel' ? 'sem nº de registro'
+                   : mq.dedup === 'parcial' ? 'registro parcial' : 'registro completo');
+            return `<button class="quadbtn${on ? ' on' : ''}" ${tem ? '' : 'disabled'}
+                onclick="setPatQuad('${q}')"><span class="q">${q}</span>
+                <span class="s">${sub}</span></button>`;
+        }).join('') +
+        `</div><p class="note">A contagem de patentes de cada programa muda com o
+        quadriênio — são coletas distintas da CAPES, com campos e cobertura
+        diferentes. Ver "Como ler estes dados", ao final.</p></div>`;
+}
+
+// Um registro por programa no quadriênio em exibição — dá nota, docentes
 // permanentes e nome oficial para cruzar com a contagem de patentes.
 function _patProgInfo() {
     const quad = TEC.metadata.quadrienio;
@@ -2538,31 +2617,47 @@ function renderPatentes() {
     const md = TEC.metadata;
     const linhas = _patLinhas();
     const nDecl = md.n_declaracoes, nDist = md.n_distintas;
-    // Denominador = programas da área ATIVOS no quadriênio da camada técnica, não o
-    // total histórico da área (que inclui programas extintos antes de 2021).
+    const semDedup = md.dedup === 'indisponivel';
+    // Denominador = programas da área ATIVOS no quadriênio em exibição, não o
+    // total histórico da área.
     const nProgArea = new Set((DATA.data || [])
         .filter(d => d.quad === md.quadrienio).map(d => d.cd)).size;
     const comPat = linhas.length;
-    const pctNac = md.n_nacional_distintas ? (100 * nDist / md.n_nacional_distintas) : 0;
+    const pctNac = (!semDedup && md.n_nacional_distintas)
+        ? (100 * nDist / md.n_nacional_distintas)
+        : (100 * nDecl / md.n_nacional_declaracoes);
     const ref = linhas.filter(l => l.ref);
 
     document.getElementById('patInd').textContent =
         `${md.area} — ${md.quadrienio} — ${nDecl} declarações`;
 
-    let h = '';
+    let h = patSeletorHTML();
 
     // ── panorama da área ──
     h += `<div class="card"><h2>${escHTML(md.area)} — patentes ${md.quadrienio}</h2><div class="row">
         <div class="box"><div class="v">${nDecl}</div><div class="l">Declarações<br>de patente</div></div>
-        <div class="box"><div class="v">${nDist}</div><div class="l">Patentes<br>distintas</div></div>
+        ${semDedup
+            ? `<div class="box na"><div class="v">—</div><div class="l">Patentes distintas<br>não apurável</div></div>`
+            : `<div class="box"><div class="v">${nDist}</div><div class="l">Patentes distintas<br>${md.dedup === 'parcial' ? '(dedup. parcial)' : ''}</div></div>`}
         <div class="box"><div class="v">${comPat}</div><div class="l">Programas<br>com patente</div></div>
         <div class="box"><div class="v">${nProgArea ? (100*comPat/nProgArea).toFixed(0) : '—'}%</div><div class="l">dos ${nProgArea}<br>programas da área</div></div>
-        <div class="box"><div class="v">${pctNac.toFixed(1)}%</div><div class="l">do total<br>nacional</div></div>
-        <div class="box"><div class="v">${md.n_nacional_distintas}</div><div class="l">Patentes distintas<br>no país</div></div>
+        <div class="box"><div class="v">${pctNac.toFixed(1)}%</div><div class="l">do total nacional<br>${semDedup ? 'de declarações' : 'de distintas'}</div></div>
+        <div class="box"><div class="v">${semDedup ? md.n_nacional_declaracoes : md.n_nacional_distintas}</div><div class="l">${semDedup ? 'Declarações' : 'Patentes distintas'}<br>no país</div></div>
     </div>
-    <p class="note">A diferença entre <b>declarações</b> e <b>patentes distintas</b> é coautoria:
-    a mesma patente é declarada por cada programa que participou dela. A contagem por programa,
-    abaixo, é a declarada — é ela que a CAPES considera na avaliação do programa.</p></div>`;
+    <p class="note">${semDedup
+        ? `A coleta ${md.quadrienio} <b>não publica o número de registro</b> da patente,
+           então não há como saber quantas declarações são a mesma patente declarada por
+           programas coautores. Por isso só se conta declarações aqui — o número de
+           patentes distintas <b>não é apurável</b> nesta base.`
+        : `A diferença entre <b>declarações</b> e <b>patentes distintas</b> é coautoria:
+           a mesma patente é declarada por cada programa que participou dela.` +
+          (md.dedup === 'parcial'
+            ? ` Em ${md.quadrienio} apenas ${String(md.cobertura_nacional.cod).replace('.', ',')}%
+                dos registros têm número, então a deduplicação é <b>parcial</b> e o total
+                de distintas ainda contém repetições.`
+            : '')}
+    A contagem por programa, abaixo, é a declarada — é ela que a CAPES considera na
+    avaliação do programa.</p></div>`;
 
     // ── programa de referência ──
     if (ref.length) {
@@ -2598,48 +2693,92 @@ function renderPatentes() {
     }
 
     // ── ranking da área ──
-    h += `<div class="card"><h2>Programas da área por número de patentes</h2>
+    h += `<div class="card"><h2>Programas da área por número de patentes — ${md.quadrienio}</h2>
     <button class="btn csv" onclick="exportarPatentesCSV()">Baixar .csv</button>
     <button class="btn" onclick="exportarPatentesListaCSV()">Baixar lista completa .csv</button>
     <div class="scroll"><table><thead><tr>
         <th>#</th><th>IES</th><th class="l">Programa</th><th>UF</th><th>Nota</th>
-        <th>Patentes</th>${Object.keys(linhas[0] ? linhas[0].ano : {}).map(y => `<th>${y}</th>`).join('')}
+        <th>Patentes</th>${(md.anos || []).map(y => `<th>${y}</th>`).join('')}
         <th>Doc. perm.</th><th>Por perm.</th><th>c/ descr.</th></tr></thead><tbody>`;
     linhas.forEach((l, i) => {
         h += `<tr class="${l.ref ? 'ref-row' : ''}"><td>${i+1}</td><td>${escHTML(l.sigla)}</td>
             <td class="l">${escHTML(l.programa)}</td><td>${escHTML(l.uf)}</td><td>${l.nota || '—'}</td>
-            <td><b>${l.n}</b></td>${Object.values(l.ano).map(n => `<td>${n || ''}</td>`).join('')}
+            <td><b>${l.n}</b></td>${(md.anos || []).map(y => `<td>${l.ano[y] || ''}</td>`).join('')}
             <td>${l.n_perm || '—'}</td><td>${l.porPerm != null ? l.porPerm.toFixed(2) : '—'}</td>
             <td>${l.n_res}</td></tr>`;
     });
     h += `</tbody></table></div></div>`;
 
     // ── busca textual ──
-    h += `<div class="card"><h2>Buscar patentes desta área</h2>
+    h += `<div class="card"><h2>Buscar patentes desta área — ${md.quadrienio}</h2>
         <input class="busca" id="patBusca" placeholder="palavra no título ou na descrição (ex.: sensor, vacina, biodiesel)"
                value="${escHTML(_patBusca)}" oninput="_patBuscaInput(this.value)">
         <div id="patResultados" class="scroll" style="margin-top:10px;"></div></div>`;
 
-    // ── ressalvas ──
-    const cb = md.cobertura_nacional || {};
-    const pc = v => v == null ? '—' : String(v).replace('.', ',') + '%';
-    h += `<div class="card"><h2>Como ler estes dados</h2><p class="note">
-    <b>Fonte:</b> ${escHTML(md.fonte)}. Registros glosados pela CAPES foram descartados.<br>
-    <b>Cobertura declaratória:</b> os campos são preenchidos pelo próprio programa na Plataforma
-    Sucupira e nem todos são obrigatórios. Em ${md.quadrienio}, no conjunto nacional,
-    título ${pc(cb.tit)} · número de registro ${pc(cb.cod)} · data de depósito ${pc(cb.dep)} ·
-    descrição ${pc(cb.res)} · estágio da tecnologia ${pc(cb.est)} ·
-    data de concessão ${pc(cb.con)}.
-    Um campo em branco significa não declarado, não ausência do fato.<br>
-    <b>Depósito ≠ concessão:</b> a contagem é de patentes <i>depositadas/declaradas</i> no
-    quadriênio. A concessão pela autoridade competente costuma ocorrer anos depois e é
-    raramente informada nesta base.<br>
-    <b>Coautoria:</b> totais de área e nacionais são deduplicados pelo número de registro
-    normalizado; registros sem número não podem ser deduplicados e contam como distintos.
-    </p></div>`;
+    // ── ressalvas, com a comparação entre quadriênios ──
+    h += patRessalvasHTML();
 
     document.getElementById('patOverlayBody').innerHTML = h;
     _patRenderBusca();
+}
+
+// Tabela de cobertura declaratória por quadriênio: é o que sustenta (ou não) cada
+// número mostrado acima. Vem do manifest, calculada pelo gerador — nunca fixa aqui.
+function patRessalvasHTML() {
+    const md = TEC.metadata;
+    // 0% num campo que a coleta NÃO tem seria enganoso — sugeriria desleixo do
+    // programa em vez de ausência do campo no formulário da CAPES.
+    const cel = (m, k) => (m.campo_coletado && m.campo_coletado[k] === false)
+        ? '<i style="color:#B0BEC5;">não coletado</i>'
+        : (m.cobertura_nacional[k] == null ? '—'
+           : String(m.cobertura_nacional[k]).replace('.', ',') + '%');
+    const DEDUP_TXT = {
+        completa: 'completa',
+        parcial: 'parcial',
+        indisponivel: '<b>impossível</b>',
+    };
+    let t = `<table><thead><tr><th class="l">Quadriênio</th><th>Título</th>
+        <th>Nº de registro</th><th>Data de depósito</th><th>Descrição</th>
+        <th>Estágio</th><th>Data de concessão</th><th>Deduplicação</th></tr></thead><tbody>`;
+    PAT_QUADS.forEach(q => {
+        const m = patMetaQuad(q);
+        if (!m) return;
+        t += `<tr class="${q === md.quadrienio ? 'ref-row' : ''}">
+            <td class="l"><b>${q}</b></td><td>${cel(m,'tit')}</td><td>${cel(m,'cod')}</td>
+            <td>${cel(m,'dep')}</td><td>${cel(m,'res')}</td><td>${cel(m,'est')}</td>
+            <td>${cel(m,'con')}</td><td>${DEDUP_TXT[m.dedup] || m.dedup}</td></tr>`;
+    });
+    t += `</tbody></table>`;
+
+    return `<div class="card"><h2>Como ler estes dados</h2>
+    <p class="note"><b>Fonte:</b> ${escHTML(md.fonte)}. Registros glosados pela CAPES
+    foram descartados.</p>
+    <p class="note"><b>A cobertura muda a cada quadriênio</b> — são coletas distintas,
+    com formulários distintos. Percentuais nacionais de preenchimento, sobre o total de
+    declarações de patente de cada coleta (a linha destacada é a que está em exibição):</p>
+    <div style="overflow-x:auto;">${t}</div>
+    <p class="note">
+    <b>Nº de registro e deduplicação.</b> É o número do depósito (BR…, PI…, MU…) que
+    permite reconhecer a mesma patente declarada por programas coautores. Em
+    <b>2017-2020 o campo não existe na base da CAPES</b>: naquele quadriênio só se pode
+    contar declarações, e nenhum total de "patentes distintas" é exibido. Em 2013-2016
+    o campo existe mas está preenchido em menos da metade dos registros, então a
+    deduplicação é parcial e o total de distintas ainda contém repetições. Só em
+    2021-2024 a deduplicação é confiável.<br>
+    <b>"não coletado" ≠ 0%.</b> Onde a tabela diz <i>não coletado</i>, o campo não
+    existia no formulário daquela coleta — não é que os programas deixaram de
+    preencher. O estágio da tecnologia só passou a ser pedido em 2017-2020.<br>
+    <b>Campo em branco é não declarado</b>, não ausência do fato: os campos são
+    preenchidos pelo próprio programa na Plataforma Sucupira e nem todos são
+    obrigatórios. A descrição da invenção, por exemplo, nunca passa de um terço dos
+    registros em nenhum dos três quadriênios.<br>
+    <b>Depósito ≠ concessão.</b> A contagem é de patentes <i>depositadas/declaradas</i>
+    no quadriênio. A concessão pela autoridade competente costuma ocorrer anos depois e
+    é raramente informada nesta base — não passa de 11% em nenhuma coleta.<br>
+    <b>Comparação entre quadriênios exige cuidado.</b> A variação no número de patentes
+    de um programa entre coletas pode refletir mudança de prática declaratória, e não só
+    mudança de atividade inventiva.
+    </p></div>`;
 }
 
 function _patCard(p) {
@@ -2704,7 +2843,10 @@ function exportarPatentesCSV() {
                `${l.porPerm != null ? l.porPerm.toFixed(2).replace('.', ',') : ''};` +
                `${l.n_res};${l.n_cod};${l.n_dep || 0};${l.n_con}\n`;
     });
-    csv += `\n# MAPA-PG v${VERSION} — patentes ${md.quadrienio} — ${md.area}\n# ${md.fonte}\n`;
+    csv += `\n# MAPA-PG v${VERSION} — patentes ${md.quadrienio} — ${md.area}\n# ${md.fonte}\n` +
+           `# Deduplicação de coautoria: ${md.dedup}` +
+           (md.dedup === 'indisponivel'
+             ? ' (a coleta 2017-2020 não publica o número de registro)\n' : '\n');
     download(`patentes-${md.slug}-${md.quadrienio}.csv`, csv, 'text/csv');
 }
 
@@ -2712,14 +2854,15 @@ function exportarPatentesListaCSV() {
     const md = TEC.metadata;
     const info = _patProgInfo();
     const lim = s => `"${String(s || '').replace(/"/g, '""')}"`;
-    let csv = 'IES;Programa;CD_Programa;Ano;Titulo;Numero_registro;Instituicao_deposito;' +
+    let csv = 'IES;Programa;CD_Programa;Quadrienio;Ano;Titulo;Numero_registro;Instituicao_deposito;' +
               'Data_deposito;Data_concessao;Estagio;Transferencia_tecnologia;Enquadramento;Natureza;Linha_pesquisa;Descricao\n';
     Object.entries(TEC.programas).forEach(([cd, p]) => {
         const d = info[cd] || {};
         p.pat.forEach(x => {
-            csv += [d.sigla || '', lim(d.programa), cd, x.ano || '', lim(x.tit), lim(x.cod),
-                    lim(x.inst), x.dep || '', x.con || '', lim(x.est), x.tt || '',
-                    lim(x.cls), lim(x.nat), lim(x.lp), lim(x.res)].join(';') + '\n';
+            csv += [d.sigla || '', lim(d.programa), cd, md.quadrienio, x.ano || '',
+                    lim(x.tit), lim(x.cod), lim(x.inst), x.dep || '', x.con || '',
+                    lim(x.est), x.tt || '', lim(x.cls), lim(x.nat), lim(x.lp),
+                    lim(x.res)].join(';') + '\n';
         });
     });
     csv += `\n# MAPA-PG v${VERSION} — patentes ${md.quadrienio} — ${md.area}\n# ${md.fonte}\n`;

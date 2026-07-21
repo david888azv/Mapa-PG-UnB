@@ -59,6 +59,7 @@ a{color:#2563EB;}
     <a onclick="showSection('sec-sobre')" class="active" id="nav-sobre">Sobre</a>
     <a onclick="showSection('sec-uso')" id="nav-uso">Como Usar</a>
     <a onclick="showSection('sec-siglas')" id="nav-siglas">Siglas e Programas</a>
+    <a onclick="showSection('sec-patentes')" id="nav-patentes">Patentes</a>
     <a onclick="showSection('sec-fontes')" id="nav-fontes">Fontes de Dados e URLs</a>
     <a onclick="showSection('sec-versoes')" id="nav-versoes">Versões</a>
 </nav>
@@ -151,6 +152,7 @@ a{color:#2563EB;}
         <li><strong>Região:</strong> Filtre por região geográfica (CO, NE, N, SE, S)</li>
         <li><strong>Tipo de produção:</strong> Filtre por tipo (Art. Periódico, Resumo, Trab. Congresso, etc.)</li>
         <li><strong>Estrato IF:</strong> Filtre por faixa de fator de impacto (baixo/médio/alto)</li>
+        <li><strong>Patentes / Produção Técnica:</strong> botão que abre o painel de patentes, com seletor próprio de quadriênio — ver a seção <em>Patentes</em> desta documentação</li>
     </ul>
 
     <h3>2. Resultados</h3>
@@ -165,6 +167,7 @@ a{color:#2563EB;}
         <li><strong>CSV:</strong> Exporta todos os dados filtrados em formato CSV (separador: ponto e vírgula)</li>
         <li><strong>PNG:</strong> Exporta todos os gráficos visíveis como imagens PNG com marca d'água</li>
         <li><strong>Relatório IF:</strong> Gera relatório detalhado de fator de impacto em nova janela</li>
+        <li><strong>Patentes:</strong> o painel de produção técnica exporta dois CSVs — o agregado por programa e a lista completa de patentes, com título, número de registro, datas e descrição</li>
     </ul>
 
     <h3>4. Destaques</h3>
@@ -283,6 +286,111 @@ a{color:#2563EB;}
 <!-- ════════════════════════════════════════════════════════════ -->
 <!-- FONTES DE DADOS E URLs                                      -->
 <!-- ════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- PATENTES / PRODUÇÃO TÉCNICA                                 -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="section" id="sec-patentes">
+
+<div class="card">
+    <h2>Patentes — Produção Técnica</h2>
+
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    Até a versão 5.0 o MAPA-PG media apenas produção <strong>bibliográfica</strong>: artigo em
+    periódico, resumo, trabalho de congresso, capítulo de livro e texto em jornal — os cinco
+    subtipos que a CAPES publica sob o tipo BIBLIOGRÁFICA. Patentes e demais produtos
+    tecnológicos estão em conjuntos de dados <strong>distintos</strong> do Portal de Dados
+    Abertos e não faziam parte do aplicativo. A partir da v5.1 eles entram, começando pelo
+    subtipo <strong>PATENTE</strong>; desde a v5.2, nos <strong>três quadriênios</strong>.
+    </p>
+
+    <h3>O painel</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    O botão <strong>"Patentes / Produção Técnica"</strong>, na barra lateral, abre um painel
+    com: panorama da área; o programa da universidade de referência em destaque, com as
+    patentes por ano, por docente permanente, a posição no ranking da área e a lista das
+    patentes (título, número de registro, instituição de depósito, datas, estágio da
+    tecnologia, linha de pesquisa e descrição); o ranking dos programas da área; busca
+    textual; e exportação em CSV.
+    </p>
+
+    <div class="info-box">
+        <strong>O seletor de quadriênio do painel é independente.</strong> Ele abre alinhado ao
+        filtro de quadriênio da barra lateral quando este aponta um quadriênio específico, e no
+        mais recente com dado quando o filtro está em "Todos". Trocar de quadriênio no painel
+        recarrega a camada inteira: a contagem de patentes de cada programa muda, porque cada
+        quadriênio é uma coleta distinta da CAPES. Quadriênios em que a área não declarou
+        nenhuma patente aparecem desabilitados.
+    </div>
+
+    <h3>Contagem: declarações e patentes distintas</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    Uma patente com coautoria entre programas é declarada <strong>por cada programa
+    participante</strong>. A contagem <strong>por programa</strong> usa a declaração — é ela
+    que a CAPES considera na avaliação daquele programa. Já os totais de <strong>área</strong> e
+    <strong>nacionais</strong> só podem virar "patentes distintas" onde existe o número de
+    registro do depósito para reconhecer as repetições. E esse campo não está presente do mesmo
+    modo nas três coletas.
+    </p>
+
+    <h3>Cobertura declaratória por quadriênio</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    Os campos são preenchidos pelo próprio programa na Plataforma Sucupira e nem todos são
+    obrigatórios — nem sequer existem em todas as coletas. Percentuais nacionais de
+    preenchimento, sobre o total de declarações de patente de cada quadriênio:
+    </p>
+    <table>
+        <tr><th>Campo</th><th>2013-2016</th><th>2017-2020</th><th>2021-2024</th></tr>
+        <tr><td><strong>Título</strong></td><td>100%</td><td>100%</td><td>100%</td></tr>
+        <tr><td><strong>Nº de registro</strong></td><td>40,9%</td><td><em>não coletado</em></td><td>95,1%</td></tr>
+        <tr><td><strong>Data de depósito</strong></td><td>38,8%</td><td>75,5%</td><td>96,2%</td></tr>
+        <tr><td><strong>Descrição da invenção</strong></td><td>16,0%</td><td>32,8%</td><td>22,1%</td></tr>
+        <tr><td><strong>Estágio da tecnologia</strong></td><td><em>não coletado</em></td><td>32,5%</td><td>24,9%</td></tr>
+        <tr><td><strong>Data de concessão</strong></td><td>5,6%</td><td>10,0%</td><td>11,1%</td></tr>
+        <tr><td><strong>Deduplicação de coautoria</strong></td><td>parcial</td><td><strong>impossível</strong></td><td>completa</td></tr>
+        <tr><td><strong>Declarações (país)</strong></td><td>8.472</td><td>15.635</td><td>13.505</td></tr>
+        <tr><td><strong>Patentes distintas (país)</strong></td><td>7.960</td><td>—</td><td>8.381</td></tr>
+    </table>
+    <p class="meta" style="font-size:11px;">
+    Apurado em 21/07/2026 sobre as coletas então publicadas. O painel do aplicativo mostra
+    sempre os percentuais recalculados a partir dos dados em uso.
+    </p>
+
+    <div class="warn-box" style="text-align:justify;">
+        <strong>As três ressalvas que mais afetam a leitura:</strong><br><br>
+
+        <strong>1. Em 2017-2020 não há número de registro.</strong> A coleta simplesmente não
+        publica o campo. Nesse quadriênio não há como saber quantas declarações são a mesma
+        patente declarada por programas coautores, então o painel exibe apenas
+        <em>declarações</em> e marca "patentes distintas" como <strong>não apurável</strong>.
+        Em 2013-2016 o campo existe, mas preenchido em 40,9% dos registros: a deduplicação é
+        <strong>parcial</strong> e o total de distintas ainda contém repetições. Só em
+        2021-2024 ela é confiável — ali, 13.505 declarações correspondem a 8.381 patentes
+        distintas, ou seja, cerca de <strong>38% das declarações nacionais são repetição por
+        coautoria</strong>.<br><br>
+
+        <strong>2. "Não coletado" não é 0%.</strong> Onde a tabela diz <em>não coletado</em>, o
+        campo não existia no formulário daquela coleta — não é que os programas deixaram de
+        preencher. O estágio da tecnologia, por exemplo, só passou a ser pedido em 2017-2020.
+        Campo em branco, por sua vez, significa <strong>não declarado</strong>, e não ausência
+        do fato.<br><br>
+
+        <strong>3. Comparar quadriênios exige cuidado.</strong> A variação no número de patentes
+        de um programa entre coletas pode refletir mudança de prática declaratória — ou de
+        formulário — e não apenas mudança de atividade inventiva. A contagem é de patentes
+        <em>depositadas/declaradas</em> no quadriênio: a concessão pela autoridade competente
+        costuma ocorrer anos depois e é raramente informada (nunca passa de 11%).
+    </div>
+
+    <h3>Um detalhe do campo de descrição</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    A descrição vem de <code>DS_FINALIDADE</code>, campo de texto livre. Na maioria dos casos
+    descreve a invenção, mas em cerca de 3% dos preenchidos traz apenas a categoria do ativo
+    ("PATENTE DE INVENÇÃO", "REGISTRO DE CULTIVAR"). O MAPA-PG separa os dois casos: o rótulo
+    de categoria vira etiqueta no cartão da patente, e não é contado como descrição.
+    </p>
+</div>
+</div>
+
 <div class="section" id="sec-fontes">
 
 <div class="card">
@@ -437,6 +545,32 @@ a{color:#2563EB;}
 </div>
 
 <!-- RESUMO -->
+<!-- FONTE 11 -->
+<div class="card">
+    <h2>11. Detalhes da Produção Intelectual Técnica — patentes (3 quadriênios)</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>URL 2021-2024</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2021-a-2024-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2021-a-2024-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu</a></td></tr>
+        <tr><td><strong>URL 2017-2020</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2017-a-2020-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2017-a-2020-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu</a></td></tr>
+        <tr><td><strong>URL 2013-2016</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/detalhes-da-producao-intelectual-tecnica-2013a2016" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/detalhes-da-producao-intelectual-tecnica-2013a2016</a></td></tr>
+        <tr><td><strong>Conteúdo</strong></td><td>Campos próprios de cada subtipo de produção técnica. Para PATENTE: finalidade (descrição), número de registro, instituição de depósito, datas de depósito e concessão, estágio da tecnologia, transferência de tecnologia</td></tr>
+        <tr><td><strong>Recorte usado</strong></td><td>Apenas o arquivo do subtipo <code>PATENTE</code> de cada quadriênio. Os demais 17 subtipos (serviços técnicos, desenvolvimento de produto, aplicativo, técnica, etc.) ainda não são usados</td></tr>
+        <tr><td><strong>Arquivo filtrado</strong></td><td><code>tec_detalhe_&lt;quadriênio&gt;_patente.csv</code></td></tr>
+    </table>
+</div>
+
+<!-- FONTE 12 -->
+<div class="card">
+    <h2>12. Produção Intelectual — fatia técnica/patente (3 quadriênios)</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>Datasets</strong></td><td>Os mesmos conjuntos "Produção Intelectual" já usados para a produção bibliográfica (FONTES 4 a 6), na fatia <code>TECNICA-PATENTE</code></td></tr>
+        <tr><td><strong>Por que é necessária</strong></td><td>Completa o <strong>título</strong> da patente, que no arquivo de detalhe cobre 42,5% dos registros em 2013-2016 e 77,1% em 2017-2020. Com esta fonte o título chega a <strong>100% nos três quadriênios</strong>. Traz também a <strong>linha de pesquisa</strong>, ausente do detalhe</td></tr>
+        <tr><td><strong>Chave de junção</strong></td><td><code>ID_ADD_PRODUCAO_INTELECTUAL</code> com o arquivo de detalhe; <code>CD_PROGRAMA_IES</code> com o restante do aplicativo</td></tr>
+        <tr><td><strong>Arquivo filtrado</strong></td><td><code>tec_prod_&lt;quadriênio&gt;_patente.csv</code></td></tr>
+    </table>
+</div>
+
 <div class="card">
     <h2>Resumo Consolidado</h2>
     <table>
@@ -469,11 +603,15 @@ a{color:#2563EB;}
         <tr><td>v1.5</td><td>2026-04-12</td><td>Programas de Física e Astronomia com <strong>Nota 4</strong> adicionados a todas as análises (filtros, tabelas, gráficos, relatórios e exportações). Textos da tela de abertura simplificados e revisão ortográfica com acentuação correta em toda a documentação</td></tr>
         <tr><td>v4.0.0</td><td>2026-07-03</td><td>Estratos A1–A8/C em <strong>três bases de indicador</strong> selecionáveis em "Relatório Detalhado IF": <strong>CiteScore (Scopus, padrão)</strong>, OpenAlex e Híbrido</td></tr>
         <tr><td>v4.0.1</td><td>2026-07-03</td><td><strong>Atribuição Scopus/Elsevier</strong> do CiteScore: nova FONTE 10, nota de conformidade com os termos da API gratuita da Elsevier e acknowledgement no modal de licença</td></tr>
+        <tr><td>v5.0.0</td><td>2026-07-17</td><td><strong>Revisão de medida:</strong> artigos distintos em vez de eventos artigo&times;autor; denominador em anos-docente; docentes de 2022-2024 incorporados; recorte de topo A1&ndash;A4. Os números e o ranking dos programas mudaram &mdash; ver o documento "O que mudou na v5.0"</td></tr>
+        <tr><td>v5.1.0</td><td>2026-07-21</td><td><strong>Patentes (produção técnica), quadriênio 2021-2024:</strong> nova camada de dados e painel próprio com panorama da área, programa de referência em destaque, ranking, busca textual e exportação. Novas FONTES 11 e 12</td></tr>
+        <tr><td>v5.2.0</td><td>2026-07-21</td><td><strong>Patentes nos três quadriênios</strong> (2013-2016, 2017-2020 e 2021-2024), com seletor de quadriênio no painel &mdash; a contagem de cada programa muda conforme a coleta. Documentação das ressalvas de cobertura por quadriênio, com destaque para a <strong>ausência do número de registro em 2017-2020</strong>, que impede apurar patentes distintas naquele período</td></tr>
     </table>
 
     <h3>Limitações Conhecidas</h3>
     <ul style="font-size:13px;padding-left:20px;line-height:2;">
-        <li>Dados de docentes disponíveis até 2021 (CAPES não publicou 2022-2024); anos faltantes usam forward-fill</li>
+        <li>Produção técnica: apenas o subtipo <strong>PATENTE</strong> está incorporado; os outros 17 subtipos da produção técnica da CAPES ainda não</li>
+        <li>Em 2017-2020 a base da CAPES não publica o número de registro da patente, o que impede deduplicar coautoria naquele quadriênio</li>
         <li>Chart.js é carregado via CDN — primeira abertura requer internet</li>
         <li>Exportação PNG depende do suporte nativo do navegador à <code>canvas.toBlob()</code></li>
     </ul>
@@ -483,7 +621,7 @@ a{color:#2563EB;}
 </div><!-- content -->
 
 <div class="contact">
-    <strong>MAPA-PG</strong> v4.1.8 | Prof. David L. Azevedo |
+    <strong>MAPA-PG</strong> v5.2.0 | Prof. David L. Azevedo |
     <a href="mailto:contato@daciencia.org">contato@daciencia.org</a> |
     <a href="https://daciencia.org" target="_blank" rel="noopener">daciencia.org</a>
 </div>
