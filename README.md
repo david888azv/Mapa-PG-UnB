@@ -1,7 +1,7 @@
 # MAPA-PG — Monitoramento e Análise da Produção Acadêmica da Pós-Graduação
 
-Sistema interativo e gratuito para comparar a produção e os indicadores de **4.776
-programas de pós-graduação** do Brasil (**500 instituições**) em todas as **49 Áreas de
+Sistema interativo e gratuito para comparar a produção e os indicadores de **4.824
+programas de pós-graduação** do Brasil (**495 instituições**) em todas as **49 Áreas de
 Avaliação da CAPES**, ao longo de três quadriênios (2013–2024). Cada programa é comparado
 sempre **dentro da própria Área CAPES** — a única comparação válida segundo a metodologia
 da CAPES.

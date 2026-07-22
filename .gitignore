@@ -39,3 +39,7 @@ docs/dados/*.bak-*
 # análise interna, não faz parte do app publicado. Lê o estratos_por_programa.json do
 # PIP-2, que é derivado do CSV bruto do CiteScore (redistribuição vedada).
 ppgdip-medicina-ufrj/
+
+# Backups do dataset publicado, gerados antes de rebuilds grandes (dezenas de MB).
+# Reversao tambem esta no historico do git; a pasta e conveniencia local.
+_backup_*/

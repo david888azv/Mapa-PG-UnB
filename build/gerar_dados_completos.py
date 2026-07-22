@@ -63,6 +63,183 @@ def load_csv(fp, **kw):
 
 
 # ════════════════════════════════════════════════════════════════════
+# CATALOGO DE PROGRAMAS (usado pela fase 1 e pelo --refresh-meta)
+# ════════════════════════════════════════════════════════════════════
+def mapear_programas(areas_alvo):
+    """CD_PROGRAMA -> slug da area, e CD_PROGRAMA -> metadado do programa.
+
+    Le os TRES catalogos em ordem cronologica. Sem o de 2021-2024 todo programa
+    criado depois de 2020 fica sem metadado, cai fora de cd_to_slug e tem a
+    producao do quadrienio DESCARTADA no filtro da fase 1 — eram 217 programas
+    e 23.392 registros de producao 2021-2024.
+
+    A IES titular (sigla/uf) e resolvida POR QUADRIENIO, em 'sigla_quad'.
+
+    Uma sigla unica por programa e insuficiente: a titularidade muda ao longo do
+    tempo, por tres motivos distintos e indistinguiveis pelo dado —
+
+      rede com coordenacao rotativa  BIONORTE C.-Oeste: UNB 2013-2020,
+                                     UFG 2021-2023, UNEMAT 2024
+      renomeacao da IES              FUFPI -> UFPI, UFT -> UFNT
+      transferencia entre IES        UFRA -> MPEG
+
+    Congelar no primeiro registro dava o rotulo obsoleto a todos os quadrienios;
+    'o mais recente manda' dava o rotulo novo a periodos em que o catalogo diz
+    outra coisa — tirou da UnB, em 2013-2016 e 2017-2020, um programa que ela
+    coordenou nesses anos. Resolver por quadrienio dispensa distinguir os tres
+    casos: cada registro leva a IES que o catalogo daquele periodo declara.
+
+    Dentro do quadrienio vale o ANO mais recente com IES unica (um ano com duas
+    IES no mesmo CD e empate sem criterio). Quadrienio sem registro herda o
+    anterior; os iniciais herdam o primeiro conhecido.
+
+    'sigla'/'uf' no topo do dict seguem o quadrienio mais recente e existem so
+    para quem consome o metadado fora do eixo temporal. Os demais campos (nome,
+    area, modalidade, situacao) seguem o registro mais recente sem ressalva.
+    """
+    print('[1.1] Mapeando programas → área CAPES (programas_*.csv)...')
+    cd_to_slug = {}
+    cd_meta = {}
+    cd_ies = defaultdict(lambda: defaultdict(set))   # cd -> an_base -> {(sigla, uf)}
+    pgm_files = sorted(
+        glob.glob(os.path.join(DATA_DIR, 'programas_2013a2016_*.csv')) +
+        glob.glob(os.path.join(DATA_DIR, 'programas_2017a2020_*.csv')) +
+        glob.glob(os.path.join(DATA_DIR, 'programas_2021a2024_*.csv'))
+    )
+    for fp in pgm_files:
+        df = load_csv(fp)
+        if df is None: continue
+        for _, r in df.iterrows():
+            area = str(r.get('NM_AREA_AVALIACAO','')).strip()
+            if area not in areas_alvo: continue
+            cd = r['CD_PROGRAMA_IES']
+            an = int(r['AN_BASE'])
+            cd_to_slug[cd] = slugify(area)
+            cd_ies[cd][an].add((r.get('SG_ENTIDADE_ENSINO','?'), r.get('SG_UF_PROGRAMA','?')))
+            cd_meta.setdefault(cd, {
+                'sigla': r.get('SG_ENTIDADE_ENSINO','?'),
+                'programa': r.get('NM_PROGRAMA_IES','?'),
+                'uf': r.get('SG_UF_PROGRAMA','?'),
+                'area': area,
+                'cd_area': r.get('CD_AREA_AVALIACAO',''),
+                'grande_area': r.get('NM_GRANDE_AREA_CONHECIMENTO',''),
+                'modalidade': r.get('NM_MODALIDADE_PROGRAMA',''),
+                'situacao': r.get('DS_SITUACAO_PROGRAMA',''),
+                'an_base': an,
+            })
+            if an >= cd_meta[cd]['an_base']:
+                cd_meta[cd].update({
+                    'programa': r.get('NM_PROGRAMA_IES','?'),
+                    'area': area,
+                    'cd_area': r.get('CD_AREA_AVALIACAO',''),
+                    'grande_area': r.get('NM_GRANDE_AREA_CONHECIMENTO',''),
+                    'modalidade': r.get('NM_MODALIDADE_PROGRAMA',''),
+                    'situacao': r.get('DS_SITUACAO_PROGRAMA',''),
+                    'an_base': an,
+                })
+
+    # sigla/uf POR QUADRIENIO (ver docstring)
+    mudou = 0
+    for cd, por_ano in cd_ies.items():
+        sq, ultimo = {}, None
+        for q in sorted(QUADRIENIOS):                 # ordem cronologica
+            escolha = None
+            for an in sorted((a for a in por_ano if a in QUADRIENIOS[q]), reverse=True):
+                if len(por_ano[an]) == 1:             # ano com IES unica manda
+                    escolha = next(iter(por_ano[an]))
+                    break
+            if escolha is None:
+                escolha = ultimo                      # quadrienio sem registro herda o anterior
+            else:
+                ultimo = escolha
+            sq[q] = escolha
+        primeiro = next((v for v in sq.values() if v), None)
+        sq = {q: (v or primeiro) for q, v in sq.items()}
+        if len({v for v in sq.values() if v}) > 1:
+            mudou += 1
+        cd_meta[cd]['sigla_quad'] = {q: list(v) for q, v in sq.items() if v}
+        if sq[max(sq)]:                               # global = quadrienio mais recente
+            cd_meta[cd]['sigla'], cd_meta[cd]['uf'] = sq[max(sq)]
+    print(f'  {len(cd_to_slug)} programas mapeados em {len(set(cd_to_slug.values()))} áreas')
+    print(f'  {mudou} programas trocaram de IES titular entre quadrienios '
+          f'(rede com coordenacao rotativa, renomeacao de sigla, transferencia)')
+    return cd_to_slug, cd_meta
+
+
+_CANON_CACHE = {}
+
+
+def _canon_ies():
+    """sigla legada -> (sigla canonica, uf). Vazio se a tabela nao existir.
+
+    Gerada por gerar_canonico_ies.py a partir de CD_ENTIDADE_CAPES. Siglas em
+    colisao (duas instituicoes com a mesma sigla) e aliases de alvo ambiguo
+    ficam de FORA da tabela de proposito — aqui nao ha o que tratar.
+    """
+    if 'map' not in _CANON_CACHE:
+        p = os.path.join(REPO, 'build', 'ies_canonico.json')
+        m = {}
+        if os.path.exists(p):
+            tab = json.load(open(p, encoding='utf-8'))
+            m = {sg: (v['sigla'], v['uf']) for sg, v in tab.get('canonico', {}).items()}
+        else:
+            # Sem a tabela o build NAO falha — degrada: a ies_list volta a ter uma
+            # entrada por rotulo de epoca (FUFPI e UFPI separados) e o filtro do app
+            # deixa de unificar. Silencioso demais para um efeito visivel; avisa.
+            print('  AVISO: %s ausente — ies_list sem canonicalizacao de sigla. '
+                  'Rode gerar_canonico_ies.py.' % os.path.relpath(p, REPO))
+        _CANON_CACHE['map'] = m
+    return _CANON_CACHE['map']
+
+
+def checar_cache_coerente(cd_to_slug):
+    """Avisa se o cd->area mudou desde a fase 1 que gerou o cache.
+
+    O --refresh-meta reescreve meta.json a partir dos catalogos, mas
+    docentes.csv/prod.csv do cache foram filtrados pelo cd_to_slug vigente na
+    fase 1. Se um programa mudou de area (ou e novo), o meta.json da area passa
+    a listar um cd cujas linhas NAO estao no cache dela — e a fase 2 o descarta
+    em silencio no 'if len(dd) == 0: continue'. Perda de dado sem mensagem.
+    """
+    antigo = {}
+    for p in glob.glob(os.path.join(CACHE_DIR, '*', 'meta.json')):
+        sl = os.path.basename(os.path.dirname(p))
+        try:
+            for cd in json.load(open(p, encoding='utf-8')).get('cds', []):
+                antigo[cd] = sl
+        except Exception:
+            continue
+    if not antigo:
+        return []                       # sem cache anterior: nada a comparar
+    divergentes = [(cd, antigo.get(cd), sl) for cd, sl in cd_to_slug.items()
+                   if antigo.get(cd) != sl]
+    if divergentes:
+        novos = [d for d in divergentes if d[1] is None]
+        movidos = [d for d in divergentes if d[1] is not None]
+        print('  ATENCAO: %d programas nao batem com o cache (%d novos, %d mudaram de area).'
+              % (len(divergentes), len(novos), len(movidos)))
+        print('           O cache foi filtrado por outro cd_to_slug: as linhas desses')
+        print('           programas NAO estao nele e a fase 2 vai descarta-los em silencio.')
+        print('           Rode SEM --skip-fase1 para refazer o cache.')
+        for cd, de, para in movidos[:5]:
+            print('             %s  %s -> %s' % (cd, de, para))
+    return divergentes
+
+
+def gravar_metas(cd_to_slug, cd_meta):
+    """cache/<slug>/meta.json — usado pela fase 1 e pelo --refresh-meta."""
+    metas = defaultdict(lambda: {'cds': [], 'cd_meta': {}})
+    for cd, sl in cd_to_slug.items():
+        metas[sl]['cds'].append(cd)
+        metas[sl]['cd_meta'][cd] = cd_meta[cd]
+    for sl, m in metas.items():
+        os.makedirs(os.path.join(CACHE_DIR, sl), exist_ok=True)
+        with open(os.path.join(CACHE_DIR, sl, 'meta.json'), 'w', encoding='utf-8') as fh:
+            json.dump(m, fh, ensure_ascii=False, indent=2)
+    return len(metas)
+
+
+# ════════════════════════════════════════════════════════════════════
 # FASE 1 — PRÉ-FILTRAR
 # ════════════════════════════════════════════════════════════════════
 def fase1_prefiltrar(areas_alvo):
@@ -74,38 +251,7 @@ def fase1_prefiltrar(areas_alvo):
     print(f'\n══ FASE 1 — PRÉ-FILTRAR ({len(areas_alvo)} áreas) ══')
 
     # ── 1.1 Construir mapa CD_PROGRAMA → slug_area ─────────────────
-    print('[1.1] Mapeando programas → área CAPES (programas_*.csv)...')
-    cd_to_slug = {}      # cd_programa → slug
-    cd_meta = {}         # cd_programa → dict (nm, sigla, uf, area, conceito por ano)
-    pgm_files = sorted(
-        glob.glob(os.path.join(DATA_DIR, 'programas_2013a2016_*.csv')) +
-        glob.glob(os.path.join(DATA_DIR, 'programas_2017a2020_*.csv'))
-    )
-    for fp in pgm_files:
-        df = load_csv(fp)
-        if df is None: continue
-        for _, r in df.iterrows():
-            area = str(r.get('NM_AREA_AVALIACAO','')).strip()
-            if area not in areas_alvo: continue
-            cd = r['CD_PROGRAMA_IES']
-            cd_to_slug[cd] = slugify(area)
-            cd_meta.setdefault(cd, {
-                'sigla': r.get('SG_ENTIDADE_ENSINO','?'),
-                'programa': r.get('NM_PROGRAMA_IES','?'),
-                'uf': r.get('SG_UF_PROGRAMA','?'),
-                'area': area,
-                'cd_area': r.get('CD_AREA_AVALIACAO',''),
-                'grande_area': r.get('NM_GRANDE_AREA_CONHECIMENTO',''),
-                'modalidade': r.get('NM_MODALIDADE_PROGRAMA',''),
-                'situacao': r.get('DS_SITUACAO_PROGRAMA',''),
-                'an_base': int(r['AN_BASE']),
-            })
-            # Atualiza com registro mais recente
-            an = int(r['AN_BASE'])
-            if an >= cd_meta[cd]['an_base']:
-                cd_meta[cd]['situacao'] = r.get('DS_SITUACAO_PROGRAMA','')
-                cd_meta[cd]['an_base'] = an
-    print(f'  {len(cd_to_slug)} programas mapeados em {len(set(cd_to_slug.values()))} áreas')
+    cd_to_slug, cd_meta = mapear_programas(areas_alvo)
 
     # ── 1.2 Pré-criar pastas de cache e estruturas em memória ────
     os.makedirs(CACHE_DIR, exist_ok=True)
@@ -245,14 +391,8 @@ def fase1_prefiltrar(areas_alvo):
 
     # gravar metadata por área
     print('\n[1.5] Gravando metadata por área...')
-    metas = defaultdict(lambda: {'cds': [], 'cd_meta': {}})
-    for cd, sl in cd_to_slug.items():
-        metas[sl]['cds'].append(cd)
-        metas[sl]['cd_meta'][cd] = cd_meta[cd]
-    for sl, m in metas.items():
-        with open(os.path.join(CACHE_DIR, sl, 'meta.json'), 'w', encoding='utf-8') as fh:
-            json.dump(m, fh, ensure_ascii=False, indent=2)
-    print(f'  ✓ {len(metas)} áreas em {CACHE_DIR}/')
+    n = gravar_metas(cd_to_slug, cd_meta)
+    print(f'  ✓ {n} áreas em {CACHE_DIR}/')
 
 
 # ════════════════════════════════════════════════════════════════════
@@ -307,7 +447,8 @@ def calcular_area(slug):
         # --- programas info
         programs_info = {}
         for cd, m in meta['cd_meta'].items():
-            programs_info[cd] = {'sigla': m['sigla'], 'programa': m['programa'], 'uf': m['uf']}
+            programs_info[cd] = {'sigla': m['sigla'], 'programa': m['programa'],
+                                 'uf': m['uf'], 'sigla_quad': m.get('sigla_quad') or {}}
 
         all_data = []
         for cd, info in programs_info.items():
@@ -320,6 +461,10 @@ def calcular_area(slug):
                 if len(nota_val) == 0:
                     continue
                 nota = int(nota_val.mode().iloc[0])
+
+                # IES titular DESTE quadrienio (ver mapear_programas). O fallback
+                # cobre meta.json antigo, gerado antes de sigla_quad existir.
+                sg_q, uf_q = info['sigla_quad'].get(qlabel) or [info['sigla'], info['uf']]
 
                 ids_all = set(dd['ID_PESSOA'].dropna().unique())
                 ids_pq = set()
@@ -492,8 +637,8 @@ def calcular_area(slug):
 
                 m = meta['cd_meta'][cd]
                 all_data.append({
-                    'cd': cd, 'sigla': info['sigla'], 'programa': info['programa'],
-                    'uf': info['uf'], 'nota': nota, 'quad': qlabel,
+                    'cd': cd, 'sigla': sg_q, 'programa': info['programa'],
+                    'uf': uf_q, 'nota': nota, 'quad': qlabel,
                     'n_doc': n, 'n_pq': npq, 'n_spq': nspq,
                     'pct_pq': round(npq/n*100, 1),
                     'ma_pq': ma_pq, 'ma_spq': ma_spq, 'ma_all': ma_all,
@@ -513,7 +658,7 @@ def calcular_area(slug):
                     'if_visit': [visit_lo, visit_mi, visit_hi],
                     'if_all':   [all_lo, all_mi, all_hi],
                     'prod_ano': prod_ano, 'prod_sub': prod_sub,
-                    'is_unb': (info['sigla'] == 'UNB'),
+                    'is_unb': (sg_q == 'UNB'),
                     'modalidade': m.get('modalidade',''),
                     'situacao':   m.get('situacao',''),
                 })
@@ -542,7 +687,21 @@ def calcular_area(slug):
             return (slug, False, 'sem registros calculados (sem cruzamento docentes/programas)')
 
         # construir output
-        ies_set = sorted(set((d['sigla'], d['uf']) for d in all_data))
+        # ies_list agrupada por INSTITUICAO, nao por rotulo. Como a sigla do
+        # registro e a da epoca (ver mapear_programas), FUFPI e UFPI sairiam como
+        # duas entradas do filtro. O alias vem de build/ies_canonico.json, chaveado
+        # por CD_ENTIDADE_CAPES. Os registros MANTEM a sigla de epoca; quem
+        # canonicaliza e a lista — e o app filtra por ela via 'alias'.
+        canon = _canon_ies()
+        grupos = defaultdict(lambda: {'uf': '', 'alias': set()})
+        for d in all_data:
+            c = canon.get(d['sigla'])
+            sg, uf = (c if c else (d['sigla'], d['uf']))
+            g = grupos[sg]
+            g['uf'] = g['uf'] or uf
+            if d['sigla'] != sg:
+                g['alias'].add(d['sigla'])
+        ies_set = sorted((sg, g['uf'], sorted(g['alias'])) for sg, g in grupos.items())
         notas = sorted(set(d['nota'] for d in all_data))
         unb_cds = sorted(set(d['cd'] for d in all_data if d.get('is_unb')))
         area_name = next(iter(meta['cd_meta'].values()))['area']
@@ -565,7 +724,8 @@ def calcular_area(slug):
                 'tem_metricas': True,
                 'fonte': 'CAPES — programas + docentes + prod_intel_artpe + OpenAlex (IF 2yr)',
             },
-            'ies_list': [{'sigla': s, 'uf': u} for s, u in ies_set],
+            'ies_list': [({'sigla': s, 'uf': u, 'alias': al} if al else {'sigla': s, 'uf': u})
+                         for s, u, al in ies_set],
             'notas': notas,
             'data': all_data,
         }
@@ -655,6 +815,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--workers', type=int, default=8)
     ap.add_argument('--skip-fase1', action='store_true', help='reaproveita cache existente')
+    ap.add_argument('--refresh-meta', action='store_true',
+                    help='so reescreve cache/<slug>/meta.json a partir dos catalogos '
+                         'programas_*.csv. Use com --skip-fase1 quando mudar a regra de '
+                         'metadado: o meta.json e gravado no FIM da fase 1, entao sem isso '
+                         'a fase 2 leria o metadado velho do cache.')
+    ap.add_argument('--force', action='store_true',
+                    help='segue mesmo com o cache incoerente com o catalogo '
+                         '(--refresh-meta + --skip-fase1). Assume a perda dos '
+                         'programas cujas linhas nao estao no cache.')
     # Astronomia/Física É processada por padrão (default=False). O default=True
     # anterior era legado de quando a Física vinha do migrar_fisica.py; com
     # store_true ele deixava a flag SEMPRE ligada, e um build completo excluía
@@ -681,6 +850,15 @@ def main():
             print(f"✗ Slug desconhecido: {args.only!r}")
             print(f"  Use --list para ver os {len(all_slugs)} slugs válidos.")
             sys.exit(2)
+
+    if args.refresh_meta:
+        cd_to_slug, cd_meta = mapear_programas(set(areas_todas))
+        div = checar_cache_coerente(cd_to_slug)
+        if div and args.skip_fase1 and not args.force:
+            sys.exit('✗ abortado: cache incoerente com o catalogo (use --force para '
+                     'assumir a perda, ou rode sem --skip-fase1).')
+        n = gravar_metas(cd_to_slug, cd_meta)
+        print(f'★ meta.json reescrito em {n} áreas (--refresh-meta)')
 
     if not args.skip_fase1:
         fase1_prefiltrar(set(areas_todas))
