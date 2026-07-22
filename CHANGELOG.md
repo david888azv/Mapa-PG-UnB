@@ -1,5 +1,94 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.3.0 — Catálogo 2021-2024 e titularidade por quadriênio (2026-07-22)
+
+**4.824 programas · 495 instituições · 49 áreas** (era 4.776 · 500 · 49).
+
+Três correções encadeadas, todas na atribuição de programa → instituição. A origem
+foi uma pergunta simples — *a UNIFESSPA está no app?* —, e a resposta expôs uma
+cadeia de defeitos no metadado.
+
+### O catálogo parava em 2020
+
+O `cd_meta` era montado só de `programas_2013a2016_*.csv` e `programas_2017a2020_*.csv`.
+Todo programa criado depois de 2020 ficava **sem metadado**, caía fora do `cd_to_slug`
+e tinha a produção do quadriênio **descartada em silêncio** no filtro da fase 1:
+**217 programas, 23.392 registros de produção 2021-2024**.
+
+O catálogo `[2021 a 2024] Programas` existe no portal da CAPES desde 2025-12-12, com
+esquema idêntico ao anterior. Instalado, entram **+48 programas** e **+37 instituições**
+— só os que têm nota. Os outros **177 têm conceito `A`** (aprovados por APCN, ainda não
+avaliados) e continuam fora, por decisão: o aplicativo compara por nota, e programa sem
+nota não tem onde ser colocado. Seguem fora, entre outros, `CIÊNCIAS FORENSES` e
+`GEOGRAFIA` da UNIFESSPA.
+
+Restam **6 programas órfãos** (250 registros, 0,02%), provavelmente aprovados em 2025.
+
+### A sigla estava congelada em 2013-2016
+
+O `setdefault` fixava `sigla`/`programa`/`uf` no **primeiro** registro lido, e o bloco
+comentado como *"atualiza com registro mais recente"* só mexia em `situacao` e `an_base`.
+O rótulo antigo vencia sempre: `FUFPI` no lugar de `UFPI`, e o MNPEF/PROFIS aparecia
+como **`UNIR`** — uma linha isolada de 2013 — quando o catálogo diz `SBF` de 2014 a 2024.
+
+Corrigir para "o mais recente manda" trocou um erro por outro: passou a aplicar o rótulo
+**atual** a períodos em que o catálogo diz outra coisa. O `BIONORTE Centro-Oeste`, que a
+UnB coordenou de 2013 a 2020, virou `UNEMAT` nos três quadriênios.
+
+**A titularidade agora é resolvida por quadriênio** (`sigla_quad`), e cada registro leva
+a instituição que o catálogo daquele período declara:
+
+| Programa | 2013-16 | 2017-20 | 2021-24 |
+|---|---|---|---|
+| BIONORTE Centro-Oeste | UNB | UNB | UNEMAT |
+| BIONORTE (Norte) | UFAM | UEMA | UFPA |
+| FUFPI → UFPI | FUFPI | FUFPI | UFPI |
+
+Isso dispensa distinguir rodízio de coordenação, renomeação de sigla e transferência —
+três fenômenos indistinguíveis pelo dado. **765 programas** trocam de titular entre
+quadriênios.
+
+### O filtro passou a duplicar instituições
+
+Consequência direta do item anterior: `FUFPI` e `UFPI` viravam duas caixas para a mesma
+universidade, e quem marcasse a atual não via os quadriênios anteriores.
+
+`docs/ies_canonico.json` mapeia **170 siglas legadas** para a canônica, usando
+`CD_ENTIDADE_CAPES` — o identificador estável da instituição, do qual a sigla é só o
+rótulo do ano. A `ies_list` passa a vir agrupada por instituição, com `alias`; os
+**registros mantêm a sigla de época**, e apenas filtro e agregação canonicalizam.
+
+Cinco siglas (`UVA`, `FVC`, `IPA`, `ESPM`, `FG`) pertencem a **duas instituições
+diferentes** e ficam de fora da tabela — `UVA-CE → UVA` fundiria a estadual do Ceará com
+a Veiga de Almeida. Estão listadas em `colisoes` e `alvo_ambiguo`, para decisão humana.
+
+**O filtro ficou menor que antes de tudo isto**: 495 caixas contra 504 originais, porque
+a tabela também funde duplicatas que já existiam (`UNESP/ARAR` e `UNESP-ARAR`, `USP/RP` e
+`USP-RIBEIRÃO PRETO`). E corrige um defeito latente: `UNIVASF`, `UFFS` e `FVC` geravam
+**duas ou três caixas com o mesmo `value`**, e desmarcar uma não surtia efeito enquanto a
+gêmea seguisse marcada.
+
+Custo em payload: **+0,07%** (14,30 → 14,31 MB). O alias entra na `ies_list`, com ~65
+entradas por área, não nos 13.265 registros.
+
+### Ferramentas de build
+
+- `gerar_canonico_ies.py` — gera a tabela de canonicalização.
+- `verificar_titularidade.py` — confere o publicado contra o catálogo. **Importa** a
+  regra de `gerar_dados_completos.py` em vez de reimplementá-la; o script anterior fazia
+  o contrário e ficou obsoleto no dia em que a regra mudou.
+- `teste_visual.py` — 12 checagens em Chromium headless (filtro, agregação, rótulo de
+  época, integridade da Física).
+- `--refresh-meta` reescreve só os `meta.json` do cache, para mudança de regra de
+  metadado sem refazer a fase 1. **Aborta** se o `cd → área` divergir do cache, que
+  levaria a fase 2 a descartar programas em silêncio (`--force` assume a perda).
+
+### Verificação
+
+`verificar_titularidade.py`: 0 divergências de titularidade, 0 registros sem caixa
+correspondente. Varredura em Chromium nas 49 áreas: caixas iguais à `ies_list`, nenhum
+registro órfão, nenhum valor duplicado, nenhum erro de console.
+
 ## v5.2.0 — Patentes nos três quadriênios, com seletor próprio (2026-07-21)
 
 A v5.1 trouxe patentes só de 2021-2024. Esta versão completa a série — **2013-2016,

@@ -7,8 +7,8 @@
       "slug": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
       "nome": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
       "arquivo": "dados/area-administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo.json",
-      "tamanho_kb": 585,
-      "n_registros": 558,
+      "tamanho_kb": 577,
+      "n_registros": 550,
       "n_unb": 5,
       "sufixos_unb": [
         "ADMINP",
@@ -69,8 +69,8 @@
       "slug": "arquitetura-urbanismo-e-design",
       "nome": "ARQUITETURA, URBANISMO E DESIGN",
       "arquivo": "dados/area-arquitetura-urbanismo-e-design.json",
-      "tamanho_kb": 200,
-      "n_registros": 192,
+      "tamanho_kb": 198,
+      "n_registros": 189,
       "n_unb": 2,
       "sufixos_unb": [
         "ARQURB",
@@ -214,8 +214,8 @@
       "slug": "biotecnologia",
       "nome": "BIOTECNOLOGIA",
       "arquivo": "dados/area-biotecnologia.json",
-      "tamanho_kb": 203,
-      "n_registros": 191,
+      "tamanho_kb": 202,
+      "n_registros": 190,
       "n_unb": 1,
       "sufixos_unb": [
         "BIOTEC"
@@ -285,8 +285,8 @@
       "slug": "ciencia-de-alimentos",
       "nome": "CIÊNCIA DE ALIMENTOS",
       "arquivo": "dados/area-ciencia-de-alimentos.json",
-      "tamanho_kb": 188,
-      "n_registros": 177,
+      "tamanho_kb": 190,
+      "n_registros": 178,
       "n_unb": 0,
       "sufixos_unb": [],
       "tem_metricas": true,
@@ -318,8 +318,8 @@
       "slug": "ciencia-politica-e-relacoes-internacionais",
       "nome": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
       "arquivo": "dados/area-ciencia-politica-e-relacoes-internacionais.json",
-      "tamanho_kb": 165,
-      "n_registros": 156,
+      "tamanho_kb": 168,
+      "n_registros": 159,
       "n_unb": 2,
       "sufixos_unb": [
         "POLITI",
@@ -348,8 +348,8 @@
       "slug": "ciencias-agrarias-i",
       "nome": "CIÊNCIAS AGRÁRIAS I",
       "arquivo": "dados/area-ciencias-agrarias-i.json",
-      "tamanho_kb": 712,
-      "n_registros": 675,
+      "tamanho_kb": 714,
+      "n_registros": 676,
       "n_unb": 3,
       "sufixos_unb": [
         "AGRONO",
@@ -385,7 +385,7 @@
       "slug": "ciencias-ambientais",
       "nome": "CIÊNCIAS AMBIENTAIS",
       "arquivo": "dados/area-ciencias-ambientais.json",
-      "tamanho_kb": 405,
+      "tamanho_kb": 406,
       "n_registros": 381,
       "n_unb": 2,
       "sufixos_unb": [
@@ -490,8 +490,8 @@
       "slug": "ciencias-biologicas-iii",
       "nome": "CIÊNCIAS BIOLÓGICAS III",
       "arquivo": "dados/area-ciencias-biologicas-iii.json",
-      "tamanho_kb": 115,
-      "n_registros": 107,
+      "tamanho_kb": 117,
+      "n_registros": 109,
       "n_unb": 2,
       "sufixos_unb": [
         "BIOMIC",
@@ -536,8 +536,8 @@
       "slug": "comunicacao-e-informacao",
       "nome": "COMUNICAÇÃO E INFORMAÇÃO",
       "arquivo": "dados/area-comunicacao-e-informacao.json",
-      "tamanho_kb": 268,
-      "n_registros": 256,
+      "tamanho_kb": 270,
+      "n_registros": 257,
       "n_unb": 2,
       "sufixos_unb": [
         "INFOCI",
@@ -572,8 +572,8 @@
       "slug": "direito",
       "nome": "DIREITO",
       "arquivo": "dados/area-direito.json",
-      "tamanho_kb": 348,
-      "n_registros": 334,
+      "tamanho_kb": 351,
+      "n_registros": 336,
       "n_unb": 2,
       "sufixos_unb": [
         "DIREIT",
@@ -644,8 +644,8 @@
       "slug": "educacao",
       "nome": "EDUCAÇÃO",
       "arquivo": "dados/area-educacao.json",
-      "tamanho_kb": 556,
-      "n_registros": 531,
+      "tamanho_kb": 562,
+      "n_registros": 536,
       "n_unb": 2,
       "sufixos_unb": [
         "EDUCAP",
@@ -751,8 +751,8 @@
       "slug": "engenharias-i",
       "nome": "ENGENHARIAS I",
       "arquivo": "dados/area-engenharias-i.json",
-      "tamanho_kb": 391,
-      "n_registros": 373,
+      "tamanho_kb": 396,
+      "n_registros": 377,
       "n_unb": 4,
       "sufixos_unb": [
         "ESTRCC",
@@ -789,8 +789,8 @@
       "slug": "engenharias-ii",
       "nome": "ENGENHARIAS II",
       "arquivo": "dados/area-engenharias-ii.json",
-      "tamanho_kb": 303,
-      "n_registros": 287,
+      "tamanho_kb": 295,
+      "n_registros": 279,
       "n_unb": 0,
       "sufixos_unb": [],
       "tem_metricas": true,
@@ -822,8 +822,8 @@
       "slug": "engenharias-iii",
       "nome": "ENGENHARIAS III",
       "arquivo": "dados/area-engenharias-iii.json",
-      "tamanho_kb": 402,
-      "n_registros": 382,
+      "tamanho_kb": 403,
+      "n_registros": 383,
       "n_unb": 3,
       "sufixos_unb": [
         "MECANI",
@@ -859,8 +859,8 @@
       "slug": "engenharias-iv",
       "nome": "ENGENHARIAS IV",
       "arquivo": "dados/area-engenharias-iv.json",
-      "tamanho_kb": 289,
-      "n_registros": 274,
+      "tamanho_kb": 286,
+      "n_registros": 271,
       "n_unb": 4,
       "sufixos_unb": [
         "ENGBIO",
@@ -897,8 +897,8 @@
       "slug": "ensino",
       "nome": "ENSINO",
       "arquivo": "dados/area-ensino.json",
-      "tamanho_kb": 503,
-      "n_registros": 479,
+      "tamanho_kb": 504,
+      "n_registros": 480,
       "n_unb": 2,
       "sufixos_unb": [
         "EDUCIE",
@@ -968,8 +968,8 @@
       "slug": "filosofia",
       "nome": "FILOSOFIA",
       "arquivo": "dados/area-filosofia.json",
-      "tamanho_kb": 150,
-      "n_registros": 145,
+      "tamanho_kb": 151,
+      "n_registros": 146,
       "n_unb": 2,
       "sufixos_unb": [
         "FILOSO",
@@ -1034,8 +1034,8 @@
       "slug": "geografia",
       "nome": "GEOGRAFIA",
       "arquivo": "dados/area-geografia.json",
-      "tamanho_kb": 214,
-      "n_registros": 205,
+      "tamanho_kb": 217,
+      "n_registros": 208,
       "n_unb": 1,
       "sufixos_unb": [
         "GEOGRA"
@@ -1069,8 +1069,8 @@
       "slug": "historia",
       "nome": "HISTÓRIA",
       "arquivo": "dados/area-historia.json",
-      "tamanho_kb": 236,
-      "n_registros": 226,
+      "tamanho_kb": 237,
+      "n_registros": 227,
       "n_unb": 1,
       "sufixos_unb": [
         "HISTOR"
@@ -1098,8 +1098,8 @@
       "slug": "interdisciplinar",
       "nome": "INTERDISCIPLINAR",
       "arquivo": "dados/area-interdisciplinar.json",
-      "tamanho_kb": 1124,
-      "n_registros": 1066,
+      "tamanho_kb": 1135,
+      "n_registros": 1076,
       "n_unb": 8,
       "sufixos_unb": [
         "AGRNEG",
@@ -1140,8 +1140,8 @@
       "slug": "linguistica-e-literatura",
       "nome": "LINGUÍSTICA E LITERATURA",
       "arquivo": "dados/area-linguistica-e-literatura.json",
-      "tamanho_kb": 482,
-      "n_registros": 462,
+      "tamanho_kb": 486,
+      "n_registros": 466,
       "n_unb": 4,
       "sufixos_unb": [
         "TRADUC",
@@ -1214,8 +1214,8 @@
       "slug": "materiais",
       "nome": "MATERIAIS",
       "arquivo": "dados/area-materiais.json",
-      "tamanho_kb": 121,
-      "n_registros": 113,
+      "tamanho_kb": 128,
+      "n_registros": 120,
       "n_unb": 1,
       "sufixos_unb": [
         "MATERI"
@@ -1249,8 +1249,8 @@
       "slug": "medicina-i",
       "nome": "MEDICINA I",
       "arquivo": "dados/area-medicina-i.json",
-      "tamanho_kb": 332,
-      "n_registros": 314,
+      "tamanho_kb": 334,
+      "n_registros": 315,
       "n_unb": 1,
       "sufixos_unb": [
         "CIAMED"
@@ -1284,8 +1284,8 @@
       "slug": "medicina-ii",
       "nome": "MEDICINA II",
       "arquivo": "dados/area-medicina-ii.json",
-      "tamanho_kb": 330,
-      "n_registros": 311,
+      "tamanho_kb": 333,
+      "n_registros": 314,
       "n_unb": 2,
       "sufixos_unb": [
         "CIASAU",
@@ -1320,8 +1320,8 @@
       "slug": "medicina-iii",
       "nome": "MEDICINA III",
       "arquivo": "dados/area-medicina-iii.json",
-      "tamanho_kb": 156,
-      "n_registros": 148,
+      "tamanho_kb": 155,
+      "n_registros": 147,
       "n_unb": 0,
       "sufixos_unb": [],
       "tem_metricas": true,
@@ -1353,8 +1353,8 @@
       "slug": "medicina-veterinaria",
       "nome": "MEDICINA VETERINÁRIA",
       "arquivo": "dados/area-medicina-veterinaria.json",
-      "tamanho_kb": 259,
-      "n_registros": 244,
+      "tamanho_kb": 265,
+      "n_registros": 250,
       "n_unb": 2,
       "sufixos_unb": [
         "CIANIM",
@@ -1424,8 +1424,8 @@
       "slug": "odontologia",
       "nome": "ODONTOLOGIA",
       "arquivo": "dados/area-odontologia.json",
-      "tamanho_kb": 327,
-      "n_registros": 312,
+      "tamanho_kb": 329,
+      "n_registros": 313,
       "n_unb": 1,
       "sufixos_unb": [
         "ODONTO"
@@ -1459,8 +1459,8 @@
       "slug": "planejamento-urbano-e-regional-demografia",
       "nome": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
       "arquivo": "dados/area-planejamento-urbano-e-regional-demografia.json",
-      "tamanho_kb": 152,
-      "n_registros": 143,
+      "tamanho_kb": 159,
+      "n_registros": 150,
       "n_unb": 0,
       "sufixos_unb": [],
       "tem_metricas": true,
@@ -1492,8 +1492,8 @@
       "slug": "psicologia",
       "nome": "PSICOLOGIA",
       "arquivo": "dados/area-psicologia.json",
-      "tamanho_kb": 292,
-      "n_registros": 279,
+      "tamanho_kb": 293,
+      "n_registros": 280,
       "n_unb": 4,
       "sufixos_unb": [
         "PSCCOM",
@@ -1530,8 +1530,8 @@
       "slug": "quimica",
       "nome": "QUÍMICA",
       "arquivo": "dados/area-quimica.json",
-      "tamanho_kb": 228,
-      "n_registros": 217,
+      "tamanho_kb": 233,
+      "n_registros": 222,
       "n_unb": 1,
       "sufixos_unb": [
         "QUIMIC"
@@ -1666,8 +1666,8 @@
       "slug": "zootecnia-recursos-pesqueiros",
       "nome": "ZOOTECNIA / RECURSOS PESQUEIROS",
       "arquivo": "dados/area-zootecnia-recursos-pesqueiros.json",
-      "tamanho_kb": 213,
-      "n_registros": 203,
+      "tamanho_kb": 216,
+      "n_registros": 205,
       "n_unb": 0,
       "sufixos_unb": [],
       "tem_metricas": true,
@@ -1765,7 +1765,7 @@
       "MATERIAIS"
     ]
   },
-  "atualizado_em": "2026-07-17 10:44:50",
+  "atualizado_em": "2026-07-22 18:34:20",
   "tecnica": {
     "subtipos": [
       "PATENTE"
