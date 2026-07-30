@@ -780,6 +780,49 @@ def atualizar_manifest(slugs_ok):
     print(f'✓ manifest atualizado: {len(slugs_ok)} áreas com tem_metricas=true')
 
 
+def checar_camadas_derivadas(slugs_ok):
+    """Avisa quando falta a camada de ESTRATOS nos arquivos recém-gerados.
+
+    Este pipeline escreve os `area-*.json` DO ZERO. A estratificação A1-A8/C da
+    Ficha 2025-2028 é acrescentada DEPOIS, in-place, por `gerar_estratos_app.py`
+    — logo todo rebuild a apaga. Foi o que aconteceu na v5.3.0 (rebuild do
+    catálogo 2021-2024): os 49 arquivos foram publicados sem `estr_*`, e o app
+    zerava TODAS as métricas ao desmarcar um estrato, sem erro de console. O
+    defeito passou porque a tela padrão marca os nove estratos e cai no caminho
+    de `prod_sub`, que está correto — os números visíveis não mudam.
+
+    Por isso o aviso CHECA o disco em vez de só lembrar: quem roda o pipeline vê
+    o comando que falta na última linha da saída.
+    """
+    faltam = []
+    for slug in sorted(slugs_ok):
+        p = os.path.join(DOCS_DIR, f'area-{slug}.json')
+        if not os.path.exists(p):
+            continue
+        d = json.load(open(p))
+        recs = d.get('data') or []
+        if recs and 'estr_perm' not in recs[0]:
+            faltam.append(slug)
+
+    if not faltam:
+        print('✓ camada de estratos A1-A8/C presente nas áreas geradas')
+        return
+
+    print(f'\n{"═" * 68}')
+    print(f'★ ATENÇÃO — falta a camada de ESTRATOS em {len(faltam)} de '
+          f'{len(slugs_ok)} área(s) gerada(s).')
+    print('  O filtro por estrato e o Relatório Detalhado de IF do app ficam')
+    print('  QUEBRADOS EM SILÊNCIO (métricas vão a 0,00 ao desmarcar um estrato).')
+    print('  Rode agora:')
+    print(f'      python3 build/gerar_estratos_app.py'
+          + (f' {faltam[0]}' if len(faltam) == 1 else '   # todas as áreas'))
+    print('  Depois confira as paridades que o próprio script valida (esperado: 0 erros).')
+    print('  A camada de patentes (tec-*.json) fica em arquivos separados e')
+    print('  sobrevive ao rebuild, mas rode `gerar_tecnica.py` para incorporar')
+    print('  registros novos.')
+    print(f'{"═" * 68}')
+
+
 # ════════════════════════════════════════════════════════════════════
 # MAIN
 # ════════════════════════════════════════════════════════════════════
@@ -881,6 +924,7 @@ def main():
 
     atualizar_manifest(set(ok))
     print(f'\n=== {len(ok)} áreas com métricas completas ===')
+    checar_camadas_derivadas(set(ok))
 
 if __name__ == '__main__':
     main()
