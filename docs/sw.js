@@ -3,7 +3,7 @@
 // (network-first com fallback para cache, para que atualizações sejam
 // refletidas quando online; offline o app continua funcional para áreas
 // já visitadas).
-const VERSION = 'mapa-pg-v5.4.1';
+const VERSION = 'mapa-pg-v5.4.2';
 const SHELL = [
   './',
   './index.html',
@@ -12,7 +12,7 @@ const SHELL = [
   './manifest.json',
   './ies_index.json',
   './help-doc.html',
-  './mudancas-v5.0.0.html',
+  './mudancas-v5.4.html',
 ];
 
 self.addEventListener('install', e => {

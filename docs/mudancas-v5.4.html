@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>MAPA-PG — o que mudou até a v5.4</title><style>
+@page { size: A4; margin: 2.0cm 1.8cm 2.0cm 1.8cm; }
+* { box-sizing: border-box; }
+body { font-family: Carlito, Calibri, 'Segoe UI', Arial, sans-serif; color: #222;
+       line-height: 1.55; font-size: 10.5pt; max-width: 900px; margin: 0 auto;
+       padding: 18px 22px 60px; background: #fff; }
+h1 { font-size: 21pt; color: #1F3A5F; line-height: 1.2; margin: 0 0 4px; }
+h2 { font-size: 14pt; color: #1F3A5F; border-bottom: 2px solid #AED6F1;
+     padding-bottom: 3px; margin: 22px 0 9px; break-after: avoid; page-break-after: avoid; }
+h3 { font-size: 11.6pt; color: #1F618D; margin: 14px 0 5px;
+     break-after: avoid; page-break-after: avoid; }
+h4 { font-size: 10.6pt; color: #1F618D; margin: 10px 0 4px;
+     break-after: avoid; page-break-after: avoid; }
+p { text-align: justify; margin: 6px 0; }
+ul, ol { margin: 6px 0 6px 18px; } li { margin: 3px 0; }
+code { font-family: 'DejaVu Sans Mono', Consolas, monospace; font-size: 9.2pt;
+       background: #F4F6F7; padding: 0 3px; border-radius: 3px; }
+table { border-collapse: collapse; width: 100%; font-size: 9.2pt; margin: 9px 0; }
+thead { display: table-header-group; }
+th { background: #e8eef5; color: #13243a; font-weight: bold; padding: 4px 6px;
+     text-align: center; border: 1px solid #c8d4e0; white-space: nowrap; }
+td { border: 1px solid #dfe6ec; padding: 3px 6px; text-align: center; }
+td.l { text-align: left; }
+tr { page-break-inside: avoid; }
+.keep { break-inside: avoid; page-break-inside: avoid; }
+.sub { color: #5D6D7E; font-size: 11.5pt; margin: 2px 0 0; }
+.meta { color: #7B8A8B; font-size: 9pt; margin-top: 6px; }
+.box { border-left: 4px solid #2E86C1; background: #EAF2F8; padding: 9px 13px;
+       border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.warn { border-left: 4px solid #E59866; background: #FEF5E7; padding: 9px 13px;
+        border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.bad { border-left: 4px solid #B03A2E; background: #FDEDEC; padding: 9px 13px;
+       border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.ok { border-left: 4px solid #1E8449; background: #E9F7EF; padding: 9px 13px;
+      border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.toc { background: #FBFCFD; border: 1px solid #E5E8E8; border-radius: 6px;
+       padding: 10px 16px; font-size: 10pt; }
+.toc ol { margin-left: 16px; } .toc li { margin: 2px 0; }
+.toc a { color: #1F618D; text-decoration: none; }
+.up { color: #1E8449; font-weight: bold; } .down { color: #B03A2E; font-weight: bold; }
+.cap { font-size: 8.8pt; color: #7B8A8B; text-align: center; margin-top: -4px; }
+.pb { page-break-before: always; }
+hr { border: 0; border-top: 1px solid #E5E8E8; margin: 18px 0; }
+</style></head><body><h1>MAPA-PG · O que mudou até a v5.4</h1><p class='sub'>Da revisão de medida (v5.0) ao seletor de instituições por busca</p><p class='meta'>Publicado em 30 de julho de 2026 · Prof. David L. Azevedo · Instituto de Física · Universidade de Brasília · <a href='https://david888azv.github.io/Mapa-PG-UnB/'>david888azv.github.io/Mapa-PG-UnB</a></p><hr><div class='toc'><b>Neste documento</b><ol><li><a href='#s1'>O que mudou, em uma página</a></li><li><a href='#s2'>Qualquer instituição como referência, por busca</a></li><li><a href='#s3'>Patentes e produção técnica</a></li><li><a href='#s4'>Catálogo 2021-2024 e a instituição de cada quadriênio</a></li><li><a href='#s5'>Estratos A1–A8/C da Ficha 2025-2028</a></li><li><a href='#s6'>Correções de coerência</a></li><li><a href='#s7'>Uso livre e compartilhamento</a></li></ol></div>
+<h2 id='s1'>1. O que mudou, em uma página</h2>
+<p>A <b>v5.0</b> foi uma revisão de <i>medida</i>: mudou como a produção é calculada.
+As versões seguintes, até a <b>v5.4</b>, mudaram o que se pode <i>alcançar</i> com o
+aplicativo — sem tocar na forma de medir.</p>
+
+<div class='good'><b>Em resumo:</b> a instituição de referência deixou de ser uma de 27
+universidades federais e passou a ser qualquer uma das <b>470</b>
+instituições com programa avaliado, achada por um campo de busca; entrou a camada de
+<b>patentes</b>; o catálogo da CAPES de <b>2021-2024</b> foi incorporado, com a
+instituição de cada programa resolvida <b>por quadriênio</b>; e a estratificação
+<b>A1–A8/C</b> da Ficha 2025-2028 está disponível em três bases de indicador.</p></div>
+
+<p>Cobertura atual: <b>4.824</b> programas em
+<b>470</b> instituições, nas <b>49</b> áreas de
+avaliação da CAPES, ao longo de <b>3</b> quadriênios
+(13.265 registros programa×quadriênio). A comparação continua sendo
+feita sempre <b>dentro da mesma área</b>, que é a unidade de avaliação da CAPES.</p>
+
+<h2 id='s2'>2. Qualquer instituição como referência, por busca</h2>
+<p>Até a v5.3 o aplicativo pedia que se escolhesse <b>uma entre 27 universidades
+federais</b> como referência — a instituição destacada em vermelho na comparação. Quem
+atuava em qualquer outra instituição do país não tinha como se ver na tela.</p>
+
+<p>Agora o painel de abertura traz um <b>campo de busca</b>. Digite a sigla ou parte do
+nome e a lista se reduz ao que casa; escolha e o aplicativo passa a destacar aquela
+instituição. São <b>470</b> instituições disponíveis. As
+<b>27</b> federais continuam como atalhos, visíveis sem digitar nada.</p>
+
+<p>A busca ignora <b>caixa, acento, espaço e pontuação</b>. Digitar
+<code>FIO CRUZ</code>, com espaço e em maiúsculas, encontra as
+<b>7</b> unidades da FIOCRUZ:
+<code>FIOCRUZ</code>, <code>FIOCRUZ-CPQGM</code>, <code>FIOCRUZ-CPQLMD</code>, <code>FIOCRUZ-CPQRR</code>, <code>FIOCRUZ-EGS BRASÍLIA</code>, <code>FIOCRUZ-NESC/CPQAM</code>, <code>FIOCRUZ-RO</code>. Buscar por
+<code>oswaldo</code> chega à sede pelo nome; <code>federal do pará</code> chega à UFPA.</p>
+
+<p>Exemplos de instituições que passaram a ser selecionáveis:</p>
+<ul><li><b>USP</b> — UNIVERSIDADE DE SÃO PAULO · 172 programas</li><li><b>UFF</b> — UNIVERSIDADE FEDERAL FLUMINENSE · 77 programas</li><li><b>UNICAMP</b> — UNIVERSIDADE ESTADUAL DE CAMPINAS · 68 programas</li><li><b>UERJ</b> — UNIVERSIDADE DO ESTADO DO RIO DE JANEIRO · 60 programas</li></ul>
+
+<div class='good'><b>A abertura ficou mais leve, não mais pesada.</b> O catálogo das 27
+era baixado inteiro, com a lista de programas de todas
+(391 KB). Agora vem um índice de busca enxuto
+(119 KB) e a lista de programas é buscada apenas da instituição escolhida
+(são 470 arquivos, média de 2.1 KB). A carga inicial
+caiu de <b>830 KB</b> para <b>557 KB</b>, cobrindo
+17 vezes mais instituições.</div>
+
+<h2 id='s3'>3. Patentes e produção técnica</h2>
+<p>O aplicativo lia apenas a produção bibliográfica. A CAPES publica a <b>produção
+técnica</b> em conjuntos de dados separados, que agora entram numa camada própria,
+aberta pelo botão <b>Patentes / Produção Técnica</b> e carregada só quando solicitada.
+Estão cobertos os 48 conjuntos de área com registro de patente, em
+138 arquivos (PATENTE), com seletor de
+quadriênio próprio.</p>
+
+<table><thead><tr><th class='l'>Quadriênio</th><th>Declarações</th>
+<th>Patentes distintas</th><th class='l'>Observação</th></tr></thead>
+<tbody><tr><td class='l'><b>2013-2016</b></td><td>8.472</td><td>7.960</td><td class='l'>nº de registro em parte dos casos — deduplicação parcial</td></tr><tr><td class='l'><b>2017-2020</b></td><td>15.635</td><td>—</td><td class='l'>nº de registro não publicado — sem deduplicação</td></tr><tr><td class='l'><b>2021-2024</b></td><td>13.505</td><td>8.381</td><td class='l'>nº de registro publicado — deduplicação completa</td></tr></tbody></table>
+
+<p>A distinção entre as duas colunas é o cuidado central desta camada: a mesma patente é
+declarada por cada programa e cada inventor envolvido, de modo que somar declarações
+<b>superestima</b>. Nos totais de área e nacionais a contagem é <b>deduplicada</b> pelo
+número de registro; por programa, não — ali a declaração é a informação pertinente. Em
+2017-2020 a CAPES não publica o número de registro, e por isso naquele quadriênio não há
+como deduplicar; o painel informa isso na tela.</p>
+
+<h2 id='s4'>4. Catálogo 2021-2024 e a instituição de cada quadriênio</h2>
+<p>O catálogo de programas usado pelo aplicativo parava em 2020. Programa criado depois
+disso ficava sem metadado e tinha a produção descartada em silêncio. Com a incorporação
+do catálogo <b>2021-2024</b>, esses programas entraram.</p>
+
+<p>Entrou também uma correção mais sutil, e que interessa a quem acompanha programas em
+rede. A sigla de uma instituição é o <b>rótulo de um ano</b>, não a identidade dela:
+instituições são renomeadas, e a coordenação de programas em rede muda de instituição
+entre quadriênios. O aplicativo passou a resolver a <b>instituição titular por
+quadriênio</b>. Assim, um programa transferido aparece sob a instituição que o
+coordenava <b>em cada período analisado</b> — e não sob a primeira nem sob a última.
+Isso vale para <b>765</b> programas.</p>
+
+<p>Na prática: ao filtrar por uma instituição, os registros dos três quadriênios
+aparecem, ainda que o rótulo da época fosse outro; e o registro exibido preserva a sigla
+usada naquele período.</p>
+
+<h2 id='s5'>5. Estratos A1–A8/C da Ficha 2025-2028</h2>
+<p>A Ficha de Avaliação do ciclo 2025-2028 classifica cada <b>artigo</b> em oito
+estratos, conforme o <b>percentil do periódico dentro da área</b>, em classes de 12,5%
+— A1 é o topo, A8 a base, e C reúne o que não tem indicador. O aplicativo traz essa
+estratificação para todos os programas: são caixas de seleção por estrato, que
+recalculam as métricas, e um relatório detalhado com a distribuição.</p>
+
+<p>O indicador de impacto pode ser escolhido entre <b>três bases</b>: CiteScore (Scopus),
+que é a fonte prescrita pela CAPES e é o padrão; OpenAlex, aberta e de maior cobertura;
+e uma composição das duas. Trocar a base recalcula os cortes e a distribuição na hora.</p>
+
+<p>Os cortes são <b>por área</b>, e é isso que torna a comparação válida. Em
+<b>ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO</b>, por exemplo, os limites inferiores de CiteScore são:</p>
+<table><thead><tr><th>Estrato</th><th>CiteScore ≥</th></tr></thead>
+<tbody><tr><td><b>A1</b></td><td>10,90</td></tr><tr><td><b>A2</b></td><td>7,40</td></tr><tr><td><b>A3</b></td><td>5,50</td></tr><tr><td><b>A4</b></td><td>4,10</td></tr><tr><td><b>A5</b></td><td>2,70</td></tr><tr><td><b>A6</b></td><td>1,60</td></tr><tr><td><b>A7</b></td><td>0,80</td></tr><tr><td><b>A8</b></td><td>0,10</td></tr></tbody></table>
+
+<p>A camada está presente em <b>100%</b> dos registros — a exceção são
+programas sem produção de artigo no período.</p>
+
+<h2 id='s6'>6. Correções de coerência</h2>
+<p>Duas merecem registro, porque afetam o que se lê na tela.</p>
+
+<p><b>O filtro de estratos ficou temporariamente sem efeito e voltou.</b> Na v5.3.0 a
+camada de estratificação não foi reaplicada após a reconstrução dos dados. A tela padrão
+seguia correta — com os nove estratos marcados o cálculo vem por outro caminho —, mas
+desmarcar um estrato zerava os valores, sem mensagem de erro. Corrigido na v5.3.1, com
+verificação automática que impede a recaída.</p>
+
+<p><b>O filtro "Categoria de Docente" foi removido.</b> As três caixas
+(Permanente / Colaborador / Visitante) não tinham efeito algum. Foram removidas em vez de
+implementadas porque os dados publicados não admitem esse filtro: as categorias
+<b>não são exclusivas</b> — docente que muda de categoria dentro do quadriênio consta em
+duas, e um artigo assinado por um permanente e um colaborador é creditado às duas. Somar
+categorias, portanto, contaria em duplicidade. A escolha por categoria continua
+disponível, e correta, no seletor de <b>Métrica de Comparação</b>, que usa os valores
+calculados especificamente para cada categoria.</p>
+
+<h2 id='s7'>7. Uso livre e compartilhamento</h2>
+<p>O MAPA-PG é gratuito, roda no navegador, não pede cadastro e usa exclusivamente
+<b>dados públicos da CAPES</b>. Pode ser <b>livremente compartilhado e utilizado</b> em
+qualquer instituição ou unidade acadêmica — em reuniões de colegiado, comissões de
+avaliação, relatórios internos e planejamento de programas. Basta divulgar o endereço:</p>
+
+<p style='text-align:center;font-size:15px;'>
+<a href='https://david888azv.github.io/Mapa-PG-UnB/'>david888azv.github.io/Mapa-PG-UnB</a></p>
+
+<p>O projeto-irmão <b>MAPA-GR</b> faz o mesmo para a graduação, sob os indicadores do
+INEP/SINAES: <a href='https://david888azv.github.io/Mapa-GR/'>david888azv.github.io/Mapa-GR</a>.
+Ambos fazem parte do projeto de divulgação científica
+<a href='https://daciencia.org'>daciencia.org</a>.</p>
+
+<p>A única condição é a preservação da identificação de autoria e do nome do sistema nas
+cópias, resultados e aplicativos derivados, como consta nos termos de uso exibidos na
+abertura.</p>
+
+<p class='meta'>A revisão de medida da v5.0 — como a produção passou a ser calculada, e
+por quê — segue documentada em página própria:
+<a href='mudancas-v5.0.0.html'>o que mudou na v5.0</a>.</p>
+<hr><p class='meta'>Versão do documento: v5.4 · 30/07/2026 · <a href='mudancas-v5.4.pdf'>baixar em PDF</a></p></body></html>

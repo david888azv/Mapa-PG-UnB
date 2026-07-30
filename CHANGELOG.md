@@ -1,5 +1,29 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.4.2 — Documento "o que mudou" na versão certa (2026-07-30)
+
+O botão da barra lateral dizia **"O que mudou na v5.0"** e apontava para o documento da
+revisão de medida, com o app já em v5.4 — quatro releases de distância. Quem entrava por
+ali não encontrava patentes, titularidade por quadriênio, estratos nem o seletor por
+busca.
+
+Novo gerador `build/gerar_doc_mudancas_v54.py` → **`docs/mudancas-v5.4.{html,pdf}`**, com
+sete seções cobrindo v5.0 → v5.4: o seletor de instituições por busca, patentes e
+produção técnica, o catálogo 2021-2024 e a titularidade por quadriênio, os estratos
+A1–A8/C, as correções de coerência e uma seção sobre uso livre e compartilhamento. O
+botão passou a apontar para ele; o documento da v5.0 continua acessível, linkado no fim,
+porque a revisão de medida segue explicando por que os números são os que são.
+
+Como no gerador da v5.0, **nenhum número é hardcoded**: todos saem dos artefatos
+publicados (`manifest.json`, `ies_index.json`, `area-*.json`, tamanhos em disco), para o
+documento não poder divergir do que o app mostra. Dois defeitos pegos ainda na
+revisão: o `<ol>` do sumário já numera, e repetir o número no rótulo saía
+"1. 1 O que mudou"; e o rótulo de deduplicação das patentes vinha de uma comparação
+(`dedup != 'parcial'`) que **invertia 2013-2016 e 2017-2020** — agora vem de um mapa dos
+três estados reais (completa / parcial / indisponível).
+
+Service Worker em `mapa-pg-v5.4.2`, com o documento novo no precache em lugar do antigo.
+
 ## v5.4.1 — Filtro que não filtrava, e a versão do manifest (2026-07-30)
 
 Duas correções de coerência levantadas na auditoria.
