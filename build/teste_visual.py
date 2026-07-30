@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-"""Cinco testes visuais do MAPA-PG apos a canonicalizacao de IES."""
+"""Testes visuais do MAPA-PG em Chromium headless.
+
+1-3. canonicalizacao de IES (filtro unico, rotulo de epoca preservado)
+4.   titularidade por quadrienio (BIONORTE Centro-Oeste)
+5.   Fisica: modalidade/situacao preenchidas, MNPEF sob a sigla certa
+6.   camada de estratos A1-A8/C e o filtro por estrato
+
+Exige um servidor em 127.0.0.1:8765 servindo docs/:
+    cd docs && python3 -m http.server 8765
+"""
 import json, sys, os
 from playwright.sync_api import sync_playwright
 
@@ -132,6 +141,73 @@ with sync_playwright() as pw:
     ok(fis['vazios'] == 0, 'nenhum registro com modalidade/situacao vazios')
     ok(fis['mnpef'] == ['SBF/SP'], 'MNPEF/PROFIS como SBF/SP')
     shot(page, '5_fisica')
+
+    # ── TESTE 6: camada de ESTRATOS A1-A8/C
+    # Nao havia checagem de estrato aqui, e por isso a v5.3.0 foi publicada sem a
+    # camada: `gerar_dados_completos.py` reescreve os area-*.json do zero e
+    # `gerar_estratos_app.py` os enriquece depois, in-place. Sem os campos estr_*,
+    # `sumIF()` recebe undefined e devolve 0 — TODA metrica ia a 0,00 ao desmarcar
+    # um estrato, sem erro de console. A tela padrao marca os nove e cai no caminho
+    # de prod_sub, que esta correto, entao nada parecia errado.
+    print('\n=== 6. estratos A1-A8/C ===', flush=True)
+    page.evaluate("async () => { await switchArea('quimica'); }")
+    page.wait_for_timeout(3000)
+    est = page.evaluate("""() => {
+        const r = DATA.data[0];
+        const campos = ['estr_perm','estr_colab','estr_visit','estr_all'].concat(
+            ['cs','oa','hb'].flatMap(b => ['estr_perm_'+b,'estr_all_'+b]));
+        return {
+            faltam: campos.filter(c => !(c in r)),
+            meta: ['estratos','estratos_cs','estratos_oa','estratos_hb']
+                    .filter(k => !DATA.metadata[k]),
+            rotulo: (document.getElementById('lblA1') || {}).textContent || '',
+        };
+    }""")
+    print('   rotulo A1: %r' % est['rotulo'], flush=True)
+    ok(not est['faltam'], 'campos estr_* nos registros (faltam: %s)' % (est['faltam'] or 'nenhum'))
+    ok(not est['meta'], 'metadata.estratos por base (faltam: %s)' % (est['meta'] or 'nenhum'))
+    ok('percentil' in est['rotulo'], 'rotulo de A1 traz percentil e corte do indicador')
+
+    ef = page.evaluate("""() => {
+        const todos = getFilters();
+        const antes = calcWeightedAvgEff(filterData(todos), 'ma_perm', 'n_perm',
+                                         todos.subtipos, todos.estratos_if);
+        const c = [...document.querySelectorAll('.estr-chk')].find(x => x.value === 'C');
+        c.checked = false;
+        const parc = getFilters();
+        const alvo = filterData(parc);
+        const depois = calcWeightedAvgEff(alvo, 'ma_perm', 'n_perm',
+                                          parc.subtipos, parc.estratos_if);
+        const ifrep = getEffectiveIF(alvo[0] || DATA.data[0], parc.estratos_if);
+        c.checked = true;
+        return {antes: antes, depois: depois, n: parc.estratos_if.length,
+                ifrep: ifrep.total, vetor: ifrep.porEstrato};
+    }""")
+    print('   ma_perm ponderado: 9 estratos = %.2f | 8 estratos = %.2f'
+          % (ef['antes'], ef['depois']), flush=True)
+    print('   relatorio de IF: %d artigos %s' % (ef['ifrep'], ef['vetor']), flush=True)
+    ok(ef['n'] == 8, 'desmarcar C deixa 8 estratos selecionados')
+    ok(ef['antes'] > 0, 'metrica com os 9 estratos e maior que zero')
+    ok(ef['depois'] > 0, 'desmarcar um estrato NAO zera a metrica (o bug da v5.3.0)')
+    ok(ef['depois'] < ef['antes'], 'metrica com 8 estratos e menor que com 9')
+    ok(ef['ifrep'] > 0, 'Relatorio Detalhado de IF conta artigos por estrato')
+
+    # Guardas com `|| {}` em todo acesso: sem a camada, o metadata.estratos nao
+    # existe e um acesso direto lancaria excecao, abortando a suite inteira com
+    # traceback em vez de reportar FALHA e seguir para o resumo final.
+    base = page.evaluate("""() => {
+        const cortes = b => JSON.stringify(((DATA.metadata || {})['estratos_'+b] || {}).cortes_if || {});
+        const ativos = () => JSON.stringify(((DATA.metadata || {}).estratos || {}).cortes_if || {});
+        const cs = cortes('cs');
+        setIFBase('oa');
+        const oa = ativos();
+        setIFBase('cs');
+        return {ativo: oa !== '{}', igual: oa === cs};
+    }""")
+    page.wait_for_timeout(1500)
+    ok(base['ativo'], 'trocar a base para OpenAlex mantem metadata.estratos populado')
+    ok(not base['igual'], 'os cortes mudam ao trocar de base (CiteScore != OpenAlex)')
+    shot(page, '6_estratos')
 
     # ── grafico por IES (Química) para inspecao visual
     page.evaluate("async () => { await switchArea('quimica'); }")
