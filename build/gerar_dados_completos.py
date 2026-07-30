@@ -717,7 +717,15 @@ def calcular_area(slug):
                 'unb_cd': unb_cds[0] if unb_cds else '',
                 'unb_cds': unb_cds,
                 'n_unb': len(unb_cds),
-                'n_programas': len(programs_info),
+                # PROGRAMAS COM REGISTRO, não o catálogo da área. `programs_info` vem
+                # inteiro do `cd_meta`, mas o laço acima descarta o programa que não
+                # tem docente no quadriênio (`len(dd) == 0`) ou não tem conceito
+                # numérico (`nota_val` vazio) — esses nunca entram em `all_data`.
+                # Usar len(programs_info) fazia o app anunciar programas que não estão
+                # lá: 5.010 contra 4.824 reais, e a linha de status da área dizia
+                # "81 programas" numa Química com 79. O universo do app é o que tem
+                # registro, porque a comparação é por nota.
+                'n_programas': len({d['cd'] for d in all_data}),
                 'n_registros': len(all_data),
                 'gerado_em': time.strftime('%Y-%m-%d %H:%M:%S'),
                 'subtipos_biblio': {str(k): v for k, v in SUBTIPOS_BIBLIO.items()},

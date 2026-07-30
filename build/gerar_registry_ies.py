@@ -9,17 +9,27 @@ FONTE: os próprios docs/dados/area-*.json (a mesma base que o app renderiza),
 garantindo que a cascata só ofereça programas que existem nos dados carregados
 e capture todas as variantes de sigla por campus/fundação em qualquer quadriênio.
 
-Cada IFES → variantes de sigla CAPES verificadas (Piauí=FUFPI, Sergipe=FUFSE/
-FUFSE/ITAB, UFPB em 4 campi, UFSC + Blumenau). id do curso = cd_programa.
-Para a UnB reaproveita-se o sufixo de registry.json (retrocompat de deep-links).
+Cada IFES → variantes de sigla CAPES. A lista MANUAL abaixo é só um piso: as
+variantes reais são derivadas de `build/ies_canonico.json` (chaveado por
+CD_ENTIDADE_CAPES, a identidade estável da instituição) e unidas à sigla canônica.
+Manter isso à mão defasou: o Piauí estava declarado só como `FUFPI` e Sergipe só
+como `FUFSE`/`FUFSE/ITAB`, sem a sigla ATUAL. Como `REF_SIGLAS_CAPES` no app filtra
+`UNB_CDS` por sigla de época, programa que só existe sob o rótulo novo (criado no
+quadriênio 2021-2024) ficava FORA da cascata Grande Área → Área → Curso daquela
+universidade: 4 programas da UFPI e 1 da UFS, invisíveis para quem escolhia essas
+duas como referência.
+
+id do curso = cd_programa. Para a UnB reaproveita-se o sufixo de registry.json
+(retrocompat de deep-links).
 """
-import glob, json, os, time
+import glob, json, os, sys, time
 from collections import defaultdict
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DADOS = os.path.join(REPO, 'docs', 'dados')
 OUT_PATH = os.path.join(REPO, 'docs', 'registry_ies.json')
 REGISTRY_UNB = os.path.join(REPO, 'docs', 'registry.json')
+IES_CANONICO = os.path.join(REPO, 'build', 'ies_canonico.json')
 
 # ── 27 IFES de referência: sigla canônica → (UF, nome, [variantes CAPES]) ──
 IFES = {
@@ -54,8 +64,44 @@ IFES = {
                ['FUFSE', 'FUFSE/ITAB']),
     'UFT':     ('TO', 'Universidade Federal do Tocantins',            ['UFT']),
 }
+
+# ── variantes DERIVADAS por CD_ENTIDADE_CAPES ───────────────────────
+# A tabela manual acima é só a SEMENTE: ela diz quais ENTIDADES CAPES compõem
+# cada universidade de referência (inclusive campi, que são entidades próprias:
+# UFSC-BLUMENAU=41001028 ≠ UFSC=41001010; UFS-ITABAIANA=27001024 ≠ UFS=27001016).
+# As variantes de sigla vêm de `por_entidade` em ies_canonico.json — TODAS as
+# siglas que cada entidade usou ao longo dos anos.
+#
+# Manter a lista de siglas à mão defasou duas vezes:
+#   • Piauí declarado só como FUFPI e Sergipe só como FUFSE — sem a sigla ATUAL.
+#     Programa criado em 2021-2024, que só existe sob o rótulo novo, ficava fora
+#     da cascata: 4 da UFPI e 1 da UFS.
+#   • A v5.3.0 renomeou rótulos ('UFSC - BLUMENAU' → 'UFSC-BLUMENAU',
+#     'UFPB-JP' → 'UFPB-JOÃO PESSOA') e as entradas manuais deixaram de casar,
+#     derrubando 5 programas EM FUNCIONAMENTO.
+# Derivar da entidade é imune a renomeação: a sigla é o rótulo do ano, a entidade
+# é a identidade estável.
+if not os.path.exists(IES_CANONICO):
+    sys.exit(f'✗ {IES_CANONICO} ausente — necessário para derivar as variantes de sigla.')
+_ic = json.load(open(IES_CANONICO, encoding='utf-8'))
+POR_ENTIDADE = _ic['por_entidade']
+ENT_DE_SIGLA = {s: ent for ent, v in POR_ENTIDADE.items() for s in v['siglas']}
+
+ENTIDADES_DE = {}
+IFES_DERIVADA = {}
+for canon, (uf, nome, semente) in IFES.items():
+    ents = {ENT_DE_SIGLA[s] for s in ({canon} | set(semente)) if s in ENT_DE_SIGLA}
+    if not ents:
+        sys.exit(f'✗ nenhuma entidade CAPES encontrada para {canon} '
+                 f'(siglas-semente {sorted(semente)} não aparecem em por_entidade)')
+    ENTIDADES_DE[canon] = ents
+    IFES_DERIVADA[canon] = (uf, nome,
+                            sorted({s for e in ents for s in POR_ENTIDADE[e]['siglas']}))
+IFES = IFES_DERIVADA
+
 # sigla-variante CAPES → sigla canônica
 VAR2CANON = {v: canon for canon, (_, _, vs) in IFES.items() for v in vs}
+ENT2CANON = {e: canon for canon, ents in ENTIDADES_DE.items() for e in ents}
 
 QUAD_ORDER = {'2013-2016': 0, '2017-2020': 1, '2021-2024': 2}
 
@@ -68,6 +114,7 @@ if os.path.exists(REGISTRY_UNB):
 # ── varre as áreas: por IFES, junta programas (1 por cd, quad mais recente) ──
 # prog[canon][cd] = {registro mais recente + metadados da área}
 prog = defaultdict(dict)
+siglas_vistas = set()
 for f in sorted(glob.glob(os.path.join(DADOS, 'area-*.json'))):
     d = json.load(open(f, encoding='utf-8'))
     md = d['metadata']
@@ -75,6 +122,7 @@ for f in sorted(glob.glob(os.path.join(DADOS, 'area-*.json'))):
     slug = md['slug']
     grande = md.get('grande_area', '')
     for r in d['data']:
+        siglas_vistas.add(r['sigla'])
         canon = VAR2CANON.get(r['sigla'])
         if not canon:
             continue
@@ -101,6 +149,21 @@ DESATIVADOS = {'EM DESATIVACAO', 'EM DESATIVAÇÃO'}
 for canon in prog:
     prog[canon] = {cd: e for cd, e in prog[canon].items()
                    if e['situacao'] not in DESATIVADOS}
+
+# ── guarda: sigla que pertence a uma das 27 pelo canônico mas ficou fora de
+#    VAR2CANON. Era o defeito silencioso — os programas simplesmente não
+#    apareciam na cascata, sem erro em lugar nenhum.
+# Checa pela ENTIDADE, não pela sigla: era a renomeação de rótulo que escapava.
+orfas = sorted(s for s in siglas_vistas
+               if ENT2CANON.get(ENT_DE_SIGLA.get(s)) and s not in VAR2CANON)
+if orfas:
+    sys.exit('✗ abortado: siglas nos dados cuja ENTIDADE CAPES pertence a uma IFES '
+             f'de referência e que ficaram fora de siglas_capes: {orfas}. '
+             'Programas sob elas ficariam invisíveis na cascata.')
+desconhecidas = sorted(s for s in siglas_vistas if s not in ENT_DE_SIGLA)
+if desconhecidas:
+    print(f'⚠ {len(desconhecidas)} sigla(s) dos dados sem entidade em '
+          f'ies_canonico.json: {desconhecidas[:8]}', file=sys.stderr)
 
 # ── monta a saída ────────────────────────────────────────────────────
 por_ies = {}
