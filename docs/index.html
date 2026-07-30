@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.4.0</div>
+        <div id="headerVersion">v5.4.1</div>
     </div>
 </div>
 
@@ -279,18 +279,21 @@ tr:hover { background: #EEF2F7; }
             </select>
         </div>
 
-        <div class="filter-group">
-            <h3>Categoria de Docente</h3>
-            <!-- ATENÇÃO: este filtro NÃO tem efeito. `getFilters()` coleta `categorias`, mas
-                 nenhum código lê o campo — `filterData()` filtra por nota/quadriênio/região/IES
-                 apenas. A escolha de categoria é feita no seletor de MÉTRICA (Art/ano
-                 Permanentes / Colaboradores / Visitantes). Não adianta pôr onchange aqui: ele
-                 redesenharia com o mesmo resultado, fingindo responder. Ou se implementa o
-                 filtro, ou se remove o controle — decisão pendente. -->
-            <label><input type="checkbox" class="cat-chk" value="PERMANENTE" checked> Permanente</label>
-            <label><input type="checkbox" class="cat-chk" value="COLABORADOR" checked> Colaborador</label>
-            <label><input type="checkbox" class="cat-chk" value="VISITANTE" checked> Visitante</label>
-        </div>
+        <!-- REMOVIDO em v5.4.1 — havia aqui três caixas "Categoria de Docente"
+             (Permanente/Colaborador/Visitante) que NÃO tinham efeito: `getFilters()`
+             coletava `categorias` e nenhum código lia o campo.
+             Não foi implementado, foi REMOVIDO, porque com os dados servidos o filtro
+             não tem resposta correta: as categorias NÃO são uma partição. Medido nos
+             13.265 registros, só 34,9% têm n_perm+n_colab+n_visit == n_doc, e a soma
+             em geral EXCEDE o total — docente que muda de categoria dentro do
+             quadriênio entra em duas, e `prod_sub[cat]` conta o artigo em toda
+             categoria que tenha ao menos um autor nela. Somar as caixas marcadas
+             dupliciaria; e a interseção não está nos dados, então nem
+             |A ∪ B| = |A| + |B| − |A ∩ B| dá para calcular. Com as três marcadas o
+             resultado nem coincidiria com o total de hoje.
+             A escolha de categoria já existe, correta, no seletor de MÉTRICA
+             (Art/ano — Permanentes / Colaboradores / Visitantes), que usa os campos
+             pré-calculados por categoria. -->
 
         <div class="filter-group">
             <h3>Região</h3>
@@ -531,7 +534,7 @@ let REF_DADOS = null;         // payload da instituição de referência atual
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '5.4.0';
+const VERSION = '5.4.1';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -1253,12 +1256,13 @@ function getFilters() {
 
     const iesChecked = [...document.querySelectorAll('.ies-chk:checked')].map(cb => cb.value);
     const regChecked = [...document.querySelectorAll('.reg-chk:checked')].map(cb => cb.value);
-    const catChecked = [...document.querySelectorAll('.cat-chk:checked')].map(cb => cb.value);
     const subChecked = [...document.querySelectorAll('.sub-chk:checked')].map(cb => cb.value);
     // estratos_if agora guarda CÓDIGOS DE ESTRATO ['A1'..'A8','C'] (Ficha CAPES 2025-2028)
     const ifChecked = [...document.querySelectorAll('.estr-chk:checked')].map(cb => cb.value);
 
-    return { notas, quad, metrica, ies: iesChecked, regioes: regChecked, categorias: catChecked,
+    // `categorias` saiu do objeto junto com as caixas removidas (v5.4.1): era campo
+    // morto — nenhum consumidor o lia. A categoria vem do seletor de métrica.
+    return { notas, quad, metrica, ies: iesChecked, regioes: regChecked,
              subtipos: subChecked, estratos_if: ifChecked };
 }
 

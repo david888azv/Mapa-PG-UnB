@@ -1,5 +1,39 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.4.1 — Filtro que não filtrava, e a versão do manifest (2026-07-30)
+
+Duas correções de coerência levantadas na auditoria.
+
+### "Categoria de Docente" foi removido, não implementado
+
+As três caixas (Permanente / Colaborador / Visitante) **não tinham efeito**:
+`getFilters()` coletava `categorias` e nenhum código lia o campo. Um controle que
+não responde é pior que a ausência dele.
+
+A escolha entre implementar e remover não foi de gosto — **os dados servidos não
+admitem esse filtro**. As categorias não são uma partição: medido nos 13.265
+registros, só **34,9%** têm `n_perm + n_colab + n_visit == n_doc`, e a soma em geral
+**excede** o total. Docente que muda de categoria dentro do quadriênio entra em
+duas, e `prod_sub[cat]` credita o artigo a toda categoria que tenha ao menos um autor
+nela. Somar as caixas marcadas duplicaria; e a interseção não está nos dados, então
+nem `|A ∪ B| = |A| + |B| − |A ∩ B|` dá para calcular. Com as três marcadas o número
+não coincidiria nem com o total de hoje.
+
+A categoria **já é escolhível, e corretamente**, no seletor de Métrica de Comparação
+(Art/ano — Permanentes / Colaboradores / Visitantes), que usa os campos
+pré-calculados por categoria. O campo morto `categorias` saiu de `getFilters()`.
+
+### `shell_version` do manifest estava 4 releases atrás
+
+Dizia `5.0.0` enquanto o app estava em `5.4.0` — era escrito à mão. Agora
+`atualizar_manifest()` o **deriva de `docs/index.html`** (`versao_do_app()` lê o
+`const VERSION`), então todo rebuild o mantém em dia. É o mesmo tipo de dessincronia
+que já abortou o `build_offline.py` antes.
+
+`build/teste_visual.py` foi de 36 para **41 checagens**, com as novas guardas:
+`manifest.shell_version == VERSION`, cabeçalho na mesma versão, ausência das caixas
+de categoria, ausência do campo morto e presença das três métricas por categoria.
+
 ## v5.4.0 — Qualquer instituição como referência, por busca (2026-07-30)
 
 A referência podia ser **uma de 27** universidades federais. Agora é **qualquer uma

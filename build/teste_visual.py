@@ -36,7 +36,7 @@ with sync_playwright() as pw:
     page.on('console', lambda m: erros.append(m.text) if m.type == 'error' else None)
     page.on('pageerror', lambda e: erros.append('PAGEERROR: %s' % e))
 
-    print('\n=== carga inicial ===', flush=True)
+    print('\n=== 0. versoes sincronizadas ===', flush=True)
     page.goto(BASE, wait_until='networkidle', timeout=60000)
     page.wait_for_timeout(1500)
     shot(page, '0_licenca')
@@ -44,6 +44,35 @@ with sync_playwright() as pw:
     page.wait_for_timeout(4000)
     shot(page, '0_carga')
     ok(not erros, 'sem erro de console na carga (%s)' % (erros[:2] or 'nenhum'))
+
+    # shell_version do manifest era escrito a mao e ficou 4 releases atras (5.0.0
+    # contra 5.4.0 do app). Agora atualizar_manifest() o deriva de index.html; esta
+    # checagem impede a defasagem de voltar em silencio.
+    vs = page.evaluate("""() => ({
+        app: VERSION,
+        header: (document.getElementById('headerVersion') || {}).textContent || '',
+        manifest: (MANIFEST || {}).shell_version || '',
+    })""")
+    print('   app=%s | cabecalho=%s | manifest.shell_version=%s'
+          % (vs['app'], vs['header'], vs['manifest']), flush=True)
+    ok(vs['manifest'] == vs['app'],
+       'manifest.shell_version == VERSION do app (%s vs %s)' % (vs['manifest'], vs['app']))
+    ok(vs['header'].strip() == 'v' + vs['app'],
+       'cabecalho mostra a mesma versao (%r)' % vs['header'])
+
+    # o filtro "Categoria de Docente" foi REMOVIDO em v5.4.1: coletava `categorias`
+    # e nada lia. As categorias nao sao particao (soma excede n_doc em 65% dos
+    # registros), entao nao havia como implementa-lo certo com os dados servidos.
+    cat = page.evaluate("""() => ({
+        caixas: document.querySelectorAll('.cat-chk').length,
+        campo: 'categorias' in getFilters(),
+        metricas: [...document.getElementById('selMetrica').options]
+                    .map(o => o.value).filter(v => /perm|colab|visit/.test(v)),
+    })""")
+    ok(cat['caixas'] == 0, 'nao ha mais caixas de Categoria de Docente (%d)' % cat['caixas'])
+    ok(not cat['campo'], 'getFilters() nao devolve mais o campo morto `categorias`')
+    ok(len(cat['metricas']) == 3,
+       'a categoria segue escolhivel no seletor de metrica (%s)' % cat['metricas'])
 
     # ── seleciona a área QUÍMICA
     page.evaluate("async () => { await switchArea('quimica'); }")
