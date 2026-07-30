@@ -1,6 +1,6 @@
 {
   "gerado_em": "2026-05-05 20:20:38",
-  "shell_version": "5.4.1",
+  "shell_version": "5.4.2",
   "estratos_capes": "A1-A8/C (Ficha de Avaliação 2025-2028) — percentil de IF por área; campos estr_perm/estr_colab/estr_visit/estr_all + metadata.estratos por área",
   "areas": [
     {
@@ -1765,7 +1765,7 @@
       "MATERIAIS"
     ]
   },
-  "atualizado_em": "2026-07-30 09:21:44",
+  "atualizado_em": "2026-07-30 09:40:53",
   "tecnica": {
     "subtipos": [
       "PATENTE"
