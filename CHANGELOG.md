@@ -1,5 +1,65 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.4.0 — Qualquer instituição como referência, por busca (2026-07-30)
+
+A referência podia ser **uma de 27** universidades federais. Agora é **qualquer uma
+das 470 instituições** com programa avaliado, achada por um campo de busca no painel
+de abertura.
+
+A busca casa sigla, nome e apelidos, ignorando caixa, acento, espaço e pontuação —
+`FIO CRUZ` acha as **7 unidades da FIOCRUZ**, `oswaldo` acha a sede, `federal do pará`
+acha a UFPA. As 27 federais seguem privilegiadas: aparecem como atalhos sem que se
+digite nada, uma por UF.
+
+### O shell ficou menor cobrindo 17× mais instituições
+
+O catálogo das 27 vinha inteiro na carga inicial, com a lista de programas de todas.
+Agora o app baixa um índice de busca enxuto e busca a lista de programas só da
+instituição escolhida:
+
+| | antes | agora |
+|---|---|---|
+| catálogo no shell | `registry_ies.json` 391 KB | `ies_index.json` **119 KB** |
+| **shell total** | 829 KB | **557 KB** (−273 KB) |
+| por instituição escolhida | — | `dados/ies-<slug>.json`, média 2,1 KB |
+| instituições selecionáveis | 27 | **470** |
+
+`registry_ies.json` continua sendo gerado — `gerar_stubs_ies.py` e `gerar_sitemap.py`
+o consomem —, mas saiu do precache do Service Worker.
+
+### Como as 470 foram determinadas
+
+Partindo das 495 instituições presentes nos dados: 5 são campi já contidos em
+UFPB/UFSC/UFS (`UFPB-AREIA`, `UFPB-JOÃO PESSOA`, `UFPB-RIO TINTO`, `UFSC-BLUMENAU`,
+`UFS-ITABAIANA`) e virariam opções com programas sobrepostos — entram como apelido de
+busca da sede, então `blumenau` e `itabaiana` continuam achando. Outras 21 não têm
+nenhum programa fora de desativação, e não haveria o que comparar. Sobram **470**,
+cobrindo **4.552 programas ativos** — conferido: nenhum programa ativo fora do
+catálogo, nenhum desativado dentro.
+
+Nada foi filtrado por tipo de instituição: universidades, centros universitários,
+institutos federais, fundações, institutos de pesquisa, hospitais e as 8 secretarias
+estão todos lá.
+
+### Sob o capô
+
+A regra de "quais programas são desta instituição" saiu para **`build/ies_core.py`**,
+compartilhada por `gerar_registry_ies.py` e pelo novo `gerar_ies_catalogo.py`. Ela
+guarda as três decisões que não se deduzem do código: identidade é
+`CD_ENTIDADE_CAPES` e não a sigla; titularidade é por quadriênio; descarta-se apenas
+o que está em desativação no registro mais recente daquela instituição. O motivo de
+não duplicar é histórico — um script auxiliar que reimplementou regra de metadado
+passou a mentir no dia em que a regra mudou.
+
+Nome de arquivo por slug (`slug_ies`), porque há sigla com espaço, acento e barra
+(`UFPB-JOÃO PESSOA`, `FIOCRUZ-NESC/CPQAM`, `FIOCRUZ-EGS BRASÍLIA`) que não vai crua
+para uma URL; colisão aborta o build. Os arquivos ficam em `docs/dados/` para não
+colidir com `docs/ies/<sigla>/`, que é das landings de SEO.
+
+`build/teste_visual.py` foi de 22 para **36 checagens**, cobrindo o painel novo:
+busca cega a espaço e acento, atalhos das 27, escolha de instituição fora das 27,
+carga sob demanda de um único arquivo, `?ies=` refletido na URL.
+
 ## v5.3.1 — Estratos A1–A8/C de volta aos dados (2026-07-30)
 
 O filtro por estrato da Ficha 2025-2028 e o Relatório Detalhado de IF pararam de

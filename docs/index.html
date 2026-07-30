@@ -11,7 +11,7 @@
      eram 42 — o catálogo era derivado da pegada da UnB e as 7 áreas em que ela não tem
      programa sumiam do app. Se este número mudar, conferir `registry.json.areas_capes`
      antes de escrever; prometer "todas" sem conferir foi o erro anterior. -->
-<meta name="description" content="Compare a produção e os indicadores de 4.824 programas de pós-graduação do Brasil (495 instituições) em todas as 49 áreas de avaliação da CAPES. Escolha uma entre 27 universidades federais como referência — UFRJ, USP, UFMG, UFRGS, UFSC, UnB e outras — e compare-a com seus pares nacionais ao longo de três quadriênios (2013–2024). Interativo, gratuito, dados públicos da CAPES.">
+<meta name="description" content="Compare a produção e os indicadores de 4.824 programas de pós-graduação do Brasil (495 instituições) em todas as 49 áreas de avaliação da CAPES. Escolha qualquer uma das 470 instituições como referência — busque por sigla ou nome — e compare-a com seus pares nacionais ao longo de três quadriênios (2013–2024). Interativo, gratuito, dados públicos da CAPES.">
 <meta name="keywords" content="MAPA-PG, pós-graduação, CAPES, avaliação CAPES, conceito CAPES, nota CAPES, produção acadêmica, produtividade científica, programas de pós-graduação, universidades federais, comparar universidades, ranking pós-graduação, estratos A1 A8, CiteScore, OpenAlex, fator de impacto, quadriênio, dados abertos, cientometria, UFRJ, USP, UFMG, UFRGS, UFSC, UFBA, UFPE, UFC, UnB">
 <meta name="author" content="Prof. David L. Azevedo — Universidade de Brasília (UnB)">
 <meta name="robots" content="index, follow">
@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="MAPA-PG">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="MAPA-PG — Programas de pós-graduação do Brasil por área CAPES">
-<meta property="og:description" content="Compare 4.824 programas de pós-graduação do Brasil em todas as 49 áreas CAPES. Escolha uma entre 27 universidades federais como referência — UFRJ, USP, UFMG, UFRGS, UFSC, UnB e outras — e compare-a com seus pares nacionais. Gratuito, sem instalação, com dados públicos da CAPES.">
+<meta property="og:description" content="Compare 4.824 programas de pós-graduação do Brasil em todas as 49 áreas CAPES. Escolha qualquer uma das 470 instituições como referência, buscando por sigla ou nome, e compare-a com seus pares nacionais. Gratuito, sem instalação, com dados públicos da CAPES.">
 <meta property="og:url" content="https://david888azv.github.io/Mapa-PG-UnB/">
 <!-- Marca DA ciência (daciencia.org), não a da UnB: o app compara 4.824 programas de 495
      instituições, e quem compartilhasse o link da UFSC via o logo da UnB. Peça oficial do
@@ -34,7 +34,7 @@
      PPGs da UnB", o recorte original do projeto, que já não é o que a página faz. -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MAPA-PG — Programas de pós-graduação do Brasil por área CAPES">
-<meta name="twitter:description" content="Compare 4.824 programas de pós-graduação do Brasil em todas as 49 áreas CAPES, com uma entre 27 universidades federais como referência. Dados públicos, gratuito, sem instalação.">
+<meta name="twitter:description" content="Compare 4.824 programas de pós-graduação do Brasil em todas as 49 áreas CAPES, com qualquer uma das 470 instituições como referência. Dados públicos, gratuito, sem instalação.">
 <meta name="twitter:image" content="https://david888azv.github.io/Mapa-PG-UnB/og-da-ciencia.png">
 <meta name="twitter:image:alt" content="DA ciência — Ciência com dados. Educação com evidência.">
 <!-- Google Search Console: descomente e cole o token de verificacao ao publicar -->
@@ -74,12 +74,12 @@
     "identifier": "https://doi.org/10.26512/2446-564X2026e62064",
     "sameAs": "https://doi.org/10.26512/2446-564X2026e62064"
   },
-  "description": "Sistema interativo e gratuito para comparar a produção acadêmica de 4.824 programas de pós-graduação do Brasil (495 instituições) em todas as 49 áreas de avaliação da CAPES; escolha uma entre 27 universidades federais como referência — UFRJ, USP, UFMG, UFRGS, UFSC, UnB e outras — e compare-a com seus pares nacionais, sempre dentro da mesma área, ao longo de três quadriênios (2013–2024), usando dados públicos da CAPES.",
+  "description": "Sistema interativo e gratuito para comparar a produção acadêmica de 4.824 programas de pós-graduação do Brasil (495 instituições) em todas as 49 áreas de avaliação da CAPES; escolha qualquer uma das 470 instituições como referência, buscando por sigla ou nome, e compare-a com seus pares nacionais, sempre dentro da mesma área, ao longo de três quadriênios (2013–2024), usando dados públicos da CAPES.",
   "keywords": "pós-graduação, CAPES, avaliação CAPES, nota CAPES, produção científica, universidades federais, comparar programas, estratos A1-A8, CiteScore, OpenAlex, cientometria, dados abertos",
   "featureList": [
     "Cobertura das 49 Áreas de Avaliação da CAPES — 4.824 programas de 495 instituições",
     "Comparação entre programas sempre dentro da mesma Área de Avaliação da CAPES",
-    "27 universidades federais selecionáveis como referência",
+    "470 instituições selecionáveis como referência, com busca por sigla ou nome",
     "Três quadriênios (2013-2016, 2017-2020, 2021-2024)",
     "Estratificação A1–A8/C por percentil de impacto do periódico (Ficha CAPES 2025-2028)",
     "Relatórios exportáveis em TXT e CSV"
@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.3.1</div>
+        <div id="headerVersion">v5.4.0</div>
     </div>
 </div>
 
@@ -524,11 +524,14 @@ let charts = [];
 let reportSeq = 0;
 let MANIFEST = null;          // catálogo geral de áreas
 let REGISTRY = null;          // catálogo de programas da IFES de REFERÊNCIA (shape do registry.json)
-let REG_IES = null;           // registry_ies.json — catálogo das 27 IFES
+let IES_IDX = null;           // ies_index.json — índice de busca das 470 instituições
+let IES_POR_SIGLA = {};       // sigla → entrada do índice (nome, uf, np, ar, al, f)
+let IES_CACHE = {};           // sigla → dados/ies-<slug>.json já baixado
+let REF_DADOS = null;         // payload da instituição de referência atual
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '5.3.1';
+const VERSION = '5.4.0';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -597,18 +600,23 @@ async function loadData() {
     const setMsg = m => { const el = document.getElementById('loadingMsg'); if (el) el.textContent = m; };
     try {
         setMsg('Carregando catálogo de áreas CAPES...');
-        const [mf, ri] = await Promise.all([
+        // ies_index.json substituiu registry_ies.json: 119 KB para 470 instituições,
+        // contra 391 KB para 27. A lista de programas de cada uma vem sob demanda
+        // (dados/ies-<slug>.json, ~2 KB), quando a referência é escolhida.
+        const [mf, ix] = await Promise.all([
             fetch('manifest.json', {cache: 'force-cache'}).then(r=>r.json()),
-            fetch('registry_ies.json', {cache: 'force-cache'}).then(r=>r.json()),
+            fetch('ies_index.json', {cache: 'force-cache'}).then(r=>r.json()),
         ]);
-        MANIFEST = mf; REG_IES = ri;
+        MANIFEST = mf; IES_IDX = ix;
+        IES_POR_SIGLA = {};
+        IES_IDX.ies.forEach(e => { IES_POR_SIGLA[e.s] = e; });
         // Seleção inicial via querystring (?ies=SIGLA, ?curso=TOKEN, ?area=slug).
         const params = new URLSearchParams(location.search);
         PENDING_CURSO = (params.get('curso') || '').toUpperCase() || null;
         PENDING_AREA = params.get('area') || null;
         // IFES de referência: querystring > preferência salva > (indefinido → pergunta).
         const iesQS = (params.get('ies') || '').toUpperCase();
-        if (iesQS && REG_IES.por_ies[iesQS]) {
+        if (iesQS && IES_POR_SIGLA[iesQS]) {
             REF = iesQS;
         } else if (PENDING_CURSO || PENDING_AREA) {
             // Deep-link legado (?curso=/?area= sem ?ies=) → referência UnB, como antes.
@@ -630,14 +638,36 @@ async function loadData() {
 }
 
 // Constrói REGISTRY (mesmo shape do antigo registry.json) para a IFES de
-// referência atual, a partir de REG_IES. Programas sem sufixo (não-UnB) recebem
+// referência atual, a partir de REF_DADOS. Programas sem sufixo (não-UnB) recebem
 // o cd_programa como token único p/ o seletor de curso e para a URL ?curso=.
+// Busca dados/ies-<slug>.json da instituição escolhida (cacheado na sessão).
+// O índice traz o caminho pronto em `f` — a sigla não serve como nome de arquivo
+// (há sigla com espaço, acento e barra: 'UFPB-JOÃO PESSOA', 'FIOCRUZ-NESC/CPQAM').
+async function carregarIes(sigla) {
+    if (IES_CACHE[sigla]) return IES_CACHE[sigla];
+    const e = IES_POR_SIGLA[sigla];
+    if (!e) throw new Error(`Instituição desconhecida: ${sigla}`);
+    const d = await fetch(e.f, {cache: 'force-cache'}).then(r => {
+        if (!r.ok) throw new Error(`${e.f}: HTTP ${r.status}`);
+        return r.json();
+    });
+    IES_CACHE[sigla] = d;
+    return d;
+}
+
 function buildRegistryForRef() {
-    const info = REG_IES.ifes.find(i => i.sigla === REF);
-    REF_SIGLAS_CAPES = info ? info.siglas_capes : [REF];
-    REF_NOME = info ? info.nome : REF;
-    REF_UF   = info ? info.uf : '';
-    const src = REG_IES.por_ies[REF] || { grandes_areas: {}, programas: [] };
+    const src = REF_DADOS || { grandes_areas: {}, programas: [] };
+    REF_SIGLAS_CAPES = src.siglas_capes || [REF];
+    // O nome oficial da CAPES muitas vezes JÁ traz a sigla entre parênteses
+    // ("FUNDAÇÃO OSWALDO CRUZ (FIOCRUZ)"), e os rótulos acrescentam "(sigla)" —
+    // saía "FUNDAÇÃO OSWALDO CRUZ (FIOCRUZ) (FIOCRUZ)". Tira só a repetição no
+    // fim; parêntese que qualifica a unidade ("FIOCRUZ ( RONDÔNIA )") fica.
+    REF_NOME = src.nome || REF;
+    const _suf = '(' + REF + ')';
+    const _n = REF_NOME.trim();
+    if (_n.toUpperCase().endsWith(_suf.toUpperCase()))
+        REF_NOME = _n.slice(0, -_suf.length).trim() || REF;
+    REF_UF   = src.uf || '';
     const programas = src.programas.map(p => ({ ...p, sufixo: p.sufixo || p.cd_programa }));
     const areas = {};
     programas.forEach(p => {
@@ -647,9 +677,22 @@ function buildRegistryForRef() {
     REGISTRY = { grandes_areas: src.grandes_areas, areas_capes: areas, programas_unb: programas };
 }
 
-// Chamado após licença aceita E referência definida: monta o app para a IFES REF.
-function startWithRef() {
+// Chamado após licença aceita E referência definida: monta o app para a IES REF.
+// Assíncrono desde que o catálogo passou a ser sob demanda: a lista de programas
+// da instituição escolhida é buscada aqui.
+async function startWithRef() {
     try { localStorage.setItem('mapapg_ref', REF); } catch(_) {}
+    try {
+        REF_DADOS = await carregarIes(REF);
+    } catch (e) {
+        console.error(e);
+        const l = document.getElementById('loading');
+        if (l) { l.style.display = ''; l.innerHTML =
+            `<p style="color:#E74C3C;font-size:16px;">Não foi possível carregar os programas de ${REF}.</p>
+             <p style="color:#999;margin-top:8px;">${e.message}</p>
+             <button class="btn btn-primary" onclick="trocarIes()">Escolher outra instituição</button>`; }
+        return;
+    }
     buildRegistryForRef();
     aplicarRotulosRef();
     // reflete ?ies= na URL (sem recarregar)
@@ -976,53 +1019,116 @@ function acceptLicense() {
     startWithRef();
 }
 
-// ── Tela de escolha da universidade federal de referência (pós-consentimento).
-//    27 opções (26 UF + UnB), escolha única; a referência aparecerá destacada
-//    em vermelho, como a UnB. Também acessível depois pelo botão "trocar".
+// ── Tela de escolha da instituição de referência (pós-consentimento) ──────
+//    Passou de 27 federais para as 470 instituições com programa avaliado: o
+//    campo de busca casa sigla, nome e apelidos. As 27 seguem privilegiadas —
+//    aparecem como atalhos sem precisar digitar nada.
+//    A referência aparece destacada em vermelho. Acessível depois pelo botão
+//    "trocar universidade" na barra lateral.
+
+// Chave de busca: sem acento, sem caixa, sem espaço nem pontuação. É o que faz
+// "FIO CRUZ" achar FIOCRUZ e "ufpb joao pessoa" achar UFPB-JOÃO PESSOA.
+// Espelha norm_busca() de build/ies_core.py — manter as duas iguais.
+function normBusca(s) {
+    return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toUpperCase().replace(/[^A-Z0-9]/g, '');
+}
+const esc = s => String(s).replace(/[&<>"]/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+let IES_PICK = null;          // sigla marcada no painel (ainda não confirmada)
+
+function iesCard(i, destaque) {
+    const rot = i.s === 'UNB' ? 'UnB' : i.s;
+    const cor = destaque ? '#E91E63' : '#E0E0E0';
+    return `<label class="ies-opt" data-sig="${esc(i.s)}" title="${esc(i.n)}"
+        style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border:1.5px solid ${cor};border-radius:8px;cursor:pointer;font-size:12.5px;">
+        <input type="radio" name="iesRef" value="${esc(i.s)}" style="accent-color:#E91E63;margin-top:2px;">
+        <span><strong>${esc(rot)}</strong> <span style="color:#7F8C8D;">(${esc(i.uf)})</span><br>
+        <span style="color:#7F8C8D;font-size:10.5px;">${esc(i.n)} · ${i.np} prog${i.np === 1 ? '' : 's'}</span></span>
+    </label>`;
+}
+
+// Redesenha a sub-lista conforme o texto digitado. Sem termo, mostra as 27 em
+// destaque; com termo, todas as que casarem (com teto, para não travar o DOM).
+function filtrarIes(termo) {
+    const alvo = normBusca(termo);
+    const cont = document.getElementById('iesPickerLista');
+    const info = document.getElementById('iesPickerInfo');
+    if (!cont) return;
+    const destaque = new Set(IES_IDX.destaque);
+    let lista, cabecalho;
+    if (!alvo) {
+        lista = IES_IDX.ies.filter(i => destaque.has(i.s))
+                    .slice().sort((a, b) => a.uf.localeCompare(b.uf));
+        cabecalho = `<strong>${lista.length} universidades federais</strong> — uma por UF. ` +
+                    `Digite acima para buscar entre as <strong>${IES_IDX.n_ies}</strong> instituições.`;
+    } else {
+        lista = IES_IDX.ies.filter(i => {
+            if (normBusca(i.s).includes(alvo) || normBusca(i.n).includes(alvo)) return true;
+            return (i.al || []).some(a => normBusca(a).includes(alvo));
+        });
+        cabecalho = lista.length
+            ? `<strong>${lista.length}</strong> instituição(ões) para “${esc(termo.trim())}”` +
+              (lista.length > 200 ? ' — refine a busca para ver todas.' : '')
+            : `Nenhuma instituição para “${esc(termo.trim())}”. Tente a sigla ou parte do nome.`;
+    }
+    if (info) info.innerHTML = cabecalho;
+    cont.innerHTML = lista.slice(0, 200).map(i => iesCard(i, destaque.has(i.s))).join('');
+    // religa a marcação e preserva a escolha se ela continuar visível
+    const ok = document.getElementById('iesPickerOk');
+    cont.querySelectorAll('.ies-opt').forEach(lb => {
+        lb.addEventListener('click', () => {
+            cont.querySelectorAll('.ies-opt').forEach(x => {
+                x.style.background = '#fff';
+                x.style.borderColor = destaque.has(x.dataset.sig) ? '#E91E63' : '#E0E0E0';
+            });
+            lb.style.borderColor = '#E91E63'; lb.style.background = '#FCE4EC';
+            IES_PICK = lb.dataset.sig;
+            if (ok) { ok.disabled = false; ok.style.opacity = 1; }
+        });
+        if (lb.dataset.sig === IES_PICK) lb.click();
+    });
+}
+
 function showIesPicker() {
-    const lista = REG_IES.ifes.slice().sort((a,b)=> a.uf.localeCompare(b.uf));
-    // Nada pré-selecionado: o usuário deve escolher a IFES; o OK fica desabilitado
-    // até a seleção (o app aguarda). Vale tanto na abertura quanto ao trocar.
-    const prech = '';
-    const cards = lista.map(i => {
-        const rot = i.sigla === 'UNB' ? 'UnB' : i.sigla;
-        return `<label class="ies-opt" data-sig="${i.sigla}" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #E0E0E0;border-radius:8px;cursor:pointer;font-size:12.5px;">
-            <input type="radio" name="iesRef" value="${i.sigla}" ${i.sigla===prech?'checked':''} style="accent-color:#E91E63;">
-            <span><strong>${rot}</strong> <span style="color:#7F8C8D;">(${i.uf})</span><br>
-            <span style="color:#7F8C8D;font-size:10.5px;">${i.nome} · ${i.n_prog} progs</span></span>
-        </label>`;
-    }).join('');
+    IES_PICK = null;
     const overlay = document.createElement('div');
     overlay.id = 'iesPickerOverlay';
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
-    overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:26px 26px 20px;max-width:760px;width:94%;box-shadow:0 8px 32px rgba(0,0,0,.4);max-height:92vh;overflow-y:auto;">
-        <h2 style="color:#E91E63;margin:0 0 4px;font-size:20px;font-weight:800;text-align:center;">Escolha a universidade de referência</h2>
-        <p style="color:#555;font-size:13px;line-height:1.5;text-align:center;margin:0 0 16px;">
-            Selecione <strong>uma</strong> universidade federal. Ela será usada como referência —
-            <span style="color:#E91E63;font-weight:700;">destacada em vermelho</span> — na comparação com todos os
-            programas de pós-graduação de cada área da CAPES. (Você pode trocar depois.)</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;">${cards}</div>
-        <div style="text-align:center;margin-top:18px;">
-            <button id="iesPickerOk" ${prech?'':'disabled'} onclick="confirmIesPicker()"
-                style="background:#E91E63;color:#fff;border:none;padding:11px 46px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;opacity:${prech?1:.5};">OK</button>
+    overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:22px 24px 18px;max-width:820px;width:95%;box-shadow:0 8px 32px rgba(0,0,0,.4);max-height:92vh;display:flex;flex-direction:column;">
+        <h2 style="color:#E91E63;margin:0 0 4px;font-size:20px;font-weight:800;text-align:center;">Escolha a instituição de referência</h2>
+        <p style="color:#555;font-size:12.5px;line-height:1.5;text-align:center;margin:0 0 12px;">
+            Ela será usada como referência — <span style="color:#E91E63;font-weight:700;">destacada em vermelho</span> —
+            na comparação com todos os programas de cada área da CAPES. (Você pode trocar depois.)</p>
+        <input id="iesPickerBusca" type="search" autocomplete="off" placeholder="Buscar por sigla ou nome — ex.: FIO CRUZ, UFPB, federal do pará"
+            style="width:100%;padding:11px 13px;border:2px solid #E91E63;border-radius:8px;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
+        <p id="iesPickerInfo" style="color:#7F8C8D;font-size:11.5px;margin:0 0 10px;text-align:center;"></p>
+        <div id="iesPickerLista" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px;overflow-y:auto;flex:1;min-height:150px;padding:2px;"></div>
+        <div style="text-align:center;margin-top:14px;">
+            <button id="iesPickerOk" disabled onclick="confirmIesPicker()"
+                style="background:#E91E63;color:#fff;border:none;padding:11px 46px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;opacity:.5;">OK</button>
         </div>
     </div>`;
     document.body.appendChild(overlay);
-    const ok = overlay.querySelector('#iesPickerOk');
-    overlay.querySelectorAll('.ies-opt').forEach(lb => {
-        lb.addEventListener('click', () => {
-            overlay.querySelectorAll('.ies-opt').forEach(x => { x.style.borderColor = '#E0E0E0'; x.style.background='#fff'; });
-            lb.style.borderColor = '#E91E63'; lb.style.background = '#FCE4EC';
-            ok.disabled = false; ok.style.opacity = 1;
-        });
+    const busca = document.getElementById('iesPickerBusca');
+    let t = null;
+    busca.addEventListener('input', () => {       // debounce: 470 itens redesenham rápido,
+        clearTimeout(t);                          // mas digitação corrida não precisa de todos
+        t = setTimeout(() => filtrarIes(busca.value), 120);
     });
-    const cur = overlay.querySelector('.ies-opt input:checked');
-    if (cur) cur.closest('.ies-opt').click();
+    busca.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); clearTimeout(t); filtrarIes(busca.value); }
+    });
+    filtrarIes('');
+    busca.focus();
 }
 function confirmIesPicker() {
-    const sel = document.querySelector('#iesPickerOverlay input[name="iesRef"]:checked');
-    if (!sel) return;
-    REF = sel.value;
+    // IES_PICK e não o :checked do DOM — a lista é redesenhada a cada busca e o
+    // radio marcado pode ter saído da sub-lista visível.
+    const sel = IES_PICK || (document.querySelector('#iesPickerOverlay input[name="iesRef"]:checked') || {}).value;
+    if (!sel || !IES_POR_SIGLA[sel]) return;
+    REF = sel;
     const ov = document.getElementById('iesPickerOverlay');
     if (ov) ov.remove();
     startWithRef();
