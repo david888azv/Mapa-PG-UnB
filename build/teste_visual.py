@@ -5,6 +5,7 @@
 4.   titularidade por quadrienio (BIONORTE Centro-Oeste)
 5.   Fisica: modalidade/situacao preenchidas, MNPEF sob a sigla certa
 6.   camada de estratos A1-A8/C e o filtro por estrato
+7.   seletor de instituicao com busca (470 IES, atalhos das 27, carga sob demanda)
 
 Exige um servidor em 127.0.0.1:8765 servindo docs/:
     cd docs && python3 -m http.server 8765
@@ -208,6 +209,72 @@ with sync_playwright() as pw:
     ok(base['ativo'], 'trocar a base para OpenAlex mantem metadata.estratos populado')
     ok(not base['igual'], 'os cortes mudam ao trocar de base (CiteScore != OpenAlex)')
     shot(page, '6_estratos')
+
+    # ── TESTE 7: seletor de instituicao com busca (v5.4.0)
+    # A referencia deixou de ser uma de 27 federais e passou a ser qualquer uma das
+    # ~470 instituicoes com programa avaliado, achada por sigla ou nome. O indice
+    # (ies_index.json) traz nome/UF/apelidos; a lista de programas vem sob demanda
+    # em dados/ies-<slug>.json. Roda numa aba NOVA, sem ?ies=, para cair no painel.
+    print('\n=== 7. seletor de instituicao com busca ===', flush=True)
+    p2 = br.new_page(viewport={'width': 1440, 'height': 1000})
+    erros2 = []
+    p2.on('console', lambda m: erros2.append(m.text) if m.type == 'error' else None)
+    p2.on('pageerror', lambda e: erros2.append('PAGEERROR: %s' % e))
+    p2.goto('http://127.0.0.1:8765/index.html', wait_until='networkidle', timeout=60000)
+    p2.wait_for_timeout(1200)
+    p2.click('#licenseOverlay button')
+    p2.wait_for_timeout(1800)
+    ab = p2.evaluate("""() => ({
+        n_ies: (IES_IDX || {}).n_ies || 0,
+        destaque: ((IES_IDX || {}).destaque || []).length,
+        temBusca: !!document.getElementById('iesPickerBusca'),
+        atalhos: document.querySelectorAll('#iesPickerLista .ies-opt').length,
+        okOff: (document.getElementById('iesPickerOk') || {}).disabled,
+    })""")
+    print('   indice: %s IES (%s em destaque) | atalhos visiveis: %s'
+          % (ab['n_ies'], ab['destaque'], ab['atalhos']), flush=True)
+    ok(ab['temBusca'], 'painel tem campo de busca')
+    ok(ab['n_ies'] > 400, 'indice cobre mais de 400 instituicoes (%s)' % ab['n_ies'])
+    ok(ab['destaque'] == 27 and ab['atalhos'] == 27,
+       'sem busca, aparecem as 27 federais como atalho (%s)' % ab['atalhos'])
+    ok(ab['okOff'] is True, 'OK desabilitado antes de escolher')
+
+    # a busca precisa ser cega a caixa, acento e ESPACO: "FIO CRUZ" -> FIOCRUZ
+    bu = p2.evaluate("""() => {
+        const f = t => { filtrarIes(t); return [...document.querySelectorAll(
+            '#iesPickerLista .ies-opt')].map(c => c.dataset.sig); };
+        return {espaco: f('FIO CRUZ'), junto: f('fiocruz'),
+                nome: f('oswaldo'), campus: f('blumenau'), nada: f('zzzq')};
+    }""")
+    print('   "FIO CRUZ" -> %d | "fiocruz" -> %d | "oswaldo" -> %s | "blumenau" -> %s'
+          % (len(bu['espaco']), len(bu['junto']), bu['nome'], bu['campus']), flush=True)
+    ok(bu['espaco'] == bu['junto'] and len(bu['espaco']) > 1,
+       '"FIO CRUZ" acha o mesmo que "fiocruz" (espaco e caixa ignorados)')
+    ok('FIOCRUZ' in bu['nome'], 'busca por parte do NOME encontra a instituicao')
+    ok('UFSC' in bu['campus'], 'campus agregado e achavel pelo nome (blumenau -> UFSC)')
+    ok(bu['nada'] == [], 'termo sem correspondencia nao lista nada')
+
+    # escolher uma instituicao FORA das 27 e conferir que a cascata monta
+    esc = p2.evaluate("""async () => {
+        filtrarIes('FIO CRUZ');
+        [...document.querySelectorAll('#iesPickerLista .ies-opt')]
+            .find(c => c.dataset.sig === 'FIOCRUZ').click();
+        confirmIesPicker();
+        await new Promise(r => setTimeout(r, 4000));
+        return {ref: REF, nome: REF_NOME, n: REGISTRY.programas_unb.length,
+                grandes: Object.keys(REGISTRY.grandes_areas).length,
+                cache: Object.keys(IES_CACHE), url: location.search};
+    }""")
+    print('   REF=%s (%s) | %d programas | %d grandes areas | cache=%s | %s'
+          % (esc['ref'], esc['nome'], esc['n'], esc['grandes'], esc['cache'], esc['url']), flush=True)
+    ok(esc['ref'] == 'FIOCRUZ', 'referencia fora das 27 federais e aceita')
+    ok(esc['n'] > 0 and esc['grandes'] > 0, 'cascata monta para ela (%d programas)' % esc['n'])
+    ok(esc['cache'] == ['FIOCRUZ'], 'baixou SO o arquivo da instituicao escolhida')
+    ok('ies=FIOCRUZ' in esc['url'], 'a URL passa a refletir ?ies=FIOCRUZ')
+    ok(esc['nome'].upper().count('FIOCRUZ') <= 1,
+       'nome nao repete a sigla no rotulo (%r)' % esc['nome'])
+    ok(not erros2, 'sem erro de console no fluxo do seletor (%s)' % (erros2[:2] or 'nenhum'))
+    p2.close()
 
     # ── grafico por IES (Química) para inspecao visual
     page.evaluate("async () => { await switchArea('quimica'); }")
