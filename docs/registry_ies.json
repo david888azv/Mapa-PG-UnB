@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-07-16 16:22:03",
+ "gerado_em": "2026-07-30 07:35:43",
  "padrao": "UNB",
  "n_ifes": 27,
  "ifes": [
@@ -28,7 +28,7 @@
    "siglas_capes": [
     "UFAM"
    ],
-   "n_prog": 36
+   "n_prog": 35
   },
   {
    "sigla": "UNIFAP",
@@ -46,7 +46,7 @@
    "siglas_capes": [
     "UFBA"
    ],
-   "n_prog": 80
+   "n_prog": 78
   },
   {
    "sigla": "UFC",
@@ -55,7 +55,7 @@
    "siglas_capes": [
     "UFC"
    ],
-   "n_prog": 73
+   "n_prog": 72
   },
   {
    "sigla": "UNB",
@@ -64,7 +64,7 @@
    "siglas_capes": [
     "UNB"
    ],
-   "n_prog": 94
+   "n_prog": 92
   },
   {
    "sigla": "UFES",
@@ -73,7 +73,7 @@
    "siglas_capes": [
     "UFES"
    ],
-   "n_prog": 56
+   "n_prog": 55
   },
   {
    "sigla": "UFG",
@@ -82,7 +82,7 @@
    "siglas_capes": [
     "UFG"
    ],
-   "n_prog": 70
+   "n_prog": 57
   },
   {
    "sigla": "UFMA",
@@ -91,7 +91,7 @@
    "siglas_capes": [
     "UFMA"
    ],
-   "n_prog": 40
+   "n_prog": 41
   },
   {
    "sigla": "UFMG",
@@ -109,7 +109,7 @@
    "siglas_capes": [
     "UFMS"
    ],
-   "n_prog": 41
+   "n_prog": 40
   },
   {
    "sigla": "UFMT",
@@ -127,20 +127,23 @@
    "siglas_capes": [
     "UFPA"
    ],
-   "n_prog": 83
+   "n_prog": 86
   },
   {
    "sigla": "UFPB",
    "uf": "PB",
    "nome": "Universidade Federal da Paraíba",
    "siglas_capes": [
+    "UFPB-AREIA",
+    "UFPB-JOÃO PESSOA",
     "UFPB-JP",
+    "UFPB-RIO TINTO",
+    "UFPB-RT",
     "UFPB/AREIA",
     "UFPB/J.P.",
-    "UFPB/RT",
-    "UFPB"
+    "UFPB/RT"
    ],
-   "n_prog": 67
+   "n_prog": 63
   },
   {
    "sigla": "UFPE",
@@ -149,16 +152,17 @@
    "siglas_capes": [
     "UFPE"
    ],
-   "n_prog": 81
+   "n_prog": 79
   },
   {
    "sigla": "UFPI",
    "uf": "PI",
    "nome": "Universidade Federal do Piauí",
    "siglas_capes": [
-    "FUFPI"
+    "FUFPI",
+    "UFPI"
    ],
-   "n_prog": 40
+   "n_prog": 39
   },
   {
    "sigla": "UFPR",
@@ -194,7 +198,7 @@
    "siglas_capes": [
     "UNIR"
    ],
-   "n_prog": 18
+   "n_prog": 16
   },
   {
    "sigla": "UFRR",
@@ -203,7 +207,7 @@
    "siglas_capes": [
     "UFRR"
    ],
-   "n_prog": 10
+   "n_prog": 9
   },
   {
    "sigla": "UFRGS",
@@ -212,7 +216,7 @@
    "siglas_capes": [
     "UFRGS"
    ],
-   "n_prog": 93
+   "n_prog": 91
   },
   {
    "sigla": "UFSC",
@@ -220,9 +224,10 @@
    "nome": "Universidade Federal de Santa Catarina",
    "siglas_capes": [
     "UFSC",
-    "UFSC - BLUMENAU"
+    "UFSC - BLUMENAU",
+    "UFSC-BLUMENAU"
    ],
-   "n_prog": 79
+   "n_prog": 78
   },
   {
    "sigla": "UFS",
@@ -230,9 +235,12 @@
    "nome": "Universidade Federal de Sergipe",
    "siglas_capes": [
     "FUFSE",
-    "FUFSE/ITAB"
+    "FUFSE/ITAB",
+    "UFS",
+    "UFS-ITABAIANA",
+    "UFS/ITAB"
    ],
-   "n_prog": 51
+   "n_prog": 50
   },
   {
    "sigla": "UNIFESP",
@@ -241,14 +249,15 @@
    "siglas_capes": [
     "UNIFESP"
    ],
-   "n_prog": 66
+   "n_prog": 63
   },
   {
    "sigla": "UFT",
    "uf": "TO",
    "nome": "Universidade Federal do Tocantins",
    "siglas_capes": [
-    "UFT"
+    "UFT",
+    "UFT-PALMAS"
    ],
    "n_prog": 27
   }
@@ -440,7 +449,6 @@
      "SOCIOLOGIA"
     ],
     "CIÊNCIAS SOCIAIS APLICADAS": [
-     "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
      "ARQUITETURA, URBANISMO E DESIGN",
      "COMUNICAÇÃO E INFORMAÇÃO",
      "DIREITO",
@@ -455,6 +463,7 @@
      "LINGUÍSTICA E LITERATURA"
     ],
     "MULTIDISCIPLINAR": [
+     "BIOTECNOLOGIA",
      "ENSINO",
      "INTERDISCIPLINAR",
      "MATERIAIS"
@@ -487,7 +496,7 @@
     },
     {
      "cd_programa": "26001012170P6",
-     "nome": "INOVAÇÃO E TECNOLOGIA INTEGRADAS À MEDICINA VETERINÁRIA PARA O DESENVOLVIMENTO REGIONAL",
+     "nome": "CIÊNCIA ANIMAL",
      "nota": 4,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
@@ -638,14 +647,6 @@
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
-     "cd_programa": "31102000001P6",
-     "nome": "PROFNIT - PROPRIEDADE INTELECTUAL E TRANSFERÊNCIA DE TECNOLOGIA PARA INOVAÇÃO",
-     "nota": 4,
-     "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
-     "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
-     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
-    },
-    {
      "cd_programa": "26001012014P4",
      "nome": "DINÂMICA DO ESPAÇO HABITADO",
      "nota": 4,
@@ -711,11 +712,19 @@
     },
     {
      "cd_programa": "26001012001P0",
-     "nome": "LETRAS E LINGÜÍSTICA",
+     "nome": "LINGUÍSTICA E LITERATURA",
      "nota": 4,
      "area_capes": "LINGUÍSTICA E LITERATURA",
      "slug_area": "linguistica-e-literatura",
      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES"
+    },
+    {
+     "cd_programa": "22003010017P5",
+     "nome": "BIOTECNOLOGIA - REDE RENORBIO",
+     "nota": 6,
+     "area_capes": "BIOTECNOLOGIA",
+     "slug_area": "biotecnologia",
+     "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
      "cd_programa": "26001012027P9",
@@ -734,9 +743,9 @@
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
-     "cd_programa": "26001012017P3",
-     "nome": "MODELAGEM COMPUTACIONAL DE CONHECIMENTO",
-     "nota": 2,
+     "cd_programa": "31102000001P6",
+     "nome": "PROFNIT - PROPRIEDADE INTELECTUAL E TRANSFERÊNCIA DE TECNOLOGIA PARA INOVAÇÃO",
+     "nota": 4,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
@@ -827,7 +836,7 @@
     },
     {
      "cd_programa": "14001012001P6",
-     "nome": "MESTRADO INTEGRADO EM DESENVOLVIMENTO REGIONAL",
+     "nome": "DESENVOLVIMENTO DA AMAZÔNIA SUSTENTÁVEL",
      "nota": 3,
      "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
      "slug_area": "planejamento-urbano-e-regional-demografia",
@@ -872,7 +881,6 @@
     "CIÊNCIAS DA SAÚDE": [
      "ENFERMAGEM",
      "FARMÁCIA",
-     "MEDICINA II",
      "MEDICINA III",
      "ODONTOLOGIA"
     ],
@@ -937,7 +945,7 @@
     },
     {
      "cd_programa": "12001015025P7",
-     "nome": "CIÊNCIAS PESQUEIRAS NOS TRÓPICOS",
+     "nome": "CIÊNCIA ANIMAL E RECURSOS PESQUEIROS",
      "nota": 4,
      "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
      "slug_area": "zootecnia-recursos-pesqueiros",
@@ -976,16 +984,8 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
-     "cd_programa": "12001015039P8",
-     "nome": "CIÊNCIAS DA SAÚDE",
-     "nota": 2,
-     "area_capes": "MEDICINA II",
-     "slug_area": "medicina-ii",
-     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
-    },
-    {
      "cd_programa": "12001015065P9",
-     "nome": "MESTRADO PROFISSIONAL EM CIRURGIA",
+     "nome": "CIRURGIA",
      "nota": 3,
      "area_capes": "MEDICINA III",
      "slug_area": "medicina-iii",
@@ -1130,7 +1130,7 @@
     {
      "cd_programa": "12001015038P1",
      "nome": "BIODIVERSIDADE E BIOTECNOLOGIA - REDE BIONORTE",
-     "nota": 5,
+     "nota": 4,
      "area_capes": "BIOTECNOLOGIA",
      "slug_area": "biotecnologia",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
@@ -1169,7 +1169,7 @@
     },
     {
      "cd_programa": "12001015171P3",
-     "nome": "CIENCIAS E HUMANIDADES",
+     "nome": "ENSINO DE CIÊNCIAS E HUMANIDADES",
      "nota": 4,
      "area_capes": "ENSINO",
      "slug_area": "ensino",
@@ -1290,7 +1290,7 @@
     },
     {
      "cd_programa": "28001010065P7",
-     "nome": "DIVERSIDADE ANIMAL",
+     "nome": "BIODIVERSIDADE E EVOLUÇÃO",
      "nota": 5,
      "area_capes": "BIODIVERSIDADE",
      "slug_area": "biodiversidade",
@@ -1306,7 +1306,7 @@
     },
     {
      "cd_programa": "28001010039P6",
-     "nome": "ECOLOGIA E BIOMONITORAMENTO",
+     "nome": "ECOLOGIA: TEORIA, APLICAÇÃO E VALORES",
      "nota": 4,
      "area_capes": "BIODIVERSIDADE",
      "slug_area": "biodiversidade",
@@ -1346,7 +1346,7 @@
     },
     {
      "cd_programa": "28001010014P3",
-     "nome": "ENFERMAGEM",
+     "nome": "ENFERMAGEM E SAÚDE",
      "nota": 5,
      "area_capes": "ENFERMAGEM",
      "slug_area": "enfermagem",
@@ -1451,14 +1451,6 @@
     {
      "cd_programa": "28001010090P1",
      "nome": "CIÊNCIA DA COMPUTAÇÃO - UFBA - UEFS",
-     "nota": 3,
-     "area_capes": "CIÊNCIA DA COMPUTAÇÃO",
-     "slug_area": "ciencia-da-computacao",
-     "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
-    },
-    {
-     "cd_programa": "28001010061P1",
-     "nome": "CIÊNCIA DA COMPUTAÇÃO - UFBA - UNIFACS - UEFS",
      "nota": 3,
      "area_capes": "CIÊNCIA DA COMPUTAÇÃO",
      "slug_area": "ciencia-da-computacao",
@@ -1642,7 +1634,7 @@
     },
     {
      "cd_programa": "28001010024P9",
-     "nome": "COMUNICAÇÃO E CULTURA CONTEMPORÂNEA",
+     "nome": "COMUNICAÇÃO E CULTURA CONTEMPORÂNEAS",
      "nota": 6,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
@@ -1705,14 +1697,6 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
-     "cd_programa": "28001010021P0",
-     "nome": "ENGENHARIA QUÍMICA",
-     "nota": 1,
-     "area_capes": "ENGENHARIAS II",
-     "slug_area": "engenharias-ii",
-     "grande_area_cnpq": "ENGENHARIAS"
-    },
-    {
      "cd_programa": "28001010059P7",
      "nome": "ENGENHARIA QUÍMICA - UFBA-UNIFACS",
      "nota": 4,
@@ -1746,7 +1730,7 @@
     },
     {
      "cd_programa": "28001010037P3",
-     "nome": "ENGENHARIA ELÉTRICA",
+     "nome": "ENGENHARIAS ELÉTRICA E DE COMPUTAÇÃO",
      "nota": 4,
      "area_capes": "ENGENHARIAS IV",
      "slug_area": "engenharias-iv",
@@ -1874,7 +1858,7 @@
     },
     {
      "cd_programa": "28001010056P8",
-     "nome": "ESTUDOS INTERDISCIPLINARES SOBRE MULHERES, GÊNERO E FEMINISM",
+     "nome": "ESTUDOS INTERDISCIPLINARES SOBRE MULHERES, GÊNERO E FEMINISMO",
      "nota": 4,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
@@ -1936,7 +1920,6 @@
      "QUÍMICA"
     ],
     "CIÊNCIAS HUMANAS": [
-     "ANTROPOLOGIA / ARQUEOLOGIA",
      "EDUCAÇÃO",
      "FILOSOFIA",
      "GEOGRAFIA",
@@ -2011,9 +1994,9 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "22001018016P6",
+     "cd_programa": "25003011009P0",
      "nome": "ZOOTECNIA",
-     "nota": 4,
+     "nota": 5,
      "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
      "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
@@ -2225,14 +2208,6 @@
      "area_capes": "QUÍMICA",
      "slug_area": "quimica",
      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
-    },
-    {
-     "cd_programa": "22001018171P1",
-     "nome": "ANTROPOLOGIA",
-     "nota": 3,
-     "area_capes": "ANTROPOLOGIA / ARQUEOLOGIA",
-     "slug_area": "antropologia-arqueologia",
-     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
      "cd_programa": "22001018001P9",
@@ -2856,7 +2831,7 @@
     },
     {
      "cd_programa": "53001010075P3",
-     "nome": "GEOCIÊNCIAS APLICADAS",
+     "nome": "GEOCIÊNCIAS APLICADAS E GEODINÂMICA",
      "nota": 4,
      "area_capes": "GEOCIÊNCIAS",
      "slug_area": "geociencias",
@@ -2990,15 +2965,6 @@
      "sufixo": "PSCCOM"
     },
     {
-     "cd_programa": "53001010062P9",
-     "nome": "PROCESSOS DE DESENVOLVIMENTO HUMANO E SAÚDE",
-     "nota": 5,
-     "area_capes": "PSICOLOGIA",
-     "slug_area": "psicologia",
-     "grande_area_cnpq": "CIÊNCIAS HUMANAS",
-     "sufixo": "PSCDES"
-    },
-    {
      "cd_programa": "53001010064P1",
      "nome": "PSICOLOGIA CLÍNICA E CULTURA",
      "nota": 5,
@@ -3006,6 +2972,15 @@
      "slug_area": "psicologia",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS",
      "sufixo": "PSCCLI"
+    },
+    {
+     "cd_programa": "53001010062P9",
+     "nome": "PSICOLOGIA DO DESENVOLVIMENTO E ESCOLAR",
+     "nota": 5,
+     "area_capes": "PSICOLOGIA",
+     "slug_area": "psicologia",
+     "grande_area_cnpq": "CIÊNCIAS HUMANAS",
+     "sufixo": "PSCDES"
     },
     {
      "cd_programa": "53001010065P8",
@@ -3233,15 +3208,6 @@
      "sufixo": "ENGBIO"
     },
     {
-     "cd_programa": "53001010081P3",
-     "nome": "ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO",
-     "nota": 3,
-     "area_capes": "ENGENHARIAS IV",
-     "slug_area": "engenharias-iv",
-     "grande_area_cnpq": "ENGENHARIAS",
-     "sufixo": "ESELET"
-    },
-    {
      "cd_programa": "53001010059P8",
      "nome": "ENGENHARIA ELÉTRICA",
      "nota": 3,
@@ -3260,15 +3226,6 @@
      "sufixo": "ENGELE"
     },
     {
-     "cd_programa": "53001010040P5",
-     "nome": "ARTES",
-     "nota": 5,
-     "area_capes": "ARTES",
-     "slug_area": "artes",
-     "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
-     "sufixo": "ARTVIS"
-    },
-    {
      "cd_programa": "53001010103P7",
      "nome": "ARTES CÊNICAS",
      "nota": 5,
@@ -3276,6 +3233,15 @@
      "slug_area": "artes",
      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
      "sufixo": "ARTCEN"
+    },
+    {
+     "cd_programa": "53001010040P5",
+     "nome": "ARTES VISUAIS",
+     "nota": 5,
+     "area_capes": "ARTES",
+     "slug_area": "artes",
+     "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES",
+     "sufixo": "ARTVIS"
     },
     {
      "cd_programa": "53001010057P5",
@@ -3439,14 +3405,6 @@
      "sufixo": "NANOBI"
     },
     {
-     "cd_programa": "53001010069P3",
-     "nome": "REGULAÇÃO E GESTÃO DE NEGÓCIOS",
-     "nota": 2,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
      "cd_programa": "53001010113P2",
      "nome": "SUSTENTABILIDADE JUNTO A POVOS E TERRITÓRIOS TRADICIONAIS",
      "nota": 3,
@@ -3481,7 +3439,6 @@
      "EDUCAÇÃO FÍSICA",
      "ENFERMAGEM",
      "FARMÁCIA",
-     "MEDICINA I",
      "MEDICINA II",
      "NUTRIÇÃO",
      "ODONTOLOGIA",
@@ -3544,6 +3501,14 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
+     "cd_programa": "30001013019P8",
+     "nome": "AGRONOMIA",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS AGRÁRIAS I",
+     "slug_area": "ciencias-agrarias-i",
+     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
+    },
+    {
      "cd_programa": "30001013104P5",
      "nome": "AGROQUÍMICA",
      "nota": 4,
@@ -3576,14 +3541,6 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "30001013019P8",
-     "nome": "PRODUÇÃO VEGETAL",
-     "nota": 4,
-     "area_capes": "CIÊNCIAS AGRÁRIAS I",
-     "slug_area": "ciencias-agrarias-i",
-     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
      "cd_programa": "30001013033P0",
      "nome": "CIÊNCIAS VETERINÁRIAS",
      "nota": 4,
@@ -3601,7 +3558,7 @@
     },
     {
      "cd_programa": "30001013049P4",
-     "nome": "BIOQUÍMICA E FARMACOLOGIA",
+     "nome": "BIOQUÍMICA",
      "nota": 4,
      "area_capes": "CIÊNCIAS BIOLÓGICAS II",
      "slug_area": "ciencias-biologicas-ii",
@@ -3637,14 +3594,6 @@
      "nota": 4,
      "area_capes": "FARMÁCIA",
      "slug_area": "farmacia",
-     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
-    },
-    {
-     "cd_programa": "30001013043P6",
-     "nome": "MEDICINA",
-     "nota": 2,
-     "area_capes": "MEDICINA I",
-     "slug_area": "medicina-i",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -3988,6 +3937,7 @@
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
+     "CIÊNCIAS BIOLÓGICAS II",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
@@ -4035,8 +3985,7 @@
     "MULTIDISCIPLINAR": [
      "CIÊNCIAS AMBIENTAIS",
      "ENSINO",
-     "INTERDISCIPLINAR",
-     "MATERIAIS"
+     "INTERDISCIPLINAR"
     ]
    },
    "programas": [
@@ -4057,27 +4006,11 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "52001016033P2",
-     "nome": "AGRONOMIA (PRODUÇÃO VEGETAL)",
-     "nota": 3,
-     "area_capes": "CIÊNCIAS AGRÁRIAS I",
-     "slug_area": "ciencias-agrarias-i",
-     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
      "cd_programa": "52001016047P3",
      "nome": "GENÉTICA E MELHORAMENTO DE PLANTAS",
      "nota": 5,
      "area_capes": "CIÊNCIAS AGRÁRIAS I",
      "slug_area": "ciencias-agrarias-i",
-     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
-     "cd_programa": "52001016105P3",
-     "nome": "BIOCIÊNCIA ANIMAL",
-     "nota": 4,
-     "area_capes": "MEDICINA VETERINÁRIA",
-     "slug_area": "medicina-veterinaria",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -4113,19 +4046,19 @@
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
-     "cd_programa": "52001016005P9",
-     "nome": "CIÊNCIAS BIOLÓGICAS",
-     "nota": 5,
-     "area_capes": "CIÊNCIAS BIOLÓGICAS I",
-     "slug_area": "ciencias-biologicas-i",
-     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
-    },
-    {
      "cd_programa": "52001016056P2",
      "nome": "GENÉTICA E BIOLOGIA MOLECULAR",
      "nota": 4,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
+     "cd_programa": "52001016005P9",
+     "nome": "CIÊNCIAS BIOLÓGICAS",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
@@ -4146,7 +4079,7 @@
     },
     {
      "cd_programa": "52001016023P7",
-     "nome": "ENFERMAGEM",
+     "nome": "ENFERMAGEM E SAÚDE (PPGENFS)",
      "nota": 5,
      "area_capes": "ENFERMAGEM",
      "slug_area": "enfermagem",
@@ -4257,14 +4190,6 @@
      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
     },
     {
-     "cd_programa": "52001016050P4",
-     "nome": "QUÍMICA - CAMPUS CATALÃO",
-     "nota": 3,
-     "area_capes": "QUÍMICA",
-     "slug_area": "quimica",
-     "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
-    },
-    {
      "cd_programa": "52001016035P5",
      "nome": "QUÍMICA - UFG-UFMS-UFU",
      "nota": 4,
@@ -4282,7 +4207,7 @@
     },
     {
      "cd_programa": "52001016055P6",
-     "nome": "CIÊNCIA POLÍTICA",
+     "nome": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
      "nota": 4,
      "area_capes": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
      "slug_area": "ciencia-politica-e-relacoes-internacionais",
@@ -4292,22 +4217,6 @@
      "cd_programa": "52001016007P1",
      "nome": "EDUCAÇÃO",
      "nota": 5,
-     "area_capes": "EDUCAÇÃO",
-     "slug_area": "educacao",
-     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
-    },
-    {
-     "cd_programa": "52001016063P9",
-     "nome": "EDUCAÇÃO",
-     "nota": 3,
-     "area_capes": "EDUCAÇÃO",
-     "slug_area": "educacao",
-     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
-    },
-    {
-     "cd_programa": "52001016052P7",
-     "nome": "EDUCAÇÃO - CAMPUS CATALÃO",
-     "nota": 3,
      "area_capes": "EDUCAÇÃO",
      "slug_area": "educacao",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
@@ -4334,22 +4243,6 @@
      "nota": 3,
      "area_capes": "GEOGRAFIA",
      "slug_area": "geografia",
-     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
-    },
-    {
-     "cd_programa": "52001016045P0",
-     "nome": "GEOGRAFIA ( CAMPUS JATAI )",
-     "nota": 4,
-     "area_capes": "GEOGRAFIA",
-     "slug_area": "geografia",
-     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
-    },
-    {
-     "cd_programa": "52001016066P8",
-     "nome": "HISTORIA",
-     "nota": 3,
-     "area_capes": "HISTÓRIA",
-     "slug_area": "historia",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
@@ -4457,14 +4350,6 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
-     "cd_programa": "52001016106P0",
-     "nome": "ENGENHARIA DE PRODUÇÃO",
-     "nota": 3,
-     "area_capes": "ENGENHARIAS III",
-     "slug_area": "engenharias-iii",
-     "grande_area_cnpq": "ENGENHARIAS"
-    },
-    {
      "cd_programa": "52001016109P9",
      "nome": "ENGENHARIA DE PRODUÇÃO",
      "nota": 3,
@@ -4494,14 +4379,6 @@
      "nota": 3,
      "area_capes": "ARTES",
      "slug_area": "artes",
-     "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES"
-    },
-    {
-     "cd_programa": "52001016049P6",
-     "nome": "ESTUDOS DA LINGUAGEM",
-     "nota": 4,
-     "area_capes": "LINGUÍSTICA E LITERATURA",
-     "slug_area": "linguistica-e-literatura",
      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES"
     },
     {
@@ -4553,33 +4430,9 @@
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
-     "cd_programa": "52001016059P1",
-     "nome": "CIÊNCIAS APLICADAS À SAÚDE",
-     "nota": 3,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
      "cd_programa": "52001016057P9",
      "nome": "DIREITOS HUMANOS",
      "nota": 4,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "52001016061P6",
-     "nome": "GESTÃO ORGANIZACIONAL",
-     "nota": 4,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "52001016067P4",
-     "nome": "MODELAGEM E OTIMIZAÇÃO",
-     "nota": 3,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
@@ -4590,14 +4443,6 @@
      "nota": 4,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "52001016103P0",
-     "nome": "CIÊNCIAS EXATAS E TECNOLÓGICAS",
-     "nota": 4,
-     "area_capes": "MATERIAIS",
-     "slug_area": "materiais",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     }
    ]
@@ -4640,6 +4485,7 @@
      "SERVIÇO SOCIAL"
     ],
     "ENGENHARIAS": [
+     "ENGENHARIAS III",
      "ENGENHARIAS IV"
     ],
     "LINGÜÍSTICA, LETRAS E ARTES": [
@@ -4696,7 +4542,7 @@
     },
     {
      "cd_programa": "20001010014P8",
-     "nome": "SAUDE DO ADULTO E DA CRIANCA",
+     "nome": "SAÚDE DO ADULTO",
      "nota": 4,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
@@ -4744,7 +4590,7 @@
     },
     {
      "cd_programa": "20001010042P1",
-     "nome": "OCEANOGRAFIA",
+     "nome": "CIÊNCIA E TECNOLOGIA AMBIENTAL",
      "nota": 3,
      "area_capes": "GEOCIÊNCIAS",
      "slug_area": "geociencias",
@@ -4776,7 +4622,7 @@
     },
     {
      "cd_programa": "20001010053P3",
-     "nome": "FORMAÇÃO DOCENTE EM PRÁTICAS EDUCATIVAS",
+     "nome": "EDUCAÇÃO E PRÁTICAS EDUCATIVAS",
      "nota": 3,
      "area_capes": "EDUCAÇÃO",
      "slug_area": "educacao",
@@ -4879,8 +4725,16 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "23001011181P0",
+     "nome": "ENGENHARIA AEROESPACIAL",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS III",
+     "slug_area": "engenharias-iii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "20001010005P9",
-     "nome": "ENGENHARIA DE ELETRICIDADE",
+     "nome": "ENGENHARIA ELÉTRICA",
      "nota": 4,
      "area_capes": "ENGENHARIAS IV",
      "slug_area": "engenharias-iv",
@@ -4888,7 +4742,7 @@
     },
     {
      "cd_programa": "20001010045P0",
-     "nome": "PÓS GRADUAÇÃO EM ARTES CÊNICAS",
+     "nome": "ARTES CÊNICAS",
      "nota": 3,
      "area_capes": "ARTES",
      "slug_area": "artes",
@@ -5013,6 +4867,9 @@
      "DIREITO",
      "ECONOMIA",
      "SERVIÇO SOCIAL"
+    ],
+    "ENGENHARIAS": [
+     "ENGENHARIAS I"
     ],
     "LINGÜÍSTICA, LETRAS E ARTES": [
      "LINGUÍSTICA E LITERATURA"
@@ -5282,6 +5139,14 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
+     "cd_programa": "50001019018P8",
+     "nome": "RECURSOS HÍDRICOS",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS I",
+     "slug_area": "engenharias-i",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "50001019008P2",
      "nome": "ESTUDOS DE LINGUAGEM",
      "nota": 5,
@@ -5308,14 +5173,6 @@
     {
      "cd_programa": "50001019172P7",
      "nome": "GESTÃO E TECNOLOGIA AMBIENTAL",
-     "nota": 3,
-     "area_capes": "CIÊNCIAS AMBIENTAIS",
-     "slug_area": "ciencias-ambientais",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "50001019018P8",
-     "nome": "RECURSOS HÍDRICOS",
      "nota": 3,
      "area_capes": "CIÊNCIAS AMBIENTAIS",
      "slug_area": "ciencias-ambientais",
@@ -5708,14 +5565,6 @@
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
-     "cd_programa": "51001012172P0",
-     "nome": "ENSINO DE CIÊNCIAS",
-     "nota": 4,
-     "area_capes": "ENSINO",
-     "slug_area": "ensino",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
      "cd_programa": "51001012178P8",
      "nome": "ESTUDOS CULTURAIS",
      "nota": 3,
@@ -5937,7 +5786,7 @@
     },
     {
      "cd_programa": "32001010171P0",
-     "nome": "INOVAÇÃO TECNOLÓGICA E BIOFARMACÊUTICA",
+     "nome": "INOVAÇÃO TECNOLÓGICA",
      "nota": 5,
      "area_capes": "CIÊNCIAS BIOLÓGICAS II",
      "slug_area": "ciencias-biologicas-ii",
@@ -6393,7 +6242,7 @@
     },
     {
      "cd_programa": "32001010017P0",
-     "nome": "ENGENHARIA METALÚRGICA E DE MINAS",
+     "nome": "ENGENHARIA METALÚRGICA, MATERIAIS E DE MINAS",
      "nota": 6,
      "area_capes": "ENGENHARIAS II",
      "slug_area": "engenharias-ii",
@@ -6707,6 +6556,14 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
+     "cd_programa": "52001016062P2",
+     "nome": "INOVAÇÃO FARMACÊUTICA",
+     "nota": 4,
+     "area_capes": "FARMÁCIA",
+     "slug_area": "farmacia",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
      "cd_programa": "15001016086P4",
      "nome": "QUÍMICA MEDICINAL E MODELAGEM MOLECULAR",
      "nota": 3,
@@ -6756,7 +6613,7 @@
     },
     {
      "cd_programa": "15001016079P8",
-     "nome": "SAÚDE, AMBIENTE E SOCIEDADE NA AMAZÔNIA",
+     "nome": "SAÚDE COLETIVA NA AMAZÔNIA",
      "nota": 3,
      "area_capes": "SAÚDE COLETIVA",
      "slug_area": "saude-coletiva",
@@ -6939,9 +6796,9 @@
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
-     "cd_programa": "15001016073P0",
-     "nome": "GESTÃO PÚBLICA",
-     "nota": 2,
+     "cd_programa": "15001016169P7",
+     "nome": "ADMINISTRAÇÃO",
+     "nota": 3,
      "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
      "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
@@ -7043,6 +6900,14 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "15001016168P0",
+     "nome": "CIÊNCIA E ENGENHARIA DE MATERIAIS",
+     "nota": 3,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "15001016010P8",
      "nome": "ENGENHARIA QUÍMICA",
      "nota": 4,
@@ -7053,14 +6918,6 @@
     {
      "cd_programa": "15001016075P2",
      "nome": "ENGENHARIA DE PROCESSOS",
-     "nota": 3,
-     "area_capes": "ENGENHARIAS III",
-     "slug_area": "engenharias-iii",
-     "grande_area_cnpq": "ENGENHARIAS"
-    },
-    {
-     "cd_programa": "15001016051P6",
-     "nome": "ENGENHARIA DE RECURSOS NATURAIS DA AMAZÔNIA",
      "nota": 3,
      "area_capes": "ENGENHARIAS III",
      "slug_area": "engenharias-iii",
@@ -7115,6 +6972,14 @@
      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES"
     },
     {
+     "cd_programa": "12001015038P1",
+     "nome": "BIODIVERSIDADE E BIOTECNOLOGIA - REDE BIONORTE",
+     "nota": 5,
+     "area_capes": "BIOTECNOLOGIA",
+     "slug_area": "biotecnologia",
+     "grande_area_cnpq": "MULTIDISCIPLINAR"
+    },
+    {
      "cd_programa": "15001016068P6",
      "nome": "BIOTECNOLOGIA",
      "nota": 5,
@@ -7140,7 +7005,7 @@
     },
     {
      "cd_programa": "15001016088P7",
-     "nome": "GESTÃO DE RISCO E DESASTRE NA AMAZÔNIA",
+     "nome": "GESTÃO DE RISCOS E DESASTRES NATURAIS NA AMAZÔNIA",
      "nota": 3,
      "area_capes": "CIÊNCIAS AMBIENTAIS",
      "slug_area": "ciencias-ambientais",
@@ -7171,6 +7036,14 @@
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
+     "cd_programa": "50001019028P3",
+     "nome": "EDUCAÇÃO EM CIÊNCIAS E MATEMÁTICA - UFMT - UFPA - UEA",
+     "nota": 5,
+     "area_capes": "ENSINO",
+     "slug_area": "ensino",
+     "grande_area_cnpq": "MULTIDISCIPLINAR"
+    },
+    {
      "cd_programa": "15001016033P8",
      "nome": "EDUCAÇÃO EM CIÊNCIAS E MATEMÁTICAS",
      "nota": 5,
@@ -7188,7 +7061,7 @@
     },
     {
      "cd_programa": "15001016157P9",
-     "nome": "CIDADES: TERRITÓRIOS E IDENTIDADES",
+     "nome": "CIDADES, TERRITÓRIOS, IDENTIDADES E EDUCAÇÃO",
      "nota": 3,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
@@ -7196,7 +7069,7 @@
     },
     {
      "cd_programa": "15001016164P5",
-     "nome": "CIÊNCIAS DO PATRIMÔNIO",
+     "nome": "CIÊNCIAS DO PATRIMÔNIO CULTURAL",
      "nota": 3,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
@@ -7249,8 +7122,7 @@
     "CIÊNCIAS AGRÁRIAS": [
      "CIÊNCIA DE ALIMENTOS",
      "CIÊNCIAS AGRÁRIAS I",
-     "MEDICINA VETERINÁRIA",
-     "ZOOTECNIA / RECURSOS PESQUEIROS"
+     "MEDICINA VETERINÁRIA"
     ],
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
@@ -7316,14 +7188,6 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "24001015054P0",
-     "nome": "TECNOLOGIA AGROALIMENTAR",
-     "nota": 3,
-     "area_capes": "CIÊNCIA DE ALIMENTOS",
-     "slug_area": "ciencia-de-alimentos",
-     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
      "cd_programa": "24001031020P0",
      "nome": "AGRONOMIA",
      "nota": 5,
@@ -7340,27 +7204,11 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "24001015064P6",
-     "nome": "CIÊNCIAS AGRÁRIAS (AGROECOLOGIA)",
-     "nota": 3,
-     "area_capes": "CIÊNCIAS AGRÁRIAS I",
-     "slug_area": "ciencias-agrarias-i",
-     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
      "cd_programa": "24001031025P1",
      "nome": "CIÊNCIA ANIMAL",
      "nota": 4,
      "area_capes": "MEDICINA VETERINÁRIA",
      "slug_area": "medicina-veterinaria",
-     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
-     "cd_programa": "24001031024P5",
-     "nome": "ZOOTECNIA",
-     "nota": 4,
-     "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
-     "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
@@ -7406,7 +7254,7 @@
     {
      "cd_programa": "24001015081P8",
      "nome": "FONOAUDIOLOGIA",
-     "nota": 4,
+     "nota": 3,
      "area_capes": "EDUCAÇÃO FÍSICA",
      "slug_area": "educacao-fisica",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
@@ -7421,10 +7269,18 @@
     },
     {
      "cd_programa": "24001015077P0",
-     "nome": "PROGRAMA DE MESTRADO PROFISSIONAL EM GERONTOLOGIA",
+     "nome": "GERONTOLOGIA",
      "nota": 4,
      "area_capes": "ENFERMAGEM",
      "slug_area": "enfermagem",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "23001011047P1",
+     "nome": "DESENVOLVIMENTO E INOVAÇÃO TECNOLÓGICA EM MEDICAMENTOS",
+     "nota": 4,
+     "area_capes": "FARMÁCIA",
+     "slug_area": "farmacia",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -7494,7 +7350,7 @@
     {
      "cd_programa": "24001015058P6",
      "nome": "MATEMÁTICA - UFPB-J.P. - UFCG",
-     "nota": 5,
+     "nota": 4,
      "area_capes": "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA",
      "slug_area": "matematica-probabilidade-e-estatistica",
      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
@@ -7551,14 +7407,6 @@
      "cd_programa": "24001015005P0",
      "nome": "FILOSOFIA",
      "nota": 4,
-     "area_capes": "FILOSOFIA",
-     "slug_area": "filosofia",
-     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
-    },
-    {
-     "cd_programa": "24001015046P8",
-     "nome": "FILOSOFIA (UFPE-UFPB-UFRN)",
-     "nota": 2,
      "area_capes": "FILOSOFIA",
      "slug_area": "filosofia",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
@@ -7815,14 +7663,6 @@
      "cd_programa": "24001015065P2",
      "nome": "DIREITOS HUMANOS, CIDADANIA E POLÍTICAS PÚBLICAS",
      "nota": 4,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "24001015071P2",
-     "nome": "MODELAGEM MATEMÁTICA E COMPUTACIONAL",
-     "nota": 2,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
@@ -8100,7 +7940,7 @@
     },
     {
      "cd_programa": "40001016073P0",
-     "nome": "ENFERMAGEM",
+     "nome": "PRÁTICA DO CUIDADO EM SAÚDE",
      "nota": 4,
      "area_capes": "ENFERMAGEM",
      "slug_area": "enfermagem",
@@ -8116,7 +7956,7 @@
     },
     {
      "cd_programa": "40001016012P1",
-     "nome": "MEDICINA INTERNA",
+     "nome": "MEDICINA INTERNA E CIÊNCIAS DA SAÚDE",
      "nota": 5,
      "area_capes": "MEDICINA I",
      "slug_area": "medicina-i",
@@ -8140,7 +7980,7 @@
     },
     {
      "cd_programa": "40001016084P2",
-     "nome": "TOCOGINECOLOGIA",
+     "nome": "TOCOGINECOLOGIA E SAÚDE DA MULHER",
      "nota": 3,
      "area_capes": "MEDICINA III",
      "slug_area": "medicina-iii",
@@ -8148,7 +7988,7 @@
     },
     {
      "cd_programa": "40001016074P7",
-     "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ALIMENTAÇÃO E NUTRIÇÃO",
+     "nome": "ALIMENTAÇÃO E NUTRIÇÃO",
      "nota": 4,
      "area_capes": "NUTRIÇÃO",
      "slug_area": "nutricao",
@@ -8220,7 +8060,7 @@
     },
     {
      "cd_programa": "40001016027P9",
-     "nome": "ANTROPOLOGIA",
+     "nome": "ANTROPOLOGIA E ARQUEOLOGIA",
      "nota": 4,
      "area_capes": "ANTROPOLOGIA / ARQUEOLOGIA",
      "slug_area": "antropologia-arqueologia",
@@ -8230,6 +8070,14 @@
      "cd_programa": "40001016061P2",
      "nome": "CIÊNCIA POLÍTICA",
      "nota": 6,
+     "area_capes": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
+     "slug_area": "ciencia-politica-e-relacoes-internacionais",
+     "grande_area_cnpq": "CIÊNCIAS HUMANAS"
+    },
+    {
+     "cd_programa": "40001016076P0",
+     "nome": "POLÍTICAS PÚBLICAS",
+     "nota": 4,
      "area_capes": "CIÊNCIA POLÍTICA E RELAÇÕES INTERNACIONAIS",
      "slug_area": "ciencia-politica-e-relacoes-internacionais",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
@@ -8364,7 +8212,7 @@
     },
     {
      "cd_programa": "40001016051P7",
-     "nome": "DESENVOLVIMENTO ECONÔMICO",
+     "nome": "ECONOMIA",
      "nota": 4,
      "area_capes": "ECONOMIA",
      "slug_area": "economia",
@@ -8388,7 +8236,7 @@
     },
     {
      "cd_programa": "40001016049P2",
-     "nome": "ENGENHARIA DE CONSTRUÇÃO CIVIL",
+     "nome": "ENGENHARIA CIVIL",
      "nota": 5,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
@@ -8475,17 +8323,17 @@
      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES"
     },
     {
-     "cd_programa": "40001016036P8",
-     "nome": "ENGENHARIA DE BIOPROCESSOS E BIOTECNOLOGIA",
-     "nota": 7,
+     "cd_programa": "40001016083P6",
+     "nome": "BIOTECNOLOGIA",
+     "nota": 3,
      "area_capes": "BIOTECNOLOGIA",
      "slug_area": "biotecnologia",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
-     "cd_programa": "40001016083P6",
-     "nome": "TECNOLOGIAS DE BIOPRODUTOS AGROINDUSTRIAIS",
-     "nota": 3,
+     "cd_programa": "40001016036P8",
+     "nome": "ENGENHARIA DE BIOPROCESSOS E BIOTECNOLOGIA",
+     "nota": 7,
      "area_capes": "BIOTECNOLOGIA",
      "slug_area": "biotecnologia",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
@@ -8524,15 +8372,7 @@
     },
     {
      "cd_programa": "40001016058P1",
-     "nome": "CIÊNCIA, GESTÃO E TECNOLOGIA DA INFORMAÇÃO",
-     "nota": 4,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "40001016076P0",
-     "nome": "POLÍTICAS PÚBLICAS",
+     "nome": "GESTÃO DA INFORMAÇÃO",
      "nota": 4,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
@@ -8668,7 +8508,7 @@
     },
     {
      "cd_programa": "25001019037P1",
-     "nome": "GENÉTICA",
+     "nome": "GENÉTICA E BIOLOGIA MOLECULAR",
      "nota": 4,
      "area_capes": "CIÊNCIAS BIOLÓGICAS I",
      "slug_area": "ciencias-biologicas-i",
@@ -8979,14 +8819,6 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
-     "cd_programa": "25001019078P0",
-     "nome": "ADMINISTRAÇÃO",
-     "nota": 1,
-     "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
-     "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
-     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
-    },
-    {
      "cd_programa": "25001019068P4",
      "nome": "CIÊNCIAS CONTÁBEIS",
      "nota": 4,
@@ -9059,14 +8891,6 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
-     "cd_programa": "25001019063P2",
-     "nome": "ECONOMIA",
-     "nota": 1,
-     "area_capes": "ECONOMIA",
-     "slug_area": "economia",
-     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
-    },
-    {
      "cd_programa": "25001019083P3",
      "nome": "ECONOMIA - CAMPUS AGRESTE",
      "nota": 4,
@@ -9124,7 +8948,7 @@
     },
     {
      "cd_programa": "25001019020P1",
-     "nome": "TECNOLOGIAS ENERGÉTICAS NUCLEARES",
+     "nome": "TECNOLOGIAS ENERGÉTICAS E NUCLEARES",
      "nota": 5,
      "area_capes": "ENGENHARIAS II",
      "slug_area": "engenharias-ii",
@@ -9332,16 +9156,8 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "21001014018P6",
-     "nome": "AGRONOMIA - SOLOS E NUTRIÇÃO DE PLANTAS",
-     "nota": 3,
-     "area_capes": "CIÊNCIAS AGRÁRIAS I",
-     "slug_area": "ciencias-agrarias-i",
-     "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
-    },
-    {
      "cd_programa": "21001014023P0",
-     "nome": "FITOTECNIA",
+     "nome": "CIÊNCIAS AGRÁRIAS",
      "nota": 4,
      "area_capes": "CIÊNCIAS AGRÁRIAS I",
      "slug_area": "ciencias-agrarias-i",
@@ -9364,17 +9180,17 @@
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "21001014002P2",
-     "nome": "CIÊNCIA ANIMAL",
-     "nota": 4,
+     "cd_programa": "21001014029P8",
+     "nome": "ZOOTECNIA",
+     "nota": 3,
      "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
      "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
     },
     {
-     "cd_programa": "21001014029P8",
-     "nome": "ZOOTECNIA",
-     "nota": 3,
+     "cd_programa": "21001014002P2",
+     "nome": "ZOOTECNIA TROPICAL",
+     "nota": 4,
      "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
      "slug_area": "zootecnia-recursos-pesqueiros",
      "grande_area_cnpq": "CIÊNCIAS AGRÁRIAS"
@@ -9629,7 +9445,7 @@
     },
     {
      "cd_programa": "21001014024P6",
-     "nome": "CIÊNCIA DOS MATERIAIS",
+     "nome": "CIÊNCIA E ENGENHARIA DOS MATERIAIS",
      "nota": 6,
      "area_capes": "MATERIAIS",
      "slug_area": "materiais",
@@ -9784,8 +9600,16 @@
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
+     "cd_programa": "31001017149P1",
+     "nome": "EDUCAÇÃO, GESTÃO E DIFUSÃO EM BIOCIÊNCIAS",
+     "nota": 4,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
+     "slug_area": "ciencias-biologicas-ii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
      "cd_programa": "31001017144P0",
-     "nome": "FORMAÇÃO CIENTÍFICA PARA PROFESSORES DE BIOLOGIA",
+     "nome": "FORMAÇÃO EM CIÊNCIAS PARA PROFESSORES.",
      "nota": 3,
      "area_capes": "CIÊNCIAS BIOLÓGICAS II",
      "slug_area": "ciencias-biologicas-ii",
@@ -9811,14 +9635,6 @@
      "cd_programa": "31001017087P6",
      "nome": "QUÍMICA BIOLÓGICA",
      "nota": 7,
-     "area_capes": "CIÊNCIAS BIOLÓGICAS II",
-     "slug_area": "ciencias-biologicas-ii",
-     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
-    },
-    {
-     "cd_programa": "31001017149P1",
-     "nome": "QUÍMICA BIOLÓGICA",
-     "nota": 4,
      "area_capes": "CIÊNCIAS BIOLÓGICAS II",
      "slug_area": "ciencias-biologicas-ii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
@@ -9928,14 +9744,6 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
-     "cd_programa": "31001017162P8",
-     "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE PERINATAL",
-     "nota": 1,
-     "area_capes": "MEDICINA II",
-     "slug_area": "medicina-ii",
-     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
-    },
-    {
      "cd_programa": "31001017056P3",
      "nome": "PSIQUIATRIA E SAÚDE MENTAL",
      "nota": 5,
@@ -9976,14 +9784,6 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
-     "cd_programa": "31001017152P2",
-     "nome": "CLÍNICA ODONTOLÓGICA",
-     "nota": 4,
-     "area_capes": "ODONTOLOGIA",
-     "slug_area": "odontologia",
-     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
-    },
-    {
      "cd_programa": "31001017059P2",
      "nome": "ODONTOLOGIA",
      "nota": 5,
@@ -9992,9 +9792,25 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
+     "cd_programa": "31001017152P2",
+     "nome": "ODONTOLOGIA",
+     "nota": 4,
+     "area_capes": "ODONTOLOGIA",
+     "slug_area": "odontologia",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
      "cd_programa": "31001017163P4",
      "nome": "ATENÇÃO PRIMÁRIA À SAÚDE",
      "nota": 3,
+     "area_capes": "SAÚDE COLETIVA",
+     "slug_area": "saude-coletiva",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "31001017141P0",
+     "nome": "BIOÉTICA, ÉTICA APLICADA E SAÚDE COLETIVA",
+     "nota": 4,
      "area_capes": "SAÚDE COLETIVA",
      "slug_area": "saude-coletiva",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
@@ -10201,7 +10017,7 @@
     },
     {
      "cd_programa": "31001017165P7",
-     "nome": "MESTRADO PROFISSIONAL EM ATENÇÃO PSICOSSOCIAL",
+     "nome": "ATENÇÃO PSICOSSOCIAL",
      "nota": 4,
      "area_capes": "PSICOLOGIA",
      "slug_area": "psicologia",
@@ -10298,7 +10114,7 @@
     {
      "cd_programa": "31001017138P0",
      "nome": "CIÊNCIA DA INFORMAÇÃO - UFRJ - IBICT",
-     "nota": 6,
+     "nota": 4,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
@@ -10313,7 +10129,7 @@
     },
     {
      "cd_programa": "31001017166P3",
-     "nome": "CRIAÇÃO E PRODUÇÃO DE CONTEÚDOS DIGITAIS",
+     "nome": "MÍDIAS CRIATIVAS",
      "nota": 3,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
@@ -10416,6 +10232,14 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
+     "cd_programa": "31001017037P9",
+     "nome": "ENGENHARIA DE PROCESSOS QUÍMICOS E BIOQUÍMICOS",
+     "nota": 6,
+     "area_capes": "ENGENHARIAS II",
+     "slug_area": "engenharias-ii",
+     "grande_area_cnpq": "ENGENHARIAS"
+    },
+    {
      "cd_programa": "31001017031P0",
      "nome": "ENGENHARIA METALÚRGICA E DE MATERIAIS",
      "nota": 6,
@@ -10440,16 +10264,8 @@
      "grande_area_cnpq": "ENGENHARIAS"
     },
     {
-     "cd_programa": "31001017037P9",
-     "nome": "TECNOLOGIA DE PROCESSOS QUÍMICOS E BIOQUÍMICOS",
-     "nota": 6,
-     "area_capes": "ENGENHARIAS II",
-     "slug_area": "engenharias-ii",
-     "grande_area_cnpq": "ENGENHARIAS"
-    },
-    {
      "cd_programa": "31001017136P7",
-     "nome": "TECNOLOGIA DE PROCESSOS QUÍMICOS E BIOQUÍMICOS",
+     "nome": "TECNOLOGIA DE PROCESSOS SUSTENTÁVEIS",
      "nota": 4,
      "area_capes": "ENGENHARIAS II",
      "slug_area": "engenharias-ii",
@@ -10609,7 +10425,7 @@
     },
     {
      "cd_programa": "31001017100P2",
-     "nome": "BIOTECNOLOGIA VEGETAL",
+     "nome": "BIOTECNOLOGIA VEGETAL E BIOPROCESSOS",
      "nota": 6,
      "area_capes": "BIOTECNOLOGIA",
      "slug_area": "biotecnologia",
@@ -10755,6 +10571,7 @@
      "LINGUÍSTICA E LITERATURA"
     ],
     "MULTIDISCIPLINAR": [
+     "BIOTECNOLOGIA",
      "CIÊNCIAS AMBIENTAIS",
      "ENSINO",
      "INTERDISCIPLINAR",
@@ -10820,7 +10637,7 @@
     },
     {
      "cd_programa": "23001011020P6",
-     "nome": "BIOQUÍMICA",
+     "nome": "BIOQUÍMICA E BIOLOGIA MOLECULAR",
      "nota": 4,
      "area_capes": "CIÊNCIAS BIOLÓGICAS II",
      "slug_area": "ciencias-biologicas-ii",
@@ -10867,6 +10684,14 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
+     "cd_programa": "24001015081P8",
+     "nome": "FONOAUDIOLOGIA",
+     "nota": 4,
+     "area_capes": "EDUCAÇÃO FÍSICA",
+     "slug_area": "educacao-fisica",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
      "cd_programa": "23001011029P3",
      "nome": "ENFERMAGEM",
      "nota": 5,
@@ -10907,9 +10732,9 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
-     "cd_programa": "23001011175P0",
-     "nome": "GESTÃO E INOVAÇÃO EM SAÚDE",
-     "nota": 4,
+     "cd_programa": "23001011183P2",
+     "nome": "CIÊNCIAS APLICADAS À SAÚDE DA MULHER",
+     "nota": 3,
      "area_capes": "MEDICINA III",
      "slug_area": "medicina-iii",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
@@ -10924,7 +10749,7 @@
     },
     {
      "cd_programa": "23001011005P7",
-     "nome": "PATOLOGIA ORAL",
+     "nome": "CIÊNCIAS ODONTOLÓGICAS",
      "nota": 5,
      "area_capes": "ODONTOLOGIA",
      "slug_area": "odontologia",
@@ -10971,17 +10796,17 @@
      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
     },
     {
-     "cd_programa": "23001011071P0",
-     "nome": "ENGENHARIA DE SOFTWARE",
-     "nota": 4,
+     "cd_programa": "23001011022P9",
+     "nome": "SISTEMAS E COMPUTAÇÃO",
+     "nota": 5,
      "area_capes": "CIÊNCIA DA COMPUTAÇÃO",
      "slug_area": "ciencia-da-computacao",
      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
     },
     {
-     "cd_programa": "23001011022P9",
-     "nome": "SISTEMAS E COMPUTAÇÃO",
-     "nota": 5,
+     "cd_programa": "23001011071P0",
+     "nome": "TECNOLOGIA DA INFORMAÇÃO",
+     "nota": 4,
      "area_capes": "CIÊNCIA DA COMPUTAÇÃO",
      "slug_area": "ciencia-da-computacao",
      "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
@@ -11059,17 +10884,17 @@
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
-     "cd_programa": "23001011180P3",
+     "cd_programa": "23001011078P4",
      "nome": "GEOGRAFIA",
-     "nota": 3,
+     "nota": 4,
      "area_capes": "GEOGRAFIA",
      "slug_area": "geografia",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
     },
     {
-     "cd_programa": "23001011078P4",
-     "nome": "PROGRAMA DE POS-GRADUAÇÃO EM GEOGRAFIA - MESTRADO PROFISSIONAL",
-     "nota": 4,
+     "cd_programa": "23001011180P3",
+     "nome": "GEOGRAFIA",
+     "nota": 3,
      "area_capes": "GEOGRAFIA",
      "slug_area": "geografia",
      "grande_area_cnpq": "CIÊNCIAS HUMANAS"
@@ -11156,31 +10981,23 @@
     },
     {
      "cd_programa": "23001011052P5",
-     "nome": "ARQUITETURA E URBANISMO",
+     "nome": "ARQUITETURA, PROJETO E MEIO AMBIENTE",
      "nota": 5,
      "area_capes": "ARQUITETURA, URBANISMO E DESIGN",
      "slug_area": "arquitetura-urbanismo-e-design",
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
-     "cd_programa": "23001011062P0",
-     "nome": "DESIGN",
-     "nota": 3,
-     "area_capes": "ARQUITETURA, URBANISMO E DESIGN",
-     "slug_area": "arquitetura-urbanismo-e-design",
-     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
-    },
-    {
-     "cd_programa": "23001011053P1",
-     "nome": "ESTUDOS DA MÍDIA",
+     "cd_programa": "23001011080P9",
+     "nome": "CIÊNCIA DA INFORMAÇÃO",
      "nota": 4,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
-     "cd_programa": "23001011080P9",
-     "nome": "GESTÃO DA INFORMAÇÃO E DO CONHECIMENTO",
+     "cd_programa": "23001011053P1",
+     "nome": "ESTUDOS DA MÍDIA",
      "nota": 4,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
@@ -11227,16 +11044,8 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
-     "cd_programa": "23001011051P9",
-     "nome": "ENGENHARIA CIVIL",
-     "nota": 3,
-     "area_capes": "ENGENHARIAS I",
-     "slug_area": "engenharias-i",
-     "grande_area_cnpq": "ENGENHARIAS"
-    },
-    {
      "cd_programa": "23001011023P5",
-     "nome": "ENGENHARIA SANITÁRIA",
+     "nome": "ENGENHARIA CIVIL E AMBIENTAL",
      "nota": 4,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
@@ -11260,15 +11069,7 @@
     },
     {
      "cd_programa": "23001011041P3",
-     "nome": "CIÊNCIA E ENGENHARIA DE PETRÓLEO",
-     "nota": 3,
-     "area_capes": "ENGENHARIAS III",
-     "slug_area": "engenharias-iii",
-     "grande_area_cnpq": "ENGENHARIAS"
-    },
-    {
-     "cd_programa": "23001011181P0",
-     "nome": "ENGENHARIA AEROESPACIAL",
+     "nome": "ENERGIA E PETRÓLEO",
      "nota": 3,
      "area_capes": "ENGENHARIAS III",
      "slug_area": "engenharias-iii",
@@ -11308,7 +11109,7 @@
     },
     {
      "cd_programa": "23001011008P6",
-     "nome": "ENGENHARIA ELÉTRICA",
+     "nome": "ENGENHARIA ELÉTRICA E DE COMPUTAÇÃO",
      "nota": 5,
      "area_capes": "ENGENHARIAS IV",
      "slug_area": "engenharias-iv",
@@ -11347,6 +11148,14 @@
      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES"
     },
     {
+     "cd_programa": "22003010017P5",
+     "nome": "BIOTECNOLOGIA - REDE RENORBIO",
+     "nota": 5,
+     "area_capes": "BIOTECNOLOGIA",
+     "slug_area": "biotecnologia",
+     "grande_area_cnpq": "MULTIDISCIPLINAR"
+    },
+    {
      "cd_programa": "23001011036P0",
      "nome": "DESENVOLVIMENTO E MEIO AMBIENTE",
      "nota": 5,
@@ -11356,7 +11165,7 @@
     },
     {
      "cd_programa": "22001018074P6",
-     "nome": "DESENVOLVIMENTO E MEIO AMBIENTE UFPI-UFRN-FUFSE-UESC-UFPB/JP",
+     "nome": "DESENVOLVIMENTO E MEIO AMBIENTE UFPI-UFRN-FUFSE-UESC-UFPB/JP-UFERSA",
      "nota": 5,
      "area_capes": "CIÊNCIAS AMBIENTAIS",
      "slug_area": "ciencias-ambientais",
@@ -11405,6 +11214,14 @@
     {
      "cd_programa": "23001011066P6",
      "nome": "GESTÃO DE PROCESSOS INSTITUCIONAIS",
+     "nota": 4,
+     "area_capes": "INTERDISCIPLINAR",
+     "slug_area": "interdisciplinar",
+     "grande_area_cnpq": "MULTIDISCIPLINAR"
+    },
+    {
+     "cd_programa": "23001011175P0",
+     "nome": "GESTÃO E INOVAÇÃO EM SAÚDE",
      "nota": 4,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
@@ -11960,14 +11777,6 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
-     "cd_programa": "42001013083P1",
-     "nome": "ADMINISTRAÇÃO",
-     "nota": 2,
-     "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
-     "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
-     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
-    },
-    {
      "cd_programa": "42001013170P1",
      "nome": "CONTROLADORIA E CONTABILIDADE",
      "nota": 4,
@@ -12001,7 +11810,7 @@
     },
     {
      "cd_programa": "42001013062P4",
-     "nome": "COMUNICAÇÃO E INFORMAÇÃO",
+     "nome": "COMUNICAÇÃO",
      "nota": 5,
      "area_capes": "COMUNICAÇÃO E INFORMAÇÃO",
      "slug_area": "comunicacao-e-informacao",
@@ -12192,14 +12001,6 @@
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
-     "cd_programa": "42001013081P9",
-     "nome": "ENSINO DE MATEMÁTICA",
-     "nota": 5,
-     "area_capes": "ENSINO",
-     "slug_area": "ensino",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
      "cd_programa": "42001013171P8",
      "nome": "ENSINO DE MATEMÁTICA",
      "nota": 4,
@@ -12247,9 +12048,6 @@
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS III"
     ],
-    "CIÊNCIAS EXATAS E DA TERRA": [
-     "ASTRONOMIA / FÍSICA"
-    ],
     "CIÊNCIAS HUMANAS": [
      "EDUCAÇÃO",
      "FILOSOFIA",
@@ -12284,14 +12082,6 @@
      "area_capes": "CIÊNCIAS BIOLÓGICAS III",
      "slug_area": "ciencias-biologicas-iii",
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
-    },
-    {
-     "cd_programa": "33283010001P5",
-     "nome": "ENSINO DE FÍSICA - PROFIS",
-     "nota": 5,
-     "area_capes": "ASTRONOMIA / FÍSICA",
-     "slug_area": "astronomia-fisica",
-     "grande_area_cnpq": "CIÊNCIAS EXATAS E DA TERRA"
     },
     {
      "cd_programa": "10001018011P0",
@@ -12404,14 +12194,6 @@
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "10001018015P6",
-     "nome": "HISTÓRIA E ESTUDOS CULTURAIS",
-     "nota": 2,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
     }
    ]
   },
@@ -12426,8 +12208,7 @@
      "GEOGRAFIA"
     ],
     "CIÊNCIAS SOCIAIS APLICADAS": [
-     "COMUNICAÇÃO E INFORMAÇÃO",
-     "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA"
+     "COMUNICAÇÃO E INFORMAÇÃO"
     ],
     "LINGÜÍSTICA, LETRAS E ARTES": [
      "LINGUÍSTICA E LITERATURA"
@@ -12479,14 +12260,6 @@
      "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
     },
     {
-     "cd_programa": "13001019009P4",
-     "nome": "DESENVOLVIMENTO REGIONAL DA AMAZÔNIA",
-     "nota": 2,
-     "area_capes": "PLANEJAMENTO URBANO E REGIONAL / DEMOGRAFIA",
-     "slug_area": "planejamento-urbano-e-regional-demografia",
-     "grande_area_cnpq": "CIÊNCIAS SOCIAIS APLICADAS"
-    },
-    {
      "cd_programa": "13001019005P9",
      "nome": "LETRAS",
      "nota": 4,
@@ -12530,7 +12303,8 @@
     "CIÊNCIAS BIOLÓGICAS": [
      "BIODIVERSIDADE",
      "CIÊNCIAS BIOLÓGICAS I",
-     "CIÊNCIAS BIOLÓGICAS II"
+     "CIÊNCIAS BIOLÓGICAS II",
+     "CIÊNCIAS BIOLÓGICAS III"
     ],
     "CIÊNCIAS DA SAÚDE": [
      "EDUCAÇÃO FÍSICA",
@@ -12576,7 +12350,6 @@
      "LINGUÍSTICA E LITERATURA"
     ],
     "MULTIDISCIPLINAR": [
-     "BIOTECNOLOGIA",
      "CIÊNCIAS AMBIENTAIS",
      "ENSINO",
      "INTERDISCIPLINAR",
@@ -12618,7 +12391,7 @@
     },
     {
      "cd_programa": "41001010019P2",
-     "nome": "AQÜÍCULTURA",
+     "nome": "AQUICULTURA",
      "nota": 6,
      "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
      "slug_area": "zootecnia-recursos-pesqueiros",
@@ -12689,6 +12462,14 @@
      "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
     },
     {
+     "cd_programa": "41001010035P8",
+     "nome": "BIOTECNOLOGIA E BIOCIÊNCIAS",
+     "nota": 5,
+     "area_capes": "CIÊNCIAS BIOLÓGICAS III",
+     "slug_area": "ciencias-biologicas-iii",
+     "grande_area_cnpq": "CIÊNCIAS BIOLÓGICAS"
+    },
+    {
      "cd_programa": "41001010160P7",
      "nome": "CIÊNCIAS DA REABILITAÇÃO",
      "nota": 3,
@@ -12714,7 +12495,7 @@
     },
     {
      "cd_programa": "41001010079P5",
-     "nome": "MESTRADO PROFISSIONAL EM GESTÃO DO CUIDADO EM ENFERMAGEM",
+     "nome": "GESTÃO DO CUIDADO EM ENFERMAGEM",
      "nota": 5,
      "area_capes": "ENFERMAGEM",
      "slug_area": "enfermagem",
@@ -12722,10 +12503,18 @@
     },
     {
      "cd_programa": "41001010156P0",
-     "nome": "MESTRADO PROFISSIONAL EM INFORMÁTICA EM SAÚDE",
+     "nome": "INFORMÁTICA EM SAÚDE",
      "nota": 4,
      "area_capes": "ENFERMAGEM",
      "slug_area": "enfermagem",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
+     "cd_programa": "42001013102P6",
+     "nome": "ASSISTÊNCIA FARMACÊUTICA",
+     "nota": 4,
+     "area_capes": "FARMÁCIA",
+     "slug_area": "farmacia",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -12882,7 +12671,7 @@
     },
     {
      "cd_programa": "41001010018P6",
-     "nome": "SOCIOLOGIA POLÍTICA",
+     "nome": "SOCIOLOGIA E CIÊNCIA POLÍTICA",
      "nota": 5,
      "area_capes": "SOCIOLOGIA",
      "slug_area": "sociologia",
@@ -12914,7 +12703,7 @@
     },
     {
      "cd_programa": "41001010163P6",
-     "nome": "CONTROLE DE GESTÃO",
+     "nome": "PLANEJAMENTO E CONTROLE DE GESTÃO",
      "nota": 3,
      "area_capes": "ADMINISTRAÇÃO PÚBLICA E DE EMPRESAS, CIÊNCIAS CONTÁBEIS E TURISMO",
      "slug_area": "administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo",
@@ -12970,7 +12759,7 @@
     },
     {
      "cd_programa": "41001010158P2",
-     "nome": "PÓS-GRADUAÇÃO PROFISSIONAL EM DIREITO",
+     "nome": "DIREITO",
      "nota": 4,
      "area_capes": "DIREITO",
      "slug_area": "direito",
@@ -12996,14 +12785,6 @@
      "cd_programa": "41001010033P5",
      "nome": "ENGENHARIA AMBIENTAL",
      "nota": 6,
-     "area_capes": "ENGENHARIAS I",
-     "slug_area": "engenharias-i",
-     "grande_area_cnpq": "ENGENHARIAS"
-    },
-    {
-     "cd_programa": "41001010080P3",
-     "nome": "ENGENHARIA AMBIENTAL",
-     "nota": 1,
      "area_capes": "ENGENHARIAS I",
      "slug_area": "engenharias-i",
      "grande_area_cnpq": "ENGENHARIAS"
@@ -13129,14 +12910,6 @@
      "grande_area_cnpq": "LINGÜÍSTICA, LETRAS E ARTES"
     },
     {
-     "cd_programa": "41001010035P8",
-     "nome": "BIOTECNOLOGIA E BIOCIÊNCIAS",
-     "nota": 5,
-     "area_capes": "BIOTECNOLOGIA",
-     "slug_area": "biotecnologia",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
      "cd_programa": "41001010038P7",
      "nome": "AGROECOSSISTEMAS",
      "nota": 5,
@@ -13170,7 +12943,7 @@
     },
     {
      "cd_programa": "41001010055P9",
-     "nome": "ENGENHARIA E GESTÃO DO CONHECIMENTO",
+     "nome": "ENGENHARIA, GESTÃO E MÍDIA DO CONHECIMENTO",
      "nota": 7,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
@@ -13180,14 +12953,6 @@
      "cd_programa": "41001010037P0",
      "nome": "INTERDISCIPLINAR EM CIÊNCIAS HUMANAS",
      "nota": 5,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "41001010086P1",
-     "nome": "MÉTODOS E GESTÃO EM AVALIAÇÃO",
-     "nota": 2,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
@@ -13375,7 +13140,7 @@
     },
     {
      "cd_programa": "33009015011P6",
-     "nome": "MEDICINA (ENDOCRINOLOGIA CLÍNICA)",
+     "nome": "MEDICINA (ENDOCRINOLOGIA E METABOLOGIA)",
      "nota": 5,
      "area_capes": "MEDICINA I",
      "slug_area": "medicina-i",
@@ -13431,7 +13196,7 @@
     },
     {
      "cd_programa": "33009015015P1",
-     "nome": "MEDICINA (HEMATOLOGIA)",
+     "nome": "MEDICINA (HEMATOLOGIA E ONCOLOGIA)",
      "nota": 5,
      "area_capes": "MEDICINA II",
      "slug_area": "medicina-ii",
@@ -13510,6 +13275,14 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
+     "cd_programa": "33009015093P2",
+     "nome": "CIÊNCIAS, TECNOLOGIA E GESTÃO APLICADAS À REGENERAÇÃO TECIDUAL",
+     "nota": 4,
+     "area_capes": "MEDICINA III",
+     "slug_area": "medicina-iii",
+     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
+    },
+    {
      "cd_programa": "33009015014P5",
      "nome": "MEDICINA (GINECOLOGIA)",
      "nota": 5,
@@ -13542,14 +13315,6 @@
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
-     "cd_programa": "33009015093P2",
-     "nome": "MESTRADO PROFISSIONAL EM CIÊNCIA, TECNOLOGIA E GESTÃO APLICADAS À REGENERAÇÃO TECIDUAL",
-     "nota": 4,
-     "area_capes": "MEDICINA III",
-     "slug_area": "medicina-iii",
-     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
-    },
-    {
      "cd_programa": "33009015024P0",
      "nome": "OFTALMOLOGIA E CIÊNCIAS VISUAIS",
      "nota": 7,
@@ -13559,18 +13324,10 @@
     },
     {
      "cd_programa": "33009015082P0",
-     "nome": "OFTALMOLOGIA E CIÊNCIAS VISUAIS",
+     "nome": "TECNOLOGIA, GESTÃO E SAÚDE OCULAR",
      "nota": 3,
      "area_capes": "MEDICINA III",
      "slug_area": "medicina-iii",
-     "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
-    },
-    {
-     "cd_programa": "33009015088P9",
-     "nome": "ALIMENTOS, NUTRIÇÃO E SAÚDE",
-     "nota": 3,
-     "area_capes": "NUTRIÇÃO",
-     "slug_area": "nutricao",
      "grande_area_cnpq": "CIÊNCIAS DA SAÚDE"
     },
     {
@@ -13599,7 +13356,7 @@
     },
     {
      "cd_programa": "33009015092P6",
-     "nome": "MATEMÁTICA APLICADA",
+     "nome": "MATEMÁTICA PURA E APLICADA",
      "nota": 3,
      "area_capes": "MATEMÁTICA / PROBABILIDADE E ESTATÍSTICA",
      "slug_area": "matematica-probabilidade-e-estatistica",
@@ -13607,7 +13364,7 @@
     },
     {
      "cd_programa": "33009015075P4",
-     "nome": "CIÊNCIA E TECNOLOGIA DA SUSTENTABILIDADE",
+     "nome": "QUÍMICA - CIÊNCIA E TECNOLOGIA DA SUSTENTABILIDADE",
      "nota": 4,
      "area_capes": "QUÍMICA",
      "slug_area": "quimica",
@@ -13734,14 +13491,6 @@
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
-     "cd_programa": "33009015084P3",
-     "nome": "EDUCAÇÃO E SAÚDE NA INFÂNCIA E ADOLESCÊNCIA",
-     "nota": 4,
-     "area_capes": "ENSINO",
-     "slug_area": "ensino",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
      "cd_programa": "33009015174P2",
      "nome": "ENSINO DE CIÊNCIAS E MATEMÁTICA",
      "nota": 3,
@@ -13755,14 +13504,6 @@
      "nota": 3,
      "area_capes": "ENSINO",
      "slug_area": "ensino",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "33009015077P7",
-     "nome": "GESTÃO E INFORMÁTICA EM SAÚDE",
-     "nota": 2,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
     },
     {
@@ -14134,7 +13875,7 @@
     },
     {
      "cd_programa": "27001016013P0",
-     "nome": "DESENVOLVIMENTO REGIONAL E GESTÃO DE EMPREENDIMENTOS LOCAIS",
+     "nome": "ECONOMIA",
      "nota": 3,
      "area_capes": "ECONOMIA",
      "slug_area": "economia",
@@ -14259,14 +14000,6 @@
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
      "grande_area_cnpq": "MULTIDISCIPLINAR"
-    },
-    {
-     "cd_programa": "27001016176P7",
-     "nome": "INTERDISCIPLINAR EM CULTURAS POPULARES",
-     "nota": 2,
-     "area_capes": "INTERDISCIPLINAR",
-     "slug_area": "interdisciplinar",
-     "grande_area_cnpq": "MULTIDISCIPLINAR"
     }
    ]
   },
@@ -14318,7 +14051,7 @@
     },
     {
      "cd_programa": "16003012005P0",
-     "nome": "AGROENERGIA",
+     "nome": "AGROENERGIA DIGITAL",
      "nota": 3,
      "area_capes": "CIÊNCIAS AGRÁRIAS I",
      "slug_area": "ciencias-agrarias-i",
@@ -14350,7 +14083,7 @@
     },
     {
      "cd_programa": "16003012002P0",
-     "nome": "CIÊNCIA ANIMAL TROPICAL",
+     "nome": "INTEGRADO EM ZOOTECNIA NOS TRÓPICOS",
      "nota": 4,
      "area_capes": "ZOOTECNIA / RECURSOS PESQUEIROS",
      "slug_area": "zootecnia-recursos-pesqueiros",
@@ -14510,7 +14243,7 @@
     },
     {
      "cd_programa": "16003012014P9",
-     "nome": "MODELAGEM COMPUTACIONAL DE SISTEMAS",
+     "nome": "GOVERNANÇA E TRANSFORMAÇÃO DIGITAL",
      "nota": 5,
      "area_capes": "INTERDISCIPLINAR",
      "slug_area": "interdisciplinar",
