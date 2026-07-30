@@ -771,9 +771,27 @@ def fase2_paralela(slugs, workers):
     return results
 
 
+def versao_do_app():
+    """Lê `const VERSION = 'X.Y.Z'` de docs/index.html — a fonte da versão.
+
+    O `shell_version` do manifest era escrito à mão e ficou 4 releases atrás
+    (5.0.0 contra 5.4.0 do app). Derivar de index.html elimina a mão.
+    """
+    idx = os.path.join(DOCS_DIR, '..', 'index.html')
+    idx = os.path.normpath(idx)
+    if not os.path.exists(idx):
+        return None
+    m = re.search(r"const VERSION = '([^']+)'", open(idx, encoding='utf-8').read())
+    return m.group(1) if m else None
+
+
 def atualizar_manifest(slugs_ok):
-    """Marca tem_metricas=true para áreas geradas."""
+    """Marca tem_metricas=true para áreas geradas e sincroniza shell_version."""
     mf = json.load(open(MANIFEST))
+    v = versao_do_app()
+    if v and mf.get('shell_version') != v:
+        print(f"  shell_version {mf.get('shell_version')} -> {v} (de index.html)")
+        mf['shell_version'] = v
     for a in mf['areas']:
         if a['slug'] in slugs_ok:
             a['tem_metricas'] = True
