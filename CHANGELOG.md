@@ -1,5 +1,39 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.3.1 — Estratos A1–A8/C de volta aos dados (2026-07-30)
+
+O filtro por estrato da Ficha 2025-2028 e o Relatório Detalhado de IF pararam de
+funcionar na v5.3.0, sem nenhum erro visível.
+
+`gerar_dados_completos.py` reescreve os `docs/dados/area-*.json` do zero, e a
+estratificação A1–A8/C é acrescentada depois, in-place, por `gerar_estratos_app.py`.
+O rebuild do catálogo 2021-2024 não foi seguido desse segundo passo: os 49 arquivos
+foram publicados sem nenhum campo `estr_*` nem `metadata.estratos` — embora o
+`manifest.json` continuasse declarando a camada.
+
+O efeito era silencioso porque a tela padrão marca os nove estratos e, nesse caso, o
+cálculo vem de `prod_sub` e estava correto. Bastava **desmarcar um estrato** para
+`sumIF()` receber `undefined` e devolver 0: todos os programas apareciam com 0,00.
+Os rótulos das caixas também vinham vazios (`A1 · ` em vez de
+`A1 · percentil 87,5–100% · CS ≥ 10,90`), o Relatório Detalhado de IF zerava e os
+seletores de base CiteScore/OpenAlex/Híbrido ficavam inertes.
+
+A camada foi regerada nas 49 áreas. As três provas fecham nos 13.265 registros:
+
+| verificação | resultado |
+|---|---|
+| Σ `estr_<cat>_oa[A1..A8]` == Σ `if_<cat>` (paridade legada) | 0 divergências |
+| Σ `estr_perm_cs` == `prod_sub['25']['perm']` | 0 divergências |
+| Σ dos 9 estratos igual nas bases cs/oa/hb | 0 divergências |
+| campos preexistentes vs versão anterior | 0 alterações — puramente aditivo |
+
+A última linha importa: nenhum número que já estava na tela mudou. A área de Química
+segue em 2,63 / 2,04 / 3,34 art/ano com os nove estratos marcados; o que voltou a
+existir é o recorte por estrato.
+
+Os `tamanho_kb` do manifest foram recalculados (13.974 → 21.856 KB no total), e o
+Service Worker foi para `mapa-pg-v5.3.1` para invalidar os dados já em cache.
+
 ## v5.3.0 — Catálogo 2021-2024 e titularidade por quadriênio (2026-07-22)
 
 **4.824 programas · 495 instituições · 49 áreas** (era 4.776 · 500 · 49).
