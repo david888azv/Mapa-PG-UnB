@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.4.2</div>
+        <div id="headerVersion">v5.5.0</div>
     </div>
 </div>
 
@@ -380,6 +380,7 @@ tr:hover { background: #EEF2F7; }
         <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
         <button class="btn" onclick="abrirHelp()" style="background:#607D8B;color:#fff;margin-top:16px;">? Ajuda / Documentação</button>
         <button class="btn" onclick="window.open('mudancas-v5.4.html','_blank')" style="background:#B03A2E;color:#fff;margin-top:16px;">★ O que mudou na v5.4</button>
+        <button class="btn" onclick="sugerir()" style="background:#7B1FA2;color:#fff;margin-top:16px;" title="Pedir um ajuste, apontar um dado errado ou sugerir uma melhoria">💡 Sugerir melhoria</button>
     </div>
 
     <!-- MAIN -->
@@ -534,7 +535,7 @@ let REF_DADOS = null;         // payload da instituição de referência atual
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '5.4.2';
+const VERSION = '5.5.0';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -2545,6 +2546,17 @@ function setStatus(msg) {
 
 function abrirHelp() {
     window.open('help-doc.html', '_blank');
+}
+
+// Sugestões: o formulário fica FORA do app, em daciencia.org/sugestao. Aqui
+// dentro ele seria um POST cross-origin, e o texto ficaria refém do cache do
+// service worker. Como o app já sabe a instituição de referência, a sigla vai
+// pré-preenchida — justamente o campo que o formulário precisa para localizar
+// o caso. `REF` é lido NO CLIQUE, para acompanhar a troca de instituição.
+function sugerir() {
+    const q = new URLSearchParams({ app: 'mapa-pg' });
+    if (REF) q.set('ies', REF);
+    window.open('https://daciencia.org/sugestao?' + q.toString(), '_blank', 'noopener');
 }
 
 // ===== Detalhamento de Fator de Impacto — no MESMO painel (overlay sobreposto) =====
