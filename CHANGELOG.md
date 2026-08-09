@@ -1,5 +1,23 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.5.0 — Botão de sugestões (2026-08-09)
+
+Botão **"💡 Sugerir melhoria"** no rodapé da barra lateral do painel principal e da tela
+de Faixas de Fator de Impacto. Abre o formulário em **`daciencia.org/sugestao`**, onde se
+pede um ajuste, aponta-se um dado errado ou se sugere uma melhoria: sigla da IES
+obrigatória, nome e e-mail opcionais, texto de até 250 palavras.
+
+No painel principal a **sigla da instituição de referência vai pré-preenchida** — `REF` é
+lido no clique, não no carregamento, para acompanhar a troca de instituição. Na tela de
+faixas, que não tem instituição de referência, o link vai sem sigla.
+
+O formulário fica **fora** do aplicativo, de propósito: aqui dentro o envio seria uma
+requisição para outro domínio, e cada ajuste de redação ficaria preso ao cache do service
+worker. O app continua sem coletar nada de quem usa — só sai daqui o que a pessoa
+escrever, por vontade própria, no formulário.
+
+Service Worker em `mapa-pg-v5.5.0`; `shell_version` do manifest acompanha.
+
 ## v5.4.2 — Documento "o que mudou" na versão certa (2026-07-30)
 
 O botão da barra lateral dizia **"O que mudou na v5.0"** e apontava para o documento da
