@@ -72,7 +72,7 @@
     "issueNumber": "1",
     "datePublished": "2025-12-09",
     "identifier": "https://doi.org/10.26512/2446-564X2026e62064",
-    "sameAs": "https://doi.org/10.26512/2446-564X2026e62064"
+    "sameAs": "https://periodicos.unb.br/index.php/physicae/article/view/62064/45040"
   },
   "description": "Sistema interativo e gratuito para comparar a produção acadêmica de 4.824 programas de pós-graduação do Brasil (495 instituições) em todas as 49 áreas de avaliação da CAPES; escolha qualquer uma das 470 instituições como referência, buscando por sigla ou nome, e compare-a com seus pares nacionais, sempre dentro da mesma área, ao longo de três quadriênios (2013–2024), usando dados públicos da CAPES.",
   "keywords": "pós-graduação, CAPES, avaliação CAPES, nota CAPES, produção científica, universidades federais, comparar programas, estratos A1-A8, CiteScore, OpenAlex, cientometria, dados abertos",
@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.5.0</div>
+        <div id="headerVersion">v5.5.1</div>
     </div>
 </div>
 
@@ -535,7 +535,7 @@ let REF_DADOS = null;         // payload da instituição de referência atual
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '5.5.0';
+const VERSION = '5.5.1';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -1007,7 +1007,7 @@ function showLicenseModal() {
             <strong>Termos de uso e solucoes sob medida:</strong> ao utilizar este software, voce concorda em nao remover, alterar ou ocultar informacoes de autoria, mantendo a identificacao <strong>"Prof. David L. Azevedo"</strong> e <strong>"MAPA-PG"</strong> <strong>em todas as copias, resultados obtidos e aplicativos derivados</strong>. Tambem desenvolvemos analises especificas para qualquer programa de pos-graduacao de qualquer universidade do pais. Contato: <a href="mailto:contato@daciencia.org" style="color:#E91E63;font-weight:700;">contato@daciencia.org</a> · conheca o projeto em <a href="https://daciencia.org" target="_blank" rel="noopener" style="color:#E91E63;font-weight:700;">daciencia.org</a>.
         </div>
         <div style="background:#F3E5F5;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#4A148C;line-height:1.6;margin-bottom:16px;border-left:4px solid #8E24AA;">
-            <strong>Como citar:</strong> AZEVEDO, D. L. <em>MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física</em>. Physicae Organum, v. 11, n. 1, 2026. DOI: <a href="https://doi.org/10.26512/2446-564X2026e62064" target="_blank" style="color:#8E24AA;font-weight:700;">10.26512/2446-564X2026e62064</a>.
+            <strong>Como citar:</strong> AZEVEDO, D. L. <em>MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física</em>. Physicae Organum, v. 11, n. 1, 2026. DOI: <a href="https://periodicos.unb.br/index.php/physicae/article/view/62064/45040" target="_blank" style="color:#8E24AA;font-weight:700;">10.26512/2446-564X2026e62064</a>.
         </div>
         <button onclick="acceptLicense()" style="background:#E91E63;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;">Concordo e desejo continuar</button>
     </div>`;

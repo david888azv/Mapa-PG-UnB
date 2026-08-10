@@ -1,5 +1,22 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.5.1 — O link da citação passa a abrir o artigo (2026-08-10)
+
+O `https://doi.org/10.26512/2446-564X2026e62064` do bloco **"Como citar"** não resolvia:
+o doi.org devolvia **DOI Not Found** (o registro ainda não propagou). Quem clicava para
+conferir a metodologia caía numa página de erro — no painel principal, na tela de Faixas
+de Fator de Impacto, na documentação, no README e no `CITATION.cff`.
+
+O **texto do DOI continua exibido**, porque é o identificador da publicação e é ele que
+se cita. O que mudou foi o destino do link, que passa a apontar para o artigo na
+**Physicae Organum**:
+`periodicos.unb.br/index.php/physicae/article/view/62064/45040`.
+
+No JSON-LD, `identifier` **permanece o DOI** — identificador não se troca por URL — e só
+o `sameAs` passa a apontar para o artigo, que é exatamente o que esse campo significa.
+
+Service Worker em `mapa-pg-v5.5.1`; `shell_version` do manifest acompanha.
+
 ## v5.5.0 — Botão de sugestões (2026-08-09)
 
 Botão **"💡 Sugerir melhoria"** no rodapé da barra lateral do painel principal e da tela
