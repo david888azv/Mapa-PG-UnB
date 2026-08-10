@@ -186,6 +186,6 @@ Instituto de Física — Universidade de Brasília (UnB)
 AZEVEDO, D. L. **MAPA-PG — um sistema interativo para monitoramento e análise de
 produção acadêmica: aplicação à área de Astronomia e Física**. *Physicae Organum*,
 Brasília, v. 11, n. 1, 2026. DOI:
-[10.26512/2446-564X2026e62064](https://doi.org/10.26512/2446-564X2026e62064).
+[10.26512/2446-564X2026e62064](https://periodicos.unb.br/index.php/physicae/article/view/62064/45040).
 
 Veja também `CITATION.cff` (formato legível por máquina).
