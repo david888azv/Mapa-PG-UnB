@@ -369,6 +369,38 @@ with sync_playwright() as pw:
     ok(not erros3, 'sem erro de console no fluxo da UFG (%s)' % (erros3[:2] or 'nenhum'))
     p3.close()
 
+    # Instituição que só tem programa aprovado e ainda sem nota: até a v5.6.0 ela
+    # não existia no seletor, porque a lista saía dos area-*.json e ela não tem
+    # programa avaliado. Procurar pelo nome não achava nada.
+    p4 = br.new_page()
+    erros4 = []
+    p4.on('console', lambda m: erros4.append(m.text) if m.type == 'error' else None)
+    p4.on('pageerror', lambda e: erros4.append(str(e)))
+    p4.goto(BASE.replace('ies=UNB&area=quimica', 'ies=IBC'), wait_until='networkidle', timeout=60000)
+    p4.click('#licenseOverlay button')
+    p4.wait_for_selector('#results', timeout=20000)
+    t4 = p4.inner_text('#results')
+    ok('INSTITUTO BENJAMIN CONSTANT' in t4.upper(),
+       'instituicao so-com-programa-sem-nota entra no seletor')
+    ok('ainda não tem programa com nota' in t4, 'a tela diz que nao ha programa com nota')
+    ok('ainda sem nota da CAPES' in t4, 'e lista o programa aprovado')
+    est = p4.evaluate("""() => ({n: REGISTRY.programas_unb.length, sn: semNotaDaRef().length,
+                                 ga: [...document.getElementById('selGrandeArea').options].length})""")
+    print('   IBC: %d com nota | %d sem nota | %d grande(s) area(s) na cascata'
+          % (est['n'], est['sn'], est['ga']), flush=True)
+    ok(est['n'] == 0 and est['sn'] >= 1, 'cascata monta a partir do programa sem nota')
+    cart = p4.evaluate("""() => { trocarIes();
+        filtrarIes('benjamin constant');
+        return [...document.querySelectorAll('#iesPickerLista .ies-opt')].map(c => c.innerText); }""")
+    ok(bool(cart) and '0 prog' not in cart[0],
+       'o cartao do seletor nao diz "0 progs" (%s)' % (cart[0].replace('\n', ' | ') if cart else '-'))
+    # Curitibanos e campus da UFSC: vai para a mae, como Blumenau, e nao vira entrada
+    cur = p4.evaluate("""() => { filtrarIes('curitibanos');
+        return [...document.querySelectorAll('#iesPickerLista .ies-opt')].map(c => c.dataset.sig); }""")
+    ok(cur == ['UFSC'], 'campus da UFSC agregado a sede, sem entrada propria (%s)' % cur)
+    ok(not erros4, 'sem erro de console no fluxo da instituicao nova (%s)' % (erros4[:2] or 'nenhum'))
+    p4.close()
+
     # ── grafico por IES (Química) para inspecao visual
     page.evaluate("async () => { await switchArea('quimica'); }")
     page.wait_for_timeout(3000)

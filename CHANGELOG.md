@@ -1,5 +1,32 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.6.1 — As instituições que só têm programa sem nota entram no seletor (2026-08-14)
+
+A v5.6.0 tornou visíveis os 182 programas aprovados e ainda sem nota, mas 19 deles ficaram
+de fora: eram de instituições que **não têm nenhum programa avaliado** e por isso nunca
+existiram no seletor, montado a partir dos `area-*.json`. Quem é dessas instituições
+procurava pelo nome e não achava nada — o mesmo mal-entendido que a v5.6.0 corrigiu para a
+UFG, um degrau abaixo. É a situação de quem acabou de ter o primeiro programa aprovado.
+
+O seletor vai de **470 para 488 instituições**. Dezessete entraram por terem só programa
+aprovado sem nota, e uma voltou por já estar fora (só tinha programa em desativação).
+Escolhida uma delas como referência, a tela inicial diz que não há programa com nota e
+lista o que foi aprovado, a cascata se monta a partir da área desse programa, e a caixa
+"Ver todas as 49 áreas" abre o resto — sem nenhum destaque em vermelho, porque não há o que
+destacar. Nenhuma média, ranking ou gráfico muda: sem nota, o programa continua fora de
+todos os números.
+
+O cartão do seletor deixa de dizer "0 progs" para essas instituições, que soaria como
+cadastro vazio, e passa a dizer quantos programas aprovados sem nota elas têm.
+
+**UFSC-CURITIBANOS não virou entrada separada.** É campus da UFSC, cujos campi já são
+agregados à sede (Blumenau é apelido de busca desde a v5.3.0), e deixá-lo solto faria a
+mesma universidade ter um campus agregado e outro como instituição própria. Entrou como
+semente da UFSC em `gerar_registry_ies.py`.
+
+`build/teste_visual.py` ganhou 7 checagens desse fluxo: 60 checagens, 0 falhas. Service
+Worker em `mapa-pg-v5.6.1`; `shell_version` do manifest acompanha.
+
 ## v5.6.0 — Programa novo deixa de ser invisível, e a referência deixa de parecer filtro (2026-08-14)
 
 Em 13/08 a Presidência da Sociedade Brasileira de Geologia escreveu para dizer que não

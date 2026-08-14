@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.6.0</div>
+        <div id="headerVersion">v5.6.1</div>
     </div>
 </div>
 
@@ -544,7 +544,7 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.6.0';
+const VERSION = '5.6.1';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -822,10 +822,15 @@ function renderWelcome() {
         res.innerHTML = `<div class="card" style="text-align:center;padding:40px 22px;max-width:760px;margin:0 auto;">
             <h2 style="border:none;font-size:18px;color:var(--azul);">Selecione uma Área CAPES e um Programa</h2>
             <p style="color:#555;margin-top:12px;font-size:14px;line-height:1.7;">
-                O <strong>MAPA-PG</strong> compara a produção e os indicadores dos
-                <strong>${nProg} programas de pós-graduação da ${REF_NOME} (${refSigla()})</strong>
-                com seus pares nacionais em <strong>todas as 49 áreas de avaliação da CAPES</strong>,
-                ao longo de três quadriênios (2013–2024).</p>
+                ${nProg
+                  ? `O <strong>MAPA-PG</strong> compara a produção e os indicadores dos
+                     <strong>${nProg} programas de pós-graduação da ${REF_NOME} (${refSigla()})</strong>
+                     com seus pares nacionais em <strong>todas as 49 áreas de avaliação da CAPES</strong>,
+                     ao longo de três quadriênios (2013–2024).`
+                  : `A <strong>${REF_NOME} (${refSigla()})</strong> ainda não tem programa com nota da CAPES,
+                     então não há o que comparar no lugar dela. O <strong>MAPA-PG</strong> segue aberto:
+                     dá para percorrer <strong>todas as 49 áreas de avaliação</strong> e ver os programas
+                     do país ao longo de três quadriênios (2013–2024), sem nenhum destaque em vermelho.`}</p>
             <p style="color:#555;margin-top:10px;font-size:14px;line-height:1.7;">
                 Use os seletores na barra lateral — <strong>Grande Área → Área CAPES → Curso (${refSigla()})</strong> —
                 para iniciar a análise. <span style="color:#7F8C8D;">A referência (${refSigla()}) aparece destacada em vermelho;
@@ -1173,6 +1178,16 @@ const esc = s => String(s).replace(/[&<>"]/g, c =>
 
 let IES_PICK = null;          // sigla marcada no painel (ainda não confirmada)
 
+// Linha de contagem do cartão. Instituição que só tem programa aprovado e ainda
+// sem nota mostraria "0 progs", que soa como cadastro vazio — ela está no
+// seletor justamente para não parecer ausente do sistema.
+function contagemIes(i) {
+    const sn = i.nsn || 0;
+    const progs = `${i.np} prog${i.np === 1 ? '' : 's'}`;
+    if (!i.np && sn) return `${sn} aprovado${sn > 1 ? 's' : ''}, ainda sem nota`;
+    return sn ? `${progs} · ${sn} sem nota` : progs;
+}
+
 function iesCard(i, destaque) {
     const rot = i.s === 'UNB' ? 'UnB' : i.s;
     const cor = destaque ? '#E91E63' : '#E0E0E0';
@@ -1180,7 +1195,7 @@ function iesCard(i, destaque) {
         style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border:1.5px solid ${cor};border-radius:8px;cursor:pointer;font-size:12.5px;">
         <input type="radio" name="iesRef" value="${esc(i.s)}" style="accent-color:#E91E63;margin-top:2px;">
         <span><strong>${esc(rot)}</strong> <span style="color:#7F8C8D;">(${esc(i.uf)})</span><br>
-        <span style="color:#7F8C8D;font-size:10.5px;">${esc(i.n)} · ${i.np} prog${i.np === 1 ? '' : 's'}</span></span>
+        <span style="color:#7F8C8D;font-size:10.5px;">${esc(i.n)} · ${contagemIes(i)}</span></span>
     </label>`;
 }
 
