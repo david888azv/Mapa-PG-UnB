@@ -1,6 +1,6 @@
 {
   "gerado_em": "2026-05-05 20:20:38",
-  "shell_version": "5.6.1",
+  "shell_version": "5.7.0",
   "estratos_capes": "A1-A8/C (Ficha de Avaliação 2025-2028) — percentil de IF por área; campos estr_perm/estr_colab/estr_visit/estr_all + metadata.estratos por área",
   "areas": [
     {
@@ -40,6 +40,15 @@
             "n_programas": 39
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo.json",
+        "tamanho_kb": 119,
+        "n_programas": 126,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -63,6 +72,15 @@
             "n_programas": 2
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-antropologia-arqueologia.json",
+        "tamanho_kb": 43,
+        "n_programas": 36,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -99,6 +117,15 @@
             "n_programas": 27
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-arquitetura-urbanismo-e-design.json",
+        "tamanho_kb": 58,
+        "n_programas": 53,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -136,6 +163,15 @@
             "n_programas": 3
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-artes.json",
+        "tamanho_kb": 66,
+        "n_programas": 61,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -171,6 +207,15 @@
             "n_programas": 49
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-astronomia-fisica.json",
+        "tamanho_kb": 86,
+        "n_programas": 66,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -208,6 +253,15 @@
             "n_programas": 52
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-biodiversidade.json",
+        "tamanho_kb": 187,
+        "n_programas": 151,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -243,6 +297,15 @@
             "n_programas": 60
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-biotecnologia.json",
+        "tamanho_kb": 67,
+        "n_programas": 61,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -279,6 +342,15 @@
             "n_programas": 59
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencia-da-computacao.json",
+        "tamanho_kb": 82,
+        "n_programas": 75,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -312,6 +384,15 @@
             "n_programas": 54
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencia-de-alimentos.json",
+        "tamanho_kb": 67,
+        "n_programas": 60,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -342,6 +423,15 @@
             "n_programas": 2
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencia-politica-e-relacoes-internacionais.json",
+        "tamanho_kb": 49,
+        "n_programas": 51,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -379,6 +469,15 @@
             "n_programas": 143
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencias-agrarias-i.json",
+        "tamanho_kb": 282,
+        "n_programas": 218,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -415,6 +514,15 @@
             "n_programas": 87
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencias-ambientais.json",
+        "tamanho_kb": 109,
+        "n_programas": 120,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -451,6 +559,15 @@
             "n_programas": 55
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencias-biologicas-i.json",
+        "tamanho_kb": 86,
+        "n_programas": 63,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -484,6 +601,15 @@
             "n_programas": 61
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencias-biologicas-ii.json",
+        "tamanho_kb": 96,
+        "n_programas": 74,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -520,6 +646,15 @@
             "n_programas": 32
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ciencias-biologicas-iii.json",
+        "tamanho_kb": 51,
+        "n_programas": 37,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -530,7 +665,16 @@
       "n_registros": 63,
       "n_unb": 0,
       "sufixos_unb": [],
-      "tem_metricas": true
+      "tem_metricas": true,
+      "bol": {
+        "arquivo": "dados/bol-ciencias-da-religiao-e-teologia.json",
+        "tamanho_kb": 23,
+        "n_programas": 19,
+        "anos": [
+          2010,
+          2025
+        ]
+      }
     },
     {
       "slug": "comunicacao-e-informacao",
@@ -566,6 +710,15 @@
             "n_programas": 13
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-comunicacao-e-informacao.json",
+        "tamanho_kb": 82,
+        "n_programas": 76,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -602,6 +755,15 @@
             "n_programas": 8
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-direito.json",
+        "tamanho_kb": 95,
+        "n_programas": 103,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -638,6 +800,15 @@
             "n_programas": 2
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-economia.json",
+        "tamanho_kb": 64,
+        "n_programas": 59,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -674,6 +845,15 @@
             "n_programas": 20
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-educacao.json",
+        "tamanho_kb": 163,
+        "n_programas": 154,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -710,6 +890,15 @@
             "n_programas": 26
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-educacao-fisica.json",
+        "tamanho_kb": 76,
+        "n_programas": 77,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -745,6 +934,15 @@
             "n_programas": 30
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-enfermagem.json",
+        "tamanho_kb": 68,
+        "n_programas": 57,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -783,6 +981,15 @@
             "n_programas": 84
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-engenharias-i.json",
+        "tamanho_kb": 124,
+        "n_programas": 114,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -816,6 +1023,15 @@
             "n_programas": 83
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-engenharias-ii.json",
+        "tamanho_kb": 104,
+        "n_programas": 85,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -853,6 +1069,15 @@
             "n_programas": 100
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-engenharias-iii.json",
+        "tamanho_kb": 124,
+        "n_programas": 115,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -891,6 +1116,15 @@
             "n_programas": 73
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-engenharias-iv.json",
+        "tamanho_kb": 99,
+        "n_programas": 88,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -927,6 +1161,15 @@
             "n_programas": 24
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-ensino.json",
+        "tamanho_kb": 83,
+        "n_programas": 106,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -962,6 +1205,15 @@
             "n_programas": 59
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-farmacia.json",
+        "tamanho_kb": 78,
+        "n_programas": 63,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -992,6 +1244,15 @@
             "n_programas": 1
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-filosofia.json",
+        "tamanho_kb": 61,
+        "n_programas": 54,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1028,6 +1289,15 @@
             "n_programas": 16
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-geociencias.json",
+        "tamanho_kb": 73,
+        "n_programas": 56,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1063,6 +1333,15 @@
             "n_programas": 12
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-geografia.json",
+        "tamanho_kb": 81,
+        "n_programas": 76,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1092,6 +1371,15 @@
             "n_programas": 3
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-historia.json",
+        "tamanho_kb": 86,
+        "n_programas": 74,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1134,6 +1422,15 @@
             "n_programas": 138
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-interdisciplinar.json",
+        "tamanho_kb": 280,
+        "n_programas": 302,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1172,6 +1469,15 @@
             "n_programas": 6
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-linguistica-e-literatura.json",
+        "tamanho_kb": 186,
+        "n_programas": 155,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1208,6 +1514,15 @@
             "n_programas": 4
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-matematica-probabilidade-e-estatistica.json",
+        "tamanho_kb": 70,
+        "n_programas": 57,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1243,6 +1558,15 @@
             "n_programas": 38
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-materiais.json",
+        "tamanho_kb": 44,
+        "n_programas": 39,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1278,6 +1602,15 @@
             "n_programas": 58
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-medicina-i.json",
+        "tamanho_kb": 112,
+        "n_programas": 91,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1314,6 +1647,15 @@
             "n_programas": 57
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-medicina-ii.json",
+        "tamanho_kb": 122,
+        "n_programas": 100,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1347,6 +1689,15 @@
             "n_programas": 26
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-medicina-iii.json",
+        "tamanho_kb": 51,
+        "n_programas": 39,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1383,6 +1734,15 @@
             "n_programas": 59
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-medicina-veterinaria.json",
+        "tamanho_kb": 94,
+        "n_programas": 81,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1418,6 +1778,15 @@
             "n_programas": 17
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-nutricao.json",
+        "tamanho_kb": 33,
+        "n_programas": 32,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1453,6 +1822,15 @@
             "n_programas": 68
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-odontologia.json",
+        "tamanho_kb": 104,
+        "n_programas": 93,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1486,6 +1864,15 @@
             "n_programas": 2
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-planejamento-urbano-e-regional-demografia.json",
+        "tamanho_kb": 46,
+        "n_programas": 48,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1524,6 +1911,15 @@
             "n_programas": 9
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-psicologia.json",
+        "tamanho_kb": 106,
+        "n_programas": 90,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1559,6 +1955,15 @@
             "n_programas": 68
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-quimica.json",
+        "tamanho_kb": 96,
+        "n_programas": 76,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1595,6 +2000,15 @@
             "n_programas": 14
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-saude-coletiva.json",
+        "tamanho_kb": 69,
+        "n_programas": 66,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1630,6 +2044,15 @@
             "n_programas": 1
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-servico-social.json",
+        "tamanho_kb": 42,
+        "n_programas": 38,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1660,6 +2083,15 @@
             "n_programas": 2
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-sociologia.json",
+        "tamanho_kb": 71,
+        "n_programas": 55,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     },
     {
@@ -1693,6 +2125,15 @@
             "n_programas": 32
           }
         }
+      },
+      "bol": {
+        "arquivo": "dados/bol-zootecnia-recursos-pesqueiros.json",
+        "tamanho_kb": 84,
+        "n_programas": 68,
+        "anos": [
+          2010,
+          2025
+        ]
       }
     }
   ],
@@ -1836,5 +2277,13 @@
       }
     },
     "atualizado_em": "2026-07-21 18:58:38"
+  },
+  "bolsas": {
+    "fonte": "CAPES — Bolsistas da DPB (bolsas no país)",
+    "anos": [
+      2010,
+      2025
+    ],
+    "atualizado_em": "2026-08-14"
   }
 }

@@ -1,5 +1,43 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.7.0 — Bolsas da CAPES, ano a ano, por programa (2026-08-14)
+
+Primeiro pedido de funcionalidade vindo de fora pelo formulário do aplicativo: o Prof.
+Marcos D. Pereira, coordenador do PPGBq/UFRJ, escreveu em 13/08 pedindo a comparação do
+número de bolsas de cada programa ao longo dos anos, para enxergar perdas e cortes. O
+painel mostrava produção e corpo docente, e o insumo que sustenta os dois não aparecia em
+lugar nenhum.
+
+**A série cobre 2010 a 2025** e sai do conjunto *Bolsistas dos Programas da Diretoria de
+Programas e Bolsas no País*, dos dados abertos da CAPES. O registro é um por bolsista por
+ano e traz `CD_PROGRAMA_PPG`, que é a mesma chave de programa do resto do aplicativo —
+por isso a camada casa sem heurística nenhuma. **Nome de bolsista não entra nos arquivos
+do app**: só contagens por programa, ano e nível.
+
+O botão **"🎓 Bolsas CAPES por ano"** abre um painel com a série do programa de
+referência contra a mediana da área, a composição por nível (mestrado, doutorado,
+pós-doutorado), a tabela de todos os programas da área com pico e variação desde 2019, e
+o CSV da série completa.
+
+**Três medidas, porque uma sozinha engana.** *Bolsistas* é o número que a coordenação
+reconhece, mas quem perde a bolsa em julho continua contado como um bolsista o ano
+inteiro. *Meses de bolsa* mostra esse corte, e meses ÷ 12 é a bolsa-equivalente-ano, que
+é o que se compara entre programas de tamanhos diferentes. *Valor* é nominal: o salto de
+2023 é reajuste do valor da bolsa, não aumento de quantidade.
+
+Ressalvas ficam na própria tela: são as bolsas **no país**, e CNPq, fundações estaduais e
+recursos da própria instituição não estão nesta base — programa sem bolsa da CAPES pode
+ter bolsistas.
+
+Duas armadilhas do dado que custaram uma versão errada cada: o mesmo campo de valor
+aparece em **três formatos** conforme o bloco (`13,500.00`, `26.400,00` e `41600.00`), e
+tratar tudo como o primeiro dividia 2022 por mil; e **a codificação muda de arquivo para
+arquivo**, com o de 2025 em UTF-8 e o resto em ISO-8859-1, o que transformava
+`PÓS-DOUTORADO` em lixo e sumia com 3.009 bolsas em silêncio.
+
+`build/gerar_bolsas.py` baixa e gera; `build/teste_visual.py` ganhou a seção 9, com 12
+checagens do painel: **70 checagens, 0 falhas**. Service Worker em `mapa-pg-v5.7.0`.
+
 ## v5.6.1 — As instituições que só têm programa sem nota entram no seletor (2026-08-14)
 
 A v5.6.0 tornou visíveis os 182 programas aprovados e ainda sem nota, mas 19 deles ficaram
