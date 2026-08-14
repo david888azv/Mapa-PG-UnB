@@ -1,0 +1,68 @@
+RESENHA DO APLICATIVO MAPA-PG PARA O CURRÍCULO LATTES
+=====================================================
+
+--- Versão completa (descrição do software) ---
+
+O MAPA-PG (Monitoramento e Análise de Produção Acadêmica da Pós-Graduação) é um
+sistema web aberto e gratuito, de minha autoria, destinado ao acompanhamento e à
+análise da produção intelectual dos programas de pós-graduação stricto sensu
+brasileiros. Construído exclusivamente a partir dos dados públicos da Avaliação da
+CAPES (Plataforma Sucupira), o sistema permite comparar programas dentro de uma
+mesma área de avaliação — a unidade de comparação adotada pela própria CAPES — por
+conceito (notas 3 a 7), por perfil de corpo docente e por produção classificada em
+estratos de impacto.
+
+A produção bibliográfica é estratificada em faixas A1–A8/C segundo o percentil do
+periódico dentro de cada área, reproduzindo o Procedimento 1 da Ficha de Avaliação
+2025–2028. O sistema disponibiliza indicadores por área, por programa e por
+quadriênio, com filtros por nota, unidade da federação, instituição e categoria de
+docente, além de painéis de ranking, gráficos interativos e exportação em CSV, PNG
+e TXT. A universidade de referência é configurável, o que possibilita a cada
+instituição posicionar seus programas diante dos pares nacionais.
+
+O MAPA-PG cobre 49 áreas de avaliação, 4.824 programas de pós-graduação em 495
+instituições, com dados dos quadriênios de 2013 a 2024. A metodologia é transparente
+e as análises são reprodutíveis; o sistema publica apenas resultados agregados e não
+redistribui registros brutos. Foi desenvolvido como aplicativo web progressivo (PWA),
+executa-se diretamente no navegador de dispositivos móveis e computadores, em
+qualquer sistema operacional, dispensa instalação e cadastro, e funciona também sem
+conexão após o primeiro acesso.
+
+A versão 5.0.0 (2026) consiste em uma revisão metodológica do cálculo da produção: a
+contagem passou a considerar artigos distintos, e não eventos de coautoria; o
+denominador das taxas passou a ser o total de anos-docente; e foram incorporados os
+dados de docentes de 2022 a 2024. A documentação das mudanças é disponibilizada no
+próprio aplicativo. O código-fonte é aberto, sob licença Creative Commons CC-BY-4.0.
+
+Disponível em: https://david888azv.github.io/Mapa-PG-UnB/
+Código-fonte: https://github.com/david888azv/Mapa-PG-UnB
+Publicação associada: AZEVEDO, D. L. MAPA-PG — um sistema interativo para
+monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e
+Física. Physicae Organum, Brasília, v. 11, n. 1, 2026. DOI:
+10.26512/2446-564X2026e62064.
+
+
+--- Versão curta (campo de descrição reduzido) ---
+
+O MAPA-PG (Monitoramento e Análise de Produção Acadêmica da Pós-Graduação) é um
+sistema web aberto e gratuito, de minha autoria, para análise da produção dos
+programas de pós-graduação stricto sensu a partir dos dados públicos da Avaliação da
+CAPES. Compara programas dentro da mesma área de avaliação, com estratificação da
+produção em faixas A1–A8/C por percentil de impacto (Ficha 2025–2028), indicadores
+por área, programa e quadriênio, e exportação de dados. Cobre 49 áreas, 4.824
+programas e 495 instituições, nos quadriênios de 2013 a 2024. Aplicativo web
+progressivo (PWA), reprodutível e de código aberto (CC-BY-4.0). Versão 5.0.0 (2026).
+Disponível em https://david888azv.github.io/Mapa-PG-UnB/. Publicação: DOI
+10.26512/2446-564X2026e62064 (Physicae Organum, v. 11, n. 1, 2026).
+
+
+--- Sugestão de preenchimento dos campos estruturados (Lattes → Software) ---
+
+Título: MAPA-PG — Monitoramento e Análise de Produção Acadêmica da Pós-Graduação
+Ano: 2026
+Finalidade: Análise e monitoramento da produção acadêmica da pós-graduação brasileira
+            a partir dos dados públicos da Avaliação da CAPES
+Plataforma: Aplicativo web progressivo (PWA); multiplataforma
+Ambiente: Navegador (Windows, macOS, Linux, Android, iOS)
+Disponibilidade: Livre / aberto (Creative Commons CC-BY-4.0)
+URL: https://david888azv.github.io/Mapa-PG-UnB/

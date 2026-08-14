@@ -443,8 +443,25 @@ with sync_playwright() as pw:
         await abrirBolsas(); await new Promise(r => setTimeout(r, 800));
         bolMedida('b');
         return _bolSerie('53001010002P6'); }""")
-    print('   Fisica/UnB bolsistas 2010-2025: %s' % fis, flush=True)
-    ok(fis[7] == 68 and fis[11] == 42, 'serie da Fisica/UnB bate com a fonte (2017=68, 2021=42)')
+    print('   Fisica/UnB pessoas com bolsa 2010-2025: %s' % fis, flush=True)
+    # Conferido no CSV cru da CAPES, ja com deduplicacao por PESSOA: 2025 tem 49
+    # registros e 46 pessoas — tres alunos passaram de mestrado a doutorado no
+    # mesmo ano e apareciam duas vezes na primeira versao da camada.
+    ok(fis[7] == 68 and fis[11] == 41 and fis[15] == 46,
+       'serie da Fisica/UnB bate com a fonte (2017=68, 2021=41, 2025=46)')
+    dedup = p5.evaluate("""() => {
+        const r = BOL.data['53001010002P6']['2025'];
+        const somaNiveis = Object.values(r.n).reduce((a, x) => a + x[0], 0);
+        return {b: r.b, ba: r.ba, somaNiveis: somaNiveis, m: r.m, ma: r.ma};
+    }""")
+    print('   2025: %d pessoas | %d alunos | soma dos niveis %d | %d meses'
+          % (dedup['b'], dedup['ba'], dedup['somaNiveis'], dedup['m']), flush=True)
+    ok(dedup['b'] < dedup['somaNiveis'],
+       'total de pessoas NAO e a soma dos niveis (%d < %d)' % (dedup['b'], dedup['somaNiveis']))
+    ok(dedup['ba'] <= dedup['b'] and dedup['ma'] <= dedup['m'],
+       'alunos sao subconjunto do total, e os meses de aluno tambem')
+    ok('fluxo' in p5.inner_text('#bolOverlayBody').lower(),
+       'o painel avisa que a contagem do ano e fluxo, nao foto de um mes')
     ok(not erros5, 'sem erro de console no painel de bolsas (%s)' % (erros5[:2] or 'nenhum'))
     p5.close()
 

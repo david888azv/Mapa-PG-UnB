@@ -186,6 +186,14 @@ def agregar(cd2area):
 
     agg = defaultdict(lambda: defaultdict(lambda: [0, 0.0, 0.0]))
     pessoas = defaultdict(set)          # (cd, ano, nivel) → chaves de pessoa
+    # Pessoa distinta no PROGRAMA-ANO, não só no nível: quem passa de mestrado a
+    # doutorado no mesmo ano tem dois registros, e somar os níveis contaria essa
+    # pessoa duas vezes. No país isso infla de 1,4% a 2,3% ao ano; num programa
+    # pequeno o efeito é bem maior (Física/UnB em 2025: 49 contra 46 pessoas).
+    pessoas_prog = defaultdict(set)     # (cd, ano) → chaves de pessoa
+    pessoas_alu = defaultdict(set)      # idem, só mestrado/doutorado
+    meses_alu = defaultdict(float)      # meses de bolsa de ALUNO (sem pós-doc)
+    valor_alu = defaultdict(float)
     fora = defaultdict(int)             # cd sem área no catálogo → nº de registros
     anos = set()
     niveis_vistos = defaultdict(int)
@@ -217,30 +225,47 @@ def agregar(cd2area):
                 if pid not in pessoas[chave]:
                     pessoas[chave].add(pid)
                     c[0] += 1
-                c[1] += _num(r.get('QT_BOLSA_ANO'))
-                c[2] += _num(r.get('VL_BOLSA_ANO'))
+                pessoas_prog[(cd, int(ano))].add(pid)
+                mes, val = _num(r.get('QT_BOLSA_ANO')), _num(r.get('VL_BOLSA_ANO'))
+                c[1] += mes
+                c[2] += val
+                # Pós-doutorando não é aluno do programa, e misturá-lo com
+                # mestrandos e doutorandos estraga qualquer razão por matriculado.
+                if nivel != 'PD':
+                    pessoas_alu[(cd, int(ano))].add(pid)
+                    meses_alu[(cd, int(ano))] += mes
+                    valor_alu[(cd, int(ano))] += val
                 anos.add(int(ano))
                 n += 1
         print(f'  · {os.path.basename(arq):58s} {n:>9,} registros de pós', flush=True)
 
-    return agg, sorted(anos), fora, niveis_vistos
+    distintos = {'todos': {k: len(v) for k, v in pessoas_prog.items()},
+                 'alunos': {k: len(v) for k, v in pessoas_alu.items()},
+                 'meses_alunos': dict(meses_alu), 'valor_alunos': dict(valor_alu)}
+    return agg, sorted(anos), fora, niveis_vistos, distintos
 
 
-def escrever(agg, anos, cd2area, areas, tocar_manifest=True):
+def escrever(agg, anos, cd2area, areas, distintos, tocar_manifest=True):
     por_area = defaultdict(dict)
     for (cd, ano), niv in agg.items():
         slug = cd2area[cd][0]
         prog = por_area[slug].setdefault(cd, {})
-        # b/m/v totais + detalhe por nível, tudo arredondado: mês é inteiro e
-        # real com centavo não tem sentido numa série de anos.
-        tot = [0, 0, 0]
+        # Detalhe por nível + totais. O total de PESSOAS não é a soma dos níveis
+        # (quem muda de nível no ano entraria duas vezes) e vem do conjunto
+        # distinto do programa-ano; meses e valor, sim, são somas.
+        tot_m = tot_v = 0
         det = {}
         for k, (b, m, v) in niv.items():
             det[k] = [b, round(m), round(v)]
-            tot[0] += b
-            tot[1] += round(m)
-            tot[2] += round(v)
-        prog[str(ano)] = {'b': tot[0], 'm': tot[1], 'v': tot[2], 'n': det}
+            tot_m += round(m)
+            tot_v += round(v)
+        prog[str(ano)] = {
+            'b': distintos['todos'].get((cd, ano), 0),
+            'ba': distintos['alunos'].get((cd, ano), 0),
+            'm': tot_m, 'ma': round(distintos['meses_alunos'].get((cd, ano), 0)),
+            'v': tot_v, 'va': round(distintos['valor_alunos'].get((cd, ano), 0)),
+            'n': det,
+        }
 
     escritos, total_kb = 0, 0.0
     resumo = {}
@@ -255,9 +280,15 @@ def escrever(agg, anos, cd2area, areas, tocar_manifest=True):
                                  'visitante, supervisão e coordenação — o conjunto da DPB '
                                  'traz essas bolsas nos mesmos arquivos, e elas não são '
                                  'do programa de pós',
-                'medidas': {'b': 'bolsistas distintos no ano',
+                'medidas': {'b': 'pessoas distintas com bolsa no ano (todos os níveis)',
+                            'ba': 'idem, só alunos de mestrado e doutorado',
                             'm': 'meses de bolsa pagos no ano',
-                            'v': 'valor pago no ano, em reais nominais'},
+                            'ma': 'idem, só de alunos',
+                            'v': 'valor pago no ano, em reais nominais',
+                            'va': 'idem, só de alunos'},
+                'contagem': 'A contagem do ano é FLUXO, não foto de um mês: entra quem teve '
+                            'bolsa em qualquer parte do ano, e a maioria não teve os 12 meses. '
+                            'Meses ÷ 12 dá a bolsa-equivalente-ano, que é o número comparável.',
                 'fonte': 'CAPES — Dados Abertos, Bolsistas dos Programas da DPB '
                          '(bolsas no país), blocos 2010-2016, 2017-2021 e 2022-2025',
                 'n_programas': len(progs),
@@ -301,8 +332,8 @@ def main():
         baixar()
 
     cd2area, areas = catalogo_areas()
-    agg, anos, fora, niveis = agregar(cd2area)
-    escritos, kb, resumo = escrever(agg, anos, cd2area, areas, not a.sem_manifest)
+    agg, anos, fora, niveis, distintos = agregar(cd2area)
+    escritos, kb, resumo = escrever(agg, anos, cd2area, areas, distintos, not a.sem_manifest)
 
     print(f'\n✓ {escritos} arquivos dados/bol-*.json  ({kb:.0f} KB no total)')
     print(f'  anos cobertos: {anos[0]}–{anos[-1]}')

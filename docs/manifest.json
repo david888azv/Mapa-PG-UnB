@@ -1,6 +1,6 @@
 {
   "gerado_em": "2026-05-05 20:20:38",
-  "shell_version": "5.7.0",
+  "shell_version": "5.7.1",
   "estratos_capes": "A1-A8/C (Ficha de Avaliação 2025-2028) — percentil de IF por área; campos estr_perm/estr_colab/estr_visit/estr_all + metadata.estratos por área",
   "areas": [
     {
@@ -43,7 +43,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-administracao-publica-e-de-empresas-ciencias-contabeis-e-turismo.json",
-        "tamanho_kb": 119,
+        "tamanho_kb": 162,
         "n_programas": 126,
         "anos": [
           2010,
@@ -75,7 +75,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-antropologia-arqueologia.json",
-        "tamanho_kb": 43,
+        "tamanho_kb": 57,
         "n_programas": 36,
         "anos": [
           2010,
@@ -120,7 +120,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-arquitetura-urbanismo-e-design.json",
-        "tamanho_kb": 58,
+        "tamanho_kb": 78,
         "n_programas": 53,
         "anos": [
           2010,
@@ -166,7 +166,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-artes.json",
-        "tamanho_kb": 66,
+        "tamanho_kb": 89,
         "n_programas": 61,
         "anos": [
           2010,
@@ -210,7 +210,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-astronomia-fisica.json",
-        "tamanho_kb": 86,
+        "tamanho_kb": 113,
         "n_programas": 66,
         "anos": [
           2010,
@@ -256,7 +256,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-biodiversidade.json",
-        "tamanho_kb": 187,
+        "tamanho_kb": 247,
         "n_programas": 151,
         "anos": [
           2010,
@@ -300,7 +300,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-biotecnologia.json",
-        "tamanho_kb": 67,
+        "tamanho_kb": 89,
         "n_programas": 61,
         "anos": [
           2010,
@@ -345,7 +345,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencia-da-computacao.json",
-        "tamanho_kb": 82,
+        "tamanho_kb": 111,
         "n_programas": 75,
         "anos": [
           2010,
@@ -387,7 +387,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencia-de-alimentos.json",
-        "tamanho_kb": 67,
+        "tamanho_kb": 89,
         "n_programas": 60,
         "anos": [
           2010,
@@ -426,7 +426,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencia-politica-e-relacoes-internacionais.json",
-        "tamanho_kb": 49,
+        "tamanho_kb": 66,
         "n_programas": 51,
         "anos": [
           2010,
@@ -472,7 +472,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencias-agrarias-i.json",
-        "tamanho_kb": 282,
+        "tamanho_kb": 372,
         "n_programas": 218,
         "anos": [
           2010,
@@ -517,7 +517,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencias-ambientais.json",
-        "tamanho_kb": 109,
+        "tamanho_kb": 148,
         "n_programas": 120,
         "anos": [
           2010,
@@ -562,7 +562,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencias-biologicas-i.json",
-        "tamanho_kb": 86,
+        "tamanho_kb": 113,
         "n_programas": 63,
         "anos": [
           2010,
@@ -604,7 +604,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencias-biologicas-ii.json",
-        "tamanho_kb": 96,
+        "tamanho_kb": 125,
         "n_programas": 74,
         "anos": [
           2010,
@@ -649,7 +649,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ciencias-biologicas-iii.json",
-        "tamanho_kb": 51,
+        "tamanho_kb": 67,
         "n_programas": 37,
         "anos": [
           2010,
@@ -668,7 +668,7 @@
       "tem_metricas": true,
       "bol": {
         "arquivo": "dados/bol-ciencias-da-religiao-e-teologia.json",
-        "tamanho_kb": 23,
+        "tamanho_kb": 31,
         "n_programas": 19,
         "anos": [
           2010,
@@ -713,7 +713,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-comunicacao-e-informacao.json",
-        "tamanho_kb": 82,
+        "tamanho_kb": 111,
         "n_programas": 76,
         "anos": [
           2010,
@@ -758,7 +758,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-direito.json",
-        "tamanho_kb": 95,
+        "tamanho_kb": 129,
         "n_programas": 103,
         "anos": [
           2010,
@@ -803,7 +803,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-economia.json",
-        "tamanho_kb": 64,
+        "tamanho_kb": 86,
         "n_programas": 59,
         "anos": [
           2010,
@@ -848,7 +848,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-educacao.json",
-        "tamanho_kb": 163,
+        "tamanho_kb": 218,
         "n_programas": 154,
         "anos": [
           2010,
@@ -893,7 +893,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-educacao-fisica.json",
-        "tamanho_kb": 76,
+        "tamanho_kb": 102,
         "n_programas": 77,
         "anos": [
           2010,
@@ -937,7 +937,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-enfermagem.json",
-        "tamanho_kb": 68,
+        "tamanho_kb": 91,
         "n_programas": 57,
         "anos": [
           2010,
@@ -984,7 +984,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-engenharias-i.json",
-        "tamanho_kb": 124,
+        "tamanho_kb": 166,
         "n_programas": 114,
         "anos": [
           2010,
@@ -1026,7 +1026,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-engenharias-ii.json",
-        "tamanho_kb": 104,
+        "tamanho_kb": 138,
         "n_programas": 85,
         "anos": [
           2010,
@@ -1072,7 +1072,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-engenharias-iii.json",
-        "tamanho_kb": 124,
+        "tamanho_kb": 167,
         "n_programas": 115,
         "anos": [
           2010,
@@ -1119,7 +1119,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-engenharias-iv.json",
-        "tamanho_kb": 99,
+        "tamanho_kb": 133,
         "n_programas": 88,
         "anos": [
           2010,
@@ -1164,7 +1164,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-ensino.json",
-        "tamanho_kb": 83,
+        "tamanho_kb": 113,
         "n_programas": 106,
         "anos": [
           2010,
@@ -1208,7 +1208,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-farmacia.json",
-        "tamanho_kb": 78,
+        "tamanho_kb": 104,
         "n_programas": 63,
         "anos": [
           2010,
@@ -1247,7 +1247,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-filosofia.json",
-        "tamanho_kb": 61,
+        "tamanho_kb": 81,
         "n_programas": 54,
         "anos": [
           2010,
@@ -1292,7 +1292,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-geociencias.json",
-        "tamanho_kb": 73,
+        "tamanho_kb": 96,
         "n_programas": 56,
         "anos": [
           2010,
@@ -1336,7 +1336,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-geografia.json",
-        "tamanho_kb": 81,
+        "tamanho_kb": 108,
         "n_programas": 76,
         "anos": [
           2010,
@@ -1374,7 +1374,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-historia.json",
-        "tamanho_kb": 86,
+        "tamanho_kb": 115,
         "n_programas": 74,
         "anos": [
           2010,
@@ -1425,7 +1425,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-interdisciplinar.json",
-        "tamanho_kb": 280,
+        "tamanho_kb": 378,
         "n_programas": 302,
         "anos": [
           2010,
@@ -1472,7 +1472,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-linguistica-e-literatura.json",
-        "tamanho_kb": 186,
+        "tamanho_kb": 248,
         "n_programas": 155,
         "anos": [
           2010,
@@ -1517,7 +1517,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-matematica-probabilidade-e-estatistica.json",
-        "tamanho_kb": 70,
+        "tamanho_kb": 93,
         "n_programas": 57,
         "anos": [
           2010,
@@ -1561,7 +1561,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-materiais.json",
-        "tamanho_kb": 44,
+        "tamanho_kb": 59,
         "n_programas": 39,
         "anos": [
           2010,
@@ -1605,7 +1605,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-medicina-i.json",
-        "tamanho_kb": 112,
+        "tamanho_kb": 147,
         "n_programas": 91,
         "anos": [
           2010,
@@ -1650,7 +1650,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-medicina-ii.json",
-        "tamanho_kb": 122,
+        "tamanho_kb": 161,
         "n_programas": 100,
         "anos": [
           2010,
@@ -1692,7 +1692,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-medicina-iii.json",
-        "tamanho_kb": 51,
+        "tamanho_kb": 67,
         "n_programas": 39,
         "anos": [
           2010,
@@ -1737,7 +1737,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-medicina-veterinaria.json",
-        "tamanho_kb": 94,
+        "tamanho_kb": 124,
         "n_programas": 81,
         "anos": [
           2010,
@@ -1781,7 +1781,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-nutricao.json",
-        "tamanho_kb": 33,
+        "tamanho_kb": 45,
         "n_programas": 32,
         "anos": [
           2010,
@@ -1825,7 +1825,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-odontologia.json",
-        "tamanho_kb": 104,
+        "tamanho_kb": 138,
         "n_programas": 93,
         "anos": [
           2010,
@@ -1867,7 +1867,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-planejamento-urbano-e-regional-demografia.json",
-        "tamanho_kb": 46,
+        "tamanho_kb": 62,
         "n_programas": 48,
         "anos": [
           2010,
@@ -1914,7 +1914,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-psicologia.json",
-        "tamanho_kb": 106,
+        "tamanho_kb": 141,
         "n_programas": 90,
         "anos": [
           2010,
@@ -1958,7 +1958,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-quimica.json",
-        "tamanho_kb": 96,
+        "tamanho_kb": 127,
         "n_programas": 76,
         "anos": [
           2010,
@@ -2003,7 +2003,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-saude-coletiva.json",
-        "tamanho_kb": 69,
+        "tamanho_kb": 92,
         "n_programas": 66,
         "anos": [
           2010,
@@ -2047,7 +2047,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-servico-social.json",
-        "tamanho_kb": 42,
+        "tamanho_kb": 57,
         "n_programas": 38,
         "anos": [
           2010,
@@ -2086,7 +2086,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-sociologia.json",
-        "tamanho_kb": 71,
+        "tamanho_kb": 94,
         "n_programas": 55,
         "anos": [
           2010,
@@ -2128,7 +2128,7 @@
       },
       "bol": {
         "arquivo": "dados/bol-zootecnia-recursos-pesqueiros.json",
-        "tamanho_kb": 84,
+        "tamanho_kb": 112,
         "n_programas": 68,
         "anos": [
           2010,
