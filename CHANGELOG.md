@@ -1,5 +1,45 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.0 — Razão bolsas por aluno (2026-08-14)
+
+Segunda metade do pedido do Prof. Marcos D. Pereira (PPGBq/UFRJ). Ele respondeu às
+perguntas de desenho pedindo **os dois** indicadores: o número absoluto, que mostra o corte,
+e o **percentual de alunos cobertos por bolsa**, que é o que sustenta uma discussão de
+equidade de cotas. O absoluto entrou na v5.7.0; o percentual entra agora.
+
+O denominador vem do conjunto **Discentes da Pós-Graduação Stricto Sensu** da CAPES,
+processado ano a ano de 2010 a 2024 por `build/gerar_discentes.py` — cerca de 2 GB na
+origem, que viram um cache de contagens por programa, ano e nível.
+
+**A escolha do denominador não é neutra, e está declarada na tela.** A razão divide alunos
+com bolsa por **alunos ativos no ano** — quem esteve no programa em qualquer parte dele —,
+e não pelos matriculados no fechamento. É o que mantém fluxo dividido por fluxo: o
+numerador também conta quem teve bolsa em qualquer parte do ano. Dividir por matriculado
+daria cobertura maior, sobretudo em programa que titula muito. Os dois números aparecem
+nas caixas, para quem preferir a outra leitura.
+
+Mestrado e doutorado somam acadêmico e profissional **nos dois lados**; separar de formas
+diferentes daria cobertura acima de 100% em programa profissional. Pós-doutorando fica fora
+dos dois lados, porque não é aluno.
+
+O gráfico de composição vira **cobertura por nível** neste modo: mestrado e doutorado lado
+a lado, porque a média dos dois esconde a diferença entre "metade do programa tem bolsa" e
+"quase todo doutorando tem, quase nenhum mestrando tem".
+
+**A razão termina em 2024**, último ano publicado de discentes, enquanto as bolsas vão a
+2025. O painel deixa o ano sem denominador em branco, em vez de exibir zero.
+
+**E começa em 2013, não em 2010.** Os arquivos de discentes de 2004-2012 têm outro esquema
+e não trazem o nível do aluno: o que existe lá é o nível do PROGRAMA (dois terços com
+"MESTRADO/DOUTORADO") e o grau que o aluno JÁ TEM, que classificaria como mestrado todo
+doutorando que já é mestre. Também não há identificador de pessoa estável. Sem nível do
+aluno não há razão por nível, e três anos a menos é melhor que três anos errados.
+
+**Conferência:** a Física da UnB sai de 51% de cobertura em 2013 para 41% em 2024 pelo
+denominador de ativos (67% para 50% pelo de matriculados) — e o denominador de 2024, 86
+alunos ativos e 70 matriculados, bate com a contagem feita direto no arquivo da CAPES.
+`teste_visual.py`: **78 checagens, 0 falhas**. Service Worker em `mapa-pg-v5.8.0`.
+
 ## v5.7.1 — A contagem de bolsistas do ano estava inflada (2026-08-14)
 
 Levantada por conferência do usuário: a Física da UnB aparecia com **49 bolsistas em 2025**,

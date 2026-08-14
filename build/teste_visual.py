@@ -462,6 +462,31 @@ with sync_playwright() as pw:
        'alunos sao subconjunto do total, e os meses de aluno tambem')
     ok('fluxo' in p5.inner_text('#bolOverlayBody').lower(),
        'o painel avisa que a contagem do ano e fluxo, nao foto de um mes')
+    # ── razão bolsas por aluno (pedido do proponente da funcionalidade) ──
+    raz = p5.evaluate("""() => {
+        bolMedida('r');
+        const p = BOL.data['53001010002P6'];
+        const s = _bolSerie('53001010002P6');
+        const r24 = p['2024'], r25 = p['2025'];
+        return {serie: s, anos: BOL.metadata.anos,
+                al24: r24 && r24.al ? r24.al : null,
+                ba24: r24 ? r24.ba : null,
+                tem25: !!(r25 && r25.al),
+                txt: document.getElementById('bolOverlayBody').innerText};
+    }""")
+    i24 = raz['anos'].index(2024)
+    print('   razao Fisica/UnB 2024: %.1f%% | alunos com bolsa %s | denominador %s'
+          % (raz['serie'][i24] or 0, raz['ba24'], raz['al24']), flush=True)
+    ok(raz['serie'][i24] is not None, 'a razao existe em 2024')
+    ok(raz['serie'][-1] is None and not raz['tem25'],
+       'a razao NAO inventa 2025, ano sem dado de discente')
+    ok(0 < (raz['serie'][i24] or 0) <= 100, 'a razao fica entre 0 e 100%%')
+    # inner_text traz os rotulos das caixas em CAIXA ALTA (text-transform do CSS)
+    txt_up = raz['txt'].upper()
+    ok('ALUNOS NO PROGRAMA' in txt_up and 'MATRICULADOS' in txt_up,
+       'o painel mostra os dois denominadores (ativos e matriculados)')
+    ok('ativos no ano' in raz['txt'] or 'fluxo por' in raz['txt'],
+       'a ressalva explica por que o denominador e o aluno ativo')
     ok(not erros5, 'sem erro de console no painel de bolsas (%s)' % (erros5[:2] or 'nenhum'))
     p5.close()
 

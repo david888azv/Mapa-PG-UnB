@@ -73,6 +73,7 @@ DADOS_CAPES = os.path.normpath(os.path.join(REPO, '..', 'dados_capes'))
 FONTE_DIR = os.path.join(DADOS_CAPES, 'bolsas')
 DOCS_DIR = os.path.join(REPO, 'docs', 'dados')
 MANIFEST = os.path.join(REPO, 'docs', 'manifest.json')
+DISCENTES = os.path.join(REPO, 'build', 'cache', 'discentes_por_programa.json')
 
 CKAN = 'https://dadosabertos.capes.gov.br/api/3/action/package_show?id='
 PACOTES = [
@@ -245,7 +246,19 @@ def agregar(cd2area):
     return agg, sorted(anos), fora, niveis_vistos, distintos
 
 
+def carregar_discentes():
+    """Denominador da razão, vindo do gerar_discentes.py. Ausente, a camada sai
+    sem razão nenhuma — melhor não ter o indicador do que tê-lo pela metade."""
+    if not os.path.exists(DISCENTES):
+        print(f'  ⚠ {DISCENTES} não existe — a camada sai SEM a razão por aluno.\n'
+              f'    Rode antes: python3 gerar_discentes.py --baixar', file=sys.stderr)
+        return {}, None
+    d = json.load(open(DISCENTES, encoding='utf-8'))
+    return d.get('data', {}), d.get('anos')
+
+
 def escrever(agg, anos, cd2area, areas, distintos, tocar_manifest=True):
+    disc, anos_disc = carregar_discentes()
     por_area = defaultdict(dict)
     for (cd, ano), niv in agg.items():
         slug = cd2area[cd][0]
@@ -259,13 +272,19 @@ def escrever(agg, anos, cd2area, areas, distintos, tocar_manifest=True):
             det[k] = [b, round(m), round(v)]
             tot_m += round(m)
             tot_v += round(v)
-        prog[str(ano)] = {
+        reg = {
             'b': distintos['todos'].get((cd, ano), 0),
             'ba': distintos['alunos'].get((cd, ano), 0),
             'm': tot_m, 'ma': round(distintos['meses_alunos'].get((cd, ano), 0)),
             'v': tot_v, 'va': round(distintos['valor_alunos'].get((cd, ano), 0)),
             'n': det,
         }
+        # `al` = denominador: {'ME': [matriculados, ativos], 'DO': [...]}, só nos
+        # anos em que o conjunto de discentes existe (vai até 2024).
+        alunos = disc.get(cd, {}).get(str(ano))
+        if alunos:
+            reg['al'] = alunos
+        prog[str(ano)] = reg
 
     escritos, total_kb = 0, 0.0
     resumo = {}
@@ -291,6 +310,14 @@ def escrever(agg, anos, cd2area, areas, distintos, tocar_manifest=True):
                             'Meses ÷ 12 dá a bolsa-equivalente-ano, que é o número comparável.',
                 'fonte': 'CAPES — Dados Abertos, Bolsistas dos Programas da DPB '
                          '(bolsas no país), blocos 2010-2016, 2017-2021 e 2022-2025',
+                'alunos': ({'fonte': 'CAPES — Dados Abertos, Discentes da Pós-Graduação '
+                                     'Stricto Sensu', 'anos': anos_disc,
+                            'campos': 'al = {nível: [matriculados no fechamento do ano, '
+                                      'ativos no ano]}; mestrado e doutorado incluem os '
+                                      'profissionais',
+                            'razao': 'a razão do painel divide alunos com bolsa por alunos '
+                                     'ATIVOS no ano: os dois lados são fluxo do ano'}
+                           if anos_disc else None),
                 'n_programas': len(progs),
                 'gerado_em': time.strftime('%Y-%m-%d %H:%M:%S'),
             },
