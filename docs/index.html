@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.7.0</div>
+        <div id="headerVersion">v5.7.1</div>
     </div>
 </div>
 
@@ -597,7 +597,7 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.7.0';
+const VERSION = '5.7.1';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -3064,6 +3064,7 @@ function renderBolsas() {
             Isso não quer dizer que ele não tenha bolsistas: bolsa de outra agência, de fundação
             estadual ou da própria instituição não entra nesta base.</p></div>`;
     } else {
+        const ultReg = (BOL.data[cdRef] || {})[String(ultimo)] || {};
         const vUlt = serieRef[serieRef.length - 1];
         const pico = serieRef.reduce((a, b) => Math.max(a, b), 0);
         const anoPico = anos[serieRef.indexOf(pico)];
@@ -3079,13 +3080,22 @@ function renderBolsas() {
                 <div class="box"><div class="v">${sinal(varPico)}</div><div class="l">${ultimo} vs<br>o pico</div></div>
                 ${var2019 != null
                   ? `<div class="box"><div class="v">${sinal(var2019)}</div><div class="l">${ultimo}<br>vs 2019</div></div>` : ''}
-                <div class="box"><div class="v">${(serieRef[serieRef.length - 1] / 12).toFixed(1)}</div>
-                    <div class="l">${BOL_MED === 'm' ? 'bolsas-equivalentes<br>em ' + ultimo : '&nbsp;'}</div></div>
+                <div class="box"><div class="v">${fmtN(ultReg.ba || 0)}</div>
+                    <div class="l">alunos com bolsa<br>em ${ultimo}</div></div>
+                <div class="box"><div class="v">${fmtN((ultReg.b || 0) - (ultReg.ba || 0))}</div>
+                    <div class="l">pós-doutorado<br>(não é aluno)</div></div>
+                <div class="box"><div class="v">${((ultReg.ma || 0) / 12).toFixed(1)}</div>
+                    <div class="l">bolsas-equivalentes<br>de aluno em ${ultimo}</div></div>
             </div>
             <canvas id="bolChartSerie" height="105"></canvas>
             <p class="note">A linha tracejada é a <b>mediana da área</b> no mesmo ano, entre os
             programas que tinham alguma bolsa — serve para separar o que é movimento do programa
-            do que é movimento de todo mundo.</p></div>`;
+            do que é movimento de todo mundo.<br>
+            A contagem do ano é <b>fluxo, não foto de um mês</b>: entra quem teve bolsa em
+            qualquer parte do ano, e a maioria não fica os doze meses. Por isso
+            <b>${fmtN(ultReg.b || 0)}</b> pessoas com bolsa em ${ultimo} correspondem a
+            <b>${((ultReg.m || 0) / 12).toFixed(1)}</b> bolsas-equivalentes-ano. O
+            <b>pós-doutorando não é aluno</b> do programa e aparece à parte pelo mesmo motivo.</p></div>`;
 
         h += `<div class="card"><h2>Composição por nível</h2>
             <canvas id="bolChartNivel" height="105"></canvas>
@@ -3138,6 +3148,9 @@ function renderBolsas() {
         em outro conjunto da CAPES e não entram aqui.<br>
         <b>Não é a única fonte de bolsa de um programa:</b> CNPq, fundações estaduais e a própria
         instituição não aparecem nesta base. Um programa sem bolsa da CAPES pode ter bolsistas.<br>
+        <b>É fluxo do ano, não foto de um mês:</b> entra quem teve bolsa em qualquer parte do ano.
+        Quem muda de mestrado para doutorado no mesmo ano conta uma vez só, e o pós-doutorando,
+        que não é aluno do programa, é somado à parte.<br>
         <b>Bolsista não é cota:</b> quem perde a bolsa no meio do ano continua contado como um
         bolsista e aparece como menos meses — por isso a medida de <b>meses</b> mostra corte que a
         contagem de pessoas esconde. Meses ÷ 12 é a bolsa-equivalente-ano.<br>
@@ -3197,7 +3210,8 @@ function renderBolsas() {
 function exportarBolsasCSV() {
     const md = BOL.metadata, anos = md.anos, info = _bolProgInfo();
     const lim = s => `"${String(s == null ? '' : s).replace(/"/g, '""')}"`;
-    let csv = 'IES;Programa;CD_Programa;UF;Nota;Ano;Bolsistas;Meses_de_bolsa;Valor_pago;' +
+    let csv = 'IES;Programa;CD_Programa;UF;Nota;Ano;Pessoas_com_bolsa;Alunos_com_bolsa;' +
+              'Meses_de_bolsa;Meses_de_aluno;Bolsas_equivalentes_aluno;Valor_pago;Valor_alunos;' +
               'Mestrado;Mestrado_profissional;Doutorado;Pos_doutorado\n';
     Object.entries(BOL.data).forEach(([cd, p]) => {
         const d = info[cd] || {};
@@ -3206,14 +3220,18 @@ function exportarBolsasCSV() {
             if (!r) return;
             const n = k => (r.n && r.n[k] ? r.n[k][0] : 0);
             csv += [d.sigla || '', lim(d.programa), cd, d.uf || '', d.nota == null ? '' : d.nota,
-                    a, r.b, r.m, String(r.v).replace('.', ','),
+                    a, r.b, r.ba == null ? '' : r.ba, r.m, r.ma == null ? '' : r.ma,
+                    ((r.ma || 0) / 12).toFixed(2).replace('.', ','),
+                    String(r.v).replace('.', ','), String(r.va == null ? '' : r.va).replace('.', ','),
                     n('ME'), n('MP'), n('DO'), n('PD')].join(';') + '\n';
         });
     });
     csv += `\n# MAPA-PG v${VERSION} — bolsas CAPES ${anos[0]}-${anos[anos.length - 1]} — ${md.area}\n`;
     csv += `# ${md.fonte}\n`;
-    csv += '# Bolsistas = pessoas distintas no ano; meses = mensalidades pagas; valor em reais nominais.\n';
-    csv += '# Colunas por nível são CONTAGEM DE BOLSISTAS.\n';
+    csv += '# Pessoas com bolsa = distintas no ano, em qualquer nível; alunos = só mestrado e doutorado\n';
+    csv += '# (pós-doutorando não é aluno do programa). Quem muda de nível no ano conta UMA vez.\n';
+    csv += '# A contagem do ano é fluxo, não foto de um mês: meses ÷ 12 = bolsa-equivalente-ano.\n';
+    csv += '# Colunas por nível são contagem de pessoas DENTRO do nível, e podem somar mais que o total.\n';
     download(`bolsas-${md.slug}-${anos[0]}-${anos[anos.length - 1]}.csv`, csv, 'text/csv');
 }
 

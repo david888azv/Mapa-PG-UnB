@@ -1,5 +1,30 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.7.1 — A contagem de bolsistas do ano estava inflada (2026-08-14)
+
+Levantada por conferência do usuário: a Física da UnB aparecia com **49 bolsistas em 2025**,
+número que soava alto demais para o tamanho do programa. Estava mesmo. A conferência no CSV
+cru da CAPES mostrou 49 **registros** e **46 pessoas**: três alunos passaram de mestrado
+para doutorado no mesmo ano, com dois registros cada, e a camada somava as contagens de
+cada nível. Corrigido: o total do ano passa a ser o conjunto **distinto de pessoas no
+programa-ano**. No país a inflação ia de 1,4% a 2,3% por ano, e num programa pequeno era
+bem maior.
+
+Dois esclarecimentos entraram junto, porque o número continuava podendo ser mal lido:
+
+- **Pós-doutorando não é aluno do programa**, e agora aparece à parte. Dos 46 da Física em
+  2025, 42 são alunos e 4 são pós-doutorandos. Sem isso, qualquer razão por matriculado
+  sairia errada.
+- **A contagem do ano é fluxo, não foto de um mês.** Entra quem teve bolsa em qualquer
+  parte do ano, e a maioria não fica os doze meses: os mesmos 46 correspondem a **35,7
+  bolsas-equivalentes-ano**, e 32,8 se contados só os alunos. O painel passa a dizer isso
+  na própria tela, e o CSV ganhou as colunas de alunos, de meses de aluno e de
+  bolsa-equivalente.
+
+`teste_visual.py` ganhou três checagens estruturais — o total não pode ser a soma dos
+níveis, alunos são subconjunto do total, e o aviso de fluxo tem de estar na tela:
+**73 checagens, 0 falhas**. Service Worker em `mapa-pg-v5.7.1`.
+
 ## v5.7.0 — Bolsas da CAPES, ano a ano, por programa (2026-08-14)
 
 Primeiro pedido de funcionalidade vindo de fora pelo formulário do aplicativo: o Prof.
