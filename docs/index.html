@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.6.1</div>
+        <div id="headerVersion">v5.7.0</div>
     </div>
 </div>
 
@@ -379,6 +379,7 @@ tr:hover { background: #EEF2F7; }
         <button class="btn btn-primary" onclick="analisar()">Analisar</button>
         <button class="btn" onclick="renderRanking('nac', false)" style="background:#D4AF37;color:#fff;">🏆 TOP / Ranking de programas</button>
         <button class="btn" id="patBtn" onclick="abrirPatentes()" style="background:#00897B;color:#fff;">⚙ Patentes / Produção Técnica</button>
+        <button class="btn" id="bolBtn" onclick="abrirBolsas()" style="background:#7B1FA2;color:#fff;">🎓 Bolsas CAPES por ano</button>
         <button class="btn btn-secondary" onclick="gerarRelatorio()">Gerar Relatório</button>
         <button class="btn btn-export" onclick="exportarCSV()">Exportar CSV</button>
         <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
@@ -464,6 +465,49 @@ tr:hover { background: #EEF2F7; }
 #patOverlay .quadbtn.on .q,#patOverlay .quadbtn.on .s{color:#fff;}
 #patOverlay .quadbtn:disabled{opacity:.45;cursor:not-allowed;}
 #patOverlay .box.na{border-left-color:#B0BEC5;background:#F4F6F7;}
+/* Painel de BOLSAS: mesma estrutura do painel de patentes, na paleta roxa.
+   Duplicado em vez de generalizado para que mexer num painel não mude o outro. */
+#bolOverlay{display:none;flex-direction:column;background:#F5F7FA;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12);}
+#bolOverlay.show{display:flex;}
+#bolOverlayHead{position:sticky;top:0;z-index:30;background:linear-gradient(135deg,#4A148C,#7B1FA2);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+#bolOverlayHead h2{font-size:16px;font-weight:700;margin:0;flex:1 1 auto;letter-spacing:.5px;border:none;color:#fff;}
+#bolOverlayHead .ind{font-size:11px;opacity:.88;white-space:nowrap;}
+#bolOverlay .navbtn{padding:8px 16px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;background:#ECF0F1;color:#4A148C;}
+#bolOverlayBody{padding:16px;}
+#bolOverlay .card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:18px;margin-bottom:16px;}
+#bolOverlay .card h2{font-size:14px;color:#2C3E50;margin:0 0 12px;border-bottom:2px solid #7B1FA2;padding-bottom:4px;}
+#bolOverlay .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+#bolOverlay .box{flex:1;min-width:96px;background:#F8F9FA;border-radius:4px;padding:8px 6px;text-align:center;border-left:3px solid #7B1FA2;}
+#bolOverlay .box .v{font-size:17px;font-weight:700;color:#2C3E50;}
+#bolOverlay .box .l{font-size:8.5px;color:#7F8C8D;text-transform:uppercase;line-height:1.25;margin-top:2px;}
+#bolOverlay table{width:100%;border-collapse:collapse;font-size:11.5px;margin:6px 0;}
+#bolOverlay th{background:#4A148C;color:#fff;padding:5px 6px;text-align:center;font-size:10px;position:sticky;top:0;}
+#bolOverlay td{padding:4px 6px;border-bottom:1px solid #E0E4E8;text-align:center;}
+#bolOverlay td.l{text-align:left;}
+#bolOverlay tr:nth-child(even){background:#F8F9FA;}
+#bolOverlay tr.ref-row{background:#F3E5F5;font-weight:600;}
+#bolOverlay .pat{border-left:3px solid #7B1FA2;background:#FCFAFD;border-radius:0 6px 6px 0;padding:9px 12px;margin-bottom:8px;}
+#bolOverlay .pat .t{font-size:12.5px;font-weight:600;color:#1A252F;line-height:1.35;}
+#bolOverlay .pat .m{font-size:10.5px;color:#4A148C;margin-top:3px;}
+#bolOverlay .pat .r{font-size:11.5px;color:#455A64;margin-top:5px;line-height:1.45;text-align:justify;}
+#bolOverlay .pat .semr{font-size:10.5px;color:#B0777B;margin-top:4px;font-style:italic;}
+#bolOverlay .tag{display:inline-block;background:#F3E5F5;color:#4A148C;border-radius:10px;padding:1px 8px;font-size:9.5px;font-weight:700;margin-right:4px;}
+#bolOverlay .btn{display:inline-block;width:auto;padding:8px 16px;border:none;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;margin:4px 6px 8px 0;color:#fff;background:#7B1FA2;}
+#bolOverlay .btn.csv{background:#27AE60;}
+#bolOverlay input.busca{width:100%;padding:8px 10px;border:1.5px solid #B0BEC5;border-radius:6px;font-size:12.5px;}
+#bolOverlay .note{font-size:11px;color:#7F8C8D;margin-top:10px;line-height:1.55;}
+#bolOverlay .scroll{max-height:420px;overflow-y:auto;}
+#bolOverlay .card.quad-card{padding:14px 18px;}
+#bolOverlay .quadsel{display:flex;gap:8px;flex-wrap:wrap;}
+#bolOverlay .quadbtn{flex:1;min-width:150px;background:#fff;border:1.5px solid #CFD8DC;border-radius:8px;padding:9px 12px;cursor:pointer;text-align:left;transition:.15s;}
+#bolOverlay .quadbtn:hover:not(:disabled):not(.on){border-color:#7B1FA2;background:#F8F3FA;}
+#bolOverlay .quadbtn.on{background:#7B1FA2;border-color:#4A148C;box-shadow:0 2px 6px rgba(123,31,162,.3);}
+#bolOverlay .quadbtn .q{display:block;font-size:14px;font-weight:700;color:#2C3E50;}
+#bolOverlay .quadbtn .s{display:block;font-size:9.5px;color:#7F8C8D;text-transform:uppercase;letter-spacing:.3px;margin-top:2px;}
+#bolOverlay .quadbtn.on .q,#bolOverlay .quadbtn.on .s{color:#fff;}
+#bolOverlay .quadbtn:disabled{opacity:.45;cursor:not-allowed;}
+#bolOverlay .box.na{border-left-color:#B0BEC5;background:#F4F6F7;}
+#bolOverlay .box.na .v{color:#90A4AE;}
 #patOverlay .box.na .v{color:#90A4AE;}
 </style>
 <div class="main" id="main">
@@ -495,6 +539,15 @@ tr:hover { background: #EEF2F7; }
                 <button class="navbtn" onclick="closePatOverlay()">✕ Fechar</button>
             </div>
             <div id="patOverlayBody"></div>
+        </div>
+
+        <div id="bolOverlay">
+            <div id="bolOverlayHead">
+                <h2>Bolsas CAPES — série por ano</h2>
+                <span class="ind" id="bolInd"></span>
+                <button class="navbtn" onclick="closeBolOverlay()">✕ Fechar</button>
+            </div>
+            <div id="bolOverlayBody"></div>
         </div>
     </div>
 </div>
@@ -544,7 +597,7 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.6.1';
+const VERSION = '5.7.0';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -880,6 +933,7 @@ async function switchArea(slug, sufixo) {
     const d = await fetch(url, {cache: 'force-cache'}).then(r=>r.json());
     DATA = d;
     closePatOverlay();             // a camada de patentes é por área; fecha ao trocar
+    closeBolOverlay(); BOL = null;  // idem para a de bolsas
     TEC = null; TEC_CACHE = {};
     aplicarBaseEstrato();          // remapeia estr_*/metadata.estratos p/ a base ativa (padrão CiteScore)
     CURRENT_AREA_SLUG = slug;
@@ -2878,6 +2932,289 @@ async function setPatQuad(quad) {
 function closePatOverlay() {
     document.getElementById('patOverlay').classList.remove('show');
     const r = document.getElementById('results'); if (r) r.style.display = '';
+}
+
+/* ==================================================================
+ * BOLSAS CAPES — série anual por programa
+ *
+ * Pedido de um coordenador de programa pelo formulário do app: ver as
+ * bolsas de cada programa ao longo dos anos, e enxergar as perdas. O
+ * painel mostrava produção e corpo docente; o insumo que sustenta os
+ * dois não aparecia em lugar nenhum.
+ *
+ * Camada carregada sob demanda (dados/bol-<area>.json), como a de
+ * patentes. Três medidas, porque uma sozinha engana: BOLSISTAS é o
+ * número que a coordenação reconhece mas esconde corte no meio do ano;
+ * MESES de bolsa é a medida fiel da perda; VALOR é nominal, e cresce
+ * por reajuste mesmo quando o número de bolsas cai — é o caso de 2023.
+ * ================================================================== */
+let BOL = null;                 // dados/bol-<area>.json da área carregada
+let BOL_MED = 'b';              // medida em exibição: b | m | v
+let _bolCharts = [];
+const BOL_MEDIDAS = {
+    b: { rot: 'Bolsistas', sub: 'pessoas distintas no ano', fmt: v => fmtN(v) },
+    m: { rot: 'Meses de bolsa', sub: 'mensalidades pagas no ano', fmt: v => fmtN(v) },
+    v: { rot: 'Valor pago', sub: 'em reais nominais do ano', fmt: v => 'R$ ' + fmtN(Math.round(v)) },
+};
+const BOL_NIVEIS = [['ME', 'Mestrado', '#7B1FA2'], ['MP', 'Mestrado prof.', '#AB47BC'],
+                    ['DO', 'Doutorado', '#4A148C'], ['PD', 'Pós-doutorado', '#CE93D8']];
+const fmtN = n => (n == null ? '—' : Number(n).toLocaleString('pt-BR'));
+
+function bolInfoArea(slug) {
+    const a = (MANIFEST && MANIFEST.areas || []).find(x => x.slug === slug);
+    return a && a.bol;
+}
+
+async function abrirBolsas() {
+    if (!DATA || !CURRENT_AREA_SLUG) { toast('Carregue uma área primeiro.'); return; }
+    const info = bolInfoArea(CURRENT_AREA_SLUG);
+    if (!info) { toast('Esta área ainda não tem a camada de bolsas.'); return; }
+    const btn = document.getElementById('bolBtn');
+    const rot = btn ? btn.textContent : '';
+    if (btn) { btn.textContent = 'Carregando...'; btn.disabled = true; }
+    try {
+        BOL = await fetch(info.arquivo, { cache: 'force-cache' }).then(r => {
+            if (!r.ok) throw new Error(`${info.arquivo}: HTTP ${r.status}`);
+            return r.json();
+        });
+        renderBolsas();
+        document.getElementById('results').style.display = 'none';
+        document.getElementById('ifOverlay').classList.remove('show');
+        document.getElementById('patOverlay').classList.remove('show');
+        document.getElementById('bolOverlay').classList.add('show');
+        const m = document.getElementById('main'); if (m) m.scrollTop = 0;
+    } catch (e) {
+        toast('Não foi possível carregar as bolsas: ' + e.message);
+    } finally {
+        if (btn) { btn.textContent = rot; btn.disabled = false; }
+    }
+}
+
+function closeBolOverlay() {
+    const o = document.getElementById('bolOverlay');
+    if (o) o.classList.remove('show');
+    _bolCharts.forEach(c => { try { c.destroy(); } catch (_) {} });
+    _bolCharts = [];
+    const r = document.getElementById('results'); if (r) r.style.display = '';
+}
+
+function bolMedida(m) { BOL_MED = m; renderBolsas(); }
+
+// Identificação dos programas da área, do dataset principal: o arquivo de
+// bolsas guarda só contagens, nunca nome de instituição nem de programa.
+function _bolProgInfo() {
+    const info = {};
+    (DATA.data || []).forEach(d => {
+        const cur = info[d.cd];
+        if (!cur || (d.quad > cur.quad)) {
+            info[d.cd] = { sigla: d.sigla, programa: d.programa, uf: d.uf, nota: d.nota, quad: d.quad };
+        }
+    });
+    return info;
+}
+
+function _bolSerie(cd) {
+    const p = (BOL.data || {})[cd] || {};
+    return BOL.metadata.anos.map(a => (p[String(a)] ? p[String(a)][BOL_MED] : 0));
+}
+
+// Mediana da área por ano, entre os programas que tinham alguma bolsa naquele
+// ano. Incluir os zeros afundaria a mediana com programas que nem existiam.
+function _bolMediana() {
+    return BOL.metadata.anos.map(a => {
+        const v = Object.values(BOL.data)
+            .map(p => (p[String(a)] ? p[String(a)][BOL_MED] : 0))
+            .filter(x => x > 0).sort((x, y) => x - y);
+        if (!v.length) return 0;
+        const meio = Math.floor(v.length / 2);
+        return v.length % 2 ? v[meio] : (v[meio - 1] + v[meio]) / 2;
+    });
+}
+
+function renderBolsas() {
+    const md = BOL.metadata, anos = md.anos;
+    const info = _bolProgInfo();
+    const med = BOL_MEDIDAS[BOL_MED];
+    const ultimo = anos[anos.length - 1];
+
+    document.getElementById('bolInd').textContent =
+        `${md.area} — ${anos[0]}–${ultimo} — ${md.n_programas} programas com bolsa`;
+
+    // ── seletor de medida ──
+    let h = `<div class="card quad-card"><h2>O que contar</h2><div class="quadsel">` +
+        Object.entries(BOL_MEDIDAS).map(([k, m]) =>
+            `<button class="quadbtn${k === BOL_MED ? ' on' : ''}" onclick="bolMedida('${k}')">
+                <span class="q">${m.rot}</span><span class="s">${m.sub}</span></button>`).join('') +
+        `</div></div>`;
+
+    // ── programa de referência ──
+    const cdRef = UNB_CD;
+    const serieRef = cdRef ? _bolSerie(cdRef) : null;
+    const temRef = serieRef && serieRef.some(x => x > 0);
+    const nomeRef = cdRef && info[cdRef] ? `${info[cdRef].programa} · ${info[cdRef].sigla}` : refSigla();
+
+    if (!cdRef) {
+        h += `<div class="card"><h2>Programa de referência</h2>
+            <p class="note">Nenhum programa da <b>${refSigla()}</b> está selecionado nesta área,
+            então não há série individual a mostrar. A comparação da área, abaixo, continua valendo.</p></div>`;
+    } else if (!temRef) {
+        h += `<div class="card"><h2>${escHTML(nomeRef)}</h2>
+            <p class="note">Este programa não tem nenhuma bolsa da CAPES registrada entre
+            ${anos[0]} e ${ultimo} nos programas da Diretoria de Programas e Bolsas no País.
+            Isso não quer dizer que ele não tenha bolsistas: bolsa de outra agência, de fundação
+            estadual ou da própria instituição não entra nesta base.</p></div>`;
+    } else {
+        const vUlt = serieRef[serieRef.length - 1];
+        const pico = serieRef.reduce((a, b) => Math.max(a, b), 0);
+        const anoPico = anos[serieRef.indexOf(pico)];
+        const i2019 = anos.indexOf(2019);
+        const v2019 = i2019 >= 0 ? serieRef[i2019] : null;
+        const varPico = pico ? (100 * (vUlt - pico) / pico) : 0;
+        const var2019 = v2019 ? (100 * (vUlt - v2019) / v2019) : null;
+        const sinal = x => (x > 0 ? '+' : '') + x.toFixed(0) + '%';
+        h += `<div class="card"><h2>${escHTML(nomeRef)} — ${med.rot.toLowerCase()} por ano</h2>
+            <div class="row">
+                <div class="box"><div class="v">${med.fmt(vUlt)}</div><div class="l">em ${ultimo}</div></div>
+                <div class="box"><div class="v">${med.fmt(pico)}</div><div class="l">pico<br>(${anoPico})</div></div>
+                <div class="box"><div class="v">${sinal(varPico)}</div><div class="l">${ultimo} vs<br>o pico</div></div>
+                ${var2019 != null
+                  ? `<div class="box"><div class="v">${sinal(var2019)}</div><div class="l">${ultimo}<br>vs 2019</div></div>` : ''}
+                <div class="box"><div class="v">${(serieRef[serieRef.length - 1] / 12).toFixed(1)}</div>
+                    <div class="l">${BOL_MED === 'm' ? 'bolsas-equivalentes<br>em ' + ultimo : '&nbsp;'}</div></div>
+            </div>
+            <canvas id="bolChartSerie" height="105"></canvas>
+            <p class="note">A linha tracejada é a <b>mediana da área</b> no mesmo ano, entre os
+            programas que tinham alguma bolsa — serve para separar o que é movimento do programa
+            do que é movimento de todo mundo.</p></div>`;
+
+        h += `<div class="card"><h2>Composição por nível</h2>
+            <canvas id="bolChartNivel" height="105"></canvas>
+            <p class="note">Mestrado, doutorado e pós-doutorado somados dão a série acima.
+            A troca de composição costuma dizer mais que o total: perder doutorado e ganhar
+            mestrado mantém a contagem e muda o programa.</p></div>`;
+    }
+
+    // ── comparação na área ──
+    const linhas = Object.keys(BOL.data).map(cd => {
+        const s = _bolSerie(cd);
+        const pico = s.reduce((a, b) => Math.max(a, b), 0);
+        const i2019 = anos.indexOf(2019);
+        const v2019 = i2019 >= 0 ? s[i2019] : 0;
+        const d = info[cd] || {};
+        return {
+            cd, s, ult: s[s.length - 1], pico, anoPico: anos[s.indexOf(pico)],
+            var2019: v2019 ? (100 * (s[s.length - 1] - v2019) / v2019) : null,
+            sigla: d.sigla || '—', programa: d.programa || '(fora do catálogo atual)',
+            uf: d.uf || '', nota: d.nota == null ? '—' : d.nota,
+            ref: cd === cdRef,
+        };
+    }).sort((a, b) => b.ult - a.ult);
+
+    const comBolsa = linhas.filter(l => l.ult > 0).length;
+    h += `<div class="card"><h2>Programas da área em ${ultimo}</h2>
+        <div class="row">
+            <div class="box"><div class="v">${comBolsa}</div><div class="l">programas com<br>bolsa em ${ultimo}</div></div>
+            <div class="box"><div class="v">${md.n_programas}</div><div class="l">tiveram bolsa<br>em algum ano</div></div>
+            <div class="box"><div class="v">${med.fmt(linhas.reduce((a, l) => a + l.ult, 0))}</div>
+                <div class="l">total da área<br>em ${ultimo}</div></div>
+        </div>
+        <div class="scroll"><table><thead><tr>
+            <th>IES</th><th class="l">Programa</th><th>UF</th><th>Nota</th>
+            <th>${med.rot} ${ultimo}</th><th>Pico</th><th>Ano do pico</th><th>${ultimo} vs 2019</th>
+        </tr></thead><tbody>` +
+        linhas.map(l => `<tr${l.ref ? ' class="ref-row"' : ''}>
+            <td>${escHTML(l.sigla)}</td><td class="l">${escHTML(l.programa)}</td>
+            <td>${escHTML(l.uf)}</td><td>${l.nota}</td>
+            <td>${med.fmt(l.ult)}</td><td>${med.fmt(l.pico)}</td><td>${l.anoPico}</td>
+            <td>${l.var2019 == null ? '—' : (l.var2019 > 0 ? '+' : '') + l.var2019.toFixed(0) + '%'}</td>
+        </tr>`).join('') +
+        `</tbody></table></div>
+        <button class="btn csv" onclick="exportarBolsasCSV()">⬇ CSV da série completa</button></div>`;
+
+    // ── ressalvas ──
+    h += `<div class="card"><h2>O que esta série é, e o que ela não é</h2>
+        <p class="note">
+        <b>Fonte:</b> ${escHTML(md.fonte)}. São as bolsas <b>no país</b>; as do exterior estão
+        em outro conjunto da CAPES e não entram aqui.<br>
+        <b>Não é a única fonte de bolsa de um programa:</b> CNPq, fundações estaduais e a própria
+        instituição não aparecem nesta base. Um programa sem bolsa da CAPES pode ter bolsistas.<br>
+        <b>Bolsista não é cota:</b> quem perde a bolsa no meio do ano continua contado como um
+        bolsista e aparece como menos meses — por isso a medida de <b>meses</b> mostra corte que a
+        contagem de pessoas esconde. Meses ÷ 12 é a bolsa-equivalente-ano.<br>
+        <b>Valor é nominal</b>, sem correção pela inflação: o salto de 2023 é reajuste do valor da
+        bolsa, não aumento de quantidade.<br>
+        <b>${ultimo} pode estar parcial</b>, conforme a data de publicação do conjunto.<br>
+        <b>Fora da conta:</b> ${escHTML(md.fora_da_conta || '')}.</p></div>`;
+
+    document.getElementById('bolOverlayBody').innerHTML = h;
+
+    // ── gráficos ──
+    _bolCharts.forEach(c => { try { c.destroy(); } catch (_) {} });
+    _bolCharts = [];
+    if (temRef) {
+        const cv = document.getElementById('bolChartSerie');
+        if (cv) _bolCharts.push(new Chart(cv, {
+            type: 'line',
+            data: {
+                labels: anos,
+                datasets: [
+                    { label: nomeRef, data: serieRef, borderColor: '#E91E63', backgroundColor: 'rgba(233,30,99,.12)',
+                      borderWidth: 2.5, fill: true, tension: .25, pointRadius: 3 },
+                    { label: 'Mediana da área', data: _bolMediana(), borderColor: '#7B1FA2',
+                      borderDash: [6, 4], borderWidth: 2, fill: false, tension: .25, pointRadius: 0 },
+                ],
+            },
+            options: {
+                responsive: true, maintainAspectRatio: true,
+                plugins: { legend: { labels: { boxWidth: 12, font: { size: 11 } } } },
+                scales: { y: { beginAtZero: true, title: { display: true, text: BOL_MEDIDAS[BOL_MED].rot } } },
+            },
+        }));
+        const cn = document.getElementById('bolChartNivel');
+        const pr = BOL.data[cdRef] || {};
+        if (cn) _bolCharts.push(new Chart(cn, {
+            type: 'bar',
+            data: {
+                labels: anos,
+                datasets: BOL_NIVEIS.map(([k, rot, cor]) => ({
+                    label: rot, backgroundColor: cor,
+                    data: anos.map(a => {
+                        const r = pr[String(a)];
+                        const n = r && r.n && r.n[k];
+                        return n ? n[BOL_MED === 'b' ? 0 : BOL_MED === 'm' ? 1 : 2] : 0;
+                    }),
+                })),
+            },
+            options: {
+                responsive: true, maintainAspectRatio: true,
+                plugins: { legend: { labels: { boxWidth: 12, font: { size: 11 } } } },
+                scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } },
+            },
+        }));
+    }
+}
+
+function exportarBolsasCSV() {
+    const md = BOL.metadata, anos = md.anos, info = _bolProgInfo();
+    const lim = s => `"${String(s == null ? '' : s).replace(/"/g, '""')}"`;
+    let csv = 'IES;Programa;CD_Programa;UF;Nota;Ano;Bolsistas;Meses_de_bolsa;Valor_pago;' +
+              'Mestrado;Mestrado_profissional;Doutorado;Pos_doutorado\n';
+    Object.entries(BOL.data).forEach(([cd, p]) => {
+        const d = info[cd] || {};
+        anos.forEach(a => {
+            const r = p[String(a)];
+            if (!r) return;
+            const n = k => (r.n && r.n[k] ? r.n[k][0] : 0);
+            csv += [d.sigla || '', lim(d.programa), cd, d.uf || '', d.nota == null ? '' : d.nota,
+                    a, r.b, r.m, String(r.v).replace('.', ','),
+                    n('ME'), n('MP'), n('DO'), n('PD')].join(';') + '\n';
+        });
+    });
+    csv += `\n# MAPA-PG v${VERSION} — bolsas CAPES ${anos[0]}-${anos[anos.length - 1]} — ${md.area}\n`;
+    csv += `# ${md.fonte}\n`;
+    csv += '# Bolsistas = pessoas distintas no ano; meses = mensalidades pagas; valor em reais nominais.\n';
+    csv += '# Colunas por nível são CONTAGEM DE BOLSISTAS.\n';
+    download(`bolsas-${md.slug}-${anos[0]}-${anos[anos.length - 1]}.csv`, csv, 'text/csv');
 }
 
 function patSeletorHTML() {

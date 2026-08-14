@@ -401,6 +401,53 @@ with sync_playwright() as pw:
     ok(not erros4, 'sem erro de console no fluxo da instituicao nova (%s)' % (erros4[:2] or 'nenhum'))
     p4.close()
 
+    # ══════════════════════════════════════════════════════════════════
+    print('\n=== 9. bolsas CAPES: serie anual por programa ===', flush=True)
+    # Pedido de um coordenador pelo formulario do app: ver as bolsas do programa
+    # ao longo dos anos. Camada dados/bol-<area>.json, carregada sob demanda.
+    p5 = br.new_page()
+    erros5 = []
+    p5.on('console', lambda m: erros5.append(m.text) if m.type == 'error' else None)
+    p5.on('pageerror', lambda e: erros5.append(str(e)))
+    p5.goto(BASE, wait_until='networkidle', timeout=60000)   # UNB + quimica
+    p5.click('#licenseOverlay button')
+    p5.wait_for_timeout(2500)
+    ok(p5.is_visible('#bolBtn'), 'botao de bolsas na barra lateral')
+    p5.click('#bolBtn')
+    p5.wait_for_timeout(2500)
+    ok('show' in (p5.get_attribute('#bolOverlay', 'class') or ''), 'painel de bolsas abre')
+    est = p5.evaluate("""() => ({anos: BOL.metadata.anos.length, progs: Object.keys(BOL.data).length,
+                                 charts: _bolCharts.length, med: BOL_MED})""")
+    print('   %d anos | %d programas com bolsa | %d graficos'
+          % (est['anos'], est['progs'], est['charts']), flush=True)
+    ok(est['anos'] >= 16, 'serie cobre 2010-2025 (%d anos)' % est['anos'])
+    ok(est['charts'] == 2, 'desenha serie e composicao por nivel')
+    txt5 = p5.inner_text('#bolOverlayBody')
+    ok('CNPq' in txt5 and 'nominal' in txt5,
+       'ressalvas presentes (outras agencias, valor nominal)')
+    ok('tr.ref-row' and p5.evaluate(
+        "() => document.querySelectorAll('#bolOverlayBody tr.ref-row').length") == 1,
+       'programa de referencia destacado na tabela da area')
+    # a troca de medida muda o texto (o rotulo do box vem em CAIXA ALTA pelo CSS)
+    p5.evaluate("() => bolMedida('m')")
+    p5.wait_for_timeout(600)
+    t5m = p5.inner_text('#bolOverlayBody').upper()
+    ok('MESES DE BOLSA' in t5m and 'BOLSAS-EQUIVALENTES' in t5m,
+       'medida "meses de bolsa" traz a bolsa-equivalente')
+    p5.evaluate("() => bolMedida('v')")
+    p5.wait_for_timeout(600)
+    ok('R$' in p5.inner_text('#bolOverlayBody'), 'medida "valor pago" em reais')
+    # numero conferido contra o dado bruto da CAPES
+    fis = p5.evaluate("""async () => { await switchArea('astronomia-fisica', null);
+        await new Promise(r => setTimeout(r, 1200));
+        await abrirBolsas(); await new Promise(r => setTimeout(r, 800));
+        bolMedida('b');
+        return _bolSerie('53001010002P6'); }""")
+    print('   Fisica/UnB bolsistas 2010-2025: %s' % fis, flush=True)
+    ok(fis[7] == 68 and fis[11] == 42, 'serie da Fisica/UnB bate com a fonte (2017=68, 2021=42)')
+    ok(not erros5, 'sem erro de console no painel de bolsas (%s)' % (erros5[:2] or 'nenhum'))
+    p5.close()
+
     # ── grafico por IES (Química) para inspecao visual
     page.evaluate("async () => { await switchArea('quimica'); }")
     page.wait_for_timeout(3000)

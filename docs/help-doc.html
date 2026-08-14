@@ -585,6 +585,19 @@ a{color:#2563EB;}
 </div>
 
 <div class="card">
+    <h2>13. Bolsas da CAPES no país — série anual por programa</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>Dataset</strong></td><td><em>Bolsistas dos Programas da Diretoria de Programas e Bolsas no País (DPB)</em>, em três blocos: 2010-2016, 2017-2021 e 2022-2025. Cada bloco vem partido em três arquivos (institucionais, qualificação de docentes, estratégicos) e é preciso somar os três</td></tr>
+        <tr><td><strong>Granularidade</strong></td><td>Um registro por <strong>bolsista por ano</strong>, com <code>CD_PROGRAMA_PPG</code> — a mesma chave de programa do resto do aplicativo, sem heurística de casamento</td></tr>
+        <tr><td><strong>O que o app publica</strong></td><td>Só agregados por programa, ano e nível: bolsistas distintos, meses de bolsa pagos e valor. <strong>Nome de bolsista nunca entra</strong> nos arquivos do aplicativo</td></tr>
+        <tr><td><strong>Três medidas</strong></td><td><strong>Bolsistas</strong> é o número que a coordenação reconhece, mas esconde corte no meio do ano; <strong>meses de bolsa</strong> é a medida fiel da perda (meses ÷ 12 = bolsa-equivalente-ano); <strong>valor</strong> é nominal, e o salto de 2023 é reajuste, não quantidade</td></tr>
+        <tr><td><strong>O que fica de fora</strong></td><td>Bolsas do exterior (são de outra diretoria), e iniciação científica, professor visitante, supervisão e coordenação, que vêm nos mesmos arquivos e não são do programa de pós. Bolsa de CNPq, de fundação estadual ou da própria instituição <strong>não está nesta base</strong>: programa sem bolsa da CAPES pode ter bolsistas</td></tr>
+        <tr><td><strong>Arquivo do app</strong></td><td><code>dados/bol-&lt;área&gt;.json</code>, carregado só quando o painel de bolsas é aberto</td></tr>
+    </table>
+</div>
+
+<div class="card">
     <h2>Resumo Consolidado</h2>
     <table>
         <tr><th>Dataset</th><th>Fonte</th><th>Período</th><th>Licença</th></tr>
