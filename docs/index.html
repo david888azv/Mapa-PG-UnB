@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.7.1</div>
+        <div id="headerVersion">v5.8.0</div>
     </div>
 </div>
 
@@ -597,7 +597,7 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.7.1';
+const VERSION = '5.8.0';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -2955,7 +2955,27 @@ const BOL_MEDIDAS = {
     b: { rot: 'Bolsistas', sub: 'pessoas distintas no ano', fmt: v => fmtN(v) },
     m: { rot: 'Meses de bolsa', sub: 'mensalidades pagas no ano', fmt: v => fmtN(v) },
     v: { rot: 'Valor pago', sub: 'em reais nominais do ano', fmt: v => 'R$ ' + fmtN(Math.round(v)) },
+    // A razão que um coordenador pediu para discutir equidade de cotas. Divide
+    // ALUNO COM BOLSA por ALUNO ATIVO no ano — os dois lados são fluxo do mesmo
+    // ano. Pós-doutorando fica fora dos dois lados, porque não é aluno.
+    r: { rot: 'Alunos com bolsa', sub: '% dos alunos do ano', pct: true,
+         fmt: v => (v == null ? '—' : v.toFixed(1).replace('.', ',') + '%') },
 };
+
+// Denominador de um ano: [matriculados no fechamento, ativos no ano], somados os
+// níveis. Devolve null quando o ano não tem dado de discente — a série de bolsas
+// vai a 2025 e a de alunos termina em 2024, e inventar zero ali seria mentira.
+function bolAlunos(reg) {
+    if (!reg || !reg.al) return null;
+    let mat = 0, ativ = 0;
+    Object.values(reg.al).forEach(x => { mat += x[0] || 0; ativ += x[1] || 0; });
+    return ativ ? { mat, ativ } : null;
+}
+function bolRazao(reg) {
+    const a = bolAlunos(reg);
+    if (!a) return null;
+    return 100 * (reg.ba || 0) / a.ativ;
+}
 const BOL_NIVEIS = [['ME', 'Mestrado', '#7B1FA2'], ['MP', 'Mestrado prof.', '#AB47BC'],
                     ['DO', 'Doutorado', '#4A148C'], ['PD', 'Pós-doutorado', '#CE93D8']];
 const fmtN = n => (n == null ? '—' : Number(n).toLocaleString('pt-BR'));
@@ -3015,6 +3035,7 @@ function _bolProgInfo() {
 
 function _bolSerie(cd) {
     const p = (BOL.data || {})[cd] || {};
+    if (BOL_MED === 'r') return BOL.metadata.anos.map(a => bolRazao(p[String(a)]));
     return BOL.metadata.anos.map(a => (p[String(a)] ? p[String(a)][BOL_MED] : 0));
 }
 
@@ -3023,9 +3044,10 @@ function _bolSerie(cd) {
 function _bolMediana() {
     return BOL.metadata.anos.map(a => {
         const v = Object.values(BOL.data)
-            .map(p => (p[String(a)] ? p[String(a)][BOL_MED] : 0))
-            .filter(x => x > 0).sort((x, y) => x - y);
-        if (!v.length) return 0;
+            .map(p => (BOL_MED === 'r' ? bolRazao(p[String(a)])
+                                       : (p[String(a)] ? p[String(a)][BOL_MED] : 0)))
+            .filter(x => x != null && x > 0).sort((x, y) => x - y);
+        if (!v.length) return BOL_MED === 'r' ? null : 0;
         const meio = Math.floor(v.length / 2);
         return v.length % 2 ? v[meio] : (v[meio - 1] + v[meio]) / 2;
     });
@@ -3058,34 +3080,57 @@ function renderBolsas() {
             <p class="note">Nenhum programa da <b>${refSigla()}</b> está selecionado nesta área,
             então não há série individual a mostrar. A comparação da área, abaixo, continua valendo.</p></div>`;
     } else if (!temRef) {
+        // Em modo razão, "sem série" pode ser falta de DENOMINADOR e não falta de
+        // bolsa — dizer que o programa não tem bolsa nesse caso seria falso.
+        const temBolsa = cdRef && Object.values(BOL.data[cdRef] || {}).some(r => (r.b || 0) > 0);
         h += `<div class="card"><h2>${escHTML(nomeRef)}</h2>
-            <p class="note">Este programa não tem nenhuma bolsa da CAPES registrada entre
-            ${anos[0]} e ${ultimo} nos programas da Diretoria de Programas e Bolsas no País.
-            Isso não quer dizer que ele não tenha bolsistas: bolsa de outra agência, de fundação
-            estadual ou da própria instituição não entra nesta base.</p></div>`;
+            <p class="note">${(BOL_MED === 'r' && temBolsa)
+                ? `Este programa tem bolsas na série, mas não há contagem de alunos para
+                   nenhum dos anos no conjunto de discentes da CAPES, então a razão não pode
+                   ser calculada. As outras medidas continuam disponíveis nos botões acima.`
+                : `Este programa não tem nenhuma bolsa da CAPES registrada entre
+                   ${anos[0]} e ${ultimo} nos programas da Diretoria de Programas e Bolsas no País.
+                   Isso não quer dizer que ele não tenha bolsistas: bolsa de outra agência, de fundação
+                   estadual ou da própria instituição não entra nesta base.`}</p></div>`;
     } else {
         const ultReg = (BOL.data[cdRef] || {})[String(ultimo)] || {};
-        const vUlt = serieRef[serieRef.length - 1];
-        const pico = serieRef.reduce((a, b) => Math.max(a, b), 0);
+        // No modo razão o último ano com dado é o último com denominador, que
+        // termina em 2024 — usar 2025 daria uma coluna vazia.
+        const iUlt = BOL_MED === 'r'
+            ? serieRef.reduce((acc, x, i) => (x != null ? i : acc), -1)
+            : serieRef.length - 1;
+        const anoUlt = anos[iUlt] || ultimo;
+        const regUlt = (BOL.data[cdRef] || {})[String(anoUlt)] || ultReg;
+        const vUlt = serieRef[iUlt];
+        const pico = serieRef.reduce((a, b) => (b == null ? a : Math.max(a, b)), 0);
         const anoPico = anos[serieRef.indexOf(pico)];
         const i2019 = anos.indexOf(2019);
         const v2019 = i2019 >= 0 ? serieRef[i2019] : null;
-        const varPico = pico ? (100 * (vUlt - pico) / pico) : 0;
-        const var2019 = v2019 ? (100 * (vUlt - v2019) / v2019) : null;
+        const varPico = (pico && vUlt != null) ? (100 * (vUlt - pico) / pico) : 0;
+        const var2019 = (v2019 && vUlt != null) ? (100 * (vUlt - v2019) / v2019) : null;
         const sinal = x => (x > 0 ? '+' : '') + x.toFixed(0) + '%';
-        h += `<div class="card"><h2>${escHTML(nomeRef)} — ${med.rot.toLowerCase()} por ano</h2>
-            <div class="row">
-                <div class="box"><div class="v">${med.fmt(vUlt)}</div><div class="l">em ${ultimo}</div></div>
-                <div class="box"><div class="v">${med.fmt(pico)}</div><div class="l">pico<br>(${anoPico})</div></div>
-                <div class="box"><div class="v">${sinal(varPico)}</div><div class="l">${ultimo} vs<br>o pico</div></div>
-                ${var2019 != null
-                  ? `<div class="box"><div class="v">${sinal(var2019)}</div><div class="l">${ultimo}<br>vs 2019</div></div>` : ''}
+        const alUlt = bolAlunos(regUlt);
+        const caixasRazao = BOL_MED === 'r' && alUlt ? `
+                <div class="box"><div class="v">${fmtN(regUlt.ba || 0)}</div>
+                    <div class="l">alunos com bolsa<br>em ${anoUlt}</div></div>
+                <div class="box"><div class="v">${fmtN(alUlt.ativ)}</div>
+                    <div class="l">alunos no programa<br>em ${anoUlt}</div></div>
+                <div class="box"><div class="v">${fmtN(alUlt.mat)}</div>
+                    <div class="l">matriculados<br>no fim de ${anoUlt}</div></div>` : `
                 <div class="box"><div class="v">${fmtN(ultReg.ba || 0)}</div>
                     <div class="l">alunos com bolsa<br>em ${ultimo}</div></div>
                 <div class="box"><div class="v">${fmtN((ultReg.b || 0) - (ultReg.ba || 0))}</div>
                     <div class="l">pós-doutorado<br>(não é aluno)</div></div>
                 <div class="box"><div class="v">${((ultReg.ma || 0) / 12).toFixed(1)}</div>
-                    <div class="l">bolsas-equivalentes<br>de aluno em ${ultimo}</div></div>
+                    <div class="l">bolsas-equivalentes<br>de aluno em ${ultimo}</div></div>`;
+        h += `<div class="card"><h2>${escHTML(nomeRef)} — ${med.rot.toLowerCase()} por ano</h2>
+            <div class="row">
+                <div class="box"><div class="v">${med.fmt(vUlt)}</div><div class="l">em ${anoUlt}</div></div>
+                <div class="box"><div class="v">${med.fmt(pico)}</div><div class="l">pico<br>(${anoPico})</div></div>
+                <div class="box"><div class="v">${sinal(varPico)}</div><div class="l">${anoUlt} vs<br>o pico</div></div>
+                ${var2019 != null
+                  ? `<div class="box"><div class="v">${sinal(var2019)}</div><div class="l">${anoUlt}<br>vs 2019</div></div>` : ''}
+                ${caixasRazao}
             </div>
             <canvas id="bolChartSerie" height="105"></canvas>
             <p class="note">A linha tracejada é a <b>mediana da área</b> no mesmo ano, entre os
@@ -3097,23 +3142,33 @@ function renderBolsas() {
             <b>${((ultReg.m || 0) / 12).toFixed(1)}</b> bolsas-equivalentes-ano. O
             <b>pós-doutorando não é aluno</b> do programa e aparece à parte pelo mesmo motivo.</p></div>`;
 
-        h += `<div class="card"><h2>Composição por nível</h2>
+        h += `<div class="card"><h2>${BOL_MED === 'r' ? 'Cobertura por nível' : 'Composição por nível'}</h2>
             <canvas id="bolChartNivel" height="105"></canvas>
-            <p class="note">Mestrado, doutorado e pós-doutorado somados dão a série acima.
-            A troca de composição costuma dizer mais que o total: perder doutorado e ganhar
-            mestrado mantém a contagem e muda o programa.</p></div>`;
+            <p class="note">${BOL_MED === 'r'
+                ? `Percentual de alunos com bolsa em cada nível, separadamente. Mestrado e
+                   doutorado costumam ter coberturas bem diferentes, e a média dos dois
+                   esconde isso — é a diferença entre "metade do programa tem bolsa" e
+                   "quase todo doutorando tem, quase nenhum mestrando tem".`
+                : `Mestrado, doutorado e pós-doutorado somados dão a série acima.
+                   A troca de composição costuma dizer mais que o total: perder doutorado e ganhar
+                   mestrado mantém a contagem e muda o programa.`}</p></div>`;
     }
 
     // ── comparação na área ──
     const linhas = Object.keys(BOL.data).map(cd => {
         const s = _bolSerie(cd);
-        const pico = s.reduce((a, b) => Math.max(a, b), 0);
+        const pico = s.reduce((a, b) => (b == null ? a : Math.max(a, b)), 0);
         const i2019 = anos.indexOf(2019);
         const v2019 = i2019 >= 0 ? s[i2019] : 0;
         const d = info[cd] || {};
+        // No modo razão o último valor é o do último ano COM denominador.
+        const iu = BOL_MED === 'r' ? s.reduce((acc, x, i) => (x != null ? i : acc), -1)
+                                   : s.length - 1;
+        const ultv = iu >= 0 ? s[iu] : null;
         return {
-            cd, s, ult: s[s.length - 1], pico, anoPico: anos[s.indexOf(pico)],
-            var2019: v2019 ? (100 * (s[s.length - 1] - v2019) / v2019) : null,
+            cd, s, ult: ultv == null ? 0 : ultv, semDado: ultv == null,
+            pico, anoPico: anos[s.indexOf(pico)],
+            var2019: (v2019 && ultv != null) ? (100 * (ultv - v2019) / v2019) : null,
             sigla: d.sigla || '—', programa: d.programa || '(fora do catálogo atual)',
             uf: d.uf || '', nota: d.nota == null ? '—' : d.nota,
             ref: cd === cdRef,
@@ -3121,21 +3176,35 @@ function renderBolsas() {
     }).sort((a, b) => b.ult - a.ult);
 
     const comBolsa = linhas.filter(l => l.ult > 0).length;
-    h += `<div class="card"><h2>Programas da área em ${ultimo}</h2>
+    const anoTab = BOL_MED === 'r' ? (anos.filter(a => Object.values(BOL.data)
+        .some(p => bolRazao(p[String(a)]) != null)).pop() || ultimo) : ultimo;
+    // No modo razão o "total da área" é a razão da área inteira (soma dos alunos
+    // com bolsa sobre soma dos alunos), não a soma de percentuais.
+    const totalArea = BOL_MED === 'r'
+        ? (() => {
+            let num = 0, den = 0;
+            Object.values(BOL.data).forEach(p => {
+                const r = p[String(anoTab)]; const a = bolAlunos(r);
+                if (a) { num += r.ba || 0; den += a.ativ; }
+            });
+            return den ? 100 * num / den : null;
+          })()
+        : linhas.reduce((a, l) => a + l.ult, 0);
+    h += `<div class="card"><h2>Programas da área em ${anoTab}</h2>
         <div class="row">
-            <div class="box"><div class="v">${comBolsa}</div><div class="l">programas com<br>bolsa em ${ultimo}</div></div>
+            <div class="box"><div class="v">${comBolsa}</div><div class="l">programas com<br>bolsa em ${anoTab}</div></div>
             <div class="box"><div class="v">${md.n_programas}</div><div class="l">tiveram bolsa<br>em algum ano</div></div>
-            <div class="box"><div class="v">${med.fmt(linhas.reduce((a, l) => a + l.ult, 0))}</div>
-                <div class="l">total da área<br>em ${ultimo}</div></div>
+            <div class="box"><div class="v">${med.fmt(totalArea)}</div>
+                <div class="l">${BOL_MED === 'r' ? 'a área inteira<br>em ' + anoTab : 'total da área<br>em ' + anoTab}</div></div>
         </div>
         <div class="scroll"><table><thead><tr>
             <th>IES</th><th class="l">Programa</th><th>UF</th><th>Nota</th>
-            <th>${med.rot} ${ultimo}</th><th>Pico</th><th>Ano do pico</th><th>${ultimo} vs 2019</th>
+            <th>${med.rot} ${anoTab}</th><th>Pico</th><th>Ano do pico</th><th>${anoTab} vs 2019</th>
         </tr></thead><tbody>` +
         linhas.map(l => `<tr${l.ref ? ' class="ref-row"' : ''}>
             <td>${escHTML(l.sigla)}</td><td class="l">${escHTML(l.programa)}</td>
             <td>${escHTML(l.uf)}</td><td>${l.nota}</td>
-            <td>${med.fmt(l.ult)}</td><td>${med.fmt(l.pico)}</td><td>${l.anoPico}</td>
+            <td>${l.semDado ? '—' : med.fmt(l.ult)}</td><td>${med.fmt(l.pico)}</td><td>${l.anoPico}</td>
             <td>${l.var2019 == null ? '—' : (l.var2019 > 0 ? '+' : '') + l.var2019.toFixed(0) + '%'}</td>
         </tr>`).join('') +
         `</tbody></table></div>
@@ -3157,6 +3226,13 @@ function renderBolsas() {
         <b>Valor é nominal</b>, sem correção pela inflação: o salto de 2023 é reajuste do valor da
         bolsa, não aumento de quantidade.<br>
         <b>${ultimo} pode estar parcial</b>, conforme a data de publicação do conjunto.<br>
+        <b>A razão por aluno vai só até ${md.alunos && md.alunos.anos ? md.alunos.anos[1] : '2024'}</b>,
+        porque é até aí que a CAPES publicou o conjunto de discentes; o numerador de bolsas vai
+        um ano além. O denominador são os <b>alunos ativos no ano</b> — quem esteve no programa
+        em qualquer parte dele —, e não os matriculados no fechamento, para dividir fluxo por
+        fluxo: o numerador também conta quem teve bolsa em qualquer parte do ano. Dividir por
+        matriculado daria cobertura maior, sobretudo em programa que titula muito. Os dois
+        números aparecem nas caixas.<br>
         <b>Fora da conta:</b> ${escHTML(md.fora_da_conta || '')}.</p></div>`;
 
     document.getElementById('bolOverlayBody').innerHTML = h;
@@ -3185,23 +3261,40 @@ function renderBolsas() {
         }));
         const cn = document.getElementById('bolChartNivel');
         const pr = BOL.data[cdRef] || {};
+        // No modo razão a composição empilhada não faria sentido (percentuais não
+        // somam): viram duas séries, mestrado e doutorado, lado a lado.
+        const dadosNivel = BOL_MED === 'r'
+            ? [['ME', 'Mestrado', '#7B1FA2'], ['DO', 'Doutorado', '#4A148C']].map(([k, rot, cor]) => ({
+                label: rot, backgroundColor: cor,
+                data: anos.map(a => {
+                    const r = pr[String(a)];
+                    const den = r && r.al && r.al[k] && r.al[k][1];
+                    // O denominador junta acadêmico e profissional em cada nível;
+                    // o numerador precisa juntar também, senão o mestrado
+                    // profissional entra embaixo e some de cima.
+                    const nn = (r && r.n) || {};
+                    const num = k === 'ME' ? ((nn.ME ? nn.ME[0] : 0) + (nn.MP ? nn.MP[0] : 0))
+                                           : (nn.DO ? nn.DO[0] : 0);
+                    return den ? 100 * num / den : null;
+                }),
+              }))
+            : BOL_NIVEIS.map(([k, rot, cor]) => ({
+                label: rot, backgroundColor: cor,
+                data: anos.map(a => {
+                    const r = pr[String(a)];
+                    const n = r && r.n && r.n[k];
+                    return n ? n[BOL_MED === 'b' ? 0 : BOL_MED === 'm' ? 1 : 2] : 0;
+                }),
+              }));
         if (cn) _bolCharts.push(new Chart(cn, {
             type: 'bar',
-            data: {
-                labels: anos,
-                datasets: BOL_NIVEIS.map(([k, rot, cor]) => ({
-                    label: rot, backgroundColor: cor,
-                    data: anos.map(a => {
-                        const r = pr[String(a)];
-                        const n = r && r.n && r.n[k];
-                        return n ? n[BOL_MED === 'b' ? 0 : BOL_MED === 'm' ? 1 : 2] : 0;
-                    }),
-                })),
-            },
+            data: { labels: anos, datasets: dadosNivel },
             options: {
                 responsive: true, maintainAspectRatio: true,
                 plugins: { legend: { labels: { boxWidth: 12, font: { size: 11 } } } },
-                scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } },
+                scales: BOL_MED === 'r'
+                    ? { y: { beginAtZero: true, title: { display: true, text: '% de alunos com bolsa' } } }
+                    : { x: { stacked: true }, y: { stacked: true, beginAtZero: true } },
             },
         }));
     }
@@ -3212,6 +3305,7 @@ function exportarBolsasCSV() {
     const lim = s => `"${String(s == null ? '' : s).replace(/"/g, '""')}"`;
     let csv = 'IES;Programa;CD_Programa;UF;Nota;Ano;Pessoas_com_bolsa;Alunos_com_bolsa;' +
               'Meses_de_bolsa;Meses_de_aluno;Bolsas_equivalentes_aluno;Valor_pago;Valor_alunos;' +
+              'Alunos_ativos_no_ano;Alunos_matriculados;Pct_alunos_com_bolsa;' +
               'Mestrado;Mestrado_profissional;Doutorado;Pos_doutorado\n';
     Object.entries(BOL.data).forEach(([cd, p]) => {
         const d = info[cd] || {};
@@ -3219,10 +3313,13 @@ function exportarBolsasCSV() {
             const r = p[String(a)];
             if (!r) return;
             const n = k => (r.n && r.n[k] ? r.n[k][0] : 0);
+            const al = bolAlunos(r), raz = bolRazao(r);
             csv += [d.sigla || '', lim(d.programa), cd, d.uf || '', d.nota == null ? '' : d.nota,
                     a, r.b, r.ba == null ? '' : r.ba, r.m, r.ma == null ? '' : r.ma,
                     ((r.ma || 0) / 12).toFixed(2).replace('.', ','),
                     String(r.v).replace('.', ','), String(r.va == null ? '' : r.va).replace('.', ','),
+                    al ? al.ativ : '', al ? al.mat : '',
+                    raz == null ? '' : raz.toFixed(1).replace('.', ','),
                     n('ME'), n('MP'), n('DO'), n('PD')].join(';') + '\n';
         });
     });
@@ -3232,6 +3329,8 @@ function exportarBolsasCSV() {
     csv += '# (pós-doutorando não é aluno do programa). Quem muda de nível no ano conta UMA vez.\n';
     csv += '# A contagem do ano é fluxo, não foto de um mês: meses ÷ 12 = bolsa-equivalente-ano.\n';
     csv += '# Colunas por nível são contagem de pessoas DENTRO do nível, e podem somar mais que o total.\n';
+    csv += '# Alunos ativos = quem esteve no programa em qualquer parte do ano (fonte: discentes da CAPES);\n';
+    csv += '# matriculados = situação no fechamento do ano. A razão divide alunos com bolsa por ativos.\n';
     download(`bolsas-${md.slug}-${anos[0]}-${anos[anos.length - 1]}.csv`, csv, 'text/csv');
 }
 

@@ -598,6 +598,18 @@ a{color:#2563EB;}
 </div>
 
 <div class="card">
+    <h2>14. Discentes da pós-graduação — o denominador da razão por aluno</h2>
+    <table>
+        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><td><strong>Dataset</strong></td><td><em>Discentes da Pós-Graduação Stricto Sensu</em>, um arquivo por ano, usados de 2010 a 2024 (~2 GB na origem). Chave <code>CD_PROGRAMA_IES</code>, a mesma do resto do aplicativo</td></tr>
+        <tr><td><strong>Duas contagens</strong></td><td><strong>Ativos no ano</strong> — qualquer situação: matriculado, titulado, desligado, abandono. É quem passou pelo programa naquele ano. <strong>Matriculados</strong> — situação no fechamento do ano, que é o "tamanho do programa hoje" que a coordenação reconhece</td></tr>
+        <tr><td><strong>Qual entra na razão</strong></td><td>Os <strong>ativos</strong>. O numerador (alunos com bolsa) também é fluxo do ano, e dividir fluxo por estoque superestimaria a cobertura justamente nos programas que titulam muito. As duas contagens aparecem no painel e no CSV</td></tr>
+        <tr><td><strong>Níveis</strong></td><td>Mestrado e doutorado, cada um somando acadêmico e profissional nos <strong>dois</strong> lados da razão — separar de formas diferentes daria cobertura acima de 100% em programa profissional</td></tr>
+        <tr><td><strong>Limite temporal</strong></td><td>A razão termina em <strong>2024</strong>, último ano publicado do conjunto de discentes; a série de bolsas vai a 2025. O painel deixa o ano sem denominador em branco em vez de exibir zero</td></tr>
+    </table>
+</div>
+
+<div class="card">
     <h2>Resumo Consolidado</h2>
     <table>
         <tr><th>Dataset</th><th>Fonte</th><th>Período</th><th>Licença</th></tr>
