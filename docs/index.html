@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.5.1</div>
+        <div id="headerVersion">v5.6.0</div>
     </div>
 </div>
 
@@ -241,6 +241,10 @@ tr:hover { background: #EEF2F7; }
             <select id="selGrandeArea" onchange="onGrandeAreaChange()"></select>
             <label style="font-size:12px;margin-top:6px;display:block;">Área de Avaliação CAPES</label>
             <select id="selArea" onchange="onAreaChange()"></select>
+            <label style="font-size:11.5px;margin-top:6px;display:flex;gap:6px;align-items:flex-start;line-height:1.35;cursor:pointer;">
+                <input type="checkbox" id="chkTodasAreas" onchange="onTodasAreasChange()" style="margin-top:2px;">
+                <span>Ver <strong>todas as 49 áreas</strong> da CAPES, inclusive as que a referência não tem</span>
+            </label>
             <label id="refCursoLbl" style="font-size:12px;margin-top:6px;display:block;">Curso — referência</label>
             <select id="selCurso" onchange="onCursoChange()"></select>
             <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Comparações são feitas dentro da mesma Área CAPES (regra CAPES).</p>
@@ -535,7 +539,12 @@ let REF_DADOS = null;         // payload da instituição de referência atual
 let CURRENT_AREA_SLUG = null; // slug da área CAPES atualmente carregada
 let CURRENT_SUFIXO = null;    // token do programa de referência (sufixo p/ UnB; cd_programa p/ demais)
 let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
-const VERSION = '5.5.1';
+// A cascata Grande Área → Área listava só as áreas em que a referência tem
+// programa, o que fazia a instituição parecer um FILTRO: quem escolhia a UFG não
+// alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
+// tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
+let TODAS_AREAS = false;
+const VERSION = '5.6.0';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -678,7 +687,48 @@ function buildRegistryForRef() {
         if (!areas[p.area_capes]) areas[p.area_capes] = { slug: p.slug_area, n_unb: 0 };
         areas[p.area_capes].n_unb++;
     });
-    REGISTRY = { grandes_areas: src.grandes_areas, areas_capes: areas, programas_unb: programas };
+    // Programas aprovados pela CAPES e ainda SEM NOTA (conceito 'A' no catálogo,
+    // quase todos abertos em 2024). Ficam fora de `programas_unb` de propósito —
+    // toda a comparação do app se apoia na nota —, mas precisam ser visíveis: o
+    // programa que não aparece em lugar nenhum é lido como programa inexistente.
+    REGISTRY = { grandes_areas: src.grandes_areas, areas_capes: areas, programas_unb: programas,
+                 sem_nota: src.programas_sem_nota || [] };
+}
+
+// Programas sem nota da referência — todos, ou só os de uma área.
+function semNotaDaRef(slugArea) {
+    const l = (REGISTRY && REGISTRY.sem_nota) || [];
+    return slugArea ? l.filter(p => p.slug_area === slugArea) : l;
+}
+// "MESTRADO, ACADÊMICO" → "mestrado acadêmico"; sem grau/modalidade, só o nome.
+function descSemNota(p) {
+    const q = [p.grau, p.modalidade].filter(Boolean).join(' ').toLowerCase();
+    const ini = p.ano_inicio ? `início em ${p.ano_inicio}` : '';
+    return [q, ini].filter(Boolean).join(', ');
+}
+// Grandes áreas oferecidas na cascata: as da referência mais as que só têm
+// programa sem nota (senão a área do programa novo continuaria inalcançável).
+function grandesAreasDisponiveis() {
+    if (TODAS_AREAS) return Object.keys(MANIFEST.grandes_areas || {}).sort();
+    const gs = new Set(Object.keys(REGISTRY.grandes_areas || {}));
+    semNotaDaRef().forEach(p => { if (p.grande_area_cnpq) gs.add(p.grande_area_cnpq); });
+    return [...gs].sort();
+}
+// Áreas de uma grande área, no mesmo critério.
+function areasDisponiveis(ga) {
+    if (TODAS_AREAS) return (MANIFEST.grandes_areas[ga] || []).slice().sort();
+    const as = new Set(REGISTRY.grandes_areas[ga] || []);
+    semNotaDaRef().forEach(p => { if (p.grande_area_cnpq === ga) as.add(p.area_capes); });
+    return [...as].sort();
+}
+// slug da área pelo nome — o REGISTRY só conhece as áreas da referência.
+function slugDaArea(nome) {
+    const r = REGISTRY.areas_capes[nome];
+    if (r) return r.slug;
+    const m = (MANIFEST.areas || []).find(a => a.nome === nome);
+    if (m) return m.slug;
+    const p = semNotaDaRef().find(x => x.area_capes === nome);
+    return p ? p.slug_area : '';
 }
 
 // Chamado após licença aceita E referência definida: monta o app para a IES REF.
@@ -731,10 +781,34 @@ function populateSelectsLanding() {
     if (!selGA || !selArea || !selCurso) return;
     selGA.innerHTML = '';
     selGA.add(new Option('— Selecione a Grande Área —', ''));
-    Object.keys(REGISTRY.grandes_areas).sort().forEach(g => selGA.add(new Option(g, g)));
+    grandesAreasDisponiveis().forEach(g => selGA.add(new Option(g, g)));
     selGA.value = '';
     selArea.innerHTML = ''; selArea.add(new Option('— Selecione a Área CAPES —', ''));
     selCurso.innerHTML = ''; selCurso.add(new Option(`— Selecione o Curso (${refSigla()}) —`, ''));
+}
+
+// Lista, na tela inicial, os programas da referência aprovados e ainda sem nota.
+// Sem isso a instituição os lê como ausentes da base — foi o que aconteceu com a
+// UFG em Geociências, cujo mestrado começou em 2024 e ainda não foi avaliado.
+function blocoSemNotaWelcome() {
+    const l = semNotaDaRef();
+    if (!l.length) return '';
+    const itens = l.slice().sort((a, b) => a.area_capes.localeCompare(b.area_capes))
+        .map(p => {
+            const d = descSemNota(p);
+            return `<li style="margin-bottom:3px;"><strong>${p.nome}</strong> — ${p.area_capes}${d ? ` <span style="color:#7F8C8D;">(${d})</span>` : ''}</li>`;
+        }).join('');
+    const n = l.length;
+    return `<div style="background:#FFF8E1;border-left:4px solid #FF9800;border-radius:6px;padding:12px 14px;margin-top:16px;text-align:left;">
+        <p style="font-size:13px;color:#E65100;font-weight:700;margin:0 0 6px;">
+            ${n} programa${n > 1 ? 's' : ''} da ${refSigla()} ainda sem nota da CAPES</p>
+        <p style="font-size:12.5px;color:#5D4037;line-height:1.6;margin:0 0 8px;">
+            Aprovado${n > 1 ? 's' : ''} pela CAPES e ainda não avaliado${n > 1 ? 's' : ''} — o catálogo traz a marca
+            de programa aprovado no lugar da nota. Aparece${n > 1 ? 'm' : ''} aqui para constar,
+            mas fica${n > 1 ? 'm' : ''} fora de médias, rankings e gráficos, porque toda a comparação
+            do MAPA-PG se apoia na nota.</p>
+        <ul style="font-size:12.5px;color:#5D4037;line-height:1.6;margin:0;padding-left:18px;">${itens}</ul>
+    </div>`;
 }
 
 // Painel inicial (sem dados carregados) com a chamada para selecionar.
@@ -754,7 +828,10 @@ function renderWelcome() {
                 ao longo de três quadriênios (2013–2024).</p>
             <p style="color:#555;margin-top:10px;font-size:14px;line-height:1.7;">
                 Use os seletores na barra lateral — <strong>Grande Área → Área CAPES → Curso (${refSigla()})</strong> —
-                para iniciar a análise. <span style="color:#7F8C8D;">A referência (${refSigla()}) aparece destacada em vermelho.</span></p>
+                para iniciar a análise. <span style="color:#7F8C8D;">A referência (${refSigla()}) aparece destacada em vermelho;
+                ela não filtra a base, que é sempre nacional. Para abrir uma área em que a ${refSigla()} não tem programa,
+                marque <strong>“Ver todas as 49 áreas”</strong> na barra lateral.</span></p>
+            ${blocoSemNotaWelcome()}
         </div>`;
     }
     setStatus('Selecione uma Área CAPES e um Programa para iniciar a análise.');
@@ -903,29 +980,54 @@ function populateCursoSelect() {
     const selArea = document.getElementById('selArea');
     const selCurso = document.getElementById('selCurso');
     if (!selGA || !selArea || !selCurso) return;
-    if (!selGA.options.length) {
-        Object.keys(REGISTRY.grandes_areas).sort().forEach(g => {
-            selGA.add(new Option(g, g));
-        });
-    }
-    // Determinar grande área da área atual
+    rebuildGrandeAreaOptions();
+    // Determinar grande área da área atual: pelo programa da referência; se ela não
+    // tem programa aqui (área alcançada pelo modo "todas" ou por deep link), pelo
+    // manifesto, que conhece as 49.
     const refProg = REGISTRY.programas_unb.find(p => p.slug_area === CURRENT_AREA_SLUG);
-    if (refProg) selGA.value = refProg.grande_area_cnpq;
+    if (refProg) {
+        selGA.value = refProg.grande_area_cnpq;
+    } else if (CURRENT_AREA_NAME) {
+        const ga = Object.keys(MANIFEST.grandes_areas || {})
+            .find(g => (MANIFEST.grandes_areas[g] || []).includes(CURRENT_AREA_NAME));
+        if (ga) {
+            if (![...selGA.options].some(o => o.value === ga)) selGA.add(new Option(ga, ga));
+            selGA.value = ga;
+        }
+    }
     rebuildAreaOptions();
+    // Área carregada que não está na lista da referência (deep link `?area=` para
+    // uma área sem programa dela) entra como opção, senão o seletor mostraria uma
+    // área diferente da que está no painel.
+    if (CURRENT_AREA_SLUG && ![...selArea.options].some(o => o.value === CURRENT_AREA_SLUG)) {
+        selArea.add(new Option(`${CURRENT_AREA_NAME} (0 ${refSigla()})`, CURRENT_AREA_SLUG));
+    }
     selArea.value = CURRENT_AREA_SLUG;
     rebuildCursoOptions();
     if (CURRENT_SUFIXO) selCurso.value = CURRENT_SUFIXO;
+}
+function rebuildGrandeAreaOptions() {
+    const selGA = document.getElementById('selGrandeArea');
+    if (!selGA) return;
+    const atual = selGA.value;
+    selGA.innerHTML = '';
+    grandesAreasDisponiveis().forEach(g => selGA.add(new Option(g, g)));
+    if (atual && [...selGA.options].some(o => o.value === atual)) selGA.value = atual;
 }
 function rebuildAreaOptions() {
     const selGA = document.getElementById('selGrandeArea');
     const selArea = document.getElementById('selArea');
     selArea.innerHTML = '';
     const ga = selGA.value;
-    const areasDaGA = REGISTRY.grandes_areas[ga] || [];
-    areasDaGA.forEach(a => {
-        const slug = REGISTRY.areas_capes[a].slug;
-        const n = REGISTRY.areas_capes[a].n_unb;
-        selArea.add(new Option(`${a} (${n} ${refSigla()})`, slug));
+    areasDisponiveis(ga).forEach(a => {
+        const slug = slugDaArea(a);
+        if (!slug) return;
+        const n = (REGISTRY.areas_capes[a] || {}).n_unb || 0;
+        const sn = semNotaDaRef(slug).length;
+        // Área em que a referência não tem programa continua selecionável: a base
+        // é nacional e o destaque em vermelho é o único efeito da referência.
+        const extra = sn ? ` · ${sn} sem nota` : '';
+        selArea.add(new Option(`${a} (${n} ${refSigla()}${extra})`, slug));
     });
 }
 function rebuildCursoOptions() {
@@ -940,6 +1042,31 @@ function rebuildCursoOptions() {
         const tag = (REF === 'UNB') ? ` — MAPA-PG-${p.sufixo}` : '';
         selCurso.add(new Option(`${p.nome}${tag}`, p.sufixo));
     });
+    if (!progs.length) {
+        selCurso.add(new Option(`— ${refSigla()} não tem programa com nota nesta área —`, ''));
+    }
+    // Sem nota entra como item desabilitado: aparece, diz por que está ali e não
+    // pode ser escolhido como referência (não há o que comparar).
+    semNotaDaRef(slugA).forEach(p => {
+        const o = new Option(`${p.nome} — aprovado, ainda sem nota`, '');
+        o.disabled = true;
+        selCurso.add(o);
+    });
+}
+// Alterna entre "as áreas da referência" e "as 49 da CAPES". Não recarrega nada
+// sozinho: só reabre a cascata, preservando a seleção atual quando ela sobrevive.
+function onTodasAreasChange() {
+    const chk = document.getElementById('chkTodasAreas');
+    TODAS_AREAS = !!(chk && chk.checked);
+    const selGA = document.getElementById('selGrandeArea');
+    const selArea = document.getElementById('selArea');
+    const gaAtual = selGA ? selGA.value : '';
+    rebuildGrandeAreaOptions();
+    if (gaAtual && [...selGA.options].some(o => o.value === gaAtual)) selGA.value = gaAtual;
+    const slugAtual = selArea ? selArea.value : '';
+    rebuildAreaOptions();
+    if (slugAtual && [...selArea.options].some(o => o.value === slugAtual)) selArea.value = slugAtual;
+    rebuildCursoOptions();
 }
 function onGrandeAreaChange() {
     // Cascata: ao mudar grande área, atualiza áreas → cursos → recarrega
@@ -963,7 +1090,11 @@ function aplicarSelecao() {
     const selCurso = document.getElementById('selCurso');
     const slugA = selArea && selArea.value;
     const suf   = selCurso && selCurso.value;
-    if (!slugA || !suf) return;
+    // Sem curso a análise continua válida: é a área inteira, sem nenhum programa
+    // destacado em vermelho. Só não há o que refazer se a área também é a mesma.
+    if (!slugA) return;
+    if (!suf && slugA !== CURRENT_AREA_SLUG) { switchArea(slugA, null); return; }
+    if (!suf) return;
     if (slugA === CURRENT_AREA_SLUG) {
         // Mesma área — só troca o destaque (sem refetch)
         const p = REGISTRY.programas_unb.find(x => x.sufixo === suf);
@@ -1102,9 +1233,12 @@ function showIesPicker() {
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
     overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:22px 24px 18px;max-width:820px;width:95%;box-shadow:0 8px 32px rgba(0,0,0,.4);max-height:92vh;display:flex;flex-direction:column;">
         <h2 style="color:#E91E63;margin:0 0 4px;font-size:20px;font-weight:800;text-align:center;">Escolha a instituição de referência</h2>
-        <p style="color:#555;font-size:12.5px;line-height:1.5;text-align:center;margin:0 0 12px;">
+        <p style="color:#555;font-size:12.5px;line-height:1.5;text-align:center;margin:0 0 4px;">
             Ela será usada como referência — <span style="color:#E91E63;font-weight:700;">destacada em vermelho</span> —
             na comparação com todos os programas de cada área da CAPES. (Você pode trocar depois.)</p>
+        <p style="color:#7F8C8D;font-size:11.5px;line-height:1.5;text-align:center;margin:0 0 12px;">
+            A escolha <strong>não filtra a base</strong>: cada área continua mostrando todos os programas do país.
+            A instituição serve para destacar os programas dela e situá-los entre os pares.</p>
         <input id="iesPickerBusca" type="search" autocomplete="off" placeholder="Buscar por sigla ou nome — ex.: FIO CRUZ, UFPB, federal do pará"
             style="width:100%;padding:11px 13px;border:2px solid #E91E63;border-radius:8px;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
         <p id="iesPickerInfo" style="color:#7F8C8D;font-size:11.5px;margin:0 0 10px;text-align:center;"></p>
@@ -1431,6 +1565,32 @@ function analisar() {
         html += `<div class="card" style="background:#FFF3E0;border-left:4px solid #FF9800;padding:8px 12px;">
             <strong style="font-size:12px;color:#E65100;">Filtros ativos:</strong>
             <span style="font-size:12px;color:#BF360C;"> ${filterDesc.join(' | ')}</span>
+        </div>`;
+    }
+
+    // ── AVISO: a referência não tem programa com nota nesta área ─────────────
+    // A área é alcançável mesmo assim (a base é nacional), e sem este aviso os
+    // indicadores da referência apareceriam zerados como se fossem medida real.
+    if (!UNB_CD) {
+        html += `<div class="card" style="background:#ECEFF1;border-left:4px solid #607D8B;padding:8px 12px;">
+            <strong style="font-size:12px;color:#37474F;">Sem programa da ${refSigla()} nesta área:</strong>
+            <span style="font-size:12px;color:#455A64;"> os ${DATA.data.length ? new Set(DATA.data.map(d => d.cd)).size : 0}
+            programas de <strong>${CURRENT_AREA_NAME}</strong> estão todos aqui, mas nenhum aparece destacado em vermelho,
+            e os indicadores da referência ficam zerados por ausência de programa, não por desempenho.</span>
+        </div>`;
+    }
+
+    // ── AVISO: programa da referência aprovado e ainda sem nota ──────────────
+    const semNotaAqui = semNotaDaRef(CURRENT_AREA_SLUG);
+    if (semNotaAqui.length) {
+        const itens = semNotaAqui.map(p => {
+            const d = descSemNota(p);
+            return `<strong>${p.nome}</strong>${d ? ` (${d})` : ''}`;
+        }).join(' · ');
+        html += `<div class="card" style="background:#FFF8E1;border-left:4px solid #FF9800;padding:8px 12px;">
+            <strong style="font-size:12px;color:#E65100;">A ${refSigla()} tem nesta área ${semNotaAqui.length === 1 ? 'um programa aprovado e ainda sem nota' : `${semNotaAqui.length} programas aprovados e ainda sem nota`}:</strong>
+            <span style="font-size:12px;color:#5D4037;"> ${itens}. Fica${semNotaAqui.length > 1 ? 'm' : ''} fora
+            de todos os números desta tela — sem nota da CAPES não há posição a comparar.</span>
         </div>`;
     }
 

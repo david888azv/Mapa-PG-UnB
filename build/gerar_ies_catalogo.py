@@ -33,6 +33,12 @@ DECISÕES
   procurar "blumenau" ou "itabaiana" continua achando.
 • Instituição sem nenhum programa fora de desativação não entra (não haveria o
   que comparar).
+• **Programa aprovado e ainda sem nota entra em campo separado**
+  (`programas_sem_nota` no arquivo da IES, `nsn` no índice), nunca em
+  `programas`. A regra de comparação não muda — sem nota ele continua fora de
+  médias, rankings e gráficos —, mas deixa de ser invisível: antes o programa
+  não existia em lugar nenhum do app e isso se lia como programa inexistente.
+  Ver `sem_nota.py`.
 
 A regra de quais programas são de cada instituição está em `ies_core.py`,
 compartilhada com `gerar_registry_ies.py`.
@@ -44,6 +50,7 @@ import time
 from collections import defaultdict
 
 import ies_core as C
+import sem_nota as SN
 from gerar_registry_ies import IFES, entidades_das_ifes
 
 INDEX_PATH = os.path.join(C.REPO, 'docs', 'ies_index.json')
@@ -92,11 +99,26 @@ def construir():
     siglas_de = {k: set(v[2]) for k, v in perfil.items()}
     por_ies = C.programas_por_ies(registros, siglas_de, C.sufixos_unb())
 
+    # ── programas aprovados e ainda SEM NOTA ────────────────────────────
+    # Não entram em `programas` (o app compara por nota e não teria onde
+    # colocá-los); entram numa lista à parte, para a instituição poder dizer que
+    # existem. Ver `sem_nota.py` e o caso da UFG em Geociências.
+    var2ies = {v: k for k, vs in siglas_de.items() for v in vs}
+    sem_por_ies = defaultdict(list)
+    sem_orfaos = []
+    for p in SN.coletar():
+        ies = var2ies.get(p['sigla'])
+        if ies is None:
+            sem_orfaos.append(p)
+            continue
+        sem_por_ies[ies].append({k: v for k, v in p.items() if k != 'conceito_bruto'})
+
     # sem programa ativo → fora do seletor
     vazias = sorted(k for k in perfil if not por_ies[k]['programas'])
     for k in vazias:
         del perfil[k]
         del por_ies[k]
+        sem_por_ies.pop(k, None)
 
     # slug único
     slugs = {}
@@ -106,12 +128,12 @@ def construir():
             sys.exit(f'✗ colisão de slug {s!r}: {slugs[s]!r} e {k!r}')
         slugs[s] = k
 
-    return perfil, por_ies, slugs, absorvidas, vazias
+    return perfil, por_ies, slugs, absorvidas, vazias, sem_por_ies, sem_orfaos
 
 
 def main():
     t0 = time.perf_counter()
-    perfil, por_ies, slugs, absorvidas, vazias = construir()
+    perfil, por_ies, slugs, absorvidas, vazias, sem_por_ies, sem_orfaos = construir()
     slug_de = {v: k for k, v in slugs.items()}
 
     # ── um arquivo por instituição ──
@@ -124,6 +146,8 @@ def main():
             'sigla': k, 'nome': nome, 'uf': uf, 'siglas_capes': siglas,
             'grandes_areas': p['grandes_areas'], 'programas': p['programas'],
         }
+        if sem_por_ies.get(k):
+            payload['programas_sem_nota'] = sem_por_ies[k]
         caminho = os.path.join(DADOS_DIR, f'ies-{slug_de[k]}.json')
         with open(caminho, 'w', encoding='utf-8') as fh:
             json.dump(payload, fh, ensure_ascii=False, separators=(',', ':'))
@@ -138,6 +162,8 @@ def main():
         e = {'s': k, 'n': nome, 'uf': uf,
              'np': len(por_ies[k]['programas']), 'ar': areas,
              'f': f'dados/ies-{slug_de[k]}.json'}
+        if sem_por_ies.get(k):
+            e['nsn'] = len(sem_por_ies[k])   # aprovados sem nota, fora da comparação
         if apelidos:
             e['al'] = apelidos
         lista.append(e)
@@ -165,6 +191,12 @@ def main():
               f'{len(absorvidas)} — {absorvidas}')
     if vazias:
         print(f'  fora do seletor por não ter programa ativo: {len(vazias)} — {vazias[:6]}')
+    n_sem = sum(len(v) for v in sem_por_ies.values())
+    print(f'  programas aprovados e ainda SEM NOTA: {n_sem} em {len(sem_por_ies)} instituições '
+          f'(listados à parte, fora de médias e rankings)')
+    if sem_orfaos:
+        siglas_orfas = sorted({p['sigla'] for p in sem_orfaos})
+        print(f'  sem nota e sem instituição no seletor: {len(sem_orfaos)} — {siglas_orfas[:8]}')
     print(f'  {time.perf_counter()-t0:.1f}s')
 
 
