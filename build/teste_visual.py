@@ -305,6 +305,70 @@ with sync_playwright() as pw:
     ok(not erros2, 'sem erro de console no fluxo do seletor (%s)' % (erros2[:2] or 'nenhum'))
     p2.close()
 
+    # ══════════════════════════════════════════════════════════════════
+    print('\n=== 8. programa sem nota e area fora do portfolio da referencia ===', flush=True)
+    # A UFG nao tem programa COM NOTA em Geociencias, mas tem um mestrado aprovado
+    # em 2024 e ainda nao avaliado. Ate a v5.5.1 ele nao existia em lugar nenhum do
+    # app e a area era inalcancavel pela cascata — foi o que a Presidencia da SBG
+    # leu, com razao, como "a UFG nao esta na plataforma".
+    p3 = br.new_page()
+    erros3 = []
+    p3.on('console', lambda m: erros3.append(m.text) if m.type == 'error' else None)
+    p3.on('pageerror', lambda e: erros3.append(str(e)))
+    p3.goto(BASE.replace('ies=UNB&area=quimica', 'ies=UFG'), wait_until='networkidle', timeout=60000)
+    p3.click('#licenseOverlay button')
+    p3.wait_for_selector('#results', timeout=20000)
+    ini = p3.inner_text('#results')
+    ok('ainda sem nota da CAPES' in ini, 'tela inicial avisa dos programas sem nota')
+    ok('GEOCI' in ini.upper(), 'e cita o mestrado em Geociencias')
+
+    cas = p3.evaluate('''() => {
+        const ga = document.getElementById('selGrandeArea');
+        ga.value = 'CIÊNCIAS EXATAS E DA TERRA'; rebuildAreaOptions();
+        const area = document.getElementById('selArea');
+        return {areas: [...area.options].map(o => o.textContent),
+                semNota: semNotaDaRef('geociencias').length};
+    }''')
+    geo = [a for a in cas['areas'] if 'GEOCI' in a.upper()]
+    print('   area na cascata da UFG: %s | sem nota: %d' % (geo[:1], cas['semNota']), flush=True)
+    ok(bool(geo), 'Geociencias alcancavel pela cascata mesmo sem programa com nota')
+    ok(bool(geo) and 'sem nota' in geo[0], 'o rotulo da area marca o programa sem nota')
+
+    ar = p3.evaluate('''async () => {
+        await switchArea('geociencias', null);
+        await new Promise(r => setTimeout(r, 1500));
+        return {unb: UNB_CD, n: new Set(DATA.data.map(d => d.cd)).size,
+                txt: document.getElementById('results').innerText,
+                desab: [...document.getElementById('selCurso').options].filter(o => o.disabled).length};
+    }''')
+    print('   Geociencias: %d programas no pais | destaque=%s' % (ar['n'], ar['unb']), flush=True)
+    ok(ar['n'] > 50, 'a area nacional inteira carrega (%d programas)' % ar['n'])
+    ok(ar['unb'] is None, 'nenhum programa fica destacado em vermelho')
+    ok('Sem programa da UFG nesta área' in ar['txt'], 'o painel explica a ausencia da referencia')
+    ok('aprovado e ainda sem nota' in ar['txt'], 'o painel lista o programa aprovado sem nota')
+    ok(ar['desab'] == 1, 'o seletor de curso mostra o sem nota, desabilitado')
+
+    tot = p3.evaluate('''() => {
+        const conta = () => {
+            const ga = document.getElementById('selGrandeArea');
+            const area = document.getElementById('selArea');
+            const orig = ga.value; let t = 0;
+            for (const o of ga.options) { ga.value = o.value; rebuildAreaOptions(); t += area.options.length; }
+            ga.value = orig; rebuildAreaOptions();
+            return t;
+        };
+        const antes = conta();
+        document.getElementById('chkTodasAreas').checked = true;
+        onTodasAreasChange();
+        return {antes, depois: conta()};
+    }''')
+    print('   areas alcancaveis: %d -> %d com "todas as areas"' % (tot['antes'], tot['depois']), flush=True)
+    ok(tot['depois'] > tot['antes'], 'o modo "todas as areas" abre as 49 (%d -> %d)'
+       % (tot['antes'], tot['depois']))
+    ok(tot['depois'] == 49, 'sao exatamente as 49 areas da CAPES (%d)' % tot['depois'])
+    ok(not erros3, 'sem erro de console no fluxo da UFG (%s)' % (erros3[:2] or 'nenhum'))
+    p3.close()
+
     # ── grafico por IES (Química) para inspecao visual
     page.evaluate("async () => { await switchArea('quimica'); }")
     page.wait_for_timeout(3000)

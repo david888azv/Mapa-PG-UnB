@@ -1,5 +1,36 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.6.0 — Programa novo deixa de ser invisível, e a referência deixa de parecer filtro (2026-08-14)
+
+Em 13/08 a Presidência da Sociedade Brasileira de Geologia escreveu para dizer que não
+achava a UFG no aplicativo, e perguntou se havia como procurar cursos de Geologia sem
+antes escolher uma instituição. As duas metades da pergunta expunham dois defeitos reais.
+
+**Programa aprovado e ainda sem nota.** O catálogo da CAPES marca com `A`, no lugar da
+nota, os programas aprovados por APCN que ainda não foram avaliados — 182 no país, quase
+todos abertos em 2024. A fase 2 do `gerar_dados_completos.py` os descarta em silêncio,
+porque toda comparação do app se apoia na nota. O efeito colateral é que eles não
+existiam em lugar nenhum, e ausência sem explicação se lê como inexistência: a UFG **tem**
+um mestrado em Geociências, aberto em 2024, e ele não aparecia.
+
+Agora o `build/sem_nota.py` os coleta dos três catálogos e o `gerar_ies_catalogo.py` os
+grava em `programas_sem_nota`, à parte de `programas`, mais o contador `nsn` no índice. A
+regra de comparação **não mudou** — sem nota o programa continua fora de médias, rankings,
+gráficos e da escolha de referência —, mas ele passa a aparecer na tela inicial da
+instituição, no rótulo da área e num aviso dentro do painel, sempre identificado.
+
+**A referência parecia um filtro.** A cascata Grande Área → Área listava só as áreas em
+que a instituição de referência tem programa, então quem escolhia a UFG não alcançava
+Geociências de jeito nenhum, embora a base seja nacional e a área tenha 59 programas.
+Agora a área com programa sem nota já entra na cascata, e a caixa **“Ver todas as 49
+áreas”** abre qualquer área da CAPES — para a UFG, de 43 para 49 áreas alcançáveis. Sem
+programa da referência na área, o painel abre a área inteira e avisa que nada está
+destacado em vermelho, em vez de mostrar indicadores zerados sem explicação. O texto do
+seletor de instituição e a documentação passam a dizer que a escolha destaca, não filtra.
+
+`build/teste_visual.py` ganhou a seção 8, com 12 checagens desse fluxo: 53 checagens, 0
+falhas. Service Worker em `mapa-pg-v5.6.0`; `shell_version` do manifest acompanha.
+
 ## v5.5.1 — O link da citação passa a abrir o artigo (2026-08-10)
 
 O `https://doi.org/10.26512/2446-564X2026e62064` do bloco **"Como citar"** não resolvia:
