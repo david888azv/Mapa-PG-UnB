@@ -53,8 +53,12 @@ IFES = {
     'UFRGS':   ('RS', 'Universidade Federal do Rio Grande do Sul',    ['UFRGS']),
     'UNIR':    ('RO', 'Universidade Federal de Rondônia',             ['UNIR']),
     'UFRR':    ('RR', 'Universidade Federal de Roraima',              ['UFRR']),
+    # Curitibanos entrou junto com Blumenau: é campus da mesma universidade, e
+    # deixá-lo fora faria a UFSC ter um campus agregado e outro como instituição
+    # separada no seletor. Ele só apareceu quando os programas aprovados e ainda
+    # sem nota passaram a ser lidos — não tem nenhum programa com nota.
     'UFSC':    ('SC', 'Universidade Federal de Santa Catarina',
-               ['UFSC', 'UFSC - BLUMENAU']),
+               ['UFSC', 'UFSC - BLUMENAU', 'UFSC-CURITIBANOS']),
     'UNIFESP': ('SP', 'Universidade Federal de São Paulo',            ['UNIFESP']),
     'UFS':     ('SE', 'Universidade Federal de Sergipe',
                ['FUFSE', 'FUFSE/ITAB']),
