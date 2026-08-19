@@ -1,5 +1,22 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.1 — O botão de sugestões passa a ficar visível (2026-08-19)
+
+O botão **"💡 Sugerir melhoria"** existia desde a v5.5.0, mas no rodapé da barra
+lateral — a cerca de 2.400 px do topo de uma barra rolável, quase três telas abaixo do
+que uma janela comum exibe. Na prática, ninguém o encontrava: relatado pelo usuário como
+"o botão não existe", e confirmado por medição da posição em navegador. O botão passa
+para o **topo da barra lateral**, logo abaixo da seleção de programa; a cópia do rodapé
+foi mantida para quem chega ao fim da barra.
+
+O botão **"★ O que mudou"** estava preso na v5.4: rótulo e destino atualizados para o
+novo **`mudancas-v5.8.html`**, que documenta da v5.5 à v5.8 (canal de sugestões,
+programas aprovados sem nota, 488 instituições, "Ver todas as 49 áreas", bolsas e razão
+bolsas/aluno) e encadeia com as páginas da v5.0 e da v5.4.
+
+Service Worker em `mapa-pg-v5.8.1` (novo documento no precache); `shell_version` do
+manifest acompanha.
+
 ## v5.8.0 — Razão bolsas por aluno (2026-08-14)
 
 Segunda metade do pedido do Prof. Marcos D. Pereira (PPGBq/UFRJ). Ele respondeu às

@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>MAPA-PG — o que mudou até a v5.8</title><style>
+@page { size: A4; margin: 2.0cm 1.8cm 2.0cm 1.8cm; }
+* { box-sizing: border-box; }
+body { font-family: Carlito, Calibri, 'Segoe UI', Arial, sans-serif; color: #222;
+       line-height: 1.55; font-size: 10.5pt; max-width: 900px; margin: 0 auto;
+       padding: 18px 22px 60px; background: #fff; }
+h1 { font-size: 21pt; color: #1F3A5F; line-height: 1.2; margin: 0 0 4px; }
+h2 { font-size: 14pt; color: #1F3A5F; border-bottom: 2px solid #AED6F1;
+     padding-bottom: 3px; margin: 22px 0 9px; break-after: avoid; page-break-after: avoid; }
+h3 { font-size: 11.6pt; color: #1F618D; margin: 14px 0 5px;
+     break-after: avoid; page-break-after: avoid; }
+h4 { font-size: 10.6pt; color: #1F618D; margin: 10px 0 4px;
+     break-after: avoid; page-break-after: avoid; }
+p { text-align: justify; margin: 6px 0; }
+ul, ol { margin: 6px 0 6px 18px; } li { margin: 3px 0; }
+code { font-family: 'DejaVu Sans Mono', Consolas, monospace; font-size: 9.2pt;
+       background: #F4F6F7; padding: 0 3px; border-radius: 3px; }
+table { border-collapse: collapse; width: 100%; font-size: 9.2pt; margin: 9px 0; }
+thead { display: table-header-group; }
+th { background: #e8eef5; color: #13243a; font-weight: bold; padding: 4px 6px;
+     text-align: center; border: 1px solid #c8d4e0; white-space: nowrap; }
+td { border: 1px solid #dfe6ec; padding: 3px 6px; text-align: center; }
+td.l { text-align: left; }
+tr { page-break-inside: avoid; }
+.keep { break-inside: avoid; page-break-inside: avoid; }
+.sub { color: #5D6D7E; font-size: 11.5pt; margin: 2px 0 0; }
+.meta { color: #7B8A8B; font-size: 9pt; margin-top: 6px; }
+.box { border-left: 4px solid #2E86C1; background: #EAF2F8; padding: 9px 13px;
+       border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.warn { border-left: 4px solid #E59866; background: #FEF5E7; padding: 9px 13px;
+        border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.bad { border-left: 4px solid #B03A2E; background: #FDEDEC; padding: 9px 13px;
+       border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.ok { border-left: 4px solid #1E8449; background: #E9F7EF; padding: 9px 13px;
+      border-radius: 5px; margin: 11px 0; font-size: 10pt; }
+.toc { background: #FBFCFD; border: 1px solid #E5E8E8; border-radius: 6px;
+       padding: 10px 16px; font-size: 10pt; }
+.toc ol { margin-left: 16px; } .toc li { margin: 2px 0; }
+.toc a { color: #1F618D; text-decoration: none; }
+.up { color: #1E8449; font-weight: bold; } .down { color: #B03A2E; font-weight: bold; }
+.cap { font-size: 8.8pt; color: #7B8A8B; text-align: center; margin-top: -4px; }
+.pb { page-break-before: always; }
+hr { border: 0; border-top: 1px solid #E5E8E8; margin: 18px 0; }
+</style></head><body><h1>MAPA-PG · O que mudou até a v5.8</h1><p class='sub'>Do canal de sugestões ao painel de bolsas da CAPES</p><p class='meta'>Publicado em 19 de agosto de 2026 · Prof. David L. Azevedo · Instituto de Física · Universidade de Brasília · <a href='https://david888azv.github.io/Mapa-PG-UnB/'>david888azv.github.io/Mapa-PG-UnB</a></p><hr><div class='toc'><b>Neste documento</b><ol><li><a href='#s1'>O que mudou, em uma página</a></li><li><a href='#s2'>O botão "Sugerir melhoria" e o formulário</a></li><li><a href='#s3'>Programas aprovados e ainda sem nota</a></li><li><a href='#s4'>A referência destaca, não filtra</a></li><li><a href='#s5'>Bolsas da CAPES, ano a ano, por programa</a></li><li><a href='#s6'>Razão de alunos com bolsa</a></li><li><a href='#s7'>Uso livre e compartilhamento</a></li></ol></div>
+
+<h2 id='s1'>1. O que mudou, em uma página</h2>
+<p>As versões v5.5 a v5.8 abriram um <b>canal direto com quem usa</b> o aplicativo e
+responderam aos primeiros pedidos que chegaram por ele — sem mudar a forma de medir a
+produção, que segue a documentada na <a href='mudancas-v5.0.0.html'>v5.0</a> e na
+<a href='mudancas-v5.4.html'>v5.4</a>.</p>
+
+<div class='box'><b>Em resumo:</b> entrou o botão <b>"💡 Sugerir melhoria"</b>, que abre um
+formulário curto fora do aplicativo; os <b>182 programas aprovados e ainda sem nota</b>
+deixaram de ser invisíveis, e o seletor passou a cobrir <b>488 instituições</b>; a cascata
+de áreas ganhou a opção <b>"Ver todas as 49 áreas"</b>, deixando claro que a instituição de
+referência destaca, e não filtra; e o aplicativo ganhou o painel de <b>bolsas da CAPES</b>
+por programa — a série anual de 2010 a 2025 e, desde a v5.8, o <b>percentual de alunos
+cobertos por bolsa</b>.</p>
+
+<p>Duas dessas mudanças nasceram de mensagens recebidas de fora: a visibilidade dos
+programas sem nota, de uma pergunta da presidência da Sociedade Brasileira de Geologia; e
+o painel de bolsas, do primeiro pedido de funcionalidade enviado pelo próprio formulário
+do aplicativo, por um coordenador de programa da UFRJ.</p>
+
+<h2 id='s2'>2. O botão "Sugerir melhoria" e o formulário (v5.5)</h2>
+<p>O botão <b>"💡 Sugerir melhoria"</b> abre o formulário em
+<a href='https://daciencia.org/sugestao'>daciencia.org/sugestao</a>, onde se tira uma
+dúvida, pede-se um ajuste, aponta-se um dado que não confere ou se registra um elogio ou
+uma crítica: sigla da instituição obrigatória, nome e e-mail opcionais, texto de até 250
+palavras. No painel principal a sigla da instituição de referência já vai preenchida.</p>
+<p>O formulário fica <b>fora</b> do aplicativo, de propósito: aqui dentro o envio seria uma
+requisição para outro domínio, e cada ajuste de redação ficaria preso ao cache do service
+worker. O aplicativo continua sem coletar nada de quem usa — só sai daqui o que a pessoa
+escrever, por vontade própria, no formulário.</p>
+<p>Na v5.8.1 o botão foi movido para o <b>topo da barra lateral</b>: na posição original,
+ao fim de uma barra longa e rolável, ele ficava fora da tela e passava despercebido.</p>
+
+<h2 id='s3'>3. Programas aprovados e ainda sem nota (v5.6)</h2>
+<p>O catálogo da CAPES marca com <code>A</code>, no lugar da nota, os programas aprovados
+por APCN que ainda não passaram por avaliação — <b>182 no país</b>, quase todos abertos em
+2024. Eles eram descartados na preparação dos dados, porque toda comparação do aplicativo
+se apoia na nota, e o efeito colateral é que não apareciam em lugar nenhum: ausência sem
+explicação se lê como inexistência.</p>
+<p>Agora esses programas aparecem na tela inicial da instituição, no rótulo da área e num
+aviso dentro do painel, sempre identificados como <b>aprovados e ainda sem nota</b>. A
+regra de comparação não mudou: sem nota, o programa segue fora de médias, rankings,
+gráficos e da escolha de referência.</p>
+<p>Na v5.6.1 o seletor passou de 470 para <b>488 instituições</b>: entraram as que só têm
+programa aprovado sem nota — a situação de quem acabou de ter o primeiro programa
+aprovado — e o cartão do seletor diz quantos programas aprovados elas têm, em vez de
+"0 programas".</p>
+
+<h2 id='s4'>4. A referência destaca, não filtra (v5.6)</h2>
+<p>A cascata Grande Área → Área listava apenas as áreas em que a instituição de referência
+tem programa, o que fazia a escolha da referência parecer um filtro sobre a base — que
+sempre foi nacional. A caixa <b>"Ver todas as 49 áreas"</b> abre qualquer área de
+avaliação da CAPES; sem programa da referência na área, o painel abre a área inteira e
+avisa que nada está destacado em vermelho. O texto do seletor e a documentação passaram a
+dizer que a escolha <b>destaca</b>, não filtra.</p>
+
+<h2 id='s5'>5. Bolsas da CAPES, ano a ano, por programa (v5.7)</h2>
+<p>O botão <b>"🎓 Bolsas CAPES por ano"</b> abre um painel com a série do programa de
+referência contra a mediana da área, a composição por nível (mestrado, doutorado,
+pós-doutorado), a tabela de todos os programas da área com pico e variação desde 2019, e o
+CSV da série completa. <b>A série cobre 2010 a 2025</b> e sai do conjunto <i>Bolsistas dos
+Programas da Diretoria de Programas e Bolsas no País</i>, dos dados abertos da CAPES, casada
+pelo mesmo código de programa do resto do aplicativo. Nome de bolsista não entra nos
+arquivos: só contagens por programa, ano e nível.</p>
+<p><b>Três medidas, porque uma sozinha engana.</b> <i>Bolsistas</i> é o número que a
+coordenação reconhece, mas quem perde a bolsa em julho continua contado o ano inteiro.
+<i>Meses de bolsa</i> mostram esse corte, e meses ÷ 12 é a <i>bolsa-equivalente-ano</i>,
+comparável entre programas de tamanhos diferentes. <i>Valor</i> é nominal: o salto de 2023
+é reajuste do valor da bolsa, não aumento de quantidade.</p>
+<p>A v5.7.1 corrigiu a contagem do ano, que somava níveis e contava duas vezes quem passou
+de mestrado a doutorado no mesmo ano — o total passou a ser o conjunto <b>distinto de
+pessoas</b> —, separou o pós-doutorando, que não é aluno do programa, e explicitou na tela
+que a contagem do ano é <b>fluxo</b>, não foto de um mês.</p>
+<div class='warn'>São as bolsas da CAPES <b>no país</b>: CNPq, fundações estaduais e
+recursos da própria instituição não estão nesta base — programa sem bolsa da CAPES pode
+ter bolsistas.</div>
+
+<h2 id='s6'>6. Razão de alunos com bolsa (v5.8)</h2>
+<p>Além do número absoluto, que mostra cortes e recomposições, o painel passou a exibir o
+<b>percentual de alunos cobertos por bolsa</b> — o indicador que sustenta uma discussão de
+equidade na distribuição de cotas. O denominador vem do conjunto <i>Discentes da
+Pós-Graduação Stricto Sensu</i> da CAPES, e a escolha está declarada na tela: a razão
+divide alunos com bolsa por <b>alunos ativos no ano</b> — quem esteve no programa em
+qualquer parte dele —, mantendo fluxo dividido por fluxo. Os matriculados no fechamento
+também aparecem nas caixas, para quem preferir a outra leitura.</p>
+<p>Neste modo, o gráfico de composição vira <b>cobertura por nível</b>: mestrado e
+doutorado lado a lado, porque a média dos dois esconde a diferença entre "metade do
+programa tem bolsa" e "quase todo doutorando tem, quase nenhum mestrando tem".</p>
+<p>A razão cobre <b>2013 a 2024</b>: os arquivos de discentes anteriores a 2013 não trazem
+o nível do aluno, e o último ano publicado de discentes é 2024 — o painel deixa o ano sem
+denominador em branco, em vez de exibir zero.</p>
+
+<h2 id='s7'>7. Uso livre e compartilhamento</h2>
+<p>O MAPA-PG é gratuito, roda no navegador, não pede cadastro e usa exclusivamente
+<b>dados públicos da CAPES</b>. Pode ser <b>livremente compartilhado e utilizado</b> em
+qualquer instituição ou unidade acadêmica — em reuniões de colegiado, comissões de
+avaliação, relatórios internos e planejamento de programas. Basta divulgar o endereço:</p>
+
+<p style='text-align:center;font-size:15px;'>
+<a href='https://david888azv.github.io/Mapa-PG-UnB/'>david888azv.github.io/Mapa-PG-UnB</a></p>
+
+<p>O projeto-irmão <b>MAPA-GR</b> faz o mesmo para a graduação, sob os indicadores do
+INEP/SINAES: <a href='https://david888azv.github.io/Mapa-GR/'>david888azv.github.io/Mapa-GR</a>.
+Ambos fazem parte do projeto de divulgação científica
+<a href='https://daciencia.org'>daciencia.org</a>.</p>
+
+<p>A única condição é a preservação da identificação de autoria e do nome do sistema nas
+cópias, resultados e aplicativos derivados, como consta nos termos de uso exibidos na
+abertura.</p>
+
+<p class='meta'>As mudanças anteriores seguem documentadas em páginas próprias:
+<a href='mudancas-v5.0.0.html'>o que mudou na v5.0</a> ·
+<a href='mudancas-v5.4.html'>o que mudou até a v5.4</a>.</p>
+<hr><p class='meta'>Versão do documento: v5.8 · 19/08/2026</p></body></html>

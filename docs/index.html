@@ -223,7 +223,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.8.0</div>
+        <div id="headerVersion">v5.8.1</div>
     </div>
 </div>
 
@@ -249,6 +249,11 @@ tr:hover { background: #EEF2F7; }
             <select id="selCurso" onchange="onCursoChange()"></select>
             <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Comparações são feitas dentro da mesma Área CAPES (regra CAPES).</p>
         </div>
+
+        <!-- No topo da sidebar de propósito: no rodapé (posição original, v5.5.0) o
+             botão ficava ~2.400 px abaixo do topo de uma sidebar rolável e ninguém o
+             encontrava. A cópia do rodapé foi mantida para quem chega ao fim. -->
+        <button class="btn" onclick="sugerir()" style="background:#7B1FA2;color:#fff;" title="Pedir um ajuste, apontar um dado errado ou sugerir uma melhoria">💡 Sugerir melhoria</button>
 
         <div class="filter-group">
             <h3>Nota CAPES</h3>
@@ -384,7 +389,7 @@ tr:hover { background: #EEF2F7; }
         <button class="btn btn-export" onclick="exportarCSV()">Exportar CSV</button>
         <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
         <button class="btn" onclick="abrirHelp()" style="background:#607D8B;color:#fff;margin-top:16px;">? Ajuda / Documentação</button>
-        <button class="btn" onclick="window.open('mudancas-v5.4.html','_blank')" style="background:#B03A2E;color:#fff;margin-top:16px;">★ O que mudou na v5.4</button>
+        <button class="btn" onclick="window.open('mudancas-v5.8.html','_blank')" style="background:#B03A2E;color:#fff;margin-top:16px;">★ O que mudou na v5.8</button>
         <button class="btn" onclick="sugerir()" style="background:#7B1FA2;color:#fff;margin-top:16px;" title="Pedir um ajuste, apontar um dado errado ou sugerir uma melhoria">💡 Sugerir melhoria</button>
     </div>
 
@@ -597,7 +602,7 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.8.0';
+const VERSION = '5.8.1';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
