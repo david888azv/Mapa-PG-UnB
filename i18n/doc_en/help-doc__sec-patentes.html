@@ -1,0 +1,99 @@
+<!-- sha:fd0c5bab1ec9cf7e -->
+<div class="card">
+    <h2>Patents — technical output</h2>
+
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    Up to version 5.0, MAPA-PG measured only <strong>bibliographic</strong> output: journal
+    articles, abstracts, conference papers, book chapters and newspaper pieces — the five
+    subtypes CAPES publishes under the BIBLIOGRAPHIC type. Patents and other technological
+    products sit in <strong>separate</strong> datasets of the Open Data Portal and were not
+    part of the application. From v5.1 they are in, starting with the
+    <strong>PATENT</strong> subtype; since v5.2, for all <strong>three cycles</strong>.
+    </p>
+
+    <h3>The panel</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    The <strong>"Patents / technical output"</strong> button in the sidebar opens a panel
+    with: an overview of the field; the reference university's programme in the foreground, with
+    patents per year and per permanent faculty member, its position in the field ranking and the list of
+    patents (title, registration number, filing institution, dates, technology
+    stage, research line and description); the ranking of the field's programmes; free-text
+    search; and CSV export.
+    </p>
+
+    <div class="info-box">
+        <strong>The panel's cycle selector is independent.</strong> It opens aligned with the
+        sidebar's cycle filter when that points at a particular cycle, and at the
+        most recent cycle with data when the filter is on "All". Changing cycle in the panel
+        reloads the whole layer: each programme's patent count changes, because each
+        cycle is a separate CAPES collection. Cycles in which the field reported
+        no patent appear disabled.
+    </div>
+
+    <h3>Counting: declarations and distinct patents</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    A patent co-authored across programmes is reported <strong>by each participating
+    programme</strong>. The count <strong>per programme</strong> uses the declaration — that is what
+    CAPES considers when assessing that programme. The <strong>field</strong> and
+    <strong>national</strong> totals, on the other hand, can only become "distinct patents" where the
+    filing registration number exists to recognise the repetitions. And that field is not present in
+    the same way across the three collections.
+    </p>
+
+    <h3>Reporting coverage by cycle</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    The fields are filled in by the programmes themselves on the Sucupira platform, and not all are
+    mandatory — some do not even exist in every collection. National completion rates, over the
+    total patent declarations of each cycle:
+    </p>
+    <table>
+        <tr><th>Field</th><th>2013-2016</th><th>2017-2020</th><th>2021-2024</th></tr>
+        <tr><td><strong>Title</strong></td><td>100%</td><td>100%</td><td>100%</td></tr>
+        <tr><td><strong>Registration no.</strong></td><td>40.9%</td><td><em>not collected</em></td><td>95.1%</td></tr>
+        <tr><td><strong>Filing date</strong></td><td>38.8%</td><td>75.5%</td><td>96.2%</td></tr>
+        <tr><td><strong>Description of the invention</strong></td><td>16.0%</td><td>32.8%</td><td>22.1%</td></tr>
+        <tr><td><strong>Technology stage</strong></td><td><em>not collected</em></td><td>32.5%</td><td>24.9%</td></tr>
+        <tr><td><strong>Grant date</strong></td><td>5.6%</td><td>10.0%</td><td>11.1%</td></tr>
+        <tr><td><strong>Co-authorship deduplication</strong></td><td>partial</td><td><strong>impossible</strong></td><td>complete</td></tr>
+        <tr><td><strong>Declarations (nationwide)</strong></td><td>8,472</td><td>15,635</td><td>13,505</td></tr>
+        <tr><td><strong>Distinct patents (nationwide)</strong></td><td>7,960</td><td>—</td><td>8,381</td></tr>
+    </table>
+    <p class="meta" style="font-size:11px;">
+    Measured on 21 July 2026 over the collections published at that point. The panel in the app always
+    shows percentages recalculated from the data in use.
+    </p>
+
+    <div class="warn-box" style="text-align:justify;">
+        <strong>The three caveats that most affect how this reads:</strong><br><br>
+
+        <strong>1. In 2017-2020 there is no registration number.</strong> The collection simply does
+        not publish the field. In that cycle there is no way to know how many declarations are the same
+        patent reported by co-authoring programmes, so the panel shows only
+        <em>declarations</em> and marks "distinct patents" as <strong>not determinable</strong>.
+        In 2013-2016 the field exists, but filled in 40.9% of records: deduplication is
+        <strong>partial</strong> and the distinct total still contains repetitions. Only in
+        2021-2024 is it reliable — there, 13,505 declarations correspond to 8,381 distinct
+        patents, meaning about <strong>38% of national declarations are repetition through
+        co-authorship</strong>.<br><br>
+
+        <strong>2. "Not collected" is not 0%.</strong> Where the table says <em>not collected</em>, the
+        field did not exist in that collection's form — it is not that programmes failed to
+        fill it in. The technology stage, for instance, was only asked for from 2017-2020 onwards.
+        A blank field, in turn, means <strong>not reported</strong>, not that the fact is
+        absent.<br><br>
+
+        <strong>3. Comparing cycles takes care.</strong> A change in a programme's patent count
+        between collections may reflect a change in reporting practice — or in the form —
+        and not only a change in inventive activity. The count is of patents
+        <em>filed/reported</em> in the cycle: the grant by the competent authority usually
+        comes years later and is rarely reported (never above 11%).
+    </div>
+
+    <h3>One detail about the description field</h3>
+    <p style="font-size:13px;line-height:1.8;text-align:justify;">
+    The description comes from <code>DS_FINALIDADE</code>, a free-text field. In most cases it
+    describes the invention, but in about 3% of the filled ones it carries only the asset category
+    ("PATENTE DE INVENÇÃO", "REGISTRO DE CULTIVAR"). MAPA-PG separates the two cases: the category
+    label becomes a tag on the patent card, and is not counted as a description.
+    </p>
+</div>

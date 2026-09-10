@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- en/ e subpasta: sem isto, dados, icones e Chart.js seriam
+     procurados em /Mapa-PG-UnB/en/ e nao existiriam la. -->
+<base href="../">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAPA-PG — Programas de pós-graduação do Brasil por área CAPES</title>
+<title>MAPA-PG — Brazilian graduate programmes by CAPES field</title>
 <!-- SEO: o app NÃO é sobre a UnB. Ela foi a origem do projeto e segue como uma das 27
      universidades federais de referência selecionáveis — nada mais. O que a página oferece
      é a comparação nacional. As tags abaixo descrevem isso, não a história do projeto.
@@ -15,17 +18,18 @@
 <meta name="keywords" content="MAPA-PG, pós-graduação, CAPES, avaliação CAPES, conceito CAPES, nota CAPES, produção acadêmica, produtividade científica, programas de pós-graduação, universidades federais, comparar universidades, ranking pós-graduação, estratos A1 A8, CiteScore, OpenAlex, fator de impacto, quadriênio, dados abertos, cientometria, UFRJ, USP, UFMG, UFRGS, UFSC, UFBA, UFPE, UFC, UnB">
 <meta name="author" content="Prof. David L. Azevedo — Universidade de Brasília (UnB)">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://david888azv.github.io/Mapa-PG-UnB/">
+<link rel="canonical" href="https://david888azv.github.io/Mapa-PG-UnB/en/">
 <link rel="alternate" hreflang="pt-BR" href="https://david888azv.github.io/Mapa-PG-UnB/">
 <link rel="alternate" hreflang="en" href="https://david888azv.github.io/Mapa-PG-UnB/en/">
 <link rel="alternate" hreflang="x-default" href="https://david888azv.github.io/Mapa-PG-UnB/">
 <!-- Open Graph (preview ao compartilhar) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MAPA-PG">
-<meta property="og:locale" content="pt_BR">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
 <meta property="og:title" content="MAPA-PG — Programas de pós-graduação do Brasil por área CAPES">
 <meta property="og:description" content="Compare 4.824 programas de pós-graduação do Brasil em todas as 49 áreas CAPES. Escolha qualquer uma das 470 instituições como referência, buscando por sigla ou nome, e compare-a com seus pares nacionais. Gratuito, sem instalação, com dados públicos da CAPES.">
-<meta property="og:url" content="https://david888azv.github.io/Mapa-PG-UnB/">
+<meta property="og:url" content="https://david888azv.github.io/Mapa-PG-UnB/en/">
 <!-- Marca DA ciência (daciencia.org), não a da UnB: o app compara 4.824 programas de 495
      instituições, e quem compartilhasse o link da UFSC via o logo da UnB. Peça oficial do
      projeto, 1200x630 — o formato que Facebook/LinkedIn/WhatsApp esperam. -->
@@ -48,10 +52,10 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "MAPA-PG",
-  "alternateName": "Monitoramento e Análise de Produção Acadêmica da Pós-Graduação",
+  "alternateName": "Monitoring and Analysis of Graduate Research Output",
   "url": "https://david888azv.github.io/Mapa-PG-UnB/",
   "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Qualquer (navegador web)",
+  "operatingSystem": "Any (web browser)",
   "browserRequirements": "Requires JavaScript",
   "inLanguage": "pt-BR",
   "isAccessibleForFree": true,
@@ -64,7 +68,7 @@
       "https://scholar.google.com.br/citations?user=o-qWsUAAAAAJ",
       "http://lattes.cnpq.br/3892893860696339"
     ],
-    "affiliation": { "@type": "Organization", "name": "Grupo de Dinâmica e Ab Initio (GDAI), Núcleo de Estrutura da Matéria, Instituto de Física, Universidade de Brasília (UnB)" }
+    "affiliation": { "@type": "Organization", "name": "Dynamics and Ab Initio Group (GDAI), Matter Structure Centre, Institute of Physics, University of Brasilia (UnB)" }
   },
   "citation": {
     "@type": "ScholarlyArticle",
@@ -77,17 +81,17 @@
     "identifier": "https://doi.org/10.26512/2446-564X2026e62064",
     "sameAs": "https://periodicos.unb.br/index.php/physicae/article/view/62064/45040"
   },
-  "description": "Sistema interativo e gratuito para comparar a produção acadêmica de 4.824 programas de pós-graduação do Brasil (495 instituições) em todas as 49 áreas de avaliação da CAPES; escolha qualquer uma das 470 instituições como referência, buscando por sigla ou nome, e compare-a com seus pares nacionais, sempre dentro da mesma área, ao longo de três quadriênios (2013–2024), usando dados públicos da CAPES.",
-  "keywords": "pós-graduação, CAPES, avaliação CAPES, nota CAPES, produção científica, universidades federais, comparar programas, estratos A1-A8, CiteScore, OpenAlex, cientometria, dados abertos",
+  "description": "A free, interactive system for comparing the research output of 4,824 Brazilian graduate programmes (495 institutions) across all 49 CAPES assessment fields; pick any of 470 institutions as your reference, searching by acronym or name, and compare it with its national peers, always within the same field, across three four-year cycles (2013–2024), using public CAPES data.",
+  "keywords": "graduate education, CAPES, CAPES assessment, CAPES grade, research output, Brazilian federal universities, compare programmes, A1-A8 strata, CiteScore, OpenAlex, scientometrics, open data",
   "featureList": [
-    "Cobertura das 49 Áreas de Avaliação da CAPES — 4.824 programas de 495 instituições",
-    "Comparação entre programas sempre dentro da mesma Área de Avaliação da CAPES",
-    "470 instituições selecionáveis como referência, com busca por sigla ou nome",
-    "Três quadriênios (2013-2016, 2017-2020, 2021-2024)",
-    "Estratificação A1–A8/C por percentil de impacto do periódico (Ficha CAPES 2025-2028)",
-    "Relatórios exportáveis em TXT e CSV"
+    "Covers all 49 CAPES assessment fields — 4,824 programmes at 495 institutions",
+    "Programmes are always compared within the same CAPES assessment field",
+    "470 institutions can be set as the reference, searchable by acronym or name",
+    "Three four-year cycles (2013-2016, 2017-2020, 2021-2024)",
+    "A1–A8/C stratification by journal impact percentile (CAPES 2025-2028 rules)",
+    "Reports exportable as TXT and CSV"
   ],
-  "audience": { "@type": "Audience", "audienceType": "Coordenadores de pós-graduação, pró-reitorias, pesquisadores, candidatos a mestrado e doutorado" },
+  "audience": { "@type": "Audience", "audienceType": "Graduate programme coordinators, university administrators, researchers, and prospective master's and doctoral students" },
   "codeRepository": "https://github.com/david888azv/Mapa-PG-UnB"
 }
 </script>
@@ -240,9 +244,9 @@ tr:hover { background: #EEF2F7; }
 <body>
 
 <div class="header">
-    <h1><span>MAPA-PG</span> — Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</h1>
+    <h1><span>MAPA-PG</span> — Monitoring and Analysis of Graduate Research Output</h1>
     <div class="meta">
-        <div class="langsel"><span class="cur" aria-current="true">PT</span><a href="en/index.html" hreflang="en" lang="en">EN</a></div>
+        <div class="langsel"><a href="../index.html" hreflang="pt-BR" lang="pt-BR">PT</a><span class="cur" aria-current="true">EN</span></div>
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
@@ -251,47 +255,47 @@ tr:hover { background: #EEF2F7; }
 </div>
 
 <div style="background:#FFF8E1;border-bottom:1px solid #FFE082;padding:6px 16px;font-size:12px;color:#5D4037;text-align:center;">
-    <strong>Novo:</strong> estratificação CAPES <strong>A1–A8/C</strong> (Ficha de Avaliação 2025–2028) por percentil de fator de impacto.
+    <strong>New:</strong> CAPES <strong>A1–A8/C</strong> stratification (2025–2028 assessment rules) by impact-factor percentile.
 </div>
 
 <div class="container">
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <div class="filter-group" style="border:2px solid var(--accent);padding:10px;border-radius:8px;background:#FFF0F5;">
-            <h3 id="refHead" style="color:var(--accent);">Selecionar Programa</h3>
-            <button id="trocarIesBtn" onclick="trocarIes()" style="display:none;width:100%;margin-bottom:8px;background:#FCE4EC;color:#E91E63;border:1.5px solid #E91E63;border-radius:6px;padding:6px 8px;font-size:11.5px;font-weight:700;cursor:pointer;">↺ Trocar universidade de referência</button>
-            <label style="font-size:12px;">Grande Área CNPq</label>
+            <h3 id="refHead" style="color:var(--accent);">Select a programme</h3>
+            <button id="trocarIesBtn" onclick="trocarIes()" style="display:none;width:100%;margin-bottom:8px;background:#FCE4EC;color:#E91E63;border:1.5px solid #E91E63;border-radius:6px;padding:6px 8px;font-size:11.5px;font-weight:700;cursor:pointer;">↺ Change reference university</button>
+            <label style="font-size:12px;">CNPq broad field</label>
             <select id="selGrandeArea" onchange="onGrandeAreaChange()"></select>
-            <label style="font-size:12px;margin-top:6px;display:block;">Área de Avaliação CAPES</label>
+            <label style="font-size:12px;margin-top:6px;display:block;">CAPES assessment field</label>
             <select id="selArea" onchange="onAreaChange()"></select>
             <label style="font-size:11.5px;margin-top:6px;display:flex;gap:6px;align-items:flex-start;line-height:1.35;cursor:pointer;">
                 <input type="checkbox" id="chkTodasAreas" onchange="onTodasAreasChange()" style="margin-top:2px;">
-                <span>Ver <strong>todas as 49 áreas</strong> da CAPES, inclusive as que a referência não tem</span>
+                <span>Show <strong>all 49 CAPES fields</strong>, including those the reference institution does not have</span>
             </label>
-            <label id="refCursoLbl" style="font-size:12px;margin-top:6px;display:block;">Curso — referência</label>
+            <label id="refCursoLbl" style="font-size:12px;margin-top:6px;display:block;">Programme — reference</label>
             <select id="selCurso" onchange="onCursoChange()"></select>
-            <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Comparações são feitas dentro da mesma Área CAPES (regra CAPES).</p>
+            <p style="font-size:10px;color:var(--txt2);margin-top:6px;">Comparisons are always made within the same CAPES field, as CAPES requires.</p>
         </div>
 
         <!-- No topo da sidebar de propósito: no rodapé (posição original, v5.5.0) o
              botão ficava ~2.400 px abaixo do topo de uma sidebar rolável e ninguém o
              encontrava. A cópia do rodapé foi mantida para quem chega ao fim. -->
-        <button class="btn" onclick="sugerir()" style="background:#7B1FA2;color:#fff;" title="Pedir um ajuste, apontar um dado errado ou sugerir uma melhoria">💡 Sugerir melhoria</button>
+        <button class="btn" onclick="sugerir()" style="background:#7B1FA2;color:#fff;" title="Ask for a change, report wrong data or suggest an improvement">💡 Suggest an improvement</button>
 
         <div class="filter-group">
-            <h3>Nota CAPES</h3>
-            <label><input type="checkbox" id="nota3" value="3"> Nota 3</label>
-            <label><input type="checkbox" id="nota4" value="4"> Nota 4</label>
-            <label><input type="checkbox" id="nota5" value="5" checked> Nota 5</label>
-            <label><input type="checkbox" id="nota6" value="6"> Nota 6</label>
-            <label><input type="checkbox" id="nota7" value="7"> Nota 7</label>
+            <h3>CAPES grade</h3>
+            <label><input type="checkbox" id="nota3" value="3"> Grade 3</label>
+            <label><input type="checkbox" id="nota4" value="4"> Grade 4</label>
+            <label><input type="checkbox" id="nota5" value="5" checked> Grade 5</label>
+            <label><input type="checkbox" id="nota6" value="6"> Grade 6</label>
+            <label><input type="checkbox" id="nota7" value="7"> Grade 7</label>
         </div>
 
         <div class="filter-group">
-            <h3>Quadriênio</h3>
+            <h3>Four-year cycle</h3>
             <!-- onchange: sem ele, trocar o quadriênio não redesenhava (mesmo bug dos .sub-chk) -->
             <select id="selQuad" onchange="analisar()">
-                <option value="all">Todos os quadriênios</option>
+                <option value="all">All cycles</option>
                 <option value="2013-2016">2013–2016 (Q1)</option>
                 <option value="2017-2020">2017–2020 (Q2)</option>
                 <option value="2021-2024">2021–2024 (Q3)</option>
@@ -299,15 +303,15 @@ tr:hover { background: #EEF2F7; }
         </div>
 
         <div class="filter-group">
-            <h3>Métrica de Comparação</h3>
+            <h3>Comparison metric</h3>
             <select id="selMetrica" onchange="analisar()">
-                <option value="ma_pq">Art/ano — Bolsistas PQ</option>
-                <option value="ma_spq">Art/ano — Sem bolsa PQ</option>
-                <option value="ma_all" selected>Art/ano — Média geral (PQ + sem PQ)</option>
-                <option value="ma_perm">Art/ano — Docentes Permanentes</option>
-                <option value="ma_colab">Art/ano — Docentes Colaboradores</option>
-                <option value="ma_visit">Art/ano — Docentes Visitantes</option>
-                <option value="avg_if">Fator de Impacto Médio (OpenAlex 2yr)</option>
+                <option value="ma_pq">Articles/year — CNPq research fellows (PQ)</option>
+                <option value="ma_spq">Articles/year — without a PQ fellowship</option>
+                <option value="ma_all" selected>Articles/year — overall mean (PQ + non-PQ)</option>
+                <option value="ma_perm">Articles/year — permanent faculty</option>
+                <option value="ma_colab">Articles/year — collaborating faculty</option>
+                <option value="ma_visit">Articles/year — visiting faculty</option>
+                <option value="avg_if">Mean impact factor (OpenAlex 2yr)</option>
             </select>
         </div>
 
@@ -328,47 +332,47 @@ tr:hover { background: #EEF2F7; }
              pré-calculados por categoria. -->
 
         <div class="filter-group">
-            <h3>Região</h3>
+            <h3>Region</h3>
             <div style="display:flex;gap:4px;margin-bottom:6px;">
-                <button class="btn btn-sm btn-primary" onclick="toggleRegioes(true)" style="flex:1;margin:0;">Todas</button>
-                <button class="btn btn-sm btn-secondary" onclick="toggleRegioes(false)" style="flex:1;margin:0;">Nenhuma</button>
+                <button class="btn btn-sm btn-primary" onclick="toggleRegioes(true)" style="flex:1;margin:0;">All</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleRegioes(false)" style="flex:1;margin:0;">None</button>
             </div>
-            <label><input type="checkbox" class="reg-chk" value="Centro-Oeste" checked onchange="analisar()"> Centro-Oeste (CO)</label>
-            <label><input type="checkbox" class="reg-chk" value="Nordeste" checked onchange="analisar()"> Nordeste (NE)</label>
-            <label><input type="checkbox" class="reg-chk" value="Norte" checked onchange="analisar()"> Norte (N)</label>
-            <label><input type="checkbox" class="reg-chk" value="Sudeste" checked onchange="analisar()"> Sudeste (SE)</label>
-            <label><input type="checkbox" class="reg-chk" value="Sul" checked onchange="analisar()"> Sul (S)</label>
+            <label><input type="checkbox" class="reg-chk" value="Centro-Oeste" checked onchange="analisar()"> Central-West (CO)</label>
+            <label><input type="checkbox" class="reg-chk" value="Nordeste" checked onchange="analisar()"> Northeast (NE)</label>
+            <label><input type="checkbox" class="reg-chk" value="Norte" checked onchange="analisar()"> North (N)</label>
+            <label><input type="checkbox" class="reg-chk" value="Sudeste" checked onchange="analisar()"> Southeast (SE)</label>
+            <label><input type="checkbox" class="reg-chk" value="Sul" checked onchange="analisar()"> South (S)</label>
         </div>
 
         <div class="filter-group">
-            <h3>Instituições (IES)</h3>
-            <label><input type="checkbox" id="chkAllIES" checked> <strong>Todas as IES</strong></label>
+            <h3>Institutions</h3>
+            <label><input type="checkbox" id="chkAllIES" checked> <strong>All institutions</strong></label>
             <div class="ies-container" id="iesContainer"></div>
         </div>
 
         <div class="filter-group">
-            <h3>Tipo de Produção</h3>
+            <h3>Output type</h3>
             <div style="display:flex;gap:4px;margin-bottom:6px;">
-                <button class="btn btn-sm btn-primary" onclick="toggleSubtipos(true)" style="flex:1;margin:0;">Todos</button>
-                <button class="btn btn-sm btn-secondary" onclick="toggleSubtipos(false)" style="flex:1;margin:0;">Nenhum</button>
+                <button class="btn btn-sm btn-primary" onclick="toggleSubtipos(true)" style="flex:1;margin:0;">All</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleSubtipos(false)" style="flex:1;margin:0;">None</button>
             </div>
             <!-- onchange="analisar()" — sem ele o clique não redesenhava NADA: o filtro de
                  tipo de produção existia na tela e não fazia efeito. Os filtros de estrato
                  (.estr-chk) sempre tiveram o handler; estes ficaram sem. -->
-            <label><input type="checkbox" class="sub-chk" value="25" checked onchange="analisar()"> Artigo em Periódico</label>
-            <label><input type="checkbox" class="sub-chk" value="8" onchange="analisar()"> Resumo</label>
-            <label><input type="checkbox" class="sub-chk" value="9" onchange="analisar()"> Trabalho de Congresso</label>
-            <label><input type="checkbox" class="sub-chk" value="26" onchange="analisar()"> Capítulo de Livro</label>
-            <label><input type="checkbox" class="sub-chk" value="10" onchange="analisar()"> Texto em Jornal</label>
+            <label><input type="checkbox" class="sub-chk" value="25" checked onchange="analisar()"> Journal article</label>
+            <label><input type="checkbox" class="sub-chk" value="8" onchange="analisar()"> Abstract</label>
+            <label><input type="checkbox" class="sub-chk" value="9" onchange="analisar()"> Conference paper</label>
+            <label><input type="checkbox" class="sub-chk" value="26" onchange="analisar()"> Book chapter</label>
+            <label><input type="checkbox" class="sub-chk" value="10" onchange="analisar()"> Newspaper piece</label>
         </div>
 
         <div class="filter-group">
-            <h3>Estratos CAPES (Ficha 2025-2028)</h3>
+            <h3>CAPES strata (2025-2028 rules)</h3>
             <div style="display:flex;gap:4px;margin-bottom:6px;">
-                <button class="btn btn-sm btn-primary" onclick="toggleEstratos(true)" style="flex:1;margin:0;">Todos</button>
-                <button class="btn btn-sm btn-secondary" onclick="toggleEstratos(false)" style="flex:1;margin:0;">Nenhum</button>
+                <button class="btn btn-sm btn-primary" onclick="toggleEstratos(true)" style="flex:1;margin:0;">All</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleEstratos(false)" style="flex:1;margin:0;">None</button>
             </div>
-            <label><input type="checkbox" id="chkAllEstr" checked onchange="toggleEstratos(this.checked)"> <strong>Todos os estratos</strong></label>
+            <label><input type="checkbox" id="chkAllEstr" checked onchange="toggleEstratos(this.checked)"> <strong>All strata</strong></label>
             <label><input type="checkbox" class="estr-chk" value="A1" checked onchange="analisar()"> <span id="lblA1">A1</span></label>
             <label><input type="checkbox" class="estr-chk" value="A2" checked onchange="analisar()"> <span id="lblA2">A2</span></label>
             <label><input type="checkbox" class="estr-chk" value="A3" checked onchange="analisar()"> <span id="lblA3">A3</span></label>
@@ -377,43 +381,43 @@ tr:hover { background: #EEF2F7; }
             <label><input type="checkbox" class="estr-chk" value="A6" checked onchange="analisar()"> <span id="lblA6">A6</span></label>
             <label><input type="checkbox" class="estr-chk" value="A7" checked onchange="analisar()"> <span id="lblA7">A7</span></label>
             <label><input type="checkbox" class="estr-chk" value="A8" checked onchange="analisar()"> <span id="lblA8">A8</span></label>
-            <label><input type="checkbox" class="estr-chk" value="C" checked onchange="analisar()"> <span id="lblC">C · sem indicador de IF</span></label>
+            <label><input type="checkbox" class="estr-chk" value="C" checked onchange="analisar()"> <span id="lblC">C · no impact indicator</span></label>
             <p style="font-size:10px;color:var(--txt2);margin-top:4px;line-height:1.3;">
-                Estrato = percentil do fator de impacto do periódico <strong>dentro da área</strong>
-                (A1 = topo 12,5%; C = sem indicador de IF). Afeta <strong>ma_all, ma_perm, ma_colab,
-                ma_visit</strong> (passam a contar só artigos nos estratos marcados). <strong>ma_pq,
-                ma_spq, avg_if</strong> e contagens por tipo de produção mantêm os valores agregados.
+                Stratum = the journal's impact-factor percentile <strong>within the field</strong>
+                (A1 = top 12.5%; C = no impact indicator). It affects <strong>ma_all, ma_perm, ma_colab,
+                ma_visit</strong> (which then count only articles in the ticked strata). <strong>ma_pq,
+                ma_spq, avg_if</strong> and the counts by output type keep their aggregate values.
             </p>
         </div>
 
         <div class="filter-group">
-            <h3>Média Nacional (Todas as Áreas)</h3>
-            <label><input type="checkbox" id="chkNatlAvg" onchange="showNatlAvg=this.checked;analisar()"> Incluir média nacional de todas as áreas nos gráficos e tabelas</label>
+            <h3>National mean (all fields)</h3>
+            <label><input type="checkbox" id="chkNatlAvg" onchange="showNatlAvg=this.checked;analisar()"> Include the national mean of all fields in charts and tables</label>
         </div>
 
         <div class="filter-group">
-            <h3>Relatório Detalhado IF</h3>
-            <label><input type="checkbox" id="chkIFDetail"> Análise detalhada por Fator de Impacto</label>
-            <p style="font-size:11px;color:var(--txt2,#7F8C8D);margin-top:4px;line-height:1.4;">Abre no próprio painel (sem novas abas): <strong>Página 1</strong> detalhamento numérico e <strong>Página 2</strong> gráficos, alternáveis por botão.</p>
+            <h3>Detailed impact report</h3>
+            <label><input type="checkbox" id="chkIFDetail"> Detailed analysis by impact factor</label>
+            <p style="font-size:11px;color:var(--txt2,#7F8C8D);margin-top:4px;line-height:1.4;">Opens inside the panel itself (no new tabs): <strong>Page 1</strong> the numbers and <strong>Page 2</strong> the charts, switched by a button.</p>
             <div style="margin-top:10px;border-top:1px dashed var(--bd,#D5DBDB);padding-top:8px;">
-                <div style="font-size:11px;font-weight:700;color:var(--txt2,#7F8C8D);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;">Base do indicador de impacto (percentil dos estratos A1–A8/C)</div>
-                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="cs" checked onchange="setIFBase(this.value)"> <strong>CiteScore</strong> (Scopus) — fonte oficial CAPES <span style="color:#7F8C8D;">· padrão</span></label>
-                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="oa" onchange="setIFBase(this.value)"> OpenAlex (IF de 2 anos)</label>
-                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="hb" onchange="setIFBase(this.value)"> Híbrido: CiteScore + OpenAlex</label>
-                <p style="font-size:10.5px;color:var(--txt2,#7F8C8D);margin-top:5px;line-height:1.4;">A base escolhida recalcula os percentis de <strong>todos</strong> os estratos no app (filtro, métricas, rótulos e o Relatório Detalhado IF). No CiteScore, periódicos sem CiteScore vão para <strong>C</strong>; o Híbrido usa OpenAlex onde falta CiteScore.</p>
+                <div style="font-size:11px;font-weight:700;color:var(--txt2,#7F8C8D);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;">Impact indicator used for the A1–A8/C percentiles</div>
+                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="cs" checked onchange="setIFBase(this.value)"> <strong>CiteScore</strong> (Scopus) — the source CAPES prescribes <span style="color:#7F8C8D;">· default</span></label>
+                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="oa" onchange="setIFBase(this.value)"> OpenAlex (2-year impact factor)</label>
+                <label style="display:block;margin:3px 0;"><input type="radio" name="ifBase" value="hb" onchange="setIFBase(this.value)"> Hybrid: CiteScore + OpenAlex</label>
+                <p style="font-size:10.5px;color:var(--txt2,#7F8C8D);margin-top:5px;line-height:1.4;">The chosen source recalculates the percentiles of <strong>every</strong> stratum in the app (filter, metrics, labels and the detailed impact report). Under CiteScore, journals without a CiteScore fall into <strong>C</strong>; the hybrid uses OpenAlex wherever CiteScore is missing.</p>
             </div>
         </div>
 
-        <button class="btn btn-primary" onclick="analisar()">Analisar</button>
-        <button class="btn" onclick="renderRanking('nac', false)" style="background:#D4AF37;color:#fff;">🏆 TOP / Ranking de programas</button>
-        <button class="btn" id="patBtn" onclick="abrirPatentes()" style="background:#00897B;color:#fff;">⚙ Patentes / Produção Técnica</button>
-        <button class="btn" id="bolBtn" onclick="abrirBolsas()" style="background:#7B1FA2;color:#fff;">🎓 Bolsas CAPES por ano</button>
-        <button class="btn btn-secondary" onclick="gerarRelatorio()">Gerar Relatório</button>
-        <button class="btn btn-export" onclick="exportarCSV()">Exportar CSV</button>
-        <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Exportar Gráficos PNG</button>
-        <button class="btn" onclick="abrirHelp()" style="background:#607D8B;color:#fff;margin-top:16px;">? Ajuda / Documentação</button>
+        <button class="btn btn-primary" onclick="analisar()">Analyse</button>
+        <button class="btn" onclick="renderRanking('nac', false)" style="background:#D4AF37;color:#fff;">🏆 TOP / programme ranking</button>
+        <button class="btn" id="patBtn" onclick="abrirPatentes()" style="background:#00897B;color:#fff;">⚙ Patents / technical output</button>
+        <button class="btn" id="bolBtn" onclick="abrirBolsas()" style="background:#7B1FA2;color:#fff;">🎓 CAPES scholarships by year</button>
+        <button class="btn btn-secondary" onclick="gerarRelatorio()">Generate report</button>
+        <button class="btn btn-export" onclick="exportarCSV()">Export CSV</button>
+        <button class="btn btn-export" onclick="exportarPNGs()" style="background:#FF9800;">Export charts as PNG</button>
+        <button class="btn" onclick="abrirHelp()" style="background:#607D8B;color:#fff;margin-top:16px;">? Help / Documentation</button>
         <button class="btn" onclick="window.open('mudancas-v5.8.html','_blank')" style="background:#B03A2E;color:#fff;margin-top:16px;">★ O que mudou na v5.8</button>
-        <button class="btn" onclick="sugerir()" style="background:#7B1FA2;color:#fff;margin-top:16px;" title="Pedir um ajuste, apontar um dado errado ou sugerir uma melhoria">💡 Sugerir melhoria</button>
+        <button class="btn" onclick="sugerir()" style="background:#7B1FA2;color:#fff;margin-top:16px;" title="Ask for a change, report wrong data or suggest an improvement">💡 Suggest an improvement</button>
     </div>
 
     <!-- MAIN -->
@@ -541,17 +545,17 @@ tr:hover { background: #EEF2F7; }
 <div class="main" id="main">
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p id="loadingMsg">Carregando catálogo de áreas CAPES...</p>
+            <p id="loadingMsg">Loading the CAPES field catalogue...</p>
         </div>
         <div id="results" style="display:none;"></div>
 
         <!-- Painel sobreposto: detalhamento de Fator de Impacto (mesma área do painel principal) -->
         <div id="ifOverlay">
             <div id="ifOverlayHead">
-                <h2>Detalhamento de Fator de Impacto</h2>
+                <h2>Impact factor in detail</h2>
                 <span class="ind" id="ifPageInd"></span>
-                <button class="navbtn" id="ifPageToggle" data-target="2" onclick="toggleIFPage()">Ver gráficos →</button>
-                <button class="navbtn" id="ifClose" onclick="closeIFOverlay()">✕ Fechar</button>
+                <button class="navbtn" id="ifPageToggle" data-target="2" onclick="toggleIFPage()">See charts →</button>
+                <button class="navbtn" id="ifClose" onclick="closeIFOverlay()">✕ Close</button>
             </div>
             <div id="ifOverlayBody">
                 <div id="ifPage1"></div>
@@ -562,18 +566,18 @@ tr:hover { background: #EEF2F7; }
         <!-- Painel sobreposto: produção técnica (patentes) da área -->
         <div id="patOverlay">
             <div id="patOverlayHead">
-                <h2>Patentes — Produção Técnica</h2>
+                <h2>Patents — technical output</h2>
                 <span class="ind" id="patInd"></span>
-                <button class="navbtn" onclick="closePatOverlay()">✕ Fechar</button>
+                <button class="navbtn" onclick="closePatOverlay()">✕ Close</button>
             </div>
             <div id="patOverlayBody"></div>
         </div>
 
         <div id="bolOverlay">
             <div id="bolOverlayHead">
-                <h2>Bolsas CAPES — série por ano</h2>
+                <h2>CAPES scholarships — series by year</h2>
                 <span class="ind" id="bolInd"></span>
-                <button class="navbtn" onclick="closeBolOverlay()">✕ Fechar</button>
+                <button class="navbtn" onclick="closeBolOverlay()">✕ Close</button>
             </div>
             <div id="bolOverlayBody"></div>
         </div>
@@ -581,7 +585,7 @@ tr:hover { background: #EEF2F7; }
 </div>
 
 <div class="status-bar">
-    <span id="statusLeft">Aguardando dados...</span>
+    <span id="statusLeft">Waiting for data...</span>
     <span id="statusRight">MAPA-PG | Prof. David L. Azevedo</span>
 </div>
 
@@ -684,7 +688,7 @@ let showNatlAvg = false;
 // ══════════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════════
-document.getElementById('headerDate').textContent = new Date().toLocaleDateString('pt-BR', {
+document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US', {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
 });
 document.getElementById('headerVersion').textContent = `v${VERSION}`;
@@ -693,7 +697,7 @@ document.getElementById('headerVersion').textContent = `v${VERSION}`;
 async function loadData() {
     const setMsg = m => { const el = document.getElementById('loadingMsg'); if (el) el.textContent = m; };
     try {
-        setMsg('Carregando catálogo de áreas CAPES...');
+        setMsg('Loading the CAPES field catalogue...');
         // ies_index.json substituiu registry_ies.json: 119 KB para 470 instituições,
         // contra 391 KB para 27. A lista de programas de cada uma vem sob demanda
         // (dados/ies-<slug>.json, ~2 KB), quando a referência é escolhida.
@@ -726,7 +730,7 @@ async function loadData() {
     } catch (e) {
         console.error(e);
         document.getElementById('loading').innerHTML =
-            `<p style="color:#E74C3C;font-size:16px;">Erro ao carregar catálogo.</p>
+            `<p style="color:#E74C3C;font-size:16px;">Failed to load the catalogue.</p>
              <p style="color:#999;margin-top:8px;">${e.message}</p>`;
     }
 }
@@ -740,7 +744,7 @@ async function loadData() {
 async function carregarIes(sigla) {
     if (IES_CACHE[sigla]) return IES_CACHE[sigla];
     const e = IES_POR_SIGLA[sigla];
-    if (!e) throw new Error(`Instituição desconhecida: ${sigla}`);
+    if (!e) throw new Error(`Unknown institution: ${sigla}`);
     const d = await fetch(e.f, {cache: 'force-cache'}).then(r => {
         if (!r.ok) throw new Error(`${e.f}: HTTP ${r.status}`);
         return r.json();
@@ -823,9 +827,9 @@ async function startWithRef() {
         console.error(e);
         const l = document.getElementById('loading');
         if (l) { l.style.display = ''; l.innerHTML =
-            `<p style="color:#E74C3C;font-size:16px;">Não foi possível carregar os programas de ${REF}.</p>
+            `<p style="color:#E74C3C;font-size:16px;">Could not load the programmes of ${REF}.</p>
              <p style="color:#999;margin-top:8px;">${e.message}</p>
-             <button class="btn btn-primary" onclick="trocarIes()">Escolher outra instituição</button>`; }
+             <button class="btn btn-primary" onclick="trocarIes()">Choose another institution</button>`; }
         return;
     }
     buildRegistryForRef();
@@ -849,8 +853,8 @@ async function startWithRef() {
 // Atualiza rótulos fixos da interface que citavam "UnB" para a IFES de referência.
 function aplicarRotulosRef() {
     const rs = refSigla();
-    const h = document.getElementById('refHead');       if (h) h.textContent = `Selecionar Programa ${rs}`;
-    const l = document.getElementById('refCursoLbl');   if (l) l.textContent = `Curso (${rs}) — referência`;
+    const h = document.getElementById('refHead');       if (h) h.textContent = `Select a ${rs} programme`;
+    const l = document.getElementById('refCursoLbl');   if (l) l.textContent = `Programme (${rs}) — reference`;
     const b = document.getElementById('trocarIesBtn');  if (b) b.style.display = '';
 }
 
@@ -882,12 +886,12 @@ function blocoSemNotaWelcome() {
     const n = l.length;
     return `<div style="background:#FFF8E1;border-left:4px solid #FF9800;border-radius:6px;padding:12px 14px;margin-top:16px;text-align:left;">
         <p style="font-size:13px;color:#E65100;font-weight:700;margin:0 0 6px;">
-            ${n} programa${n > 1 ? 's' : ''} da ${refSigla()} ainda sem nota da CAPES</p>
+            ${n} ${refSigla()} programme${n > 1 ? 's' : ''} still without a CAPES grade</p>
         <p style="font-size:12.5px;color:#5D4037;line-height:1.6;margin:0 0 8px;">
-            Aprovado${n > 1 ? 's' : ''} pela CAPES e ainda não avaliado${n > 1 ? 's' : ''} — o catálogo traz a marca
-            de programa aprovado no lugar da nota. Aparece${n > 1 ? 'm' : ''} aqui para constar,
-            mas fica${n > 1 ? 'm' : ''} fora de médias, rankings e gráficos, porque toda a comparação
-            do MAPA-PG se apoia na nota.</p>
+            Approved by CAPES and not yet assessed — the catalogue carries the
+            approved-programme mark in place of a grade. ${n > 1 ? 'They appear' : 'It appears'} here for the record,
+            but ${n > 1 ? 'stay' : 'stays'} out of means, rankings and charts, because every comparison
+            in MAPA-PG rests on the grade.</p>
         <ul style="font-size:12.5px;color:#5D4037;line-height:1.6;margin:0;padding-left:18px;">${itens}</ul>
     </div>`;
 }
@@ -901,7 +905,7 @@ function renderWelcome() {
         res.style.display = 'block';
         const nProg = (REGISTRY && REGISTRY.programas_unb) ? REGISTRY.programas_unb.length : 0;
         res.innerHTML = `<div class="card" style="text-align:center;padding:40px 22px;max-width:760px;margin:0 auto;">
-            <h2 style="border:none;font-size:18px;color:var(--azul);">Selecione uma Área CAPES e um Programa</h2>
+            <h2 style="border:none;font-size:18px;color:var(--azul);">Select a CAPES field and a programme</h2>
             <p style="color:#555;margin-top:12px;font-size:14px;line-height:1.7;">
                 ${nProg
                   ? `O <strong>MAPA-PG</strong> compara a produção e os indicadores dos
@@ -920,7 +924,7 @@ function renderWelcome() {
             ${blocoSemNotaWelcome()}
         </div>`;
     }
-    setStatus('Selecione uma Área CAPES e um Programa para iniciar a análise.');
+    setStatus('Select a CAPES field and a programme to start the analysis.');
 }
 
 // Remapeia os campos SEM sufixo (estr_perm/colab/visit/all e metadata.estratos) para a
@@ -954,9 +958,9 @@ async function switchArea(slug, sufixo) {
     const setMsg = m => { const el = document.getElementById('loadingMsg'); if (el) el.textContent = m; };
     document.getElementById('loading').style.display = '';
     document.getElementById('results').style.display = 'none';
-    setMsg(`Carregando dados da área ${slug}...`);
+    setMsg(`Loading data for field ${slug}...`);
     const areaInfo = MANIFEST.areas.find(a => a.slug === slug);
-    if (!areaInfo) throw new Error(`Área desconhecida: ${slug}`);
+    if (!areaInfo) throw new Error(`Unknown field: ${slug}`);
     const url = areaInfo.arquivo;
     const d = await fetch(url, {cache: 'force-cache'}).then(r=>r.json());
     DATA = d;
@@ -1113,7 +1117,7 @@ function rebuildAreaOptions() {
         const sn = semNotaDaRef(slug).length;
         // Área em que a referência não tem programa continua selecionável: a base
         // é nacional e o destaque em vermelho é o único efeito da referência.
-        const extra = sn ? ` · ${sn} sem nota` : '';
+        const extra = sn ? ` · ${sn} without a grade` : '';
         selArea.add(new Option(`${a} (${n} ${refSigla()}${extra})`, slug));
     });
 }
@@ -1135,7 +1139,7 @@ function rebuildCursoOptions() {
     // Sem nota entra como item desabilitado: aparece, diz por que está ali e não
     // pode ser escolhido como referência (não há o que comparar).
     semNotaDaRef(slugA).forEach(p => {
-        const o = new Option(`${p.nome} — aprovado, ainda sem nota`, '');
+        const o = new Option(`${p.nome} — approved, not yet graded`, '');
         o.disabled = true;
         selCurso.add(o);
     });
@@ -1208,26 +1212,26 @@ function showLicenseModal() {
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
     overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:32px;max-width:620px;width:92%;box-shadow:0 8px 32px rgba(0,0,0,.4);text-align:center;max-height:90vh;overflow-y:auto;">
         <h2 style="color:#0F244A;margin-bottom:4px;font-size:22px;font-weight:800;letter-spacing:1px;">MAPA-PG</h2>
-        <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>
-        <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Julho 2026</p>
-        <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:2px;">Prof. Titular David Lima Azevedo</p>
-        <p style="color:#555;font-size:11px;margin-bottom:8px;line-height:1.5;">Grupo de Dinâmica e Ab Initio (GDAI) · Núcleo de Estrutura da Matéria · Instituto de Física — UnB<br>
+        <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoring and Analysis of Graduate Research Output</p>
+        <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — July 2026</p>
+        <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:2px;">Prof. David Lima Azevedo, Full Professor</p>
+        <p style="color:#555;font-size:11px;margin-bottom:8px;line-height:1.5;">Dynamics and Ab Initio Group (GDAI) · Matter Structure Centre · Institute of Physics — UnB<br>
             <a href="https://orcid.org/0000-0002-3456-554X" target="_blank" style="color:#1565C0;">ORCID</a> ·
             <a href="https://scholar.google.com.br/citations?hl=en&amp;user=o-qWsUAAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" style="color:#1565C0;">Google Scholar</a> ·
             <a href="http://lattes.cnpq.br/3892893860696339" target="_blank" style="color:#1565C0;">Lattes</a></p>
         <div style="background:#F5F7FA;border-radius:8px;padding:14px;text-align:justify;font-size:13px;color:#555;line-height:1.6;margin-bottom:12px;">
-            <p><strong>Fonte dos dados:</strong> todos os dados deste sistema sao publicos e foram obtidos exclusivamente do <strong>Portal de Dados Abertos da CAPES</strong> (<a href="https://dadosabertos.capes.gov.br/" target="_blank" style="color:#1565C0;">dadosabertos.capes.gov.br</a>), ao amparo da Lei de Acesso a Informacao (Lei n. 12.527/2011). As URLs dos arquivos brutos da Coleta CAPES estao documentadas no arquivo de ajuda, acessivel pelo botao <strong>Help</strong> na barra lateral.</p>
+            <p><strong>Data source:</strong> every figure in this system is public and comes solely from the <strong>CAPES Open Data Portal</strong> (<a href="https://dadosabertos.capes.gov.br/" target="_blank" style="color:#1565C0;">dadosabertos.capes.gov.br</a>), under the Brazilian Freedom of Information Act (no. 12.527/2011). The URLs of the raw CAPES collection files are documented in the help page, reachable through the <strong>Help</strong> button in the sidebar.</p>
         </div>
         <div style="background:#F5F7FA;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;border-left:4px solid #607D8B;">
-            <strong>CiteScore / Scopus (Elsevier):</strong> a estratificação A1–A8/C na base padrão usa o <strong>CiteScore 2025</strong>, métrica <em>powered by Scopus®</em> (Elsevier), obtida via API Scopus (<code>api.elsevier.com</code> · <code>www.scopus.com</code>) em <strong>3 jul 2026</strong>. Este aplicativo é gratuito, não-comercial e não substitui a base Scopus: publica apenas <strong>resultados agregados por percentil</strong>, sem redistribuir registros brutos, em conformidade com os termos da API gratuita da Elsevier. Detalhes na aba <strong>Help</strong> (fonte 10).
+            <strong>CiteScore / Scopus (Elsevier):</strong> the default A1–A8/C stratification uses <strong>CiteScore 2025</strong>, a metric <em>powered by Scopus®</em> (Elsevier), obtained through the Scopus API (<code>api.elsevier.com</code> · <code>www.scopus.com</code>) on <strong>3 July 2026</strong>. This application is free, non-commercial and no substitute for Scopus: it publishes only <strong>percentile-aggregated results</strong>, redistributing no raw records, in line with the terms of Elsevier's free API. Details in the <strong>Help</strong> tab (source 10).
         </div>
         <div style="background:#FFF8E1;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#555;line-height:1.6;margin-bottom:16px;border-left:4px solid #FF9800;">
-            <strong>Termos de uso e solucoes sob medida:</strong> ao utilizar este software, voce concorda em nao remover, alterar ou ocultar informacoes de autoria, mantendo a identificacao <strong>"Prof. David L. Azevedo"</strong> e <strong>"MAPA-PG"</strong> <strong>em todas as copias, resultados obtidos e aplicativos derivados</strong>. Tambem desenvolvemos analises especificas para qualquer programa de pos-graduacao de qualquer universidade do pais. Contato: <a href="mailto:contato@daciencia.org" style="color:#E91E63;font-weight:700;">contato@daciencia.org</a> · conheca o projeto em <a href="https://daciencia.org" target="_blank" rel="noopener" style="color:#E91E63;font-weight:700;">daciencia.org</a>.
+            <strong>Terms of use and tailored analyses:</strong> by using this software you agree not to remove, alter or conceal authorship information, keeping the attribution <strong>"Prof. David L. Azevedo"</strong> and <strong>"MAPA-PG"</strong> <strong>in every copy, in results obtained and in derived applications</strong>. We also produce specific analyses for any graduate programme at any university in the country. Contact: <a href="mailto:contato@daciencia.org" style="color:#E91E63;font-weight:700;">contato@daciencia.org</a> · learn about the project at <a href="https://daciencia.org" target="_blank" rel="noopener" style="color:#E91E63;font-weight:700;">daciencia.org</a>.
         </div>
         <div style="background:#F3E5F5;border-radius:8px;padding:12px 14px;text-align:justify;font-size:12px;color:#4A148C;line-height:1.6;margin-bottom:16px;border-left:4px solid #8E24AA;">
-            <strong>Como citar:</strong> AZEVEDO, D. L. <em>MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física</em>. Physicae Organum, v. 11, n. 1, 2026. DOI: <a href="https://periodicos.unb.br/index.php/physicae/article/view/62064/45040" target="_blank" style="color:#8E24AA;font-weight:700;">10.26512/2446-564X2026e62064</a>.
+            <strong>How to cite:</strong> AZEVEDO, D. L. <em>MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física</em> [in Portuguese]. Physicae Organum, vol. 11, no. 1, 2026. DOI: <a href="https://periodicos.unb.br/index.php/physicae/article/view/62064/45040" target="_blank" style="color:#8E24AA;font-weight:700;">10.26512/2446-564X2026e62064</a>.
         </div>
-        <button onclick="acceptLicense()" style="background:#E91E63;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;">Concordo e desejo continuar</button>
+        <button onclick="acceptLicense()" style="background:#E91E63;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;">I agree and wish to continue</button>
     </div>`;
     document.body.appendChild(overlay);
 }
@@ -1265,9 +1269,9 @@ let IES_PICK = null;          // sigla marcada no painel (ainda não confirmada)
 // seletor justamente para não parecer ausente do sistema.
 function contagemIes(i) {
     const sn = i.nsn || 0;
-    const progs = `${i.np} prog${i.np === 1 ? '' : 's'}`;
+    const progs = `${i.np} programme${i.np === 1 ? '' : 's'}`;
     if (!i.np && sn) return `${sn} aprovado${sn > 1 ? 's' : ''}, ainda sem nota`;
-    return sn ? `${progs} · ${sn} sem nota` : progs;
+    return sn ? `${progs} · ${sn} without a grade` : progs;
 }
 
 function iesCard(i, destaque) {
@@ -1293,17 +1297,17 @@ function filtrarIes(termo) {
     if (!alvo) {
         lista = IES_IDX.ies.filter(i => destaque.has(i.s))
                     .slice().sort((a, b) => a.uf.localeCompare(b.uf));
-        cabecalho = `<strong>${lista.length} universidades federais</strong> — uma por UF. ` +
-                    `Digite acima para buscar entre as <strong>${IES_IDX.n_ies}</strong> instituições.`;
+        cabecalho = `<strong>${lista.length} federal universities</strong> — one per state. ` +
+                    `Type above to search among <strong>${IES_IDX.n_ies}</strong> institutions.`;
     } else {
         lista = IES_IDX.ies.filter(i => {
             if (normBusca(i.s).includes(alvo) || normBusca(i.n).includes(alvo)) return true;
             return (i.al || []).some(a => normBusca(a).includes(alvo));
         });
         cabecalho = lista.length
-            ? `<strong>${lista.length}</strong> instituição(ões) para “${esc(termo.trim())}”` +
-              (lista.length > 200 ? ' — refine a busca para ver todas.' : '')
-            : `Nenhuma instituição para “${esc(termo.trim())}”. Tente a sigla ou parte do nome.`;
+            ? `<strong>${lista.length}</strong> institution(s) for “${esc(termo.trim())}”` +
+              (lista.length > 200 ? ' — narrow the search to see them all.' : '')
+            : `No institution matches “${esc(termo.trim())}”. Try the acronym or part of the name.`;
     }
     if (info) info.innerHTML = cabecalho;
     cont.innerHTML = lista.slice(0, 200).map(i => iesCard(i, destaque.has(i.s))).join('');
@@ -1329,14 +1333,14 @@ function showIesPicker() {
     overlay.id = 'iesPickerOverlay';
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
     overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:22px 24px 18px;max-width:820px;width:95%;box-shadow:0 8px 32px rgba(0,0,0,.4);max-height:92vh;display:flex;flex-direction:column;">
-        <h2 style="color:#E91E63;margin:0 0 4px;font-size:20px;font-weight:800;text-align:center;">Escolha a instituição de referência</h2>
+        <h2 style="color:#E91E63;margin:0 0 4px;font-size:20px;font-weight:800;text-align:center;">Choose the reference institution</h2>
         <p style="color:#555;font-size:12.5px;line-height:1.5;text-align:center;margin:0 0 4px;">
-            Ela será usada como referência — <span style="color:#E91E63;font-weight:700;">destacada em vermelho</span> —
-            na comparação com todos os programas de cada área da CAPES. (Você pode trocar depois.)</p>
+            It will be used as the reference — <span style="color:#E91E63;font-weight:700;">highlighted in red</span> —
+            against every programme in each CAPES field. (You can change it later.)</p>
         <p style="color:#7F8C8D;font-size:11.5px;line-height:1.5;text-align:center;margin:0 0 12px;">
-            A escolha <strong>não filtra a base</strong>: cada área continua mostrando todos os programas do país.
-            A instituição serve para destacar os programas dela e situá-los entre os pares.</p>
-        <input id="iesPickerBusca" type="search" autocomplete="off" placeholder="Buscar por sigla ou nome — ex.: FIO CRUZ, UFPB, federal do pará"
+            The choice <strong>does not filter the data</strong>: each field still shows every programme in the country.
+            The institution serves to highlight its own programmes and place them among their peers.</p>
+        <input id="iesPickerBusca" type="search" autocomplete="off" placeholder="Search by acronym or name — e.g. FIO CRUZ, UFPB, federal do pará"
             style="width:100%;padding:11px 13px;border:2px solid #E91E63;border-radius:8px;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
         <p id="iesPickerInfo" style="color:#7F8C8D;font-size:11.5px;margin:0 0 10px;text-align:center;"></p>
         <div id="iesPickerLista" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px;overflow-y:auto;flex:1;min-height:150px;padding:2px;"></div>
@@ -1452,18 +1456,18 @@ function toggleSubtipos(state) {
 }
 
 // Subtype labels for display
-const SUBTIPO_LABELS = { '25': 'Art. Periódico', '8': 'Resumo', '9': 'Trab. Congresso', '26': 'Cap. Livro', '10': 'Texto Jornal' };
+const SUBTIPO_LABELS = { '25': 'Journal art.', '8': 'Abstract', '9': 'Conf. paper', '26': 'Book chap.', '10': 'Newspaper' };
 const ALL_SUBTIPOS = ['25', '8', '9', '26', '10'];
 
 // Rótulo e campo de peso (denominador) de cada métrica — compartilhados por analisar() e renderRanking()
 const METRICA_LABEL = {
-    'ma_pq': 'Art/ano Bolsistas PQ',
-    'ma_spq': 'Art/ano Sem PQ',
-    'ma_all': 'Art/ano Média Geral',
-    'ma_perm': 'Art/ano Permanentes',
-    'ma_colab': 'Art/ano Colaboradores',
-    'ma_visit': 'Art/ano Visitantes',
-    'avg_if': 'IF Médio (OpenAlex 2yr)',
+    'ma_pq': 'Articles/yr PQ fellows',
+    'ma_spq': 'Articles/yr non-PQ',
+    'ma_all': 'Articles/yr overall',
+    'ma_perm': 'Articles/yr permanent',
+    'ma_colab': 'Articles/yr collaborating',
+    'ma_visit': 'Articles/yr visiting',
+    'avg_if': 'Mean IF (OpenAlex 2yr)',
 };
 const WEIGHT_FIELD = {
     'ma_pq': 'n_pq', 'ma_spq': 'n_spq', 'ma_all': 'n_doc',
@@ -1657,10 +1661,10 @@ function analisar() {
     const allIFSelected = estratos_if.length === 9;
     if (!allSubsSelected || !allIFSelected) {
         let filterDesc = [];
-        if (!allSubsSelected) filterDesc.push('Tipo: ' + subtipoLabel);
-        if (!allIFSelected) filterDesc.push('Estratos: ' + estratos_if.join(', '));
+        if (!allSubsSelected) filterDesc.push('Type: ' + subtipoLabel);
+        if (!allIFSelected) filterDesc.push('Strata: ' + estratos_if.join(', '));
         html += `<div class="card" style="background:#FFF3E0;border-left:4px solid #FF9800;padding:8px 12px;">
-            <strong style="font-size:12px;color:#E65100;">Filtros ativos:</strong>
+            <strong style="font-size:12px;color:#E65100;">Active filters:</strong>
             <span style="font-size:12px;color:#BF360C;"> ${filterDesc.join(' | ')}</span>
         </div>`;
     }
@@ -1704,11 +1708,11 @@ function analisar() {
     if (OUTROS_TIPOS.length && inclui2124) {
         const nomes = OUTROS_TIPOS.map(s => (SUBTIPO_LABELS[s] || s)).join(', ');
         html += `<div class="card" style="background:#FDECEA;border-left:4px solid #B03A2E;padding:8px 12px;">
-            <strong style="font-size:12px;color:#922B21;">Atenção — 2021-2024 só tem Artigo em Periódico:</strong>
-            <span style="font-size:12px;color:#7B241C;"> a coleta da CAPES desse quadriênio não
-            inclui ${nomes}. Os valores de 2021-2024 aparecem como zero para esses tipos por
-            <em>ausência de dado</em>, não por queda de produção. Para comparar os três
-            quadriênios, deixe marcado apenas <strong>Artigo em Periódico</strong>.</span>
+            <strong style="font-size:12px;color:#922B21;">Careful — 2021-2024 has journal articles only:</strong>
+            <span style="font-size:12px;color:#7B241C;"> the CAPES collection for that cycle does not
+            include ${nomes}. The 2021-2024 values appear as zero for those types because the
+            <em>data are absent</em>, not because output fell. To compare the three
+            cycles, leave only <strong>Journal article</strong> ticked.</span>
         </div>`;
     }
 
@@ -1734,32 +1738,32 @@ function analisar() {
 
     html += `<div class="stats-row">
         <div class="stat-box unb"><div class="value">${unbAvg.toFixed(2)}</div><div class="label">${refSigla()} ${unbShortName()} — ${metricaLabel}</div></div>
-        <div class="stat-box"><div class="value">${othersAvg.toFixed(2)}</div><div class="label">Média Selecionados — ${metricaLabel}</div></div>
-        <div class="stat-box"><div class="value">${totalProgs}</div><div class="label">Programas</div></div>
-        <div class="stat-box"><div class="value">${totalDocs}</div><div class="label">Docentes</div></div>`;
+        <div class="stat-box"><div class="value">${othersAvg.toFixed(2)}</div><div class="label">Mean of selected — ${metricaLabel}</div></div>
+        <div class="stat-box"><div class="value">${totalProgs}</div><div class="label">Programmes</div></div>
+        <div class="stat-box"><div class="value">${totalDocs}</div><div class="label">Faculty</div></div>`;
     if (showNatlAvg) {
         const nq = filters.quad === 'all' ? ['2013-2016','2017-2020','2021-2024'] : [filters.quad];
         let ns = 0, nc = 0;
         nq.forEach(q => { if (MEDIA_NACIONAL.por_quad[q]) { ns += MEDIA_NACIONAL.por_quad[q].media; nc++; }});
         const natlAvgSel = nc > 0 ? (ns / nc).toFixed(2) : '—';
-        html += `<div class="stat-box" style="border-left:4px solid ${NATL_COLOR};"><div class="value">${natlAvgSel}</div><div class="label">Média Nacional (Todas as Áreas)</div></div>`;
+        html += `<div class="stat-box" style="border-left:4px solid ${NATL_COLOR};"><div class="value">${natlAvgSel}</div><div class="label">National mean (all fields)</div></div>`;
     }
     html += `</div>`;
 
     // Category breakdown cards
-    html += `<div class="card"><h2>Produção por Categoria de Docente</h2>
+    html += `<div class="card"><h2>Output by faculty category</h2>
     <div class="stats-row">
-        <div class="stat-box unb"><div class="value">${unbPerm.toFixed(2)}</div><div class="label">${refSigla()} — Permanentes</div></div>
-        <div class="stat-box unb"><div class="value">${unbColab.toFixed(2)}</div><div class="label">${refSigla()} — Colaboradores</div></div>
-        <div class="stat-box unb"><div class="value">${unbVisit.toFixed(2)}</div><div class="label">${refSigla()} — Visitantes</div></div>
-        <div class="stat-box unb"><div class="value">${unbRazaoPC}x</div><div class="label">${refSigla()} — Razão Perm/Colab</div></div>
+        <div class="stat-box unb"><div class="value">${unbPerm.toFixed(2)}</div><div class="label">${refSigla()} — permanent</div></div>
+        <div class="stat-box unb"><div class="value">${unbColab.toFixed(2)}</div><div class="label">${refSigla()} — collaborating</div></div>
+        <div class="stat-box unb"><div class="value">${unbVisit.toFixed(2)}</div><div class="label">${refSigla()} — visiting</div></div>
+        <div class="stat-box unb"><div class="value">${unbRazaoPC}x</div><div class="label">${refSigla()} — perm./collab. ratio</div></div>
     </div>
     <div class="stats-row">
-        <div class="stat-box"><div class="value">${othPerm.toFixed(2)}</div><div class="label">Selecionados — Permanentes</div></div>
-        <div class="stat-box"><div class="value">${othColab.toFixed(2)}</div><div class="label">Selecionados — Colaboradores</div></div>
-        <div class="stat-box"><div class="value">${othRazaoPC}x</div><div class="label">Selecionados — Razão Perm/Colab</div></div>
+        <div class="stat-box"><div class="value">${othPerm.toFixed(2)}</div><div class="label">Selected — permanent</div></div>
+        <div class="stat-box"><div class="value">${othColab.toFixed(2)}</div><div class="label">Selected — collaborating</div></div>
+        <div class="stat-box"><div class="value">${othRazaoPC}x</div><div class="label">Selected — perm./collab. ratio</div></div>
     </div>
-    <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Razão Perm/Colab: número de vezes que a produção do permanente supera a do colaborador (ex: 4.85x = permanente produz 4.85 vezes mais)</p>
+    <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Perm./collab. ratio: how many times the output of a permanent faculty member exceeds that of a collaborating one (e.g. 4.85x = the permanent one produces 4.85 times as much)</p>
     </div>`;
 
     // Impact Factor card
@@ -1775,26 +1779,26 @@ function analisar() {
     const othMedIF = others.length > 0 ? calcWeightedAvg(others, 'med_if', 'n_if') : 0;
 
     if (unbNIF > 0 || othIF > 0) {
-        html += `<div class="card"><h2>Fator de Impacto — OpenAlex (2yr mean citedness)</h2>
+        html += `<div class="card"><h2>Impact factor — OpenAlex (2-year mean citedness)</h2>
         <div class="stats-row">
-            <div class="stat-box unb"><div class="value">${unbIF.toFixed(2)}</div><div class="label">${refSigla()} — IF Médio</div></div>
-            <div class="stat-box unb"><div class="value">${unbMedIF.toFixed(2)}</div><div class="label">${refSigla()} — IF Mediana</div></div>
-            <div class="stat-box unb"><div class="value">${unbMaxIF.toFixed(1)}</div><div class="label">${refSigla()} — IF Máximo</div></div>
-            <div class="stat-box unb"><div class="value">${unbNIF}</div><div class="label">${refSigla()} — Arts c/ IF</div></div>
+            <div class="stat-box unb"><div class="value">${unbIF.toFixed(2)}</div><div class="label">${refSigla()} — mean IF</div></div>
+            <div class="stat-box unb"><div class="value">${unbMedIF.toFixed(2)}</div><div class="label">${refSigla()} — median IF</div></div>
+            <div class="stat-box unb"><div class="value">${unbMaxIF.toFixed(1)}</div><div class="label">${refSigla()} — max IF</div></div>
+            <div class="stat-box unb"><div class="value">${unbNIF}</div><div class="label">${refSigla()} — articles with IF</div></div>
         </div>
         <div class="stats-row">
-            <div class="stat-box"><div class="value">${othIF.toFixed(2)}</div><div class="label">Selecionados — IF Médio</div></div>
-            <div class="stat-box"><div class="value">${othMedIF.toFixed(2)}</div><div class="label">Selecionados — IF Mediana</div></div>
+            <div class="stat-box"><div class="value">${othIF.toFixed(2)}</div><div class="label">Selected — mean IF</div></div>
+            <div class="stat-box"><div class="value">${othMedIF.toFixed(2)}</div><div class="label">Selected — median IF</div></div>
         </div>
-        <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Estratos A1–A8/C por percentil de <strong>${IF_BASE_LABEL[IF_BASE]}</strong> dentro da área. ${IF_BASE==='cs'?'Fonte: CiteScore 2025 — Scopus® (Elsevier), indicador oficial CAPES 2025–2028; dados via API Scopus (api.elsevier.com), jul/2026 — ver Ajuda.':IF_BASE==='oa'?'Fonte: OpenAlex.org (IF de 2 anos, CC0).':'Fonte: CiteScore — Scopus® (Elsevier) onde disponível; OpenAlex onde ausente — ver Ajuda.'}</p>
+        <p style="font-size:11px;color:#7F8C8D;margin-top:8px;">A1–A8/C strata by <strong>${IF_BASE_LABEL[IF_BASE]}</strong> percentile within the field. ${IF_BASE==='cs'?'Source: CiteScore 2025 — Scopus® (Elsevier), the indicator CAPES prescribes for 2025–2028; data via the Scopus API (api.elsevier.com), July 2026 — see Help.':IF_BASE==='oa'?'Source: OpenAlex.org (2-year impact factor, CC0).':'Source: CiteScore — Scopus® (Elsevier) where available; OpenAlex where missing — see Help.'}</p>
         </div>`;
     }
 
     // ── SUBTYPE BREAKDOWN CARD ──
     {
-        const stLabels = { '25': 'Art. Periódico', '8': 'Resumo', '9': 'Trab. Congresso', '26': 'Cap. Livro', '10': 'Texto Jornal' };
+        const stLabels = { '25': 'Journal art.', '8': 'Abstract', '9': 'Conf. paper', '26': 'Book chap.', '10': 'Newspaper' };
         const stColors = { '25': '#2196F3', '8': '#FF9800', '9': '#9C27B0', '26': '#4CAF50', '10': '#607D8B' };
-        html += `<div class="card"><h2>Produção por Tipo de Publicação</h2>`;
+        html += `<div class="card"><h2>Output by publication type</h2>`;
         // UnB totals
         const unbSub = {};
         ALL_SUBTIPOS.forEach(st => {
@@ -1823,21 +1827,21 @@ function analisar() {
         html += `</div><div class="stats-row">`;
         ALL_SUBTIPOS.forEach(st => {
             const sel = subtipos.includes(st) ? 'border:2px solid ' + stColors[st] : 'opacity:0.4';
-            html += `<div class="stat-box" style="${sel}"><div class="value">${othSub[st].total}</div><div class="label">Selecionados — ${stLabels[st]}</div></div>`;
+            html += `<div class="stat-box" style="${sel}"><div class="value">${othSub[st].total}</div><div class="label">Selected — ${stLabels[st]}</div></div>`;
         });
         html += `</div>`;
-        html += `<p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Contagem total de produções no(s) quadriênio(s) selecionado(s). Tipos ativos destacados com borda colorida.</p>`;
+        html += `<p style="font-size:11px;color:#7F8C8D;margin-top:8px;">Total output count in the selected cycle(s). Active types are marked with a coloured border.</p>`;
         html += `</div>`;
     }
 
     // ── CHART 1: BY QUADRIENIO ──
     const quads = filters.quad === 'all' ? ['2013-2016', '2017-2020', '2021-2024'] : [filters.quad];
 
-    html += `<div class="card"><h2>Comparativo por Quadriênio — ${metricaLabel}</h2>
+    html += `<div class="card"><h2>Comparison by four-year cycle — ${metricaLabel}</h2>
         <div class="chart-container"><canvas id="chartQuad"></canvas></div></div>`;
 
     // ── CHART 2: BY IES ──
-    html += `<div class="card"><h2>Comparativo por IES — ${metricaLabel}</h2>
+    html += `<div class="card"><h2>Comparison by institution — ${metricaLabel}</h2>
         <div class="chart-container" style="height:${Math.max(400, totalProgs * 25)}px;">
         <canvas id="chartIES"></canvas></div></div>`;
 
@@ -1863,12 +1867,12 @@ function analisar() {
             <td>${d.avg_if||0}</td><td>${d.med_if||0}</td><td>${sp.total}</td></tr>`;
     }
 
-    html += `<div class="card"><h2 class="unb">Tabela Detalhada${!allSubsSelected ? ' — ' + subtipoLabel : ''}</h2><div class="tbl-wrap">
+    html += `<div class="card"><h2 class="unb">Detailed table${!allSubsSelected ? ' — ' + subtipoLabel : ''}</h2><div class="tbl-wrap">
         <table id="tblResults">
-        <thead><tr><th>IES</th><th>UF</th><th>Nota</th><th>Quad</th>
-        <th>Doc</th><th>PQ</th><th>%PQ</th><th>Art/a PQ</th><th>Art/a sPQ</th><th>Art/a Ger</th><th>Razão</th>
-        <th>Perm</th><th>Colab</th><th>Visit</th><th>A/a Perm</th><th>A/a Colab</th><th>P/C x</th>
-        <th>IF Méd</th><th>IF Med</th><th>Total Prod</th></tr></thead>
+        <thead><tr><th>IES</th><th>UF</th><th>Grade</th><th>Cycle</th>
+        <th>Fac.</th><th>PQ</th><th>%PQ</th><th>Art/y PQ</th><th>Art/y non-PQ</th><th>Art/y overall</th><th>Ratio</th>
+        <th>Perm.</th><th>Collab.</th><th>Visit</th><th>A/y perm.</th><th>A/y collab.</th><th>P/C x</th>
+        <th>IF Méd</th><th>IF Med</th><th>Total output</th></tr></thead>
         <tbody>`;
 
     // UnB rows first
@@ -1886,10 +1890,10 @@ function analisar() {
             if (!mn) return;
             html += `<tr style="background:#F5F5F5;font-weight:600;color:${NATL_COLOR};">
                 <td>TODAS ÁREAS</td><td>BR</td><td>—</td><td>${q}</td>
-                <td>${mn.doc.toLocaleString('pt-BR')}</td><td>—</td><td>—</td>
+                <td>${mn.doc.toLocaleString('en-US')}</td><td>—</td><td>—</td>
                 <td>—</td><td>—</td><td>${mn.media.toFixed(2)}</td><td>—</td>
                 <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-                <td>—</td><td>—</td><td>${mn.art.toLocaleString('pt-BR')}</td></tr>`;
+                <td>—</td><td>—</td><td>${mn.art.toLocaleString('en-US')}</td></tr>`;
         });
     }
 
@@ -1904,9 +1908,9 @@ function analisar() {
                : ['2021','2022','2023','2024']);
         const mIdx = {'ma_pq': 0, 'ma_spq': 1, 'ma_all': 2}[metrica] ?? 2;
         const nYrs = DYN_YEARS.length;
-        const yrsLabel = nYrs === 12 ? '12 Anos' : `${nYrs} Anos`;
+        const yrsLabel = nYrs === 12 ? '12 years' : `${nYrs} years`;
         const mIdxNote = (metrica !== 'ma_all' && metrica !== 'ma_pq' && metrica !== 'ma_spq')
-            ? '<br><em style="color:var(--laranja);">Nota: para esta métrica, a análise ano a ano utiliza Art/ano Média Geral.</em>' : '';
+            ? '<br><em style="color:var(--laranja);">Note: for this metric, the year-by-year analysis uses articles/year, overall mean.</em>' : '';
 
         // Get CDs of all programs in the filtered selection
         const filteredRecs = [...unbData, ...others];
@@ -1956,18 +1960,18 @@ function analisar() {
 
         dynList.sort((a, b) => b.avg - a.avg);
 
-        html += `<div class="card"><h2 class="unb">Produção Dinâmica — Médias Ano a Ano por Pesquisador (${metricaLabel})</h2>`;
-        html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Análise dinâmica: produção intelectual média por pesquisador, ano a ano, para cada programa selecionado. Passe o mouse sobre os pontos do gráfico para ver nota, nº de pesquisadores e média naquele ano. ${refSigla()} e média nacional destacados.${mIdxNote}</p>`;
+        html += `<div class="card"><h2 class="unb">Output over time — year-by-year means per researcher (${metricaLabel})</h2>`;
+        html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Mean research output per researcher, year by year, for each selected programme. Hover over the points to see the grade, the number of researchers and the mean in that year. ${refSigla()} and the national mean are highlighted.${mIdxNote}</p>`;
 
         // Summary stats: overall averages
         html += `<div class="stats-row">
-            <div class="stat-box unb"><div class="value">${unbAvgG.toFixed(2)}</div><div class="label">${refSigla()} — Média Geral ${yrsLabel}</div></div>
-            <div class="stat-box"><div class="value">${natAvgG.toFixed(2)}</div><div class="label">Média ${areaShort()} ${yrsLabel}</div></div>
-            <div class="stat-box"><div class="value">${dynList.length}</div><div class="label">Programas Analisados</div></div>`;
+            <div class="stat-box unb"><div class="value">${unbAvgG.toFixed(2)}</div><div class="label">${refSigla()} — overall mean, ${yrsLabel}</div></div>
+            <div class="stat-box"><div class="value">${natAvgG.toFixed(2)}</div><div class="label">${areaShort()} mean, ${yrsLabel}</div></div>
+            <div class="stat-box"><div class="value">${dynList.length}</div><div class="label">Programmes analysed</div></div>`;
         if (showNatlAvg) {
             const natlYrs = DYN_YEARS.map(y => MEDIA_NACIONAL.por_ano[parseInt(y)]).filter(d => d && d.media > 0);
             const natlAllAvg = natlYrs.length > 0 ? (natlYrs.reduce((s,d) => s + d.media, 0) / natlYrs.length).toFixed(2) : '—';
-            html += `<div class="stat-box" style="border-left:4px solid ${NATL_COLOR};"><div class="value">${natlAllAvg}</div><div class="label">Média Nacional (Todas as Áreas) ${yrsLabel}</div></div>`;
+            html += `<div class="stat-box" style="border-left:4px solid ${NATL_COLOR};"><div class="value">${natlAllAvg}</div><div class="label">National mean, all fields, ${yrsLabel}</div></div>`;
         }
         html += `</div>`;
 
@@ -1986,7 +1990,7 @@ function analisar() {
 
         // Year-by-year table
         html += `<div style="margin-top:16px;">`;
-        html += `<div class="tbl-wrap"><table id="tblDynamic"><thead><tr><th>IES</th><th>UF</th><th>Nota</th>`;
+        html += `<div class="tbl-wrap"><table id="tblDynamic"><thead><tr><th>IES</th><th>UF</th><th>Grade</th>`;
         DYN_YEARS.forEach(y => html += `<th>${y}</th>`);
         html += `<th>Média</th></tr></thead><tbody>`;
 
@@ -2036,10 +2040,10 @@ function analisar() {
 
     // ── REPORT AREA ──
     html += `<div class="card" id="reportCard" style="display:none;">
-        <h2>Relatório</h2><div class="report-box" id="reportBox"></div>
+        <h2>Report</h2><div class="report-box" id="reportBox"></div>
         <div style="margin-top:8px;">
-            <button class="btn btn-sm btn-secondary" onclick="downloadReport()">Baixar .txt</button>
-            <button class="btn btn-sm btn-export" onclick="downloadReportCSV()">Baixar .csv</button>
+            <button class="btn btn-sm btn-secondary" onclick="downloadReport()">Download .txt</button>
+            <button class="btn btn-sm btn-export" onclick="downloadReportCSV()">Download .csv</button>
         </div></div>`;
 
     document.getElementById('results').innerHTML = html;
@@ -2060,7 +2064,7 @@ function analisar() {
         if (allProgs.length > 0) {
             renderIFDetailInPanel(allProgs);
         } else {
-            toast('Nenhum programa selecionado para o relatório de IF.');
+            toast('No programme selected for the impact report.');
         }
     } else {
         closeIFOverlay();
@@ -2100,7 +2104,7 @@ function rankingPool(filters) {
 }
 
 function renderRanking(scope, worst) {
-    if (!DATA) { toast('Selecione uma área primeiro.'); return; }
+    if (!DATA) { toast('Select a field first.'); return; }
     if (scope !== undefined) RANK_STATE.scope = scope;
     if (worst !== undefined) RANK_STATE.worst = worst;
     scope = RANK_STATE.scope; worst = RANK_STATE.worst;
@@ -2133,19 +2137,19 @@ function renderRanking(scope, worst) {
     const accent = worst ? 'var(--vermelho)' : '#D4AF37';
     const icon = worst ? '🔻' : (scope === 'uf' ? '🗺️' : '🏆');
     let titulo;
-    if (scope === 'uf') titulo = `Melhores programas por estado — ${CURRENT_AREA_NAME}`;
-    else                titulo = `TOP ${picks.length} nacional — programas mais bem avaliados — ${CURRENT_AREA_NAME}`;
+    if (scope === 'uf') titulo = `Best programmes by state — ${CURRENT_AREA_NAME}`;
+    else                titulo = `TOP ${picks.length} nationwide — best rated programmes — ${CURRENT_AREA_NAME}`;
 
-    const quadTxt = filters.quad === 'all' ? 'quadriênio mais recente de cada programa' : filters.quad;
-    const regTxt = filters.regioes.length === 5 ? 'todas as regiões' : filters.regioes.join(', ');
-    const notaTxt = 'todas as notas';
+    const quadTxt = filters.quad === 'all' ? 'most recent cycle of each programme' : filters.quad;
+    const regTxt = filters.regioes.length === 5 ? 'all regions' : filters.regioes.join(', ');
+    const notaTxt = 'all grades';
     const btn = (s, w, lbl) => `<button class="btn btn-sm" onclick="renderRanking('${s}',${w})" style="margin:0 4px 0 0;background:${(RANK_STATE.scope===s&&RANK_STATE.worst===w)?accent:'#ECEFF1'};color:${(RANK_STATE.scope===s&&RANK_STATE.worst===w)?'#fff':'#37474F'};">${lbl}</button>`;
 
     let html = `<div class="card" style="border-top:4px solid ${accent};">
         <h2 style="color:${accent};border-color:${accent};">${icon} ${titulo}</h2>
         <div style="margin-bottom:8px;">
-            ${btn('uf',  false, '🗺️ Melhores por UF')}
-            ${btn('nac', false, '🏆 Top melhores N')}
+            ${btn('uf',  false, '🗺️ Best per state')}
+            ${btn('nac', false, '🏆 Top N')}
             <label style="font-size:12px;margin-left:8px;${scope==='uf'?'opacity:.4;':''}">N:
                 <select id="rankN" onchange="RANK_STATE.n=+this.value;renderRanking();" ${scope==='uf'?'disabled':''} style="font-size:12px;padding:2px;">
                     <option value="10"${RANK_STATE.n===10?' selected':''}>10</option>
@@ -2153,16 +2157,16 @@ function renderRanking(scope, worst) {
                     <option value="50"${RANK_STATE.n===50?' selected':''}>50</option>
                 </select>
             </label>
-            <button class="btn btn-sm btn-export" onclick="exportarRankingCSV()" style="margin-left:8px;display:inline-block;width:auto;">Baixar .csv</button>
+            <button class="btn btn-sm btn-export" onclick="exportarRankingCSV()" style="margin-left:8px;display:inline-block;width:auto;">Download .csv</button>
         </div>
         <p style="font-size:12px;color:var(--txt2);margin-bottom:6px;">
-            ${picks.length} de ${pool.length} programa(s) no recorte · ordenado por <strong>${metricaLabel}</strong> (${worst?'menores primeiro':'maiores primeiro'})
-            <br>Filtros: ${notaTxt} · ${quadTxt} · ${regTxt}
-            ${(subtipos.length!==ALL_SUBTIPOS.length||estratos_if.length!==9)?'<br><span style="color:#E65100;">Filtros de tipo/estrato ativos — a métrica reflete o recorte.</span>':''}
+            ${picks.length} of ${pool.length} programme(s) in the selection · ordered by <strong>${metricaLabel}</strong> (${worst?'lowest first':'highest first'})
+            <br>Filters: ${notaTxt} · ${quadTxt} · ${regTxt}
+            ${(subtipos.length!==ALL_SUBTIPOS.length||estratos_if.length!==9)?'<br><span style="color:#E65100;">Type/stratum filters are on — the metric reflects the selection.</span>':''}
         </p>`;
 
     if (!picks.length) {
-        html += `<p style="color:var(--vermelho);">Nenhum programa com a métrica disponível nos filtros atuais.</p></div>`;
+        html += `<p style="color:var(--vermelho);">No programme has this metric available under the current filters.</p></div>`;
         document.getElementById('results').innerHTML = html;
         document.getElementById('results').style.display = 'block';
         return;
@@ -2172,7 +2176,7 @@ function renderRanking(scope, worst) {
 
     // Tabela
     html += `<div class="card"><h2>Tabela do ranking</h2><div class="tbl-wrap"><table><thead><tr>
-        <th>#</th><th>Programa</th><th>IES</th><th>UF</th><th>Nota</th><th>Quad</th><th>Docentes</th><th>${metricaLabel}</th>
+        <th>#</th><th>Programa</th><th>IES</th><th>UF</th><th>Grade</th><th>Cycle</th><th>Docentes</th><th>${metricaLabel}</th>
     </tr></thead><tbody>`;
     picks.forEach((o, i) => {
         const c = o.rec;
@@ -2545,7 +2549,7 @@ function buildDynamicChart(metricaLabel) {
                             const year = DYN_YEARS[item.dataIndex];
                             const val = item.parsed.y != null ? item.parsed.y.toFixed(2) : '—';
                             if (ds._isNat) {
-                                return `  Média Nacional: ${val} ${metricaLabel}`;
+                                return `  National mean: ${val} ${metricaLabel}`;
                             }
                             const info = ds._pInfo;
                             if (info && info.yD[year]) {
@@ -2581,7 +2585,7 @@ function gerarRelatorio() {
     const subtipos = filters.subtipos;
     const estratos_if = filters.estratos_if;
     const metricaLabel = { 'ma_pq': 'Art/ano PQ', 'ma_spq': 'Art/ano sem PQ', 'ma_all': 'Art/ano Geral',
-        'ma_perm': 'Art/ano Permanentes', 'ma_colab': 'Art/ano Colaboradores', 'ma_visit': 'Art/ano Visitantes',
+        'ma_perm': 'Articles/yr permanent', 'ma_colab': 'Articles/yr collaborating', 'ma_visit': 'Articles/yr visiting',
         'avg_if': 'IF Médio' }[metrica] || metrica;
     const weightField = { 'ma_pq': 'n_pq', 'ma_spq': 'n_spq', 'ma_all': 'n_doc',
         'ma_perm': 'n_perm', 'ma_colab': 'n_colab', 'ma_visit': 'n_visit', 'avg_if': 'n_if' }[metrica] || 'n_doc';
@@ -2596,27 +2600,27 @@ function gerarRelatorio() {
     p('=' .repeat(80));
     p('  MAPA-PG — RELATÓRIO COMPARATIVO');
     p(`  Prof. David L. Azevedo | v${VERSION}`);
-    p(`  Gerado em: ${now.toLocaleString('pt-BR')}`);
+    p(`  Gerado em: ${now.toLocaleString('en-US')}`);
     p('=' .repeat(80));
     // A IFES de referência é o eixo de TODO o relatório (é ela que aparece marcada com ★
     // e nas linhas de comparação). Precisa estar declarada no cabeçalho: sem isso, dois
     // relatórios de referências diferentes ficam indistinguíveis depois de impressos.
-    p(`  UNIVERSIDADE DE REFERÊNCIA: ${REF_NOME} (${refSigla()}${REF_UF ? '/' + REF_UF : ''})`);
-    p('  Todos os indicadores e marcações ★ abaixo referem-se a esta universidade.');
+    p(`  REFERENCE UNIVERSITY: ${REF_NOME} (${refSigla()}${REF_UF ? '/' + REF_UF : ''})`);
+    p('  Every indicator and ★ mark below refers to this university.');
     p('=' .repeat(80));
     p('');
-    p('  FILTROS APLICADOS:');
-    p(`    Notas: ${filters.notas.join(', ')}`);
-    p(`    Quadriênio: ${filters.quad === 'all' ? 'Todos' : filters.quad}`);
-    p(`    Métrica: ${metricaLabel}`);
-    p(`    Tipos de Produção: ${getSubtipoLabel(subtipos)}`);
-    p(`    Estratos CAPES: ${estratos_if.length === 9 ? 'Todos (A1-A8,C)' : estratos_if.join(', ')}`);
-    p(`    IES selecionadas: ${filters.ies.length}`);
+    p('  FILTERS APPLIED:');
+    p(`    Grades: ${filters.notas.join(', ')}`);
+    p(`    Cycle: ${filters.quad === 'all' ? 'All' : filters.quad}`);
+    p(`    Metric: ${metricaLabel}`);
+    p(`    Output types: ${getSubtipoLabel(subtipos)}`);
+    p(`    CAPES strata: ${estratos_if.length === 9 ? 'All (A1-A8,C)' : estratos_if.join(', ')}`);
+    p(`    Institutions selected: ${filters.ies.length}`);
     p('');
 
     // UnB summary
     p('─'.repeat(80));
-    p(`  PROGRAMA — ${getRefName().toUpperCase()}`);
+    p(`  PROGRAMME — ${getRefName().toUpperCase()}`);
     p('─'.repeat(80));
     unbData.forEach(d => {
         const ePQ = getEffectiveMetric(d, 'ma_pq', subtipos, estratos_if);
@@ -2637,12 +2641,12 @@ function gerarRelatorio() {
     const pctDiff = othersAvg > 0 ? ((diff / othersAvg) * 100) : 0;
 
     p('─'.repeat(80));
-    p('  COMPARATIVO GERAL');
+    p('  OVERALL COMPARISON');
     p('─'.repeat(80));
     p(`  ${refSigla()} ${metricaLabel}: ${unbAvg.toFixed(2)}`);
-    p(`  Média selecionados: ${othersAvg.toFixed(2)}`);
-    p(`  Diferença: ${diff > 0 ? '+' : ''}${diff.toFixed(2)} (${pctDiff > 0 ? '+' : ''}${pctDiff.toFixed(1)}%)`);
-    p(`  ${refSigla()} está ${diff >= 0 ? 'ACIMA' : 'ABAIXO'} da média dos programas selecionados.`);
+    p(`  Mean of selected: ${othersAvg.toFixed(2)}`);
+    p(`  Difference: ${diff > 0 ? '+' : ''}${diff.toFixed(2)} (${pctDiff > 0 ? '+' : ''}${pctDiff.toFixed(1)}%)`);
+    p(`  ${refSigla()} is ${diff >= 0 ? 'ABOVE' : 'BELOW'} the mean of the selected programmes.`);
     p('');
 
     // Category breakdown in report
@@ -2695,7 +2699,7 @@ function gerarRelatorio() {
     });
 
     p('');
-    p(`  Fim do relatório — ${now.toLocaleString('pt-BR')}`);
+    p(`  Fim do relatório — ${now.toLocaleString('en-US')}`);
     p(`  MAPA-PG v${VERSION} | Prof. David L. Azevedo`);
     p('=' .repeat(80));
 
@@ -2767,7 +2771,7 @@ function exportarCSV() {
                `${d.is_unb ? 'SIM' : 'NAO'}\n`;
     });
 
-    csv += `\n# MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleString('pt-BR')}\n`;
+    csv += `\n# MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleString('en-US')}\n`;
     csv += `# Filtros: Tipos=${getSubtipoLabel(subtipos)} | Estratos IF=${estratos_if.join(',')}\n`;
     const name = nomeArquivo('export', 'csv');
     download(name, csv, 'text/csv;charset=utf-8');
@@ -2802,7 +2806,7 @@ function setStatus(msg) {
 }
 
 function abrirHelp() {
-    window.open('help-doc.html', '_blank');
+    window.open('en/help-doc.html', '_blank');
 }
 
 // Sugestões: o formulário fica FORA do app, em daciencia.org/sugestao. Aqui
@@ -2841,9 +2845,9 @@ function showIFPage(n) {
     document.getElementById('ifPage1').style.display = n === 1 ? 'block' : 'none';
     document.getElementById('ifPage2').style.display = n === 2 ? 'block' : 'none';
     document.getElementById('ifPageInd').textContent =
-        'Página ' + n + '/2 — ' + (n === 1 ? 'Detalhamento numérico' : 'Gráficos comparativos');
+        'Page ' + n + '/2 — ' + (n === 1 ? 'The numbers' : 'Comparative charts');
     const btn = document.getElementById('ifPageToggle');
-    btn.textContent = n === 1 ? 'Ver gráficos →' : '← Ver detalhamento numérico';
+    btn.textContent = n === 1 ? 'See charts →' : '← Back to the numbers';
     btn.dataset.target = n === 1 ? '2' : '1';
     const m = document.getElementById('main'); if (m) m.scrollTop = 0;
 }
@@ -2902,7 +2906,7 @@ async function carregarTec(slug, quad) {
     if (TEC_CACHE[chave]) return TEC_CACHE[chave];
     const info = (MANIFEST.areas || []).find(a => a.slug === slug);
     const ref = info && info.tec && info.tec.quadrienios && info.tec.quadrienios[quad];
-    if (!ref) throw new Error(`sem patentes declaradas em ${quad} nesta área`);
+    if (!ref) throw new Error(`no patents reported in ${quad} for this field`);
     const r = await fetch(ref.arquivo, {cache: 'force-cache'});
     if (!r.ok) throw new Error(`falha ao carregar ${ref.arquivo} (HTTP ${r.status})`);
     TEC_CACHE[chave] = await r.json();
@@ -2910,10 +2914,10 @@ async function carregarTec(slug, quad) {
 }
 
 async function abrirPatentes() {
-    if (!DATA || !CURRENT_AREA_SLUG) { toast('Carregue uma área primeiro.'); return; }
+    if (!DATA || !CURRENT_AREA_SLUG) { toast('Load a field first.'); return; }
     const disp = patQuadsArea(CURRENT_AREA_SLUG);
     if (!disp.length) {
-        toast('Esta área não tem patentes declaradas em nenhum quadriênio.');
+        toast('This field has no patents reported in any cycle.');
         return;
     }
     // Segue o filtro de quadriênio do painel principal quando ele aponta um só;
@@ -3005,8 +3009,8 @@ function bolRazao(reg) {
     return 100 * (reg.ba || 0) / a.ativ;
 }
 const BOL_NIVEIS = [['ME', 'Mestrado', '#7B1FA2'], ['MP', 'Mestrado prof.', '#AB47BC'],
-                    ['DO', 'Doutorado', '#4A148C'], ['PD', 'Pós-doutorado', '#CE93D8']];
-const fmtN = n => (n == null ? '—' : Number(n).toLocaleString('pt-BR'));
+                    ['DO', 'Doctorate', '#4A148C'], ['PD', 'Postdoc', '#CE93D8']];
+const fmtN = n => (n == null ? '—' : Number(n).toLocaleString('en-US'));
 
 function bolInfoArea(slug) {
     const a = (MANIFEST && MANIFEST.areas || []).find(x => x.slug === slug);
@@ -3014,7 +3018,7 @@ function bolInfoArea(slug) {
 }
 
 async function abrirBolsas() {
-    if (!DATA || !CURRENT_AREA_SLUG) { toast('Carregue uma área primeiro.'); return; }
+    if (!DATA || !CURRENT_AREA_SLUG) { toast('Load a field first.'); return; }
     const info = bolInfoArea(CURRENT_AREA_SLUG);
     if (!info) { toast('Esta área ainda não tem a camada de bolsas.'); return; }
     const btn = document.getElementById('bolBtn');
@@ -3104,22 +3108,22 @@ function renderBolsas() {
     const nomeRef = cdRef && info[cdRef] ? `${info[cdRef].programa} · ${info[cdRef].sigla}` : refSigla();
 
     if (!cdRef) {
-        h += `<div class="card"><h2>Programa de referência</h2>
-            <p class="note">Nenhum programa da <b>${refSigla()}</b> está selecionado nesta área,
-            então não há série individual a mostrar. A comparação da área, abaixo, continua valendo.</p></div>`;
+        h += `<div class="card"><h2>Reference programme</h2>
+            <p class="note">No <b>${refSigla()}</b> programme is selected in this field,
+             so there is no individual series to show. The field-wide comparison below still stands.</p></div>`;
     } else if (!temRef) {
         // Em modo razão, "sem série" pode ser falta de DENOMINADOR e não falta de
         // bolsa — dizer que o programa não tem bolsa nesse caso seria falso.
         const temBolsa = cdRef && Object.values(BOL.data[cdRef] || {}).some(r => (r.b || 0) > 0);
         h += `<div class="card"><h2>${escHTML(nomeRef)}</h2>
             <p class="note">${(BOL_MED === 'r' && temBolsa)
-                ? `Este programa tem bolsas na série, mas não há contagem de alunos para
-                   nenhum dos anos no conjunto de discentes da CAPES, então a razão não pode
-                   ser calculada. As outras medidas continuam disponíveis nos botões acima.`
-                : `Este programa não tem nenhuma bolsa da CAPES registrada entre
-                   ${anos[0]} e ${ultimo} nos programas da Diretoria de Programas e Bolsas no País.
-                   Isso não quer dizer que ele não tenha bolsistas: bolsa de outra agência, de fundação
-                   estadual ou da própria instituição não entra nesta base.`}</p></div>`;
+                ? `This programme has scholarships in the series, but there is no student count
+                for any of the years in the CAPES student dataset, so the ratio cannot be computed.
+                The other measures remain available in the buttons above.`
+                : `This programme has no CAPES scholarship on record between
+                   ${anos[0]} and ${ultimo} in the datasets of the CAPES scholarship directorate.
+                   That does not mean it has no funded students: a scholarship from another agency,
+                   from a state foundation or from the institution itself is not in this base.`}</p></div>`;
     } else {
         const ultReg = (BOL.data[cdRef] || {})[String(ultimo)] || {};
         // No modo razão o último ano com dado é o último com denominador, que
@@ -3146,11 +3150,11 @@ function renderBolsas() {
                 <div class="box"><div class="v">${fmtN(alUlt.mat)}</div>
                     <div class="l">matriculados<br>no fim de ${anoUlt}</div></div>` : `
                 <div class="box"><div class="v">${fmtN(ultReg.ba || 0)}</div>
-                    <div class="l">alunos com bolsa<br>em ${ultimo}</div></div>
+                    <div class="l">students with a scholarship<br>in ${ultimo}</div></div>
                 <div class="box"><div class="v">${fmtN((ultReg.b || 0) - (ultReg.ba || 0))}</div>
-                    <div class="l">pós-doutorado<br>(não é aluno)</div></div>
+                    <div class="l">postdocs<br>(not students)</div></div>
                 <div class="box"><div class="v">${((ultReg.ma || 0) / 12).toFixed(1)}</div>
-                    <div class="l">bolsas-equivalentes<br>de aluno em ${ultimo}</div></div>`;
+                    <div class="l">student scholarship-equivalents<br>in ${ultimo}</div></div>`;
         h += `<div class="card"><h2>${escHTML(nomeRef)} — ${med.rot.toLowerCase()} por ano</h2>
             <div class="row">
                 <div class="box"><div class="v">${med.fmt(vUlt)}</div><div class="l">em ${anoUlt}</div></div>
@@ -3161,11 +3165,11 @@ function renderBolsas() {
                 ${caixasRazao}
             </div>
             <canvas id="bolChartSerie" height="105"></canvas>
-            <p class="note">A linha tracejada é a <b>mediana da área</b> no mesmo ano, entre os
-            programas que tinham alguma bolsa — serve para separar o que é movimento do programa
-            do que é movimento de todo mundo.<br>
-            A contagem do ano é <b>fluxo, não foto de um mês</b>: entra quem teve bolsa em
-            qualquer parte do ano, e a maioria não fica os doze meses. Por isso
+            <p class="note">The dashed line is the <b>field median</b> in the same year, among the
+            programmes that had any scholarship — it separates what is a move by this programme
+            from what is a move by everyone.<br>
+            The yearly count is a <b>flow, not a snapshot of one month</b>: anyone who held a
+            scholarship at any point in the year is counted, and most do not hold it for twelve months. Hence
             <b>${fmtN(ultReg.b || 0)}</b> pessoas com bolsa em ${ultimo} correspondem a
             <b>${((ultReg.m || 0) / 12).toFixed(1)}</b> bolsas-equivalentes-ano. O
             <b>pós-doutorando não é aluno</b> do programa e aparece à parte pelo mesmo motivo.</p></div>`;
@@ -3173,13 +3177,13 @@ function renderBolsas() {
         h += `<div class="card"><h2>${BOL_MED === 'r' ? 'Cobertura por nível' : 'Composição por nível'}</h2>
             <canvas id="bolChartNivel" height="105"></canvas>
             <p class="note">${BOL_MED === 'r'
-                ? `Percentual de alunos com bolsa em cada nível, separadamente. Mestrado e
-                   doutorado costumam ter coberturas bem diferentes, e a média dos dois
-                   esconde isso — é a diferença entre "metade do programa tem bolsa" e
-                   "quase todo doutorando tem, quase nenhum mestrando tem".`
-                : `Mestrado, doutorado e pós-doutorado somados dão a série acima.
-                   A troca de composição costuma dizer mais que o total: perder doutorado e ganhar
-                   mestrado mantém a contagem e muda o programa.`}</p></div>`;
+                ? `Share of students with a scholarship at each level, separately. Master's and
+                   doctorate usually have very different coverage, and averaging the two
+                   hides it — it is the difference between "half the programme has a scholarship" and
+                   "nearly every doctoral student has one, nearly no master's student does".`
+                : `Master's, doctorate and postdoc together make the series above.
+                   A change of composition usually says more than the total: losing doctoral students and gaining
+                   master's ones keeps the count and changes the programme.`}</p></div>`;
     }
 
     // ── comparação na área ──
@@ -3218,15 +3222,15 @@ function renderBolsas() {
             return den ? 100 * num / den : null;
           })()
         : linhas.reduce((a, l) => a + l.ult, 0);
-    h += `<div class="card"><h2>Programas da área em ${anoTab}</h2>
+    h += `<div class="card"><h2>Programmes in the field in ${anoTab}</h2>
         <div class="row">
             <div class="box"><div class="v">${comBolsa}</div><div class="l">programas com<br>bolsa em ${anoTab}</div></div>
             <div class="box"><div class="v">${md.n_programas}</div><div class="l">tiveram bolsa<br>em algum ano</div></div>
             <div class="box"><div class="v">${med.fmt(totalArea)}</div>
-                <div class="l">${BOL_MED === 'r' ? 'a área inteira<br>em ' + anoTab : 'total da área<br>em ' + anoTab}</div></div>
+                <div class="l">${BOL_MED === 'r' ? 'the whole field<br>in ' + anoTab : 'field total<br>in ' + anoTab}</div></div>
         </div>
         <div class="scroll"><table><thead><tr>
-            <th>IES</th><th class="l">Programa</th><th>UF</th><th>Nota</th>
+            <th>IES</th><th class="l">Programa</th><th>UF</th><th>Grade</th>
             <th>${med.rot} ${anoTab}</th><th>Pico</th><th>Ano do pico</th><th>${anoTab} vs 2019</th>
         </tr></thead><tbody>` +
         linhas.map(l => `<tr${l.ref ? ' class="ref-row"' : ''}>
@@ -3236,10 +3240,10 @@ function renderBolsas() {
             <td>${l.var2019 == null ? '—' : (l.var2019 > 0 ? '+' : '') + l.var2019.toFixed(0) + '%'}</td>
         </tr>`).join('') +
         `</tbody></table></div>
-        <button class="btn csv" onclick="exportarBolsasCSV()">⬇ CSV da série completa</button></div>`;
+        <button class="btn csv" onclick="exportarBolsasCSV()">⬇ CSV of the full series</button></div>`;
 
     // ── ressalvas ──
-    h += `<div class="card"><h2>O que esta série é, e o que ela não é</h2>
+    h += `<div class="card"><h2>What this series is, and what it is not</h2>
         <p class="note">
         <b>Fonte:</b> ${escHTML(md.fonte)}. São as bolsas <b>no país</b>; as do exterior estão
         em outro conjunto da CAPES e não entram aqui.<br>
@@ -3364,21 +3368,21 @@ function exportarBolsasCSV() {
 
 function patSeletorHTML() {
     const disp = patQuadsArea(CURRENT_AREA_SLUG);
-    return `<div class="card quad-card"><h2>Quadriênio</h2><div class="quadsel">` +
+    return `<div class="card quad-card"><h2>Four-year cycle</h2><div class="quadsel">` +
         PAT_QUADS.map(q => {
             const tem = disp.includes(q);
             const on = q === PAT_QUAD;
             const mq = patMetaQuad(q) || {};
-            const sub = !tem ? 'sem patente na área'
+            const sub = !tem ? 'no patent in this field'
                 : (mq.dedup === 'indisponivel' ? 'sem nº de registro'
                    : mq.dedup === 'parcial' ? 'registro parcial' : 'registro completo');
             return `<button class="quadbtn${on ? ' on' : ''}" ${tem ? '' : 'disabled'}
                 onclick="setPatQuad('${q}')"><span class="q">${q}</span>
                 <span class="s">${sub}</span></button>`;
         }).join('') +
-        `</div><p class="note">A contagem de patentes de cada programa muda com o
-        quadriênio — são coletas distintas da CAPES, com campos e cobertura
-        diferentes. Ver "Como ler estes dados", ao final.</p></div>`;
+        `</div><p class="note">The patent count of each programme changes with the
+         cycle — these are separate CAPES collections, with different fields and coverage.
+         See "How to read these data", at the end.</p></div>`;
 }
 
 // Um registro por programa no quadriênio em exibição — dá nota, docentes
@@ -3425,28 +3429,28 @@ function renderPatentes() {
     const ref = linhas.filter(l => l.ref);
 
     document.getElementById('patInd').textContent =
-        `${md.area} — ${md.quadrienio} — ${nDecl} declarações`;
+        `${md.area} — ${md.quadrienio} — ${nDecl} declarations`;
 
     let h = patSeletorHTML();
 
     // ── panorama da área ──
-    h += `<div class="card"><h2>${escHTML(md.area)} — patentes ${md.quadrienio}</h2><div class="row">
-        <div class="box"><div class="v">${nDecl}</div><div class="l">Declarações<br>de patente</div></div>
+    h += `<div class="card"><h2>${escHTML(md.area)} — patents ${md.quadrienio}</h2><div class="row">
+        <div class="box"><div class="v">${nDecl}</div><div class="l">Patent<br>declarations</div></div>
         ${semDedup
-            ? `<div class="box na"><div class="v">—</div><div class="l">Patentes distintas<br>não apurável</div></div>`
+            ? `<div class="box na"><div class="v">—</div><div class="l">Distinct patents<br>not determinable</div></div>`
             : `<div class="box"><div class="v">${nDist}</div><div class="l">Patentes distintas<br>${md.dedup === 'parcial' ? '(dedup. parcial)' : ''}</div></div>`}
         <div class="box"><div class="v">${comPat}</div><div class="l">Programas<br>com patente</div></div>
-        <div class="box"><div class="v">${nProgArea ? (100*comPat/nProgArea).toFixed(0) : '—'}%</div><div class="l">dos ${nProgArea}<br>programas da área</div></div>
-        <div class="box"><div class="v">${pctNac.toFixed(1)}%</div><div class="l">do total nacional<br>${semDedup ? 'de declarações' : 'de distintas'}</div></div>
-        <div class="box"><div class="v">${semDedup ? md.n_nacional_declaracoes : md.n_nacional_distintas}</div><div class="l">${semDedup ? 'Declarações' : 'Patentes distintas'}<br>no país</div></div>
+        <div class="box"><div class="v">${nProgArea ? (100*comPat/nProgArea).toFixed(0) : '—'}%</div><div class="l">of the ${nProgArea}<br>programmes in the field</div></div>
+        <div class="box"><div class="v">${pctNac.toFixed(1)}%</div><div class="l">of the national total<br>${semDedup ? 'of declarations' : 'of distinct patents'}</div></div>
+        <div class="box"><div class="v">${semDedup ? md.n_nacional_declaracoes : md.n_nacional_distintas}</div><div class="l">${semDedup ? 'Declarations' : 'Distinct patents'}<br>nationwide</div></div>
     </div>
     <p class="note">${semDedup
-        ? `A coleta ${md.quadrienio} <b>não publica o número de registro</b> da patente,
-           então não há como saber quantas declarações são a mesma patente declarada por
-           programas coautores. Por isso só se conta declarações aqui — o número de
-           patentes distintas <b>não é apurável</b> nesta base.`
-        : `A diferença entre <b>declarações</b> e <b>patentes distintas</b> é coautoria:
-           a mesma patente é declarada por cada programa que participou dela.` +
+        ? `The ${md.quadrienio} collection <b>does not publish the patent's registration number</b>,
+             so there is no way to know how many declarations are the same patent reported by
+             co-authoring programmes. Only declarations are counted here — the number of distinct
+             patents <b>cannot be determined</b> in this base.`
+        : `The difference between <b>declarations</b> and <b>distinct patents</b> is co-authorship:
+             the same patent is reported by each programme that took part in it.` +
           (md.dedup === 'parcial'
             ? ` Em ${md.quadrienio} apenas ${String(md.cobertura_nacional.cod).replace('.', ',')}%
                 dos registros têm número, então a deduplicação é <b>parcial</b> e o total
@@ -3457,7 +3461,7 @@ function renderPatentes() {
 
     // ── programa de referência ──
     if (ref.length) {
-        h += `<div class="card"><h2>${escHTML(getRefName())} nesta área</h2>`;
+        h += `<div class="card"><h2>${escHTML(getRefName())} in this field</h2>`;
         ref.forEach(l => {
             const pos = linhas.findIndex(x => x.cd === l.cd) + 1;
             const posPerm = [...linhas].filter(x => x.porPerm != null)
@@ -3473,8 +3477,8 @@ function renderPatentes() {
                     ${anos}
                     <div class="box"><div class="v">${l.porPerm != null ? l.porPerm.toFixed(2) : '—'}</div><div class="l">por docente<br>permanente</div></div>
                     <div class="box"><div class="v">${l.n_cod}</div><div class="l">com nº de<br>registro</div></div>
-                    <div class="box"><div class="v">${l.n_res}</div><div class="l">com descrição<br>declarada</div></div>
-                    <div class="box"><div class="v">${l.n_con}</div><div class="l">com data<br>de concessão</div></div>
+                    <div class="box"><div class="v">${l.n_res}</div><div class="l">with a reported<br>description</div></div>
+                    <div class="box"><div class="v">${l.n_con}</div><div class="l">with a grant<br>date</div></div>
                 </div>
                 <p class="note" style="margin:0 0 8px;"><b>${pos}º</b> de ${linhas.length} programas com
                 patente na área em número absoluto${posPerm ? `; <b>${posPerm}º</b> de ${nPerm} por docente permanente` : ''}.</p>
@@ -3483,17 +3487,17 @@ function renderPatentes() {
         });
         h += `</div>`;
     } else {
-        h += `<div class="card"><h2>${escHTML(getRefName())} nesta área</h2>
-            <p class="note">Nenhuma patente declarada por programa de ${escHTML(refSigla())}
-            nesta área no quadriênio ${md.quadrienio}.</p></div>`;
+        h += `<div class="card"><h2>${escHTML(getRefName())} in this field</h2>
+            <p class="note">No patent reported by any ${escHTML(refSigla())} programme
+             in this field in the ${md.quadrienio} cycle.</p></div>`;
     }
 
     // ── ranking da área ──
-    h += `<div class="card"><h2>Programas da área por número de patentes — ${md.quadrienio}</h2>
+    h += `<div class="card"><h2>Programmes in the field by number of patents — ${md.quadrienio}</h2>
     <button class="btn csv" onclick="exportarPatentesCSV()">Baixar .csv</button>
     <button class="btn" onclick="exportarPatentesListaCSV()">Baixar lista completa .csv</button>
     <div class="scroll"><table><thead><tr>
-        <th>#</th><th>IES</th><th class="l">Programa</th><th>UF</th><th>Nota</th>
+        <th>#</th><th>IES</th><th class="l">Programa</th><th>UF</th><th>Grade</th>
         <th>Patentes</th>${(md.anos || []).map(y => `<th>${y}</th>`).join('')}
         <th>Doc. perm.</th><th>Por perm.</th><th>c/ descr.</th></tr></thead><tbody>`;
     linhas.forEach((l, i) => {
@@ -3507,7 +3511,7 @@ function renderPatentes() {
 
     // ── busca textual ──
     h += `<div class="card"><h2>Buscar patentes desta área — ${md.quadrienio}</h2>
-        <input class="busca" id="patBusca" placeholder="palavra no título ou na descrição (ex.: sensor, vacina, biodiesel)"
+        <input class="busca" id="patBusca" placeholder="a word in the title or description (e.g. sensor, vacina, biodiesel)"
                value="${escHTML(_patBusca)}" oninput="_patBuscaInput(this.value)">
         <div id="patResultados" class="scroll" style="margin-top:10px;"></div></div>`;
 
@@ -3525,7 +3529,7 @@ function patRessalvasHTML() {
     // 0% num campo que a coleta NÃO tem seria enganoso — sugeriria desleixo do
     // programa em vez de ausência do campo no formulário da CAPES.
     const cel = (m, k) => (m.campo_coletado && m.campo_coletado[k] === false)
-        ? '<i style="color:#B0BEC5;">não coletado</i>'
+        ? '<i style="color:#B0BEC5;">not collected</i>'
         : (m.cobertura_nacional[k] == null ? '—'
            : String(m.cobertura_nacional[k]).replace('.', ',') + '%');
     const DEDUP_TXT = {
@@ -3533,9 +3537,9 @@ function patRessalvasHTML() {
         parcial: 'parcial',
         indisponivel: '<b>impossível</b>',
     };
-    let t = `<table><thead><tr><th class="l">Quadriênio</th><th>Título</th>
-        <th>Nº de registro</th><th>Data de depósito</th><th>Descrição</th>
-        <th>Estágio</th><th>Data de concessão</th><th>Deduplicação</th></tr></thead><tbody>`;
+    let t = `<table><thead><tr><th class="l">Cycle</th><th>Title</th>
+        <th>Registration no.</th><th>Filing date</th><th>Description</th>
+        <th>Stage</th><th>Grant date</th><th>Deduplication</th></tr></thead><tbody>`;
     PAT_QUADS.forEach(q => {
         const m = patMetaQuad(q);
         if (!m) return;
@@ -3549,15 +3553,15 @@ function patRessalvasHTML() {
     return `<div class="card"><h2>Como ler estes dados</h2>
     <p class="note"><b>Fonte:</b> ${escHTML(md.fonte)}. Registros glosados pela CAPES
     foram descartados.</p>
-    <p class="note"><b>A cobertura muda a cada quadriênio</b> — são coletas distintas,
-    com formulários distintos. Percentuais nacionais de preenchimento, sobre o total de
-    declarações de patente de cada coleta (a linha destacada é a que está em exibição):</p>
+    <p class="note"><b>Coverage changes with every cycle</b> — these are separate collections,
+     with different forms. National completion rates, over the total patent declarations of each
+     collection (the highlighted row is the one on display):</p>
     <div style="overflow-x:auto;">${t}</div>
     <p class="note">
-    <b>Nº de registro e deduplicação.</b> É o número do depósito (BR…, PI…, MU…) que
-    permite reconhecer a mesma patente declarada por programas coautores. Em
-    <b>2017-2020 o campo não existe na base da CAPES</b>: naquele quadriênio só se pode
-    contar declarações, e nenhum total de "patentes distintas" é exibido. Em 2013-2016
+    <b>Registration number and deduplication.</b> This is the filing number (BR…, PI…, MU…) that
+     makes it possible to recognise the same patent reported by co-authoring programmes. In
+     <b>2017-2020 the field does not exist in the CAPES base</b>: in that cycle only declarations can
+     be counted, and no total of "patentes distintas" é exibido. Em 2013-2016
     o campo existe mas está preenchido em menos da metade dos registros, então a
     deduplicação é parcial e o total de distintas ainda contém repetições. Só em
     2021-2024 a deduplicação é confiável.<br>
@@ -3590,10 +3594,10 @@ function _patCard(p) {
     // ("PATENTE DE INVENÇÃO"); vira etiqueta, não descrição.
     if (p.nat) meta.push(`<span class="tag">${escHTML(p.nat)}</span>`);
     return `<div class="pat">
-        <div class="t">${escHTML(p.tit || '(título não declarado)')}</div>
+        <div class="t">${escHTML(p.tit || '(title not reported)')}</div>
         <div class="m">${meta.join(' · ')}</div>
         ${p.res ? `<div class="r">${escHTML(p.res)}</div>`
-                : `<div class="semr">descrição não declarada à CAPES</div>`}
+                : `<div class="semr">description not reported to CAPES</div>`}
         ${p.cls ? `<div class="m">enquadramento: ${escHTML(p.cls)}</div>` : ''}
         ${p.lp ? `<div class="m">linha de pesquisa: ${escHTML(p.lp)}</div>` : ''}
     </div>`;
@@ -3697,7 +3701,7 @@ function buildIFReportHTML(programas) {
     const ev = (arr, e) => (arr && arr[ORD.indexOf(e)]) || 0;   // valor do estrato e no vetor de 9
 
     let h = `<div style="text-align:center;margin:0 0 12px;font-size:12px;color:#2C3E50;background:#EAF2F8;border:1px solid #AED6F1;border-radius:6px;padding:8px 12px;">
-    Base do indicador: <strong>${IF_BASE_LABEL[IF_BASE]}</strong> — ${(EST.fonte) || 'estratos por percentil dentro da área'}
+    Indicator base: <strong>${IF_BASE_LABEL[IF_BASE]}</strong> — ${(EST.fonte) || 'strata by percentile within the field'}
 </div>
 <div class="btn-bar">
     <button class="btn btn-txt" onclick="downloadIFReport()">Baixar report-IF.txt</button>
@@ -3717,7 +3721,7 @@ function buildIFReportHTML(programas) {
     pt('  \u00C1rea CAPES        : ' + (CURRENT_AREA_NAME || '\u2014'));
     pt('  Curso ' + refSigla() + ' de ref. : ' + (CURRENT_SUFIXO ? (REF === 'UNB' ? `MAPA-PG-${CURRENT_SUFIXO}` : getRefName()) : '\u2014'));
     pt('  Programas no relat.: ' + programas.length);
-    pt('  Gerado em         : ' + now.toLocaleString('pt-BR'));
+    pt('  Gerado em         : ' + now.toLocaleString('en-US'));
     pt('  Software          : MAPA-PG v' + VERSION + ' \u2014 Prof. David L. Azevedo');
     pt('');
     pt('  Estratos CAPES (Ficha 2025-2028) \u2014 percentil de IF do peri\u00F3dico dentro da \u00E1rea:');
@@ -3735,7 +3739,7 @@ function buildIFReportHTML(programas) {
     csvRows.push('# Base do indicador: ' + IF_BASE_LABEL[IF_BASE]);
     csvRows.push('# \u00C1rea CAPES: ' + (CURRENT_AREA_NAME || ''));
     csvRows.push('# Curso ' + refSigla() + ' de refer\u00EAncia: ' + (CURRENT_SUFIXO ? (REF === 'UNB' ? 'MAPA-PG-' + CURRENT_SUFIXO : getRefName()) : ''));
-    csvRows.push('# Gerado em: ' + now.toLocaleString('pt-BR'));
+    csvRows.push('# Gerado em: ' + now.toLocaleString('en-US'));
     csvRows.push('# Estratos CAPES (Ficha 2025-2028) \u2014 percentil de IF dentro da \u00E1rea:');
     ORD.forEach(e => csvRows.push('#   ' + estLongo(e)));
     csvRows.push('# Separador de campo: ponto-e-v\u00EDrgula (;)');
@@ -3776,13 +3780,13 @@ function buildIFReportHTML(programas) {
     <div class="box"><div class="v">${d.avg_if||0}</div><div class="l">IF M\u00e9dio</div></div>
     <div class="box"><div class="v">${d.med_if||0}</div><div class="l">IF Mediana</div></div>
 </div>
-<div class="sep">Artigos por Estrato CAPES (A1 = topo \u00b7 C = sem IF)</div>
+<div class="sep">Articles by CAPES stratum (A1 = top \u00b7 C = no impact indicator)</div>
 <div class="row">
     ${ORD.map((e,i) => `<div class="box"><div class="v">${ia[i]||0}</div><div class="l">${estCurto(e)}</div></div>`).join('')}
 </div>
 <div class="sep">Raz\u00e3o Artigos / Docente por Estrato e Categoria</div>
 <table>
-<tr><th>Categoria</th><th>Doc</th>${ORD.map(e => `<th>${e}</th><th>Art/Doc</th>`).join('')}</tr>
+<tr><th>Categoria</th><th>Fac.</th>${ORD.map(e => `<th>${e}</th><th>Art/Doc</th>`).join('')}</tr>
 <tr style="background:#E8F5E9;"><td><b>Permanentes</b></td><td>${np}</td>${ORD.map((e,i) => `<td>${ip[i]||0}</td><td><b>${fmtR(ip[i]||0,np)}</b></td>`).join('')}</tr>
 <tr style="background:#FFF3E0;"><td><b>Colaboradores</b></td><td>${nc}</td>${ORD.map((e,i) => `<td>${ic[i]||0}</td><td><b>${fmtR(ic[i]||0,nc)}</b></td>`).join('')}</tr>
 <tr style="background:#F3E5F5;"><td><b>Visitantes</b></td><td>${nv}</td>${ORD.map((e,i) => `<td>${iv[i]||0}</td><td><b>${fmtR(iv[i]||0,nv)}</b></td>`).join('')}</tr>
@@ -3951,17 +3955,17 @@ function buildIFChartsHTML(programas) {
     <button class="btn btn-png" onclick="exportPNG('chartClosest')">Exportar Próximas PNG</button>
 </div>
 <div class="card">
-    <h2>Produção por Estrato de IF — Barras Agrupadas (Art/Docente)</h2>
+    <h2>Output by impact stratum — grouped bars (articles/faculty member)</h2>
     <div class="chart-wrap" style="height:${barH}px;"><canvas id="chartBars"></canvas></div>
     <p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo · C = sem indicador de IF). ${refSigla()} destacada com ★.</p>
 </div>
 <div class="card">
-    <h2>Perfil de Produção por Estrato de IF — Multi-Linhas (Art/Docente)</h2>
+    <h2>Output profile by impact stratum — multi-line (articles/faculty member)</h2>
     <div class="chart-wrap" style="height:450px;"><canvas id="chartLines"></canvas></div>
     <p class="note">Cada linha representa um programa. Eixo X: estratos A1..A8,C. Eixo Y: art/docente. ${refSigla()} em magenta com linha grossa.</p>
 </div>
 <div class="card">
-    <h2>3 IES Mais Próximas da ${refSigla()} — Comparação por Estrato de IF</h2>
+    <h2>The 3 institutions closest to ${refSigla()} — comparison by impact stratum</h2>
     <div class="chart-wrap" style="height:450px;"><canvas id="chartClosest"></canvas></div>
     <p class="note">Compara a ${refSigla()} com as 3 IES de menor diferença total nos estratos A1..A8,C. Na legenda: diferença por estrato (A1…C). Sinal + = IES acima da ${refSigla()}, sinal – = IES abaixo da ${refSigla()}. Clique nos pontos para ver a diferença.</p>
 </div>`;
@@ -4068,7 +4072,7 @@ function exportPNG(canvasId) {
     ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, off.width, off.height);
     ctx.drawImage(canvas, 0, 0);
     ctx.fillStyle = '#999'; ctx.font = '11px Arial'; ctx.textAlign = 'right';
-    ctx.fillText('MAPA-PG v' + VERSION + ' | Prof. David L. Azevedo | ' + new Date().toLocaleDateString('pt-BR'), w - 10, h + 18);
+    ctx.fillText('MAPA-PG v' + VERSION + ' | Prof. David L. Azevedo | ' + new Date().toLocaleDateString('en-US'), w - 10, h + 18);
     off.toBlob(blob => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -4078,7 +4082,7 @@ function exportPNG(canvasId) {
 }
 function exportarPNGs() {
     const canvases = document.querySelectorAll('canvas');
-    if (canvases.length === 0) { toast('Nenhum gráfico para exportar.'); return; }
+    if (canvases.length === 0) { toast('No chart to export.'); return; }
     const now = new Date();
     const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
     let seq = 0;
@@ -4108,7 +4112,7 @@ function exportarPNGs() {
         ctx.fillStyle = '#999999';
         ctx.font = '11px Arial';
         ctx.textAlign = 'right';
-        ctx.fillText(`MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleDateString('pt-BR')}`, w - 10, h + 18);
+        ctx.fillText(`MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleDateString('en-US')}`, w - 10, h + 18);
 
         offscreen.toBlob(blob => {
             if (!blob) { toast('Erro ao gerar PNG.'); return; }
@@ -4120,7 +4124,7 @@ function exportarPNGs() {
         }, 'image/png');
     });
 
-    toast(`${canvases.length} gráfico(s) exportado(s) como PNG`);
+    toast(`${canvases.length} chart(s) exported as PNG`);
 }
 </script>
 </body>

@@ -23,7 +23,11 @@ def main():
     registry = json.load(open(os.path.join(DOCS, "registry.json"), encoding="utf-8"))
     lastmod = (manifest.get("atualizado_em") or manifest.get("gerado_em") or "")[:10]
 
-    urls = [(SITE, "1.0")]
+    # A home e a Ajuda existem em dois idiomas: as duas versoes entram, e o par
+    # e declarado por hreflang la embaixo. As URLs com ?area=/?curso= nao se
+    # duplicam — sao recortes da mesma home, e o buscador so precisa do par raiz.
+    urls = [(SITE, "1.0"), (SITE + "en/", "0.95"),
+            (SITE + "help-doc.html", "0.5"), (SITE + "en/help-doc.html", "0.45")]
     # 1 por IFES de referência (stub /ies/<sigla>/ → ?ies=SIGLA)
     n_ies = 0
     ri_path = os.path.join(DOCS, "registry_ies.json")
@@ -39,12 +43,29 @@ def main():
     def esc(s):
         return s.replace("&", "&amp;")
 
+    # pares PT/EN: mesma pagina, dois idiomas. As tres linhas de hreflang tem de
+    # ser IDENTICAS dos dois lados — se divergirem, o buscador ignora o par.
+    PARES = {SITE: (SITE, SITE + "en/"),
+             SITE + "en/": (SITE, SITE + "en/"),
+             SITE + "help-doc.html": (SITE + "help-doc.html", SITE + "en/help-doc.html"),
+             SITE + "en/help-doc.html": (SITE + "help-doc.html", SITE + "en/help-doc.html")}
+
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
-           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+           '        xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     lm = ("<lastmod>%s</lastmod>" % lastmod) if lastmod else ""
     for loc, prio in urls:
-        out.append("  <url><loc>%s</loc>%s<changefreq>monthly</changefreq>"
-                   "<priority>%s</priority></url>" % (esc(loc), lm, prio))
+        if loc in PARES:
+            pt, en = PARES[loc]
+            out.append("  <url><loc>%s</loc>" % esc(loc))
+            out.append('    <xhtml:link rel="alternate" hreflang="pt-BR" href="%s"/>' % esc(pt))
+            out.append('    <xhtml:link rel="alternate" hreflang="en" href="%s"/>' % esc(en))
+            out.append('    <xhtml:link rel="alternate" hreflang="x-default" href="%s"/>' % esc(pt))
+            out.append("    %s<changefreq>monthly</changefreq><priority>%s</priority></url>"
+                       % (lm, prio))
+        else:
+            out.append("  <url><loc>%s</loc>%s<changefreq>monthly</changefreq>"
+                       "<priority>%s</priority></url>" % (esc(loc), lm, prio))
     out.append("</urlset>")
     open(os.path.join(DOCS, "sitemap.xml"), "w", encoding="utf-8").write("\n".join(out) + "\n")
 

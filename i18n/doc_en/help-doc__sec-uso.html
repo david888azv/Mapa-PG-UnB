@@ -1,0 +1,65 @@
+<!-- sha:9cad615321fb7d53 -->
+<div class="card">
+    <h2>How to use MAPA-PG</h2>
+
+    <h3>1. Filters (sidebar)</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li><strong>CAPES grades:</strong> tick grades 4, 5, 6 and/or 7 to filter the programmes</li>
+        <li><strong>Cycle:</strong> choose a particular four-year cycle, or "All"</li>
+        <li><strong>Metric:</strong> pick the productivity metric (mean articles per faculty member per year, by category)</li>
+        <li><strong>Region:</strong> filter by geographic region (Central-West, Northeast, North, Southeast, South)</li>
+        <li><strong>Output type:</strong> filter by type (journal article, abstract, conference paper, and so on)</li>
+        <li><strong>Impact stratum:</strong> filter by impact-factor band (low/medium/high)</li>
+        <li><strong>Patents / technical output:</strong> a button that opens the patents panel, with its own cycle selector — see the <em>Patents</em> section of this documentation</li>
+    </ul>
+
+    <h3>2. Results</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li><strong>Table:</strong> ranking of programmes with the full set of indicators</li>
+        <li><strong>Charts:</strong> bars and trends over the cycles</li>
+        <li><strong>Report:</strong> formatted text, ready to copy and analyse</li>
+    </ul>
+
+    <h3>3. Export</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li><strong>CSV:</strong> exports all filtered data as CSV (separator: semicolon)</li>
+        <li><strong>PNG:</strong> exports every visible chart as a watermarked PNG image</li>
+        <li><strong>Impact report:</strong> generates a detailed impact-factor report in a new window</li>
+        <li><strong>Patents:</strong> the technical-output panel exports two CSVs — the aggregate by programme, and the full list of patents with title, registration number, dates and description</li>
+    </ul>
+
+    <h3>4. Things worth knowing</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2;">
+        <li>The <strong>reference university you chose</strong> is always highlighted in pink/red, in the charts and in the table</li>
+        <li>The reference <strong>does not filter the data</strong>: each field always shows every programme in the country. To open a field where it has no programme, tick <strong>“Show all 49 CAPES fields”</strong> in the sidebar</li>
+        <li>Click any column header in the table to sort by it</li>
+        <li>Faculty figures for 2022-2024 use forward-fill from the last available year (2021)</li>
+    </ul>
+
+    <div class="warn-box" style="margin-top:16px;text-align:justify;">
+        <strong>Programmes approved but not yet graded:</strong><br>
+        The CAPES catalogue marks with <strong>“A”</strong>, in place of a grade, the programmes approved through the
+        new-programme route that have not yet been through a four-yearly assessment — 182 of them in the country, nearly
+        all opened in 2024. Since every comparison in MAPA-PG rests on the grade, they <strong>do not enter</strong>
+        means, rankings, charts or the reference-programme selector.<br>
+        Since v5.6.0 they also <strong>do not vanish</strong>: they appear on the institution's opening screen, in the
+        field label and in a note inside the panel, always identified as approved and not yet graded. Before that, a new
+        programme simply did not exist anywhere in the application, which read easily as a programme that did not exist
+        at all. Once CAPES publishes the grade, it is compared like any other.
+    </div>
+
+    <div class="warn-box" style="margin-top:16px;text-align:justify;">
+        <strong>A caveat on the number of faculty:</strong><br>
+        In the raw data published by the CAPES Open Data Portal, some graduate programmes
+        show zero faculty in certain years, especially in the third cycle
+        (2021-2024), whose faculty data were only published up to 2021. It can also happen
+        occasionally in other cycles, for particular programmes.<br><br>
+        To estimate output per researcher in those cases, MAPA-PG applies
+        <strong>forward-fill</strong>: when a programme's faculty count is zero in a given year,
+        the system uses the <strong>last non-zero record</strong> available for that programme
+        instead. This keeps the productivity metrics (articles per faculty member per year) computable
+        and consistent even where the faculty data are incomplete.<br><br>
+        Values estimated this way should be read with care, since the real number of
+        active researchers may have varied over the period.
+    </div>
+</div>
