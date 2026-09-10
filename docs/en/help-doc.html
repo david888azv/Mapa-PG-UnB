@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- en/ e subpasta: sem isto, dados, icones e Chart.js seriam
+     procurados em /Mapa-PG-UnB/en/ e nao existiriam la. -->
+<base href="../">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAPA-PG — Documentação e Fontes de Dados</title>
-<link rel="canonical" href="https://david888azv.github.io/Mapa-PG-UnB/help-doc.html">
+<title>MAPA-PG — Documentation and Data Sources</title>
+<link rel="canonical" href="https://david888azv.github.io/Mapa-PG-UnB/en/help-doc.html">
 <link rel="alternate" hreflang="pt-BR" href="https://david888azv.github.io/Mapa-PG-UnB/help-doc.html">
 <link rel="alternate" hreflang="en" href="https://david888azv.github.io/Mapa-PG-UnB/en/help-doc.html">
 <link rel="alternate" hreflang="x-default" href="https://david888azv.github.io/Mapa-PG-UnB/help-doc.html">
@@ -70,22 +73,22 @@ a{color:#2563EB;}
 <div class="header">
     <div class="left">
         <a class="brand" href="https://daciencia.org" target="_blank" rel="noopener" title="DA ciência — daciencia.org"><img src="mark-da-ciencia.png" alt="DA ciência" width="232" height="233"></a>
-        <h1><em>MAPA-PG</em> — Documentação</h1>
+        <h1><em>MAPA-PG</em> — Documentation</h1>
     </div>
     <div class="meta">
-        <div class="langsel"><span class="cur" aria-current="true">PT</span><a href="en/help-doc.html" hreflang="en" lang="en">EN</a></div>
+        <div class="langsel"><a href="../help-doc.html" hreflang="pt-BR" lang="pt-BR">PT</a><span class="cur" aria-current="true">EN</span></div>
         <div>Prof. David L. Azevedo</div>
         <div>v1.5</div>
     </div>
 </div>
 
 <nav>
-    <a onclick="showSection('sec-sobre')" class="active" id="nav-sobre">Sobre</a>
-    <a onclick="showSection('sec-uso')" id="nav-uso">Como Usar</a>
-    <a onclick="showSection('sec-siglas')" id="nav-siglas">Siglas e Programas</a>
-    <a onclick="showSection('sec-patentes')" id="nav-patentes">Patentes</a>
-    <a onclick="showSection('sec-fontes')" id="nav-fontes">Fontes de Dados e URLs</a>
-    <a onclick="showSection('sec-versoes')" id="nav-versoes">Versões</a>
+    <a onclick="showSection('sec-sobre')" class="active" id="nav-sobre">About</a>
+    <a onclick="showSection('sec-uso')" id="nav-uso">How to use</a>
+    <a onclick="showSection('sec-siglas')" id="nav-siglas">Acronyms and programmes</a>
+    <a onclick="showSection('sec-patentes')" id="nav-patentes">Patents</a>
+    <a onclick="showSection('sec-fontes')" id="nav-fontes">Data sources and URLs</a>
+    <a onclick="showSection('sec-versoes')" id="nav-versoes">Versions</a>
 </nav>
 
 <div class="content">
@@ -93,164 +96,150 @@ a{color:#2563EB;}
 <!-- ════════════════════════════════════════════════════════════ -->
 <!-- SOBRE                                                       -->
 <!-- ════════════════════════════════════════════════════════════ -->
-<div class="section active" id="sec-sobre">
+<div class="section active" id="sec-sobre"><div class="card">
+    <h2>About MAPA-PG</h2>
+    <p><strong>MAPA-PG</strong> — <em>Monitoring and Analysis of Graduate Research Output</em> — is an interactive system for following
+       and analysing Brazilian graduate programmes across <strong>all 49 CAPES assessment fields</strong>.
+       The base gathers <strong>every graduate programme in the country</strong> present in the CAPES data —
+       <strong>4,824 programmes at 495 institutions</strong>, spread over all <strong>27 states</strong>.
+       On opening, you choose one of the <strong>27 federal universities</strong> as your <strong>reference university</strong>,
+       which is then highlighted and compared with all its national peers in the same CAPES field.</p>
 
-<div class="card">
-    <h2>Sobre o MAPA-PG</h2>
-    <p><strong>MAPA-PG</strong> — <em>Monitoramento e Análise de Produção Acadêmica da Pós-Graduação</em> — é um sistema interativo para acompanhamento
-       e análise de programas de pós-graduação brasileiros em <strong>todas as 49 áreas de avaliação da CAPES</strong>.
-       A base reúne <strong>todos os programas de pós-graduação do país</strong> presentes nos dados da CAPES —
-       <strong>4.824 programas de 495 instituições</strong>, distribuídos por todas as <strong>27 unidades da federação</strong>.
-       Ao iniciar, você escolhe, entre as <strong>27 universidades federais (IFES)</strong>, a <strong>universidade de referência</strong>,
-       que passa a ser destacada e comparada a todos os seus pares nacionais na mesma área da CAPES.</p>
+    <p style="margin-top:12px;">The system lets you compare productivity indicators across programmes of every CAPES grade (3, 4, 5, 6 and 7),
+       see trends over three four-year cycles (2013-2016, 2017-2020, 2021-2024), and generate exportable reports and charts.</p>
 
-    <p style="margin-top:12px;">O sistema permite comparar indicadores de produtividade entre programas de todas as notas CAPES (3, 4, 5, 6 e 7),
-       visualizar tendências ao longo de três quadriênios (2013-2016, 2017-2020, 2021-2024), e gerar relatórios e gráficos exportáveis.</p>
-
-    <h3>Autor</h3>
+    <h3>Author</h3>
     <table>
-        <tr><td><strong>Autor</strong></td><td>Prof. Titular David Lima Azevedo</td></tr>
-        <tr><td><strong>Grupo de pesquisa</strong></td><td>Grupo de Dinâmica e Ab Initio (GDAI)</td></tr>
-        <tr><td><strong>Unidade</strong></td><td>Núcleo de Estrutura da Matéria — Instituto de Física, Universidade de Brasília (UnB)</td></tr>
-        <tr><td><strong>Contato</strong></td><td><a href="mailto:contato@daciencia.org">contato@daciencia.org</a></td></tr>
-        <tr><td><strong>Projeto</strong></td><td><a href="https://daciencia.org" target="_blank" rel="noopener">daciencia.org</a> — d.a. ciência (dados aplicados à ciência)</td></tr>
+        <tr><td><strong>Author</strong></td><td>Prof. David Lima Azevedo, Full Professor</td></tr>
+        <tr><td><strong>Research group</strong></td><td>Dynamics and Ab Initio Group (GDAI)</td></tr>
+        <tr><td><strong>Unit</strong></td><td>Matter Structure Centre — Institute of Physics, University of Brasilia (UnB)</td></tr>
+        <tr><td><strong>Contact</strong></td><td><a href="mailto:contato@daciencia.org">contato@daciencia.org</a></td></tr>
+        <tr><td><strong>Project</strong></td><td><a href="https://daciencia.org" target="_blank" rel="noopener">daciencia.org</a> — d.a. ciência (data applied to science)</td></tr>
         <tr><td><strong>ORCID</strong></td><td><a href="https://orcid.org/0000-0002-3456-554X" target="_blank">0000-0002-3456-554X</a></td></tr>
-        <tr><td><strong>Google Scholar</strong></td><td><a href="https://scholar.google.com.br/citations?hl=en&amp;user=o-qWsUAAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank">Perfil de publicações</a></td></tr>
-        <tr><td><strong>Currículo Lattes</strong></td><td><a href="http://lattes.cnpq.br/3892893860696339" target="_blank">lattes.cnpq.br/3892893860696339</a></td></tr>
-        <tr><td><strong>Projeto irmão</strong></td><td><a href="https://david888azv.github.io/Mapa-GR/" target="_blank">MAPA-GR</a> (graduação — INEP/SINAES)</td></tr>
+        <tr><td><strong>Google Scholar</strong></td><td><a href="https://scholar.google.com.br/citations?hl=en&amp;user=o-qWsUAAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank">Publication profile</a></td></tr>
+        <tr><td><strong>Lattes CV</strong></td><td><a href="http://lattes.cnpq.br/3892893860696339" target="_blank">lattes.cnpq.br/3892893860696339</a></td></tr>
+        <tr><td><strong>Sister project</strong></td><td><a href="https://david888azv.github.io/Mapa-GR/" target="_blank">MAPA-GR</a> (undergraduate — INEP/SINAES)</td></tr>
     </table>
 
-    <h3>Como citar</h3>
+    <h3>How to cite</h3>
     <div class="info-box" style="text-align:justify;">
-        AZEVEDO, D. L. <strong>MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física</strong>.
-        <em>Physicae Organum</em>, Brasília, v. 11, n. 1, 2026. DOI:
+        AZEVEDO, D. L. <strong>MAPA-PG — um sistema interativo para monitoramento e análise de produção acadêmica: aplicação à área de Astronomia e Física</strong> [in Portuguese].
+        <em>Physicae Organum</em>, Brasília, vol. 11, no. 1, 2026. DOI:
         <a href="https://periodicos.unb.br/index.php/physicae/article/view/62064/45040" target="_blank">10.26512/2446-564X2026e62064</a>.
     </div>
 
     <div class="info-box" style="text-align:justify;">
-        <strong>Dados públicos:</strong> Todos os dados utilizados neste sistema foram obtidos do
-        <a href="https://dadosabertos.capes.gov.br/" target="_blank">Portal de Dados Abertos da CAPES</a>,
-        como parte da iniciativa do Governo Federal de transparência e acesso à informação pública
-        (Lei de Acesso à Informação — Lei n. 12.527/2011). Os dados são públicos e de livre acesso.
-        Os links para download de cada arquivo encontram-se na aba <strong>"Fontes de Dados e URLs"</strong>.
+        <strong>Public data:</strong> every figure used in this system comes from the
+        <a href="https://dadosabertos.capes.gov.br/" target="_blank">CAPES Open Data Portal</a>,
+        part of the Brazilian federal government's transparency and freedom-of-information programme
+        (Act no. 12.527/2011). The data are public and freely accessible.
+        Download links for each file are in the <strong>"Data sources and URLs"</strong> tab.
     </div>
 
     <div class="info-box" style="text-align:justify;border-left:4px solid #E91E63;">
-        <strong>Versão personalizada para a sua instituição.</strong>
-        Além da versão pública, podemos desenvolver uma <strong>edição sob medida</strong> para o seu curso,
-        programa ou instituição — pública ou privada — voltada a um estudo mais aprofundado e detalhado dos indicadores.
+        <strong>A tailored edition for your institution.</strong>
+        Besides the public version, we can build a <strong>bespoke edition</strong> for your programme,
+        department or institution — public or private — aimed at a deeper, more detailed study of the indicators.
         <br><br>
-        <strong>Colocamo-nos à disposição para consultoria na melhoria dos indicadores</strong>, com base na
-        análise rigorosa dos dados oficiais. Utilizamos os <strong>métodos estatísticos mais avançados</strong>
-        — modelos preditivos, logísticos e hierárquicos, entre outros — para <strong>identificar e sugerir os
-        pontos que podem ser aprimorados</strong>, com o objetivo de obter <strong>melhores resultados na avaliação</strong>.
+        <strong>We are also available for consultancy on improving these indicators</strong>, grounded in
+        rigorous analysis of the official data. We use <strong>advanced statistical methods</strong>
+        — predictive, logistic and hierarchical models, among others — to <strong>identify and suggest the
+        points that can be improved</strong>, with the aim of achieving <strong>better assessment results</strong>.
         <br><br>
-        Contato: <a href="mailto:contato@daciencia.org">contato@daciencia.org</a> ·
-        conheça o projeto em <a href="https://daciencia.org" target="_blank" rel="noopener">daciencia.org</a>.
+        Contact: <a href="mailto:contato@daciencia.org">contato@daciencia.org</a> ·
+        learn about the project at <a href="https://daciencia.org" target="_blank" rel="noopener">daciencia.org</a>.
     </div>
 </div>
 
 <div class="card">
-    <h2>Requisitos</h2>
+    <h2>Requirements</h2>
     <ul style="padding-left:20px;font-size:13px;">
-        <li>Navegador moderno (Chrome, Firefox, Edge ou Safari)</li>
-        <li>Catálogo <code>manifest.json</code> / <code>registry.json</code> e o arquivo da área selecionada (<code>dados/area-*.json</code>), na mesma pasta</li>
-        <li>Conexão com internet na primeira abertura (para carregar Chart.js via CDN)</li>
+        <li>A modern browser (Chrome, Firefox, Edge or Safari)</li>
+        <li>The <code>manifest.json</code> / <code>registry.json</code> catalogue and the file for the selected field (<code>dados/area-*.json</code>), in the same folder</li>
+        <li>An internet connection on first opening (to load Chart.js from the CDN)</li>
     </ul>
 </div>
-</div>
+<div class="section" id="sec-uso"><div class="card">
+    <h2>How to use MAPA-PG</h2>
 
-<!-- ════════════════════════════════════════════════════════════ -->
-<!-- COMO USAR                                                   -->
-<!-- ════════════════════════════════════════════════════════════ -->
-<div class="section" id="sec-uso">
-
-<div class="card">
-    <h2>Como Usar o MAPA-PG</h2>
-
-    <h3>1. Filtros (Barra Lateral)</h3>
+    <h3>1. Filters (sidebar)</h3>
     <ul style="padding-left:20px;font-size:13px;line-height:2;">
-        <li><strong>Notas CAPES:</strong> Selecione notas 4, 5, 6 e/ou 7 para filtrar os programas</li>
-        <li><strong>Quadriênio:</strong> Escolha um quadriênio específico ou "Todos"</li>
-        <li><strong>Métrica:</strong> Selecione a métrica de produtividade (média artigos/docente/ano por categoria)</li>
-        <li><strong>Região:</strong> Filtre por região geográfica (CO, NE, N, SE, S)</li>
-        <li><strong>Tipo de produção:</strong> Filtre por tipo (Art. Periódico, Resumo, Trab. Congresso, etc.)</li>
-        <li><strong>Estrato IF:</strong> Filtre por faixa de fator de impacto (baixo/médio/alto)</li>
-        <li><strong>Patentes / Produção Técnica:</strong> botão que abre o painel de patentes, com seletor próprio de quadriênio — ver a seção <em>Patentes</em> desta documentação</li>
+        <li><strong>CAPES grades:</strong> tick grades 4, 5, 6 and/or 7 to filter the programmes</li>
+        <li><strong>Cycle:</strong> choose a particular four-year cycle, or "All"</li>
+        <li><strong>Metric:</strong> pick the productivity metric (mean articles per faculty member per year, by category)</li>
+        <li><strong>Region:</strong> filter by geographic region (Central-West, Northeast, North, Southeast, South)</li>
+        <li><strong>Output type:</strong> filter by type (journal article, abstract, conference paper, and so on)</li>
+        <li><strong>Impact stratum:</strong> filter by impact-factor band (low/medium/high)</li>
+        <li><strong>Patents / technical output:</strong> a button that opens the patents panel, with its own cycle selector — see the <em>Patents</em> section of this documentation</li>
     </ul>
 
-    <h3>2. Resultados</h3>
+    <h3>2. Results</h3>
     <ul style="padding-left:20px;font-size:13px;line-height:2;">
-        <li><strong>Tabela:</strong> Ranking dos programas com indicadores completos</li>
-        <li><strong>Gráficos:</strong> Barras e evolução temporal por quadriênio</li>
-        <li><strong>Relatório:</strong> Texto formatado para cópia e análise</li>
+        <li><strong>Table:</strong> ranking of programmes with the full set of indicators</li>
+        <li><strong>Charts:</strong> bars and trends over the cycles</li>
+        <li><strong>Report:</strong> formatted text, ready to copy and analyse</li>
     </ul>
 
-    <h3>3. Exportação</h3>
+    <h3>3. Export</h3>
     <ul style="padding-left:20px;font-size:13px;line-height:2;">
-        <li><strong>CSV:</strong> Exporta todos os dados filtrados em formato CSV (separador: ponto e vírgula)</li>
-        <li><strong>PNG:</strong> Exporta todos os gráficos visíveis como imagens PNG com marca d'água</li>
-        <li><strong>Relatório IF:</strong> Gera relatório detalhado de fator de impacto em nova janela</li>
-        <li><strong>Patentes:</strong> o painel de produção técnica exporta dois CSVs — o agregado por programa e a lista completa de patentes, com título, número de registro, datas e descrição</li>
+        <li><strong>CSV:</strong> exports all filtered data as CSV (separator: semicolon)</li>
+        <li><strong>PNG:</strong> exports every visible chart as a watermarked PNG image</li>
+        <li><strong>Impact report:</strong> generates a detailed impact-factor report in a new window</li>
+        <li><strong>Patents:</strong> the technical-output panel exports two CSVs — the aggregate by programme, and the full list of patents with title, registration number, dates and description</li>
     </ul>
 
-    <h3>4. Destaques</h3>
+    <h3>4. Things worth knowing</h3>
     <ul style="padding-left:20px;font-size:13px;line-height:2;">
-        <li>A <strong>universidade de referência escolhida</strong> é sempre destacada em rosa/vermelho nos gráficos e na tabela</li>
-        <li>A referência <strong>não filtra a base</strong>: cada área mostra sempre todos os programas do país. Para abrir uma área em que ela não tem programa, marque <strong>“Ver todas as 49 áreas”</strong> na barra lateral</li>
-        <li>Clique no cabeçalho de qualquer coluna da tabela para ordenar</li>
-        <li>Os dados de docentes para 2022-2024 utilizam forward-fill do último ano disponível (2021)</li>
+        <li>The <strong>reference university you chose</strong> is always highlighted in pink/red, in the charts and in the table</li>
+        <li>The reference <strong>does not filter the data</strong>: each field always shows every programme in the country. To open a field where it has no programme, tick <strong>“Show all 49 CAPES fields”</strong> in the sidebar</li>
+        <li>Click any column header in the table to sort by it</li>
+        <li>Faculty figures for 2022-2024 use forward-fill from the last available year (2021)</li>
     </ul>
 
     <div class="warn-box" style="margin-top:16px;text-align:justify;">
-        <strong>Programa aprovado e ainda sem nota:</strong><br>
-        O catálogo da CAPES marca com <strong>“A”</strong>, no lugar da nota, os programas aprovados por APCN que
-        ainda não passaram por avaliação quadrienal — são 182 no país, quase todos abertos em 2024. Como toda a
-        comparação do MAPA-PG se apoia na nota, eles <strong>não entram</strong> em médias, rankings, gráficos nem
-        no seletor de programa de referência.<br>
-        Desde a v5.6.0 eles também <strong>não desaparecem</strong>: aparecem na tela inicial da instituição, no
-        rótulo da área e num aviso dentro do painel, sempre identificados como aprovados e ainda sem nota. Antes
-        disso, um programa novo simplesmente não existia em lugar nenhum do aplicativo, o que se lia com facilidade
-        como programa inexistente. Quando a CAPES publicar a nota, ele passa a ser comparado como os demais.
+        <strong>Programmes approved but not yet graded:</strong><br>
+        The CAPES catalogue marks with <strong>“A”</strong>, in place of a grade, the programmes approved through the
+        new-programme route that have not yet been through a four-yearly assessment — 182 of them in the country, nearly
+        all opened in 2024. Since every comparison in MAPA-PG rests on the grade, they <strong>do not enter</strong>
+        means, rankings, charts or the reference-programme selector.<br>
+        Since v5.6.0 they also <strong>do not vanish</strong>: they appear on the institution's opening screen, in the
+        field label and in a note inside the panel, always identified as approved and not yet graded. Before that, a new
+        programme simply did not exist anywhere in the application, which read easily as a programme that did not exist
+        at all. Once CAPES publishes the grade, it is compared like any other.
     </div>
 
     <div class="warn-box" style="margin-top:16px;text-align:justify;">
-        <strong>Ressalva sobre o número de docentes:</strong><br>
-        Nos dados brutos disponibilizados pelo Portal de Dados Abertos da CAPES, alguns programas de pós-graduação
-        apresentam o número de docentes igual a zero em determinados anos, especialmente no terceiro quadriênio
-        (Q3, 2021-2024), cujos dados de docentes só foram publicados até 2021. Essa situação pode ocorrer também
-        pontualmente em outros quadriênios para programas específicos.<br><br>
-        Para estimar a produção por pesquisador nesses casos, o MAPA-PG adota a seguinte estratégia de
-        <strong>forward-fill</strong>: quando o número de docentes de um programa é zero em um determinado ano,
-        o sistema utiliza o <strong>último registro diferente de zero</strong> disponível para aquele programa
-        como substituto. Isso garante que as métricas de produtividade (artigos/docente/ano) possam ser calculadas
-        de forma consistente, mesmo na ausência de dados completos de docentes.<br><br>
-        Os valores estimados por este método devem ser interpretados com cautela, pois o número real de
-        pesquisadores ativos pode ter variado no período.
+        <strong>A caveat on the number of faculty:</strong><br>
+        In the raw data published by the CAPES Open Data Portal, some graduate programmes
+        show zero faculty in certain years, especially in the third cycle
+        (2021-2024), whose faculty data were only published up to 2021. It can also happen
+        occasionally in other cycles, for particular programmes.<br><br>
+        To estimate output per researcher in those cases, MAPA-PG applies
+        <strong>forward-fill</strong>: when a programme's faculty count is zero in a given year,
+        the system uses the <strong>last non-zero record</strong> available for that programme
+        instead. This keeps the productivity metrics (articles per faculty member per year) computable
+        and consistent even where the faculty data are incomplete.<br><br>
+        Values estimated this way should be read with care, since the real number of
+        active researchers may have varied over the period.
     </div>
 </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════ -->
-<!-- SIGLAS E PROGRAMAS                                          -->
-<!-- ════════════════════════════════════════════════════════════ -->
 <div class="section" id="sec-siglas">
 
 <div class="card">
-    <h2>Glossário de Siglas — exemplo da área de Astronomia / Física</h2>
-    <p>O MAPA-PG cobre <strong>todas as 49 áreas de avaliação da CAPES</strong>; a lista abaixo é um
-       <strong>exemplo</strong> de uma delas — os 66 programas da área de <strong>Astronomia / Física</strong> —
-       com sigla da instituição, nome do programa, universidade e ano de início do primeiro curso. Em cada área,
-       os programas da UnB recebem um código próprio no formato <code>MAPA-PG-XXXXXX</code>, exibido nos seletores
-       da barra lateral.</p>
+    <h2>Acronym glossary — the Astronomy / Physics field as an example</h2>
+    <p>MAPA-PG covers <strong>all 49 CAPES assessment fields</strong>; the list below is an
+       <strong>example</strong> of one of them — the 66 programmes of the <strong>Astronomy / Physics</strong> field —
+       with the institution's acronym, the programme name, the university and the starting year of its first course.
+       Programme and institution names are kept in Portuguese, as they appear in the official data. In each field,
+       UnB programmes get their own code in the form <code>MAPA-PG-XXXXXX</code>, shown in the sidebar selectors.</p>
 
     <div class="info-box">
-        <strong>Fonte:</strong> Cadastro de Programas de Pós-Graduação — CAPES Dados Abertos.
-        O ano de início refere-se ao campo <code>AN_INICIO_CURSO</code> (primeiro curso registrado no programa).
+        <strong>Source:</strong> Register of Graduate Programmes — CAPES Open Data.
+        The starting year is the <code>AN_INICIO_CURSO</code> field (the first course recorded in the programme).
     </div>
 
     <table>
-        <tr><th>Sigla</th><th>Programa</th><th>Universidade / Instituição</th><th>Início</th></tr>
+        <tr><th>Acronym</th><th>Programme</th><th>University / institution</th><th>Started</th></tr>
         <tr><td>CBPF</td><td>FÍSICA</td><td>Centro Brasileiro de Pesquisas Físicas</td><td>1962</td></tr>
         <tr><td>FUFPI</td><td>FÍSICA</td><td>Fundação Universidade Federal do Piauí</td><td>2008</td></tr>
         <tr><td>FUFSE</td><td>FÍSICA</td><td>Fundação Universidade Federal de Sergipe</td><td>1994</td></tr>
@@ -326,112 +315,112 @@ a{color:#2563EB;}
 <!-- ════════════════════════════════════════════════════════════ -->
 <!-- PATENTES / PRODUÇÃO TÉCNICA                                 -->
 <!-- ════════════════════════════════════════════════════════════ -->
-<div class="section" id="sec-patentes">
-
-<div class="card">
-    <h2>Patentes — Produção Técnica</h2>
+<div class="section" id="sec-patentes"><div class="card">
+    <h2>Patents — technical output</h2>
 
     <p style="font-size:13px;line-height:1.8;text-align:justify;">
-    Até a versão 5.0 o MAPA-PG media apenas produção <strong>bibliográfica</strong>: artigo em
-    periódico, resumo, trabalho de congresso, capítulo de livro e texto em jornal — os cinco
-    subtipos que a CAPES publica sob o tipo BIBLIOGRÁFICA. Patentes e demais produtos
-    tecnológicos estão em conjuntos de dados <strong>distintos</strong> do Portal de Dados
-    Abertos e não faziam parte do aplicativo. A partir da v5.1 eles entram, começando pelo
-    subtipo <strong>PATENTE</strong>; desde a v5.2, nos <strong>três quadriênios</strong>.
+    Up to version 5.0, MAPA-PG measured only <strong>bibliographic</strong> output: journal
+    articles, abstracts, conference papers, book chapters and newspaper pieces — the five
+    subtypes CAPES publishes under the BIBLIOGRAPHIC type. Patents and other technological
+    products sit in <strong>separate</strong> datasets of the Open Data Portal and were not
+    part of the application. From v5.1 they are in, starting with the
+    <strong>PATENT</strong> subtype; since v5.2, for all <strong>three cycles</strong>.
     </p>
 
-    <h3>O painel</h3>
+    <h3>The panel</h3>
     <p style="font-size:13px;line-height:1.8;text-align:justify;">
-    O botão <strong>"Patentes / Produção Técnica"</strong>, na barra lateral, abre um painel
-    com: panorama da área; o programa da universidade de referência em destaque, com as
-    patentes por ano, por docente permanente, a posição no ranking da área e a lista das
-    patentes (título, número de registro, instituição de depósito, datas, estágio da
-    tecnologia, linha de pesquisa e descrição); o ranking dos programas da área; busca
-    textual; e exportação em CSV.
+    The <strong>"Patents / technical output"</strong> button in the sidebar opens a panel
+    with: an overview of the field; the reference university's programme in the foreground, with
+    patents per year and per permanent faculty member, its position in the field ranking and the list of
+    patents (title, registration number, filing institution, dates, technology
+    stage, research line and description); the ranking of the field's programmes; free-text
+    search; and CSV export.
     </p>
 
     <div class="info-box">
-        <strong>O seletor de quadriênio do painel é independente.</strong> Ele abre alinhado ao
-        filtro de quadriênio da barra lateral quando este aponta um quadriênio específico, e no
-        mais recente com dado quando o filtro está em "Todos". Trocar de quadriênio no painel
-        recarrega a camada inteira: a contagem de patentes de cada programa muda, porque cada
-        quadriênio é uma coleta distinta da CAPES. Quadriênios em que a área não declarou
-        nenhuma patente aparecem desabilitados.
+        <strong>The panel's cycle selector is independent.</strong> It opens aligned with the
+        sidebar's cycle filter when that points at a particular cycle, and at the
+        most recent cycle with data when the filter is on "All". Changing cycle in the panel
+        reloads the whole layer: each programme's patent count changes, because each
+        cycle is a separate CAPES collection. Cycles in which the field reported
+        no patent appear disabled.
     </div>
 
-    <h3>Contagem: declarações e patentes distintas</h3>
+    <h3>Counting: declarations and distinct patents</h3>
     <p style="font-size:13px;line-height:1.8;text-align:justify;">
-    Uma patente com coautoria entre programas é declarada <strong>por cada programa
-    participante</strong>. A contagem <strong>por programa</strong> usa a declaração — é ela
-    que a CAPES considera na avaliação daquele programa. Já os totais de <strong>área</strong> e
-    <strong>nacionais</strong> só podem virar "patentes distintas" onde existe o número de
-    registro do depósito para reconhecer as repetições. E esse campo não está presente do mesmo
-    modo nas três coletas.
+    A patent co-authored across programmes is reported <strong>by each participating
+    programme</strong>. The count <strong>per programme</strong> uses the declaration — that is what
+    CAPES considers when assessing that programme. The <strong>field</strong> and
+    <strong>national</strong> totals, on the other hand, can only become "distinct patents" where the
+    filing registration number exists to recognise the repetitions. And that field is not present in
+    the same way across the three collections.
     </p>
 
-    <h3>Cobertura declaratória por quadriênio</h3>
+    <h3>Reporting coverage by cycle</h3>
     <p style="font-size:13px;line-height:1.8;text-align:justify;">
-    Os campos são preenchidos pelo próprio programa na Plataforma Sucupira e nem todos são
-    obrigatórios — nem sequer existem em todas as coletas. Percentuais nacionais de
-    preenchimento, sobre o total de declarações de patente de cada quadriênio:
+    The fields are filled in by the programmes themselves on the Sucupira platform, and not all are
+    mandatory — some do not even exist in every collection. National completion rates, over the
+    total patent declarations of each cycle:
     </p>
     <table>
-        <tr><th>Campo</th><th>2013-2016</th><th>2017-2020</th><th>2021-2024</th></tr>
-        <tr><td><strong>Título</strong></td><td>100%</td><td>100%</td><td>100%</td></tr>
-        <tr><td><strong>Nº de registro</strong></td><td>40,9%</td><td><em>não coletado</em></td><td>95,1%</td></tr>
-        <tr><td><strong>Data de depósito</strong></td><td>38,8%</td><td>75,5%</td><td>96,2%</td></tr>
-        <tr><td><strong>Descrição da invenção</strong></td><td>16,0%</td><td>32,8%</td><td>22,1%</td></tr>
-        <tr><td><strong>Estágio da tecnologia</strong></td><td><em>não coletado</em></td><td>32,5%</td><td>24,9%</td></tr>
-        <tr><td><strong>Data de concessão</strong></td><td>5,6%</td><td>10,0%</td><td>11,1%</td></tr>
-        <tr><td><strong>Deduplicação de coautoria</strong></td><td>parcial</td><td><strong>impossível</strong></td><td>completa</td></tr>
-        <tr><td><strong>Declarações (país)</strong></td><td>8.472</td><td>15.635</td><td>13.505</td></tr>
-        <tr><td><strong>Patentes distintas (país)</strong></td><td>7.960</td><td>—</td><td>8.381</td></tr>
+        <tr><th>Field</th><th>2013-2016</th><th>2017-2020</th><th>2021-2024</th></tr>
+        <tr><td><strong>Title</strong></td><td>100%</td><td>100%</td><td>100%</td></tr>
+        <tr><td><strong>Registration no.</strong></td><td>40.9%</td><td><em>not collected</em></td><td>95.1%</td></tr>
+        <tr><td><strong>Filing date</strong></td><td>38.8%</td><td>75.5%</td><td>96.2%</td></tr>
+        <tr><td><strong>Description of the invention</strong></td><td>16.0%</td><td>32.8%</td><td>22.1%</td></tr>
+        <tr><td><strong>Technology stage</strong></td><td><em>not collected</em></td><td>32.5%</td><td>24.9%</td></tr>
+        <tr><td><strong>Grant date</strong></td><td>5.6%</td><td>10.0%</td><td>11.1%</td></tr>
+        <tr><td><strong>Co-authorship deduplication</strong></td><td>partial</td><td><strong>impossible</strong></td><td>complete</td></tr>
+        <tr><td><strong>Declarations (nationwide)</strong></td><td>8,472</td><td>15,635</td><td>13,505</td></tr>
+        <tr><td><strong>Distinct patents (nationwide)</strong></td><td>7,960</td><td>—</td><td>8,381</td></tr>
     </table>
     <p class="meta" style="font-size:11px;">
-    Apurado em 21/07/2026 sobre as coletas então publicadas. O painel do aplicativo mostra
-    sempre os percentuais recalculados a partir dos dados em uso.
+    Measured on 21 July 2026 over the collections published at that point. The panel in the app always
+    shows percentages recalculated from the data in use.
     </p>
 
     <div class="warn-box" style="text-align:justify;">
-        <strong>As três ressalvas que mais afetam a leitura:</strong><br><br>
+        <strong>The three caveats that most affect how this reads:</strong><br><br>
 
-        <strong>1. Em 2017-2020 não há número de registro.</strong> A coleta simplesmente não
-        publica o campo. Nesse quadriênio não há como saber quantas declarações são a mesma
-        patente declarada por programas coautores, então o painel exibe apenas
-        <em>declarações</em> e marca "patentes distintas" como <strong>não apurável</strong>.
-        Em 2013-2016 o campo existe, mas preenchido em 40,9% dos registros: a deduplicação é
-        <strong>parcial</strong> e o total de distintas ainda contém repetições. Só em
-        2021-2024 ela é confiável — ali, 13.505 declarações correspondem a 8.381 patentes
-        distintas, ou seja, cerca de <strong>38% das declarações nacionais são repetição por
-        coautoria</strong>.<br><br>
+        <strong>1. In 2017-2020 there is no registration number.</strong> The collection simply does
+        not publish the field. In that cycle there is no way to know how many declarations are the same
+        patent reported by co-authoring programmes, so the panel shows only
+        <em>declarations</em> and marks "distinct patents" as <strong>not determinable</strong>.
+        In 2013-2016 the field exists, but filled in 40.9% of records: deduplication is
+        <strong>partial</strong> and the distinct total still contains repetitions. Only in
+        2021-2024 is it reliable — there, 13,505 declarations correspond to 8,381 distinct
+        patents, meaning about <strong>38% of national declarations are repetition through
+        co-authorship</strong>.<br><br>
 
-        <strong>2. "Não coletado" não é 0%.</strong> Onde a tabela diz <em>não coletado</em>, o
-        campo não existia no formulário daquela coleta — não é que os programas deixaram de
-        preencher. O estágio da tecnologia, por exemplo, só passou a ser pedido em 2017-2020.
-        Campo em branco, por sua vez, significa <strong>não declarado</strong>, e não ausência
-        do fato.<br><br>
+        <strong>2. "Not collected" is not 0%.</strong> Where the table says <em>not collected</em>, the
+        field did not exist in that collection's form — it is not that programmes failed to
+        fill it in. The technology stage, for instance, was only asked for from 2017-2020 onwards.
+        A blank field, in turn, means <strong>not reported</strong>, not that the fact is
+        absent.<br><br>
 
-        <strong>3. Comparar quadriênios exige cuidado.</strong> A variação no número de patentes
-        de um programa entre coletas pode refletir mudança de prática declaratória — ou de
-        formulário — e não apenas mudança de atividade inventiva. A contagem é de patentes
-        <em>depositadas/declaradas</em> no quadriênio: a concessão pela autoridade competente
-        costuma ocorrer anos depois e é raramente informada (nunca passa de 11%).
+        <strong>3. Comparing cycles takes care.</strong> A change in a programme's patent count
+        between collections may reflect a change in reporting practice — or in the form —
+        and not only a change in inventive activity. The count is of patents
+        <em>filed/reported</em> in the cycle: the grant by the competent authority usually
+        comes years later and is rarely reported (never above 11%).
     </div>
 
-    <h3>Um detalhe do campo de descrição</h3>
+    <h3>One detail about the description field</h3>
     <p style="font-size:13px;line-height:1.8;text-align:justify;">
-    A descrição vem de <code>DS_FINALIDADE</code>, campo de texto livre. Na maioria dos casos
-    descreve a invenção, mas em cerca de 3% dos preenchidos traz apenas a categoria do ativo
-    ("PATENTE DE INVENÇÃO", "REGISTRO DE CULTIVAR"). O MAPA-PG separa os dois casos: o rótulo
-    de categoria vira etiqueta no cartão da patente, e não é contado como descrição.
+    The description comes from <code>DS_FINALIDADE</code>, a free-text field. In most cases it
+    describes the invention, but in about 3% of the filled ones it carries only the asset category
+    ("PATENTE DE INVENÇÃO", "REGISTRO DE CULTIVAR"). MAPA-PG separates the two cases: the category
+    label becomes a tag on the patent card, and is not counted as a description.
     </p>
 </div>
+<div class="section" id="sec-fontes"><div class="info-box" style="border-left-color:#F39C12;background:#FFF8E1;">
+    <strong>Note.</strong> The headings and row labels below are in English; the file
+    descriptions, dataset names and URLs are kept as CAPES publishes them, in Portuguese.
 </div>
 
-<div class="section" id="sec-fontes">
 
 <div class="card">
-    <h2>Fontes de Dados — Portal de Dados Abertos da CAPES</h2>
+    <h2>Data sources — CAPES Open Data Portal</h2>
 
     <div class="info-box">
         <strong>Portal:</strong> <a href="https://dadosabertos.capes.gov.br/" target="_blank">https://dadosabertos.capes.gov.br/</a><br>
@@ -450,112 +439,112 @@ a{color:#2563EB;}
 
 <!-- FONTE 1 -->
 <div class="card">
-    <h2>1. Docentes da Pós-Graduação — 2021 a 2024</h2>
+    <h2>1. Graduate faculty — 2021 to 2024</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2021-a-2024-docentes-da-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2021-a-2024-docentes-da-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
         <tr><td><strong>API CKAN</strong></td><td><code style="word-break:break-all;">https://dadosabertos.capes.gov.br/api/3/action/package_show?id=2021-a-2024-docentes-da-pos-graduacao-stricto-sensu-no-brasil</code></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Docentes vinculados a programas stricto sensu: categoria, bolsa PQ, titulação, IES, área</td></tr>
-        <tr><td><strong>Arquivo filtrado</strong></td><td><code>docentes_0.csv</code></td></tr>
+        <tr><td><strong>Content</strong></td><td>Docentes vinculados a programas stricto sensu: categoria, bolsa PQ, titulação, IES, área</td></tr>
+        <tr><td><strong>Filtered file</strong></td><td><code>docentes_0.csv</code></td></tr>
     </table>
 </div>
 
 <!-- FONTE 2 -->
 <div class="card">
-    <h2>2. Docentes da Pós-Graduação — 2017 a 2020</h2>
+    <h2>2. Graduate faculty — 2017 to 2020</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2017-a-2020-docentes-da-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2017-a-2020-docentes-da-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Docentes do segundo quadriênio</td></tr>
-        <tr><td><strong>Arquivos filtrados</strong></td><td><code>docentes_2017a2020_0.csv</code> a <code>_3.csv</code></td></tr>
+        <tr><td><strong>Content</strong></td><td>Docentes do segundo quadriênio</td></tr>
+        <tr><td><strong>Filtered files</strong></td><td><code>docentes_2017a2020_0.csv</code> a <code>_3.csv</code></td></tr>
     </table>
 </div>
 
 <!-- FONTE 3 -->
 <div class="card">
-    <h2>3. Docentes da Pós-Graduação — 2013 a 2016</h2>
+    <h2>3. Graduate faculty — 2013 to 2016</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2013-a-2016-docentes-da-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2013-a-2016-docentes-da-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Docentes do primeiro quadriênio</td></tr>
-        <tr><td><strong>Arquivos filtrados</strong></td><td><code>docentes_2013a2016_0.csv</code> a <code>_3.csv</code></td></tr>
+        <tr><td><strong>Content</strong></td><td>Docentes do primeiro quadriênio</td></tr>
+        <tr><td><strong>Filtered files</strong></td><td><code>docentes_2013a2016_0.csv</code> a <code>_3.csv</code></td></tr>
     </table>
 </div>
 
 <!-- FONTE 4 -->
 <div class="card">
-    <h2>4. Produção Intelectual por Autor — 2021 a 2024</h2>
+    <h2>4. Research output by author — 2021 to 2024</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2021-a-2024-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2021-a-2024-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
         <tr><td><strong>API CKAN</strong></td><td><code style="word-break:break-all;">https://dadosabertos.capes.gov.br/api/3/action/package_show?id=2021-a-2024-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</code></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Artigos em periódicos, resumos, trabalhos de congresso, capítulos de livro, textos em jornal</td></tr>
-        <tr><td><strong>Arquivos filtrados</strong></td><td><code>prod_artpe_0.csv</code> a <code>prod_artpe_11.csv</code></td></tr>
+        <tr><td><strong>Content</strong></td><td>Artigos em periódicos, resumos, trabalhos de congresso, capítulos de livro, textos em jornal</td></tr>
+        <tr><td><strong>Filtered files</strong></td><td><code>prod_artpe_0.csv</code> a <code>prod_artpe_11.csv</code></td></tr>
     </table>
 </div>
 
 <!-- FONTE 5 -->
 <div class="card">
-    <h2>5. Produção Intelectual por Autor — 2017 a 2020</h2>
+    <h2>5. Research output by author — 2017 to 2020</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2017-a-2020-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2017-a-2020-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Produção intelectual por autor do segundo quadriênio</td></tr>
-        <tr><td><strong>Arquivos filtrados</strong></td><td><code>prod_autor_2017a2020_*.csv</code> (33 arquivos)</td></tr>
+        <tr><td><strong>Content</strong></td><td>Produção intelectual por autor do segundo quadriênio</td></tr>
+        <tr><td><strong>Filtered files</strong></td><td><code>prod_autor_2017a2020_*.csv</code> (33 arquivos)</td></tr>
     </table>
 </div>
 
 <!-- FONTE 6 -->
 <div class="card">
-    <h2>6. Produção Intelectual por Autor — 2013 a 2016</h2>
+    <h2>6. Research output by author — 2013 to 2016</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2013-a-2016-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2013-a-2016-autor-da-producao-intelectual-de-programas-de-pos-graduacao-stricto-sensu-no-brasil</a></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Produção intelectual por autor do primeiro quadriênio</td></tr>
-        <tr><td><strong>Arquivos filtrados</strong></td><td><code>prod_autor_2013a2016_*.csv</code> (27 arquivos)</td></tr>
+        <tr><td><strong>Content</strong></td><td>Produção intelectual por autor do primeiro quadriênio</td></tr>
+        <tr><td><strong>Filtered files</strong></td><td><code>prod_autor_2013a2016_*.csv</code> (27 arquivos)</td></tr>
     </table>
 </div>
 
 <!-- FONTE 7 -->
 <div class="card">
-    <h2>7. Programas de Pós-Graduação — Censos 2022, 2023, 2024</h2>
+    <h2>7. Graduate programmes — 2022, 2023 and 2024 censuses</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL do Dataset</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5</a></td></tr>
         <tr><td><strong>Censo 2022</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5/resource/ead1fb95-dce7-46da-b253-998dddc3f448/download/br-capes-colsucup-prog-2022-2025-03-31.csv" target="_blank" style="word-break:break-all;">br-capes-colsucup-prog-2022-2025-03-31.csv</a></td></tr>
         <tr><td><strong>Censo 2023</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5/resource/ddff2931-c0df-4bf8-a0fc-a97ad9cd74a0/download/br-capes-colsucup-prog-2023-2025-03-31.csv" target="_blank" style="word-break:break-all;">br-capes-colsucup-prog-2023-2025-03-31.csv</a></td></tr>
         <tr><td><strong>Censo 2024</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/414275c0-2056-4a12-b1a6-b525b74850d5/resource/76ccbd76-7f3a-40c3-a4dc-7d6f65858db8/download/br-capes-colsucup-prog-2024-2025-12-01.csv" target="_blank" style="word-break:break-all;">br-capes-colsucup-prog-2024-2025-12-01.csv</a></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Cadastro de programas com notas conceito, status, área de avaliação, IES e município</td></tr>
+        <tr><td><strong>Content</strong></td><td>Cadastro de programas com notas conceito, status, área de avaliação, IES e município</td></tr>
     </table>
 </div>
 
 <!-- FONTE 8 -->
 <div class="card">
-    <h2>8. Produção Intelectual Nomeada (Metadados com ISSN)</h2>
+    <h2>8. Named research output (metadata with ISSN)</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>Portal</strong></td><td><a href="https://dadosabertos.capes.gov.br/" target="_blank">https://dadosabertos.capes.gov.br/</a> (datasets de produção intelectual — recursos com metadados nomeados)</td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Título, ISSN do periódico, tipo e subtipo de produção</td></tr>
-        <tr><td><strong>Arquivos</strong></td><td><code>prod_intel_*_artpe_*.csv</code></td></tr>
+        <tr><td><strong>Content</strong></td><td>Título, ISSN do periódico, tipo e subtipo de produção</td></tr>
+        <tr><td><strong>Files</strong></td><td><code>prod_intel_*_artpe_*.csv</code></td></tr>
     </table>
 </div>
 
 <!-- FONTE 9 -->
 <div class="card">
-    <h2>9. Periódicos — OpenAlex (Fator de Impacto)</h2>
+    <h2>9. Journals — OpenAlex (impact factor)</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>API</strong></td><td><a href="https://api.openalex.org/sources?filter=type:journal&per_page=200" target="_blank" style="word-break:break-all;">https://api.openalex.org/sources?filter=type:journal&amp;per_page=200</a></td></tr>
-        <tr><td><strong>Documentação</strong></td><td><a href="https://docs.openalex.org/" target="_blank">https://docs.openalex.org/</a></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>~226.000 periódicos: ISSN, fator de impacto (2yr mean citedness), H-index, OA</td></tr>
-        <tr><td><strong>Licença</strong></td><td>CC0 (Domínio Público) — <a href="https://openalex.org/" target="_blank">https://openalex.org/</a></td></tr>
-        <tr><td><strong>Arquivo gerado</strong></td><td><code>openalex_journals.csv</code> e <code>issn_impacto.csv</code></td></tr>
+        <tr><td><strong>Documentation</strong></td><td><a href="https://docs.openalex.org/" target="_blank">https://docs.openalex.org/</a></td></tr>
+        <tr><td><strong>Content</strong></td><td>~226.000 periódicos: ISSN, fator de impacto (2yr mean citedness), H-index, OA</td></tr>
+        <tr><td><strong>Licence</strong></td><td>CC0 (Domínio Público) — <a href="https://openalex.org/" target="_blank">https://openalex.org/</a></td></tr>
+        <tr><td><strong>Generated file</strong></td><td><code>openalex_journals.csv</code> e <code>issn_impacto.csv</code></td></tr>
     </table>
 </div>
 
 <!-- FONTE 10 -->
 <div class="card">
-    <h2>10. Periódicos — CiteScore 2025 (Scopus / Elsevier)</h2>
+    <h2>10. Journals — CiteScore 2025 (Scopus / Elsevier)</h2>
     <p style="font-size:13px;line-height:1.7;">
         O <strong>CiteScore</strong> é uma métrica bibliométrica <strong>de propriedade da Elsevier</strong>,
         calculada a partir da base de dados <strong>Scopus</strong>. É o indicador de impacto
@@ -564,13 +553,13 @@ a{color:#2563EB;}
         "Relatório Detalhado IF"; as bases OpenAlex e Híbrida também estão disponíveis).
     </p>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
-        <tr><td><strong>Métrica</strong></td><td>CiteScore 2025 — © Elsevier B.V., calculada a partir da base Scopus</td></tr>
-        <tr><td><strong>Obtenção</strong></td><td>API gratuita da Elsevier (<a href="https://dev.elsevier.com/" target="_blank" style="word-break:break-all;">dev.elsevier.com</a>) — endpoints <code>api.elsevier.com</code> e <code>www.scopus.com</code></td></tr>
-        <tr><td><strong>Data de coleta</strong></td><td>3 de julho de 2026</td></tr>
-        <tr><td><strong>Uso dos dados</strong></td><td>Apenas <code>ISSN</code> e o valor CiteScore foram lidos, usados <em>transitoriamente</em> para ordenar os periódicos por <strong>percentil dentro de cada área</strong> e atribuir o estrato A1–A8/C; o valor bruto é então descartado.</td></tr>
-        <tr><td><strong>O que é publicado</strong></td><td>Somente <strong>resultados agregados</strong>: contagens por estrato e os limiares de faixa por área. <strong>Nenhum registro bruto por periódico</strong> (ISSN→CiteScore) é redistribuído.</td></tr>
-        <tr><td><strong>Licença / uso</strong></td><td>Uso <strong>acadêmico, não-comercial e sem publicidade</strong>, em conformidade com a <a href="https://dev.elsevier.com/policy.html" target="_blank">Política de Uso da API Elsevier</a> e os <a href="https://dev.elsevier.com/tecdoc_attribution_scopus.html" target="_blank">requisitos de atribuição Scopus</a>.</td></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
+        <tr><td><strong>Metric</strong></td><td>CiteScore 2025 — © Elsevier B.V., calculada a partir da base Scopus</td></tr>
+        <tr><td><strong>How it was obtained</strong></td><td>API gratuita da Elsevier (<a href="https://dev.elsevier.com/" target="_blank" style="word-break:break-all;">dev.elsevier.com</a>) — endpoints <code>api.elsevier.com</code> e <code>www.scopus.com</code></td></tr>
+        <tr><td><strong>Collected on</strong></td><td>3 de julho de 2026</td></tr>
+        <tr><td><strong>Use of the data</strong></td><td>Apenas <code>ISSN</code> e o valor CiteScore foram lidos, usados <em>transitoriamente</em> para ordenar os periódicos por <strong>percentil dentro de cada área</strong> e atribuir o estrato A1–A8/C; o valor bruto é então descartado.</td></tr>
+        <tr><td><strong>What is published</strong></td><td>Somente <strong>resultados agregados</strong>: contagens por estrato e os limiares de faixa por área. <strong>Nenhum registro bruto por periódico</strong> (ISSN→CiteScore) é redistribuído.</td></tr>
+        <tr><td><strong>Licence / use</strong></td><td>Uso <strong>acadêmico, não-comercial e sem publicidade</strong>, em conformidade com a <a href="https://dev.elsevier.com/policy.html" target="_blank">Política de Uso da API Elsevier</a> e os <a href="https://dev.elsevier.com/tecdoc_attribution_scopus.html" target="_blank">requisitos de atribuição Scopus</a>.</td></tr>
     </table>
     <p style="font-size:12px;line-height:1.6;color:#555;margin-top:10px;">
         <strong>Atribuição (exigida pela Elsevier):</strong> métrica <strong>CiteScore</strong>, powered by
@@ -584,59 +573,59 @@ a{color:#2563EB;}
 <!-- RESUMO -->
 <!-- FONTE 11 -->
 <div class="card">
-    <h2>11. Detalhes da Produção Intelectual Técnica — patentes (3 quadriênios)</h2>
+    <h2>11. Technical output details — patents (3 cycles)</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>URL 2021-2024</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2021-a-2024-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2021-a-2024-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu</a></td></tr>
         <tr><td><strong>URL 2017-2020</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/2017-a-2020-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/2017-a-2020-detalhes-da-producao-intelectual-tecnica-de-programas-de-pos-graduacao-stricto-sensu</a></td></tr>
         <tr><td><strong>URL 2013-2016</strong></td><td><a href="https://dadosabertos.capes.gov.br/dataset/detalhes-da-producao-intelectual-tecnica-2013a2016" target="_blank" style="word-break:break-all;">https://dadosabertos.capes.gov.br/dataset/detalhes-da-producao-intelectual-tecnica-2013a2016</a></td></tr>
-        <tr><td><strong>Conteúdo</strong></td><td>Campos próprios de cada subtipo de produção técnica. Para PATENTE: finalidade (descrição), número de registro, instituição de depósito, datas de depósito e concessão, estágio da tecnologia, transferência de tecnologia</td></tr>
-        <tr><td><strong>Recorte usado</strong></td><td>Apenas o arquivo do subtipo <code>PATENTE</code> de cada quadriênio. Os demais 17 subtipos (serviços técnicos, desenvolvimento de produto, aplicativo, técnica, etc.) ainda não são usados</td></tr>
-        <tr><td><strong>Arquivo filtrado</strong></td><td><code>tec_detalhe_&lt;quadriênio&gt;_patente.csv</code></td></tr>
+        <tr><td><strong>Content</strong></td><td>Campos próprios de cada subtipo de produção técnica. Para PATENTE: finalidade (descrição), número de registro, instituição de depósito, datas de depósito e concessão, estágio da tecnologia, transferência de tecnologia</td></tr>
+        <tr><td><strong>Selection used</strong></td><td>Apenas o arquivo do subtipo <code>PATENTE</code> de cada quadriênio. Os demais 17 subtipos (serviços técnicos, desenvolvimento de produto, aplicativo, técnica, etc.) ainda não são usados</td></tr>
+        <tr><td><strong>Filtered file</strong></td><td><code>tec_detalhe_&lt;quadriênio&gt;_patente.csv</code></td></tr>
     </table>
 </div>
 
 <!-- FONTE 12 -->
 <div class="card">
-    <h2>12. Produção Intelectual — fatia técnica/patente (3 quadriênios)</h2>
+    <h2>12. Research output — the technical/patent slice (3 cycles)</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>Datasets</strong></td><td>Os mesmos conjuntos "Produção Intelectual" já usados para a produção bibliográfica (FONTES 4 a 6), na fatia <code>TECNICA-PATENTE</code></td></tr>
-        <tr><td><strong>Por que é necessária</strong></td><td>Completa o <strong>título</strong> da patente, que no arquivo de detalhe cobre 42,5% dos registros em 2013-2016 e 77,1% em 2017-2020. Com esta fonte o título chega a <strong>100% nos três quadriênios</strong>. Traz também a <strong>linha de pesquisa</strong>, ausente do detalhe</td></tr>
-        <tr><td><strong>Chave de junção</strong></td><td><code>ID_ADD_PRODUCAO_INTELECTUAL</code> com o arquivo de detalhe; <code>CD_PROGRAMA_IES</code> com o restante do aplicativo</td></tr>
-        <tr><td><strong>Arquivo filtrado</strong></td><td><code>tec_prod_&lt;quadriênio&gt;_patente.csv</code></td></tr>
+        <tr><td><strong>Why it is needed</strong></td><td>Completa o <strong>título</strong> da patente, que no arquivo de detalhe cobre 42,5% dos registros em 2013-2016 e 77,1% em 2017-2020. Com esta fonte o título chega a <strong>100% nos três quadriênios</strong>. Traz também a <strong>linha de pesquisa</strong>, ausente do detalhe</td></tr>
+        <tr><td><strong>Join key</strong></td><td><code>ID_ADD_PRODUCAO_INTELECTUAL</code> com o arquivo de detalhe; <code>CD_PROGRAMA_IES</code> com o restante do aplicativo</td></tr>
+        <tr><td><strong>Filtered file</strong></td><td><code>tec_prod_&lt;quadriênio&gt;_patente.csv</code></td></tr>
     </table>
 </div>
 
 <div class="card">
-    <h2>13. Bolsas da CAPES no país — série anual por programa</h2>
+    <h2>13. CAPES scholarships nationwide — yearly series by programme</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>Dataset</strong></td><td><em>Bolsistas dos Programas da Diretoria de Programas e Bolsas no País (DPB)</em>, em três blocos: 2010-2016, 2017-2021 e 2022-2025. Cada bloco vem partido em três arquivos (institucionais, qualificação de docentes, estratégicos) e é preciso somar os três</td></tr>
-        <tr><td><strong>Granularidade</strong></td><td>Um registro por <strong>bolsista por ano</strong>, com <code>CD_PROGRAMA_PPG</code> — a mesma chave de programa do resto do aplicativo, sem heurística de casamento</td></tr>
-        <tr><td><strong>O que o app publica</strong></td><td>Só agregados por programa, ano e nível: bolsistas distintos, meses de bolsa pagos e valor. <strong>Nome de bolsista nunca entra</strong> nos arquivos do aplicativo</td></tr>
-        <tr><td><strong>Três medidas</strong></td><td><strong>Bolsistas</strong> é o número que a coordenação reconhece, mas esconde corte no meio do ano; <strong>meses de bolsa</strong> é a medida fiel da perda (meses ÷ 12 = bolsa-equivalente-ano); <strong>valor</strong> é nominal, e o salto de 2023 é reajuste, não quantidade</td></tr>
-        <tr><td><strong>O que fica de fora</strong></td><td>Bolsas do exterior (são de outra diretoria), e iniciação científica, professor visitante, supervisão e coordenação, que vêm nos mesmos arquivos e não são do programa de pós. Bolsa de CNPq, de fundação estadual ou da própria instituição <strong>não está nesta base</strong>: programa sem bolsa da CAPES pode ter bolsistas</td></tr>
-        <tr><td><strong>Arquivo do app</strong></td><td><code>dados/bol-&lt;área&gt;.json</code>, carregado só quando o painel de bolsas é aberto</td></tr>
+        <tr><td><strong>Granularity</strong></td><td>Um registro por <strong>bolsista por ano</strong>, com <code>CD_PROGRAMA_PPG</code> — a mesma chave de programa do resto do aplicativo, sem heurística de casamento</td></tr>
+        <tr><td><strong>What the app publishes</strong></td><td>Só agregados por programa, ano e nível: bolsistas distintos, meses de bolsa pagos e valor. <strong>Nome de bolsista nunca entra</strong> nos arquivos do aplicativo</td></tr>
+        <tr><td><strong>Three measures</strong></td><td><strong>Bolsistas</strong> é o número que a coordenação reconhece, mas esconde corte no meio do ano; <strong>meses de bolsa</strong> é a medida fiel da perda (meses ÷ 12 = bolsa-equivalente-ano); <strong>valor</strong> é nominal, e o salto de 2023 é reajuste, não quantidade</td></tr>
+        <tr><td><strong>What is left out</strong></td><td>Bolsas do exterior (são de outra diretoria), e iniciação científica, professor visitante, supervisão e coordenação, que vêm nos mesmos arquivos e não são do programa de pós. Bolsa de CNPq, de fundação estadual ou da própria instituição <strong>não está nesta base</strong>: programa sem bolsa da CAPES pode ter bolsistas</td></tr>
+        <tr><td><strong>App file</strong></td><td><code>dados/bol-&lt;área&gt;.json</code>, carregado só quando o painel de bolsas é aberto</td></tr>
     </table>
 </div>
 
 <div class="card">
-    <h2>14. Discentes da pós-graduação — o denominador da razão por aluno</h2>
+    <h2>14. Graduate students — the denominator of the per-student ratio</h2>
     <table>
-        <tr><th>Item</th><th>Detalhe</th></tr>
+        <tr><th>Item</th><th>Detail</th></tr>
         <tr><td><strong>Dataset</strong></td><td><em>Discentes da Pós-Graduação Stricto Sensu</em>, um arquivo por ano, usados de 2010 a 2024 (~2 GB na origem). Chave <code>CD_PROGRAMA_IES</code>, a mesma do resto do aplicativo</td></tr>
-        <tr><td><strong>Duas contagens</strong></td><td><strong>Ativos no ano</strong> — qualquer situação: matriculado, titulado, desligado, abandono. É quem passou pelo programa naquele ano. <strong>Matriculados</strong> — situação no fechamento do ano, que é o "tamanho do programa hoje" que a coordenação reconhece</td></tr>
-        <tr><td><strong>Qual entra na razão</strong></td><td>Os <strong>ativos</strong>. O numerador (alunos com bolsa) também é fluxo do ano, e dividir fluxo por estoque superestimaria a cobertura justamente nos programas que titulam muito. As duas contagens aparecem no painel e no CSV</td></tr>
-        <tr><td><strong>Níveis</strong></td><td>Mestrado e doutorado, cada um somando acadêmico e profissional nos <strong>dois</strong> lados da razão — separar de formas diferentes daria cobertura acima de 100% em programa profissional</td></tr>
-        <tr><td><strong>Limite temporal</strong></td><td>A razão termina em <strong>2024</strong>, último ano publicado do conjunto de discentes; a série de bolsas vai a 2025. O painel deixa o ano sem denominador em branco em vez de exibir zero</td></tr>
+        <tr><td><strong>Two counts</strong></td><td><strong>Ativos no ano</strong> — qualquer situação: matriculado, titulado, desligado, abandono. É quem passou pelo programa naquele ano. <strong>Matriculados</strong> — situação no fechamento do ano, que é o "tamanho do programa hoje" que a coordenação reconhece</td></tr>
+        <tr><td><strong>Which one enters the ratio</strong></td><td>Os <strong>ativos</strong>. O numerador (alunos com bolsa) também é fluxo do ano, e dividir fluxo por estoque superestimaria a cobertura justamente nos programas que titulam muito. As duas contagens aparecem no painel e no CSV</td></tr>
+        <tr><td><strong>Levels</strong></td><td>Mestrado e doutorado, cada um somando acadêmico e profissional nos <strong>dois</strong> lados da razão — separar de formas diferentes daria cobertura acima de 100% em programa profissional</td></tr>
+        <tr><td><strong>Time limit</strong></td><td>A razão termina em <strong>2024</strong>, último ano publicado do conjunto de discentes; a série de bolsas vai a 2025. O painel deixa o ano sem denominador em branco em vez de exibir zero</td></tr>
     </table>
 </div>
 
 <div class="card">
-    <h2>Resumo Consolidado</h2>
+    <h2>Consolidated summary</h2>
     <table>
-        <tr><th>Dataset</th><th>Fonte</th><th>Período</th><th>Licença</th></tr>
+        <tr><th>Dataset</th><th>Source</th><th>Period</th><th>Licence</th></tr>
         <tr><td>Docentes (3 quadriênios)</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
         <tr><td>Produção Intelectual por Autor</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
         <tr><td>Produção Intelectual Nomeada</td><td>CAPES Dados Abertos</td><td>2013-2024</td><td>Dados abertos governamentais</td></tr>
@@ -652,6 +641,11 @@ a{color:#2563EB;}
 <!-- VERSOES                                                     -->
 <!-- ════════════════════════════════════════════════════════════ -->
 <div class="section" id="sec-versoes">
+<div class="info-box" style="border-left-color:#F39C12;background:#FFF8E1;">
+    <strong>In Portuguese.</strong> This section is the version history and is
+    kept in the original language.
+</div>
+
 
 <div class="card">
     <h2>Histórico de Versões</h2>
