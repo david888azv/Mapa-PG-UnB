@@ -644,7 +644,7 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.8.2';
+const VERSION = '5.8.3';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -1658,6 +1658,30 @@ function getSubtipoLabel(subtipos) {
     return subtipos.map(s => SUBTIPO_LABELS[s] || s).join(', ');
 }
 
+// ── RÓTULOS DO RECORTE ────────────────────────────────────────
+// O filtro de REGIÃO agia em silêncio: não aparecia no cabeçalho do relatório,
+// no CSV, nos títulos dos gráficos nem no PNG exportado. Um recorte regional
+// (ex.: só o Sudeste, que exclui UFRGS, UFPE, UFC e UFPR, todas nota 7) passava
+// por comparação nacional depois de impresso — o leitor não tinha como saber.
+// O mesmo valia para o número de IES, que aparecia sem o total.
+const TOTAL_REGIOES = 5;
+function getRegiaoLabel(filters) {
+    const r = filters.regioes || [];
+    if (r.length === 0) return 'No region selected';
+    return r.length >= TOTAL_REGIOES ? 'All regions' : r.join(', ');
+}
+function getIESLabel(filters) {
+    const n = (filters.ies || []).length;
+    const tot = (DATA && DATA.ies_list) ? DATA.ies_list.length : n;
+    return n >= tot ? `all ${tot}` : `${n} of ${tot}`;
+}
+// Uma linha só, para carimbar gráfico e PNG com o recorte que os gerou.
+function getRecorteLabel(filters) {
+    const notas = filters.notas.length === 5 ? 'all grades' : 'grades ' + filters.notas.join(', ');
+    const quad = filters.quad === 'all' ? 'all cycles' : filters.quad;
+    return `${notas} · ${quad} · ${getRegiaoLabel(filters)} · institutions: ${getIESLabel(filters)}`;
+}
+
 function analisar() {
     if (!DATA) return;
     const filters = getFilters();
@@ -1861,10 +1885,12 @@ function analisar() {
     const quads = filters.quad === 'all' ? ['2013-2016', '2017-2020', '2021-2024'] : [filters.quad];
 
     html += `<div class="card"><h2>Comparison by four-year cycle — ${metricaLabel}</h2>
+        <p style="font-size:12px;color:var(--txt2);margin:-4px 0 8px;">Selection: ${getRecorteLabel(filters)}</p>
         <div class="chart-container"><canvas id="chartQuad"></canvas></div></div>`;
 
     // ── CHART 2: BY IES ──
     html += `<div class="card"><h2>Comparison by institution — ${metricaLabel}</h2>
+        <p style="font-size:12px;color:var(--txt2);margin:-4px 0 8px;">Selection: ${getRecorteLabel(filters)}</p>
         <div class="chart-container" style="height:${Math.max(400, totalProgs * 25)}px;">
         <canvas id="chartIES"></canvas></div></div>`;
 
@@ -1983,7 +2009,8 @@ function analisar() {
 
         dynList.sort((a, b) => b.avg - a.avg);
 
-        html += `<div class="card"><h2 class="unb">Output over time — year-by-year means per researcher (${metricaLabel})</h2>`;
+        html += `<div class="card"><h2 class="unb">Output over time — year-by-year means per researcher (${metricaLabel})</h2>
+        <p style="font-size:12px;color:var(--txt2);margin:-4px 0 8px;">Selection: ${getRecorteLabel(filters)}</p>`;
         html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Mean research output per researcher, year by year, for each selected programme. Hover over the points to see the grade, the number of researchers and the mean in that year. ${refSigla()} and the national mean are highlighted.${mIdxNote}</p>`;
 
         // Summary stats: overall averages
@@ -2164,7 +2191,7 @@ function renderRanking(scope, worst) {
     else                titulo = `TOP ${picks.length} nationwide — best rated programmes — ${CURRENT_AREA_NAME}`;
 
     const quadTxt = filters.quad === 'all' ? 'most recent cycle of each programme' : filters.quad;
-    const regTxt = filters.regioes.length === 5 ? 'all regions' : filters.regioes.join(', ');
+    const regTxt = getRegiaoLabel(filters);
     const notaTxt = 'all grades';
     const btn = (s, w, lbl) => `<button class="btn btn-sm" onclick="renderRanking('${s}',${w})" style="margin:0 4px 0 0;background:${(RANK_STATE.scope===s&&RANK_STATE.worst===w)?accent:'#ECEFF1'};color:${(RANK_STATE.scope===s&&RANK_STATE.worst===w)?'#fff':'#37474F'};">${lbl}</button>`;
 
@@ -2184,7 +2211,7 @@ function renderRanking(scope, worst) {
         </div>
         <p style="font-size:12px;color:var(--txt2);margin-bottom:6px;">
             ${picks.length} of ${pool.length} programme(s) in the selection · ordered by <strong>${metricaLabel}</strong> (${worst?'lowest first':'highest first'})
-            <br>Filters: ${notaTxt} · ${quadTxt} · ${regTxt}
+            <br>Filters: ${notaTxt} · ${quadTxt} · ${regTxt} · institutions: ${getIESLabel(filters)}
             ${(subtipos.length!==ALL_SUBTIPOS.length||estratos_if.length!==9)?'<br><span style="color:#E65100;">Type/stratum filters are on — the metric reflects the selection.</span>':''}
         </p>`;
 
@@ -2638,7 +2665,8 @@ function gerarRelatorio() {
     p(`    Metric: ${metricaLabel}`);
     p(`    Output types: ${getSubtipoLabel(subtipos)}`);
     p(`    CAPES strata: ${estratos_if.length === 9 ? 'All (A1-A8,C)' : estratos_if.join(', ')}`);
-    p(`    Institutions selected: ${filters.ies.length}`);
+    p(`    Region: ${getRegiaoLabel(filters)}`);
+    p(`    Institutions selected: ${getIESLabel(filters)}`);
     p('');
 
     // UnB summary
@@ -2795,7 +2823,9 @@ function exportarCSV() {
     });
 
     csv += `\n# MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleString('en-US')}\n`;
-    csv += `# Filtros: Tipos=${getSubtipoLabel(subtipos)} | Estratos IF=${estratos_if.join(',')}\n`;
+    csv += `# Filters: Grades=${filters.notas.join(',')} | Cycle=${filters.quad === 'all' ? 'All' : filters.quad} | ` +
+           `Region=${getRegiaoLabel(filters)} | Institutions=${getIESLabel(filters)} | ` +
+           `Types=${getSubtipoLabel(subtipos)} | IF strata=${estratos_if.join(',')}\n`;
     const name = nomeArquivo('export', 'csv');
     download(name, csv, 'text/csv;charset=utf-8');
     toast(`Exportado: ${name}`);
@@ -4090,12 +4120,15 @@ function exportPNG(canvasId) {
     if (!canvas) return;
     const w = canvas.width, h = canvas.height;
     const off = document.createElement('canvas');
-    off.width = w; off.height = h + 30;
+    // Mesmas duas linhas de rodapé de exportarPNGs(): assinatura e RECORTE.
+    off.width = w; off.height = h + 48;
     const ctx = off.getContext('2d');
     ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, off.width, off.height);
     ctx.drawImage(canvas, 0, 0);
     ctx.fillStyle = '#999'; ctx.font = '11px Arial'; ctx.textAlign = 'right';
-    ctx.fillText('MAPA-PG v' + VERSION + ' | Prof. David L. Azevedo | ' + new Date().toLocaleDateString('en-US'), w - 10, h + 18);
+    ctx.fillText('MAPA-PG v' + VERSION + ' | Prof. David L. Azevedo | ' + new Date().toLocaleDateString('en-US'), w - 10, h + 16);
+    ctx.textAlign = 'left';
+    ctx.fillText('Selection: ' + getRecorteLabel(getFilters()), 10, h + 34);
     off.toBlob(blob => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -4121,7 +4154,10 @@ function exportarPNGs() {
         const h = canvas.height;
         const offscreen = document.createElement('canvas');
         offscreen.width = w;
-        offscreen.height = h + 30; // extra space for watermark
+        // Duas linhas de rodapé: assinatura e RECORTE. O PNG sai da tela e circula
+        // sozinho em apresentação e memorando; sem o recorte, um gráfico de uma
+        // região passa por nacional.
+        offscreen.height = h + 48;
         const ctx = offscreen.getContext('2d');
 
         // White background
@@ -4135,7 +4171,9 @@ function exportarPNGs() {
         ctx.fillStyle = '#999999';
         ctx.font = '11px Arial';
         ctx.textAlign = 'right';
-        ctx.fillText(`MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleDateString('en-US')}`, w - 10, h + 18);
+        ctx.fillText(`MAPA-PG v${VERSION} | Prof. David L. Azevedo | ${now.toLocaleDateString('en-US')}`, w - 10, h + 16);
+        ctx.textAlign = 'left';
+        ctx.fillText(`Selection: ${getRecorteLabel(getFilters())}`, 10, h + 34);
 
         offscreen.toBlob(blob => {
             if (!blob) { toast('Erro ao gerar PNG.'); return; }
