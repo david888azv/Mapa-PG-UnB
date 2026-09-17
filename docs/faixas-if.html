@@ -1706,6 +1706,7 @@ function gerarRelatorio() {
     p(`    Métrica: ${metricaLabel}`);
     p(`    Tipos de Produção: ${getSubtipoLabel(subtipos)}`);
     p(`    Estratos IF: ${estratos_if.length === 3 ? 'Todos' : estratos_if.map(e => ({lo:'Baixo',mi:'Médio',hi:'Alto'}[e])).join(', ')}`);
+    p(`    Região: ${filters.regioes.length >= 5 ? 'Todas as regiões' : (filters.regioes.length ? filters.regioes.join(', ') : 'Nenhuma região selecionada')}`);
     p(`    IES selecionadas: ${filters.ies.length}`);
     p('');
 

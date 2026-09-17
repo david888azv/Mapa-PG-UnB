@@ -1,5 +1,40 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.3 — O filtro de região passa a aparecer no que sai do app (2026-09-17)
+
+O filtro **Região** agia em silêncio. Ele entra em `filterData()` desde sempre, mas não era
+declarado em nenhuma saída: o cabeçalho "FILTROS APLICADOS" do relatório listava notas,
+quadriênio, métrica, tipos, estratos e o número de IES — e não a região. Um relatório gerado
+com apenas o Sudeste marcado dizia "IES selecionadas: 59" e parecia nacional depois de
+impresso, embora tivesse deixado de fora 14 programas de nota 5 a 7 da área de
+Astronomia/Física, entre eles UFRGS, UFPE, UFC e UFPR, todos nota 7. Relatado a partir de um
+relatório real, em que a "média dos selecionados" mudava de 2,13 para 2,47 conforme a região.
+
+Agora a região é carimbada em tudo o que deixa a tela:
+
+- **relatório TXT**: linha `Região:` no cabeçalho, e `IES selecionadas: 21 de 59` em vez do
+  número solto, que não dizia de quantas;
+- **CSV**: o rodapé de filtros trazia só tipos e estratos; passa a trazer notas, quadriênio,
+  região e IES;
+- **gráficos**: os três cartões (por quadriênio, por IES e produção dinâmica) ganham, sob o
+  título, a linha `Recorte:` com notas, quadriênio, região e IES — o painel TOP/Ranking já
+  tinha a região e agora também declara as IES;
+- **PNG exportado**: a marca d'água ganha uma segunda linha com o mesmo recorte. O PNG é o que
+  mais circula sozinho, colado em apresentação e memorando, e era o que menos se explicava.
+
+A página de faixas de IF (`faixas-if.html`, legada, só em português) recebe a mesma linha de
+região no cabeçalho do relatório.
+
+Nada muda no cálculo: os números já respeitavam a região. O que muda é que agora dá para saber
+qual recorte gerou o número.
+
+Coberto por `build/teste_regiao_nas_saidas.py` (15 checagens em Chromium, sobre o mesmo recorte
+do relatório que originou o achado: 21 programas, média 2,13). De passagem, os testes deixam de
+reprovar por causa do beacon de analytics da Cloudflare, bloqueado por CORS em localhost — eram
+5 falsas falhas por execução em `build/teste_visual.py`, que agora fecha 78 de 78.
+
+Service Worker em `mapa-pg-v5.8.3`; `shell_version` do manifest acompanha; `docs/en/` regerado.
+
 ## v5.8.2 — O painel lateral rola até o fim, e seleção rápida de IES (2026-09-17)
 
 A barra lateral tinha altura fixa de `calc(100vh - 56px)`, mas o cabeçalho real, a faixa

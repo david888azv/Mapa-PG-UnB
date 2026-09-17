@@ -33,7 +33,12 @@ with sync_playwright() as pw:
     br = pw.chromium.launch()
     page = br.new_page(viewport={'width': 1440, 'height': 1000})
     erros = []
-    page.on('console', lambda m: erros.append(m.text) if m.type == 'error' else None)
+    # O beacon de analytics da Cloudflare e bloqueado por CORS em localhost: e ruido
+    # do ambiente de teste, nao do app, e reprovava 5 checagens em toda execucao.
+    def _relevante(t):
+        return 'cloudflareinsights' not in t and 'ERR_FAILED' not in t
+    page.on('console', lambda m: erros.append(m.text)
+            if m.type == 'error' and _relevante(m.text) else None)
     page.on('pageerror', lambda e: erros.append('PAGEERROR: %s' % e))
 
     print('\n=== 0. versoes sincronizadas ===', flush=True)
@@ -247,7 +252,8 @@ with sync_playwright() as pw:
     print('\n=== 7. seletor de instituicao com busca ===', flush=True)
     p2 = br.new_page(viewport={'width': 1440, 'height': 1000})
     erros2 = []
-    p2.on('console', lambda m: erros2.append(m.text) if m.type == 'error' else None)
+    p2.on('console', lambda m: erros2.append(m.text)
+              if m.type == 'error' and _relevante(m.text) else None)
     p2.on('pageerror', lambda e: erros2.append('PAGEERROR: %s' % e))
     p2.goto('http://127.0.0.1:8765/index.html', wait_until='networkidle', timeout=60000)
     p2.wait_for_timeout(1200)
@@ -313,7 +319,8 @@ with sync_playwright() as pw:
     # leu, com razao, como "a UFG nao esta na plataforma".
     p3 = br.new_page()
     erros3 = []
-    p3.on('console', lambda m: erros3.append(m.text) if m.type == 'error' else None)
+    p3.on('console', lambda m: erros3.append(m.text)
+              if m.type == 'error' and _relevante(m.text) else None)
     p3.on('pageerror', lambda e: erros3.append(str(e)))
     p3.goto(BASE.replace('ies=UNB&area=quimica', 'ies=UFG'), wait_until='networkidle', timeout=60000)
     p3.click('#licenseOverlay button')
@@ -374,7 +381,8 @@ with sync_playwright() as pw:
     # programa avaliado. Procurar pelo nome não achava nada.
     p4 = br.new_page()
     erros4 = []
-    p4.on('console', lambda m: erros4.append(m.text) if m.type == 'error' else None)
+    p4.on('console', lambda m: erros4.append(m.text)
+              if m.type == 'error' and _relevante(m.text) else None)
     p4.on('pageerror', lambda e: erros4.append(str(e)))
     p4.goto(BASE.replace('ies=UNB&area=quimica', 'ies=IBC'), wait_until='networkidle', timeout=60000)
     p4.click('#licenseOverlay button')
@@ -407,7 +415,8 @@ with sync_playwright() as pw:
     # ao longo dos anos. Camada dados/bol-<area>.json, carregada sob demanda.
     p5 = br.new_page()
     erros5 = []
-    p5.on('console', lambda m: erros5.append(m.text) if m.type == 'error' else None)
+    p5.on('console', lambda m: erros5.append(m.text)
+              if m.type == 'error' and _relevante(m.text) else None)
     p5.on('pageerror', lambda e: erros5.append(str(e)))
     p5.goto(BASE, wait_until='networkidle', timeout=60000)   # UNB + quimica
     p5.click('#licenseOverlay button')
