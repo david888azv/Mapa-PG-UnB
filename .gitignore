@@ -47,3 +47,7 @@ _backup_*/
 # Capturas de tela do teste_visual.py — artefato de execução, não fonte.
 # Entraram por engano no commit 079eae0 (git add -A) e saíram na sequência.
 build/shot_*.png
+
+# Estado local dos vigias de dados abertos (build/vigia_capes_dados.py)
+build/vigia_capes_estado.json
+build/vigia_capes.log
