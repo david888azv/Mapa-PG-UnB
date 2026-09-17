@@ -1,5 +1,23 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.4 — O mês da versão deixa de ser escrito à mão (2026-09-17)
+
+A tela de abertura mostrava **"v5.8.3 — Julho 2026"**. A versão vinha de `${VERSION}` e
+acompanhava cada release; o mês ao lado dela era texto fixo, escrito à mão na v5.5 e nunca mais
+tocado — três versões depois, anunciava julho. Relatado pelo usuário.
+
+A página passa a guardar só a data ISO da versão (`VERSION_DATA`) e a formatar o mês pelo
+locale (`LOCALE_APP`), de modo que português e inglês saem do mesmo campo e a tradução não
+precisa mais de uma entrada por release. Quem preenche esse campo é
+`build/selar_versao_data.py`, que lê a data do cabeçalho da versão no **CHANGELOG** — a fonte
+única passa a ser este arquivo. Com `--conferir`, o script falha se a página ficar defasada, e
+`build/teste_visual.py` confere o rótulo no navegador.
+
+A data de coleta do Scopus ("3 jul 2026", no mesmo modal) **não** mudou: é quando o CiteScore
+foi obtido, não quando o app foi publicado.
+
+Service Worker em `mapa-pg-v5.8.4`; `shell_version` do manifest acompanha; `docs/en/` regerado.
+
 ## v5.8.3 — O filtro de região passa a aparecer no que sai do app (2026-09-17)
 
 O filtro **Região** agia em silêncio. Ele entra em `filterData()` desde sempre, mas não era
