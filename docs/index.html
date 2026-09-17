@@ -198,6 +198,17 @@ tr:hover { background: #EEF2F7; }
 .status-bar { background: var(--azul3); color: #aaa; padding: 4px 24px; font-size: 11px;
     display: flex; justify-content: space-between; }
 
+/* Desktop: página em coluna com a altura exata da janela. O painel lateral e o
+   conteúdo rolam dentro da sobra real, em vez de calc(100vh - 56px), que ignorava a
+   altura verdadeira do cabeçalho e a barra de status — até a v5.8.1 o fim do painel,
+   com a segunda cópia do botão "Sugerir melhoria", ficava abaixo da borda da janela. */
+@media (min-width: 901px) {
+    body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+    .header, .status-bar { flex: 0 0 auto; }
+    .container { flex: 1 1 auto; min-height: 0; }
+    .sidebar, .main { max-height: none; }
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .container { flex-direction: column; }
@@ -246,7 +257,7 @@ tr:hover { background: #EEF2F7; }
         <div>Prof. David L. Azevedo</div>
         <div id="headerArea" style="font-weight:700;color:var(--accent2);">—</div>
         <div id="headerDate"></div>
-        <div id="headerVersion">v5.8.1</div>
+        <div id="headerVersion">v5.8.2</div>
     </div>
 </div>
 
@@ -342,6 +353,10 @@ tr:hover { background: #EEF2F7; }
 
         <div class="filter-group">
             <h3>Instituições (IES)</h3>
+            <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <button class="btn btn-sm btn-primary" onclick="toggleIES(true)" style="flex:1;margin:0;">Todas</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleIES(false)" style="flex:1;margin:0;">Nenhuma</button>
+            </div>
             <label><input type="checkbox" id="chkAllIES" checked> <strong>Todas as IES</strong></label>
             <div class="ies-container" id="iesContainer"></div>
         </div>
@@ -625,7 +640,7 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.8.1';
+const VERSION = '5.8.2';
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -1418,6 +1433,14 @@ function initUI() {
 // ══════════════════════════════════════════════════════════════════
 // ANALYSIS
 // ══════════════════════════════════════════════════════════════════
+// Botões Todas/Nenhuma das IES (mesmo padrão de Região): marcar só uma instituição
+// passa a ser "Nenhuma" + um clique. A caixa "Todas as IES" acompanha.
+function toggleIES(on) {
+    document.querySelectorAll('.ies-chk').forEach(cb => cb.checked = on);
+    const m = document.getElementById('chkAllIES'); if (m) m.checked = on;
+    analisar();
+}
+
 function toggleRegioes(state) {
     document.querySelectorAll('.reg-chk').forEach(cb => cb.checked = state);
     analisar();   // faltava, como em toggleSubtipos: marcava as caixas sem redesenhar

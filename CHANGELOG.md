@@ -1,5 +1,29 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.2 — O painel lateral rola até o fim, e seleção rápida de IES (2026-09-17)
+
+A barra lateral tinha altura fixa de `calc(100vh - 56px)`, mas o cabeçalho real, a faixa
+de novidades e a barra de status ocupam bem mais que 56 px. Resultado: mesmo rolada até o
+fim, a parte de baixo do painel — com a cópia do botão **"💡 Sugerir melhoria"** —
+ficava **76 a 92 px abaixo da borda da janela**, medido em 1280×650, 1366×768, 1400×900 e
+1920×1080, no painel principal e na página de faixas de IF. No desktop a página passa a
+ser uma coluna com a altura exata da janela, e o painel e o conteúdo rolam dentro da
+sobra real; no celular nada muda.
+
+O filtro **Instituições (IES)** ganha os botões **Todas / Nenhuma**, no padrão do filtro
+de Região: isolar uma instituição passa a ser "Nenhuma" + um clique. A caixa "Todas as
+IES" continua e acompanha os botões.
+
+Conferido junto, a pedido, por analogia com as correções do MAPA-GR v2.9.1: o MAPA-PG não
+tem busca por texto que ignore filtros nem filtro de sigla por "contém" sobre os dados
+(a busca por "contém" existe só no seletor da instituição de referência, onde lista
+candidatos para escolha). O relatório e a exportação usam o mesmo `filterData()` da
+tela. O único filtro não aplicado de propósito é o de **nota** no **Ranking**, que
+ranqueia todas as notas para não esconder os programas 6 e 7 — e isso já aparece escrito
+na tela ("Filtros: todas as notas").
+
+Service Worker em `mapa-pg-v5.8.2`; `shell_version` do manifest acompanha.
+
 ## v5.8.1 — O botão de sugestões passa a ficar visível (2026-08-19)
 
 O botão **"💡 Sugerir melhoria"** existia desde a v5.5.0, mas no rodapé da barra

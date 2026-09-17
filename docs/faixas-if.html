@@ -179,6 +179,17 @@ tr:hover { background: #EEF2F7; }
 .status-bar { background: var(--azul3); color: #aaa; padding: 4px 24px; font-size: 11px;
     display: flex; justify-content: space-between; }
 
+/* Desktop: página em coluna com a altura exata da janela. O painel lateral e o
+   conteúdo rolam dentro da sobra real, em vez de calc(100vh - 56px), que ignorava a
+   altura verdadeira do cabeçalho e a barra de status — até a v5.8.1 o fim do painel,
+   com a segunda cópia do botão "Sugerir melhoria", ficava abaixo da borda da janela. */
+@media (min-width: 901px) {
+    body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+    .header, .status-bar { flex: 0 0 auto; }
+    .container { flex: 1 1 auto; min-height: 0; }
+    .sidebar, .main { max-height: none; }
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .container { flex-direction: column; }
