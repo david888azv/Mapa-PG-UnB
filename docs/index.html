@@ -640,7 +640,19 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.8.3';
+const VERSION = '5.8.4';
+// Data da versão, em ISO, sempre igual à do cabeçalho desta versão no CHANGELOG.
+// Quem a mantém em dia é build/selar_versao_data.py, que a lê de lá — o mês na tela
+// de abertura era escrito à mão ao lado de `${VERSION}` e ficou em "Julho 2026"
+// enquanto a versão avançou sozinha até a 5.8.3.
+const VERSION_DATA = '2026-09-17';
+// O idioma do rótulo é a única coisa que muda entre docs/ e docs/en/.
+const LOCALE_APP = 'pt-BR';
+function versaoDataLabel() {
+    const d = new Date(VERSION_DATA + 'T12:00:00');
+    const s = d.toLocaleDateString(LOCALE_APP, { month: 'long', year: 'numeric' });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
 // ── IFES de REFERÊNCIA (destaque em vermelho). Padrão UnB; o usuário escolhe
 //    uma das 27 (26 UF + UnB) na tela pós-consentimento ou via ?ies=SIGLA. ──
 let REF = 'UNB';                    // sigla canônica da IFES de referência
@@ -1224,7 +1236,7 @@ function showLicenseModal() {
     overlay.innerHTML = `<div style="background:#fff;border-radius:12px;padding:32px;max-width:620px;width:92%;box-shadow:0 8px 32px rgba(0,0,0,.4);text-align:center;max-height:90vh;overflow-y:auto;">
         <h2 style="color:#0F244A;margin-bottom:4px;font-size:22px;font-weight:800;letter-spacing:1px;">MAPA-PG</h2>
         <p style="color:#555;font-size:12px;margin-bottom:12px;line-height:1.4;">Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>
-        <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — Julho 2026</p>
+        <p style="color:#2C3E50;font-size:13px;margin-bottom:4px;">v${VERSION} — ${versaoDataLabel()}</p>
         <p style="color:#E91E63;font-weight:700;font-size:14px;margin-bottom:2px;">Prof. Titular David Lima Azevedo</p>
         <p style="color:#555;font-size:11px;margin-bottom:8px;line-height:1.5;">Grupo de Dinâmica e Ab Initio (GDAI) · Núcleo de Estrutura da Matéria · Instituto de Física — UnB<br>
             <a href="https://orcid.org/0000-0002-3456-554X" target="_blank" style="color:#1565C0;">ORCID</a> ·

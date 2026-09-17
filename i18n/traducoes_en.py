@@ -211,7 +211,8 @@ INDEX += [
     # ------------------------------------------------- modal de licenca
     ("Monitoramento e Analise de Producao Academica da Pos-Graduacao</p>",
      "Monitoring and Analysis of Graduate Research Output</p>"),
-    ("v${VERSION} — Julho 2026</p>", "v${VERSION} — July 2026</p>"),
+    # O mes da versao nao se traduz mais: sai de VERSION_DATA pelo locale da pagina.
+    ("const LOCALE_APP = 'pt-BR';", "const LOCALE_APP = 'en-GB';"),
     ("Prof. Titular David Lima Azevedo</p>", "Prof. David Lima Azevedo, Full Professor</p>"),
     ("Grupo de Dinâmica e Ab Initio (GDAI) · Núcleo de Estrutura da Matéria · Instituto de "
      "Física — UnB<br>",

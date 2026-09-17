@@ -65,6 +65,23 @@ with sync_playwright() as pw:
     ok(vs['header'].strip() == 'v' + vs['app'],
        'cabecalho mostra a mesma versao (%r)' % vs['header'])
 
+    # O mes na tela de abertura era texto fixo e ficou 3 versoes atras ("Julho 2026"
+    # com a v5.8.3 no ar). Agora sai de VERSION_DATA, sob a data do CHANGELOG.
+    import re as _re
+    _ch = open(os.path.join(os.path.dirname(OUT), 'CHANGELOG.md'), encoding='utf-8').read()
+    _m = _re.search(r'^## v%s\b.*?\((\d{4}-\d{2}-\d{2})\)\s*$' % _re.escape(vs['app']),
+                    _ch, flags=_re.M)
+    _data_pagina = page.evaluate("() => VERSION_DATA")
+    ok(_m and _m.group(1) == _data_pagina,
+       'VERSION_DATA == data da versao no CHANGELOG (%s vs %s)'
+       % (_data_pagina, _m.group(1) if _m else 'sem cabecalho'))
+    _rotulo = page.evaluate("() => versaoDataLabel()")
+    _esperado = {'01': 'Janeiro', '02': 'Fevereiro', '03': 'Março', '04': 'Abril',
+                 '05': 'Maio', '06': 'Junho', '07': 'Julho', '08': 'Agosto',
+                 '09': 'Setembro', '10': 'Outubro', '11': 'Novembro',
+                 '12': 'Dezembro'}[_data_pagina[5:7]] + ' de ' + _data_pagina[:4]
+    ok(_rotulo == _esperado, 'a tela de abertura mostra o mes certo (%r)' % _rotulo)
+
     # o filtro "Categoria de Docente" foi REMOVIDO em v5.4.1: coletava `categorias`
     # e nada lia. As categorias nao sao particao (soma excede n_doc em 65% dos
     # registros), entao nao havia como implementa-lo certo com os dados servidos.
