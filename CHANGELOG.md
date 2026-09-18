@@ -1,5 +1,20 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.5 — Some o último número de versão escrito à mão (2026-09-17)
+
+Continuação da v5.8.4. O cabeçalho da página trazia `<div id="headerVersion">v5.8.2</div>` no
+HTML estático, e o JavaScript o sobrescreve na carga com `${VERSION}` — então ninguém via o
+número velho, mas ele estava lá, duas versões atrás. Quem esbarrou nele foi o build da versão
+offline, que ancora nesse trecho para trocar o rótulo por `v<versão>-offline` e parou com
+"ÂNCORA 'headerVersion' encontrada 0x".
+
+O `div` passa a nascer vazio, com o comentário explicando quem o preenche, e
+`mapa-pg-offline/build_offline.py` passa a ancorar por expressão regular, tolerante ao conteúdo.
+Não há mais nenhum número de versão escrito à mão nas páginas: os dois que havia (o mês da tela
+de abertura e este) saem agora de `VERSION`/`VERSION_DATA`.
+
+Service Worker em `mapa-pg-v5.8.5`; `shell_version` do manifest acompanha; `docs/en/` regerado.
+
 ## v5.8.4 — O mês da versão deixa de ser escrito à mão (2026-09-17)
 
 A tela de abertura mostrava **"v5.8.3 — Julho 2026"**. A versão vinha de `${VERSION}` e
