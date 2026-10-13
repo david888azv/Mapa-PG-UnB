@@ -646,12 +646,12 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.8.6';
+const VERSION = '5.8.7';
 // Data da versão, em ISO, sempre igual à do cabeçalho desta versão no CHANGELOG.
 // Quem a mantém em dia é build/selar_versao_data.py, que a lê de lá — o mês na tela
 // de abertura era escrito à mão ao lado de `${VERSION}` e ficou em "Julho 2026"
 // enquanto a versão avançou sozinha até a 5.8.3.
-const VERSION_DATA = '2026-09-18';
+const VERSION_DATA = '2026-10-13';
 // O idioma do rótulo é a única coisa que muda entre docs/ e docs/en/.
 const LOCALE_APP = 'en-GB';
 function versaoDataLabel() {
@@ -1590,15 +1590,15 @@ function getEffectiveMetric(d, metrica, subtipos, estratos_if) {
 
     // NÃO existe fast path para as métricas ma_* (as que dependem de subtipo).
     // Havia um: `if (allSubsSelected && allIFSelected) return d[metrica]`, que devolvia
-    // o campo pré-computado — e o campo pré-computado NÃO é a soma dos 5 subtipos
-    // rastreados. `gerar_dados_completos.py` calcula ma_* sem filtro de subtipo, sobre
-    // os 15 subtipos que a CAPES publica (artigo, resumo, congresso, capítulo, jornal,
-    // e mais 10 que o prod_sub não guarda e o filtro não mostra). Resultado: marcar os
-    // 5 tipos dava um valor MAIOR do que a soma deles. No PPGDIP/UFRJ: 10,22 com os 5
-    // marcados (= 654 eventos de 15 subtipos) contra 7,72 (= 494, a soma real dos 5) —
-    // e desmarcar "Texto em Jornal", 5 eventos de 654, derrubava o número para 7,64,
-    // porque trocava de caminho de cálculo. O padrão do app (só Artigo em Periódico)
-    // nunca passou por aqui e sempre esteve correto.
+    // o campo pré-computado — e o campo pré-computado NÃO era a soma dos 5 subtipos
+    // rastreados: até a v5.8.6 `gerar_dados_completos.py` calculava ma_* sem filtro de
+    // subtipo, sobre toda a produção que a CAPES publica (artigo, resumo, congresso,
+    // capítulo, jornal e mais uma dezena que o prod_sub não guarda). Marcar os 5 tipos
+    // dava um valor MAIOR do que a soma deles. No PPGDIP/UFRJ: 10,22 com os 5 marcados
+    // contra 7,72 (a soma real dos 5). Desde a v5.8.7 o campo pré-computado ma_* (e
+    // prod_ano) conta SÓ Artigo em Periódico — igual a prod_sub['25'] / ad_* em todos
+    // os 13.265 registros —, mas o caminho continua sendo prod_sub, que respeita o
+    // filtro de tipo. O padrão do app (só Artigo em Periódico) sempre esteve correto.
     // Computar sempre de prod_sub custa um laço de 5 posições por registro.
     // DENOMINADOR = ANOS-DOCENTE (ad_*), não headcount × 4. A união dos rosters do
     // quadriênio tratava quem entrou no último ano como presente nos quatro; o fator
@@ -1970,6 +1970,8 @@ function analisar() {
                : filters.quad === '2017-2020' ? ['2017','2018','2019','2020']
                : ['2021','2022','2023','2024']);
         const mIdx = {'ma_pq': 0, 'ma_spq': 1, 'ma_all': 2}[metrica] ?? 2;
+        // prod_ano é só Artigo em Periódico (v5.8.7); avisa quando o filtro de tipo diz outra coisa
+        const allSubsArtigo = subtipos.length === 1 && subtipos[0] === '25';
         const nYrs = DYN_YEARS.length;
         const yrsLabel = nYrs === 12 ? '12 years' : `${nYrs} years`;
         const mIdxNote = (metrica !== 'ma_all' && metrica !== 'ma_pq' && metrica !== 'ma_spq')
@@ -2025,7 +2027,7 @@ function analisar() {
 
         html += `<div class="card"><h2 class="unb">Output over time — year-by-year means per researcher (${metricaLabel})</h2>
         <p style="font-size:12px;color:var(--txt2);margin:-4px 0 8px;">Selection: ${getRecorteLabel(filters)}</p>`;
-        html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Mean research output per researcher, year by year, for each selected programme. Hover over the points to see the grade, the number of researchers and the mean in that year. ${refSigla()} and the national mean are highlighted.${mIdxNote}</p>`;
+        html += `<p style="font-size:11px;color:#7F8C8D;margin-bottom:12px;">Journal articles per researcher, year by year, for each selected programme. Hover over the points to see the grade, the number of researchers and the mean in that year. ${refSigla()} and the national mean are highlighted.${mIdxNote}${(allSubsArtigo && allIFSelected) ? '' : '<br><em style="color:var(--laranja);">Note: the year-by-year series counts every journal article, the only type collected in all 12 years, across all strata; the type and stratum filters do not apply to it.</em>'}</p>`;
 
         // Summary stats: overall averages
         html += `<div class="stats-row">
@@ -2777,6 +2779,8 @@ function gerarRelatorio() {
     window._lastReport = reportText;
     window._lastReportName = nomeArquivo('report', '');  // sem extensão; download anexa .txt/.csv
     window._lastFiltered = allRows;
+    // O CSV precisa dos MESMOS filtros do texto: lia d.ma_* crus e ignorava tipo e estrato.
+    window._lastFiltros = { subtipos, estratos_if };
 
     toast('Relatório gerado!');
 }
@@ -2790,9 +2794,14 @@ function downloadReportCSV() {
     if (!window._lastFiltered) return;
     const rows = window._lastFiltered;
     let csv = 'IES;Programa;UF;Nota;Quadrienio;Doc;PQ;%PQ;Art_a_PQ;Art_a_sPQ;Art_a_Ger;Razao;' + refSigla() + '\n';
+    const { subtipos, estratos_if } = window._lastFiltros || { subtipos: ['25'], estratos_if: ORDEM_ESTR };
     rows.forEach(d => {
+        const ePQ = getEffectiveMetric(d, 'ma_pq', subtipos, estratos_if);
+        const eSPQ = getEffectiveMetric(d, 'ma_spq', subtipos, estratos_if);
+        const eAll = getEffectiveMetric(d, 'ma_all', subtipos, estratos_if);
+        const razao = eSPQ > 0 ? (ePQ / eSPQ).toFixed(2) : 0;
         csv += `${d.sigla};${d.programa};${d.uf};${d.nota};${d.quad};${d.n_doc};${d.n_pq};${d.pct_pq};` +
-               `${d.ma_pq};${d.ma_spq};${d.ma_all};${d.razao};${d.is_unb ? 'SIM' : 'NAO'}\n`;
+               `${ePQ.toFixed(2)};${eSPQ.toFixed(2)};${eAll.toFixed(2)};${razao};${d.is_unb ? 'SIM' : 'NAO'}\n`;
     });
     download(window._lastReportName + '.csv', csv, 'text/csv');
 }
