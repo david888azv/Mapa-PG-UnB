@@ -1,5 +1,22 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.6 — O aviso do topo dizia "fator de impacto"; a régua é o CiteScore (2026-09-18)
+
+A tarja amarela do topo anunciava a estratificação A1–A8/C "por percentil de **fator de
+impacto**". A régua dos estratos é o **CiteScore do Scopus** — a fonte que a Ficha de Avaliação
+2025–2028 prescreve. Confere nos dados: `metadata.estratos.base` é `cs`, e os vetores `estr_*`
+servidos ao app são idênticos aos `estr_*_cs` em todos os registros da área (193/193 em
+Astronomia/Física), e não aos `estr_*_oa`.
+
+O nome errado não era só impreciso, era ambíguo dentro da própria tela: "Fator de Impacto Médio
+(OpenAlex 2yr)" é uma opção do seletor de métrica, com outro indicador, outra base e outro
+comportamento sob filtro de estrato. O mesmo rótulo apontava para duas coisas diferentes.
+
+O aviso passa a dizer "por percentil de **CiteScore (Scopus)**". Nenhum cálculo mudou — só o
+rótulo. A tabela `i18n/traducoes_en.py` acompanhou nos dois lados.
+
+Service Worker em `mapa-pg-v5.8.6`; `shell_version` do manifest acompanha; `docs/en/` regerado.
+
 ## v5.8.5 — Some o último número de versão escrito à mão (2026-09-17)
 
 Continuação da v5.8.4. O cabeçalho da página trazia `<div id="headerVersion">v5.8.2</div>` no

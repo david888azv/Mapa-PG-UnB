@@ -32,10 +32,13 @@ INDEX = [
     ("<h1><span>MAPA-PG</span> — Monitoramento e Análise de Produção Acadêmica da "
      "Pós-Graduação</h1>",
      "<h1><span>MAPA-PG</span> — Monitoring and Analysis of Graduate Research Output</h1>"),
+    # "fator de impacto" aqui era impreciso e colidia com a métrica `avg_if` do
+    # seletor, que é o IF de 2 anos do OpenAlex: a régua dos estratos é o
+    # CiteScore do Scopus, a fonte que a CAPES prescreve para 2025-2028.
     ("<strong>Novo:</strong> estratificação CAPES <strong>A1–A8/C</strong> (Ficha de Avaliação "
-     "2025–2028) por percentil de fator de impacto.",
+     "2025–2028) por percentil de CiteScore (Scopus).",
      "<strong>New:</strong> CAPES <strong>A1–A8/C</strong> stratification (2025–2028 assessment "
-     "rules) by impact-factor percentile."),
+     "rules) by CiteScore (Scopus) percentile."),
 
     # ------------------------------------------------------- seletor de programa
     ('<h3 id="refHead" style="color:var(--accent);">Selecionar Programa</h3>',
@@ -137,15 +140,15 @@ INDEX = [
      'onclick="toggleEstratos(false)" style="flex:1;margin:0;">None</button>'),
     ('onchange="toggleEstratos(this.checked)"> <strong>Todos os estratos</strong></label>',
      'onchange="toggleEstratos(this.checked)"> <strong>All strata</strong></label>'),
-    ('<span id="lblC">C · sem indicador de IF</span>',
-     '<span id="lblC">C · no impact indicator</span>'),
-    ("Estrato = percentil do fator de impacto do periódico <strong>dentro da área</strong>\n"
-     "                (A1 = topo 12,5%; C = sem indicador de IF). Afeta <strong>ma_all, ma_perm, "
+    ('<span id="lblC">C · sem indicador</span>',
+     '<span id="lblC">C · no indicator</span>'),
+    ("Estrato = percentil do CiteScore (Scopus) do periódico <strong>dentro da área</strong>\n"
+     "                (A1 = topo 12,5%; C = sem indicador). Afeta <strong>ma_all, ma_perm, "
      "ma_colab,\n                ma_visit</strong> (passam a contar só artigos nos estratos "
      "marcados). <strong>ma_pq,\n                ma_spq, avg_if</strong> e contagens por tipo de "
      "produção mantêm os valores agregados.",
-     "Stratum = the journal's impact-factor percentile <strong>within the field</strong>\n"
-     "                (A1 = top 12.5%; C = no impact indicator). It affects <strong>ma_all, "
+     "Stratum = the journal's CiteScore (Scopus) percentile <strong>within the field</strong>\n"
+     "                (A1 = top 12.5%; C = no indicator). It affects <strong>ma_all, "
      "ma_perm, ma_colab,\n                ma_visit</strong> (which then count only articles in "
      "the ticked strata). <strong>ma_pq,\n                ma_spq, avg_if</strong> and the counts "
      "by output type keep their aggregate values."),
@@ -446,7 +449,11 @@ INDEX += [
     ("n === 1 ? 'Ver gráficos →' : '← Ver detalhamento numérico'",
      "n === 1 ? 'See charts →' : '← Back to the numbers'"),
     ('<div class="sep">Artigos por Estrato CAPES (A1 = topo \\u00b7 C = sem IF)</div>',
-     '<div class="sep">Articles by CAPES stratum (A1 = top \\u00b7 C = no impact indicator)</div>'),
+     '<div class="sep">Articles by CAPES stratum (A1 = top \\u00b7 C = no indicator)</div>'),
+    ('<p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo \u00b7 '
+     'C = sem indicador). ${refSigla()} destacada com \u2605.</p>',
+     '<p class="note">Each programme has 9 bars, one per CAPES stratum (A1 = top \u00b7 '
+     'C = no indicator). ${refSigla()} marked with \u2605.</p>'),
     ("Base do indicador: <strong>${IF_BASE_LABEL[IF_BASE]}</strong> — ${(EST.fonte) || "
      "'estratos por percentil dentro da área'}",
      "Indicator base: <strong>${IF_BASE_LABEL[IF_BASE]}</strong> — ${(EST.fonte) || "

@@ -264,7 +264,7 @@ tr:hover { background: #EEF2F7; }
 </div>
 
 <div style="background:#FFF8E1;border-bottom:1px solid #FFE082;padding:6px 16px;font-size:12px;color:#5D4037;text-align:center;">
-    <strong>Novo:</strong> estratificação CAPES <strong>A1–A8/C</strong> (Ficha de Avaliação 2025–2028) por percentil de fator de impacto.
+    <strong>Novo:</strong> estratificação CAPES <strong>A1–A8/C</strong> (Ficha de Avaliação 2025–2028) por percentil de CiteScore (Scopus).
 </div>
 
 <div class="container">
@@ -394,10 +394,10 @@ tr:hover { background: #EEF2F7; }
             <label><input type="checkbox" class="estr-chk" value="A6" checked onchange="analisar()"> <span id="lblA6">A6</span></label>
             <label><input type="checkbox" class="estr-chk" value="A7" checked onchange="analisar()"> <span id="lblA7">A7</span></label>
             <label><input type="checkbox" class="estr-chk" value="A8" checked onchange="analisar()"> <span id="lblA8">A8</span></label>
-            <label><input type="checkbox" class="estr-chk" value="C" checked onchange="analisar()"> <span id="lblC">C · sem indicador de IF</span></label>
+            <label><input type="checkbox" class="estr-chk" value="C" checked onchange="analisar()"> <span id="lblC">C · sem indicador</span></label>
             <p style="font-size:10px;color:var(--txt2);margin-top:4px;line-height:1.3;">
-                Estrato = percentil do fator de impacto do periódico <strong>dentro da área</strong>
-                (A1 = topo 12,5%; C = sem indicador de IF). Afeta <strong>ma_all, ma_perm, ma_colab,
+                Estrato = percentil do CiteScore (Scopus) do periódico <strong>dentro da área</strong>
+                (A1 = topo 12,5%; C = sem indicador). Afeta <strong>ma_all, ma_perm, ma_colab,
                 ma_visit</strong> (passam a contar só artigos nos estratos marcados). <strong>ma_pq,
                 ma_spq, avg_if</strong> e contagens por tipo de produção mantêm os valores agregados.
             </p>
@@ -642,12 +642,12 @@ let CURRENT_AREA_NAME = '';   // nome da área CAPES (display)
 // alcançava Geociências de jeito nenhum, embora a base seja nacional e a área
 // tenha 58 programas. Ligado, este modo abre as 49 áreas da CAPES.
 let TODAS_AREAS = false;
-const VERSION = '5.8.5';
+const VERSION = '5.8.6';
 // Data da versão, em ISO, sempre igual à do cabeçalho desta versão no CHANGELOG.
 // Quem a mantém em dia é build/selar_versao_data.py, que a lê de lá — o mês na tela
 // de abertura era escrito à mão ao lado de `${VERSION}` e ficou em "Julho 2026"
 // enquanto a versão avançou sozinha até a 5.8.3.
-const VERSION_DATA = '2026-09-17';
+const VERSION_DATA = '2026-09-18';
 // O idioma do rótulo é a única coisa que muda entre docs/ e docs/en/.
 const LOCALE_APP = 'pt-BR';
 function versaoDataLabel() {
@@ -1479,7 +1479,7 @@ function refreshEstratoLabels() {
         span.textContent = `${e} · ${pct}` + ((ifv !== undefined && uni) ? ` · ${uni} ≥ ${fmt(ifv)}` : '');
     });
     const spanC = document.getElementById('lblC');
-    if (spanC) spanC.textContent = `C · ${lbl['C'] || 'sem indicador de IF'}`;
+    if (spanC) spanC.textContent = `C · ${lbl['C'] || 'sem indicador'}`;
 }
 
 function toggleSubtipos(state) {
@@ -4020,7 +4020,7 @@ function buildIFChartsHTML(programas) {
 <div class="card">
     <h2>Produção por Estrato de IF — Barras Agrupadas (Art/Docente)</h2>
     <div class="chart-wrap" style="height:${barH}px;"><canvas id="chartBars"></canvas></div>
-    <p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo · C = sem indicador de IF). ${refSigla()} destacada com ★.</p>
+    <p class="note">Cada programa tem 9 barras, uma por estrato CAPES (A1 = topo · C = sem indicador). ${refSigla()} destacada com ★.</p>
 </div>
 <div class="card">
     <h2>Perfil de Produção por Estrato de IF — Multi-Linhas (Art/Docente)</h2>
