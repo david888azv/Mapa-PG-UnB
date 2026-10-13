@@ -397,12 +397,20 @@ INDEX += [
      '(${metricaLabel})</h2>',
      '<div class="card"><h2 class="unb">Output over time — year-by-year means per researcher '
      '(${metricaLabel})</h2>'),
-    ("Análise dinâmica: produção intelectual média por pesquisador, ano a ano, para cada programa "
+    # v5.8.7: prod_ano passou a contar só Artigo em Periódico nos 12 anos (antes, até
+    # 2020, era toda a produção bibliográfica e a série quebrava em 2021).
+    ("Análise dinâmica: artigos em periódico por pesquisador, ano a ano, para cada programa "
      "selecionado. Passe o mouse sobre os pontos do gráfico para ver nota, nº de pesquisadores e "
-     "média naquele ano. ${refSigla()} e média nacional destacados.${mIdxNote}</p>",
-     "Mean research output per researcher, year by year, for each selected programme. Hover over "
+     "média naquele ano. ${refSigla()} e média nacional destacados.${mIdxNote}",
+     "Journal articles per researcher, year by year, for each selected programme. Hover over "
      "the points to see the grade, the number of researchers and the mean in that year. "
-     "${refSigla()} and the national mean are highlighted.${mIdxNote}</p>"),
+     "${refSigla()} and the national mean are highlighted.${mIdxNote}"),
+    ("'<br><em style=\"color:var(--laranja);\">Nota: a série ano a ano conta todo Artigo em "
+     "Periódico, o único tipo coletado nos 12 anos, em todos os estratos; os filtros de tipo e de "
+     "estrato não se aplicam a ela.</em>'",
+     "'<br><em style=\"color:var(--laranja);\">Note: the year-by-year series counts every journal "
+     "article, the only type collected in all 12 years, across all strata; the type and stratum "
+     "filters do not apply to it.</em>'"),
     ('<div class="label">${refSigla()} — Média Geral ${yrsLabel}</div>',
      '<div class="label">${refSigla()} — overall mean, ${yrsLabel}</div>'),
     ('<div class="label">Média ${areaShort()} ${yrsLabel}</div>',

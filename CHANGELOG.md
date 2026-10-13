@@ -1,5 +1,44 @@
 # Changelog — MAPA-PG-UnB
 
+## v5.8.7 — "Art/ano" passa a contar só artigo nos três quadriênios (2026-10-13)
+
+Os campos pré-computados `ma_pq`, `ma_spq`, `ma_all`, `ma_perm`, `ma_colab`, `ma_visit` (e com
+eles `razao` e `razao_pc`) e a série anual `prod_ano` tinham no numerador **toda** a produção
+que a CAPES publica para o ano. Em 2013-2020 isso é artigo, resumo, trabalho de congresso,
+capítulo, texto em jornal e mais uma dezena de subtipos; em 2021-2024 a fonte
+(`prod_intel_2021a2024_artpe`) só traz o subtipo 25. A série media "produção" até 2020 e
+"artigos" depois, e **quebrava na virada de quadriênio**. Astronomia do IAG/USP: 14,41 → 13,92
+→ 3,39, quando os artigos dão 2,59 → 2,92 → 3,39 (em 2013-2016, 301 artigos entre 1.671
+itens). Nacionalmente, a mediana de `ma_all` em 2013-2016 era 8,48 e passa a 1,96; o campo
+antigo inflava o valor em 4,4× na mediana dos programas (p90 11,6×) e fazia praticamente todo
+programa do país "despencar" em 2021.
+
+O que o usuário via com o filtro padrão (só Artigo em Periódico) **estava certo**: esse caminho
+calcula a partir de `prod_sub['25']`. O valor errado vazava por três lugares:
+
+1. **Produção Dinâmica — Médias Ano a Ano**: lê `prod_ano` direto, sem filtro de tipo. Com o
+   quadriênio "Todos", mostrava a queda falsa em 2021 para quase todos os programas.
+2. **CSV do relatório** (`downloadReportCSV`): gravava `d.ma_pq/ma_spq/ma_all/razao` crus,
+   ignorando os filtros de tipo e de estrato que o texto do mesmo relatório respeitava.
+3. **Filtro de estrato ativo com métrica PQ / sem PQ**: devolve o pré-computado, por falta de
+   cruzamento estrato × PQ nos dados.
+
+Correção na origem, `build/gerar_dados_completos.py`: `ma_*` e `prod_ano` passam a contar só
+`ID_SUBTIPO_PRODUCAO == 25`, em artigos distintos e sobre anos-docente, como antes. `prod_sub`
+segue com os cinco tipos, porque alimenta o filtro. O CSV do relatório passa a usar
+`getEffectiveMetric` com os filtros do relatório. O painel ano a ano diz "artigos em periódico"
+(dizia "produção intelectual") e avisa quando um filtro de tipo ou de estrato está ativo, porque
+a série não os acompanha.
+
+Verificado no rebuild das 49 áreas (13.265 registros): `ma_X == round(prod_sub['25'][X] / ad_X, 2)`
+em todos os registros e nas seis categorias; os 4.641 registros de 2021-2024 ficaram idênticos;
+nenhum campo fora de `ma_*`, `razao`, `razao_pc` e `prod_ano` mudou (estratos regerados por
+`gerar_estratos_app.py` com 0 erros de paridade). `pip/build_pip.py` não é afetado: já
+sobrescrevia `ma_perm` a partir de `prod_sub['25']` sempre que `n_perm > 0`.
+
+Service Worker em `mapa-pg-v5.8.7`; `shell_version` e `tamanho_kb` do manifest acompanham;
+`docs/en/` regerado.
+
 ## v5.8.6 — O aviso do topo dizia "fator de impacto"; a régua é o CiteScore (2026-09-18)
 
 A tarja amarela do topo anunciava a estratificação A1–A8/C "por percentil de **fator de

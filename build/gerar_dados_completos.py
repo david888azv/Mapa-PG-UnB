@@ -41,6 +41,9 @@ SUBTIPOS_BIBLIO = {
     26: 'Capítulo de Livro',
     10: 'Texto em Jornal',
 }
+# Numerador das taxas ma_* e de prod_ano (ver calcular_area). Mesmo valor de
+# gerar_estratos_app.SUBTIPO_ARTIGO.
+SUBTIPO_ARTIGO = 25
 NON_PQ = ('', 'N', 'NÃO', 'NAO', 'NP', '0', 'NAN', 'NONE', 'S/BOLSA', '-')
 
 
@@ -491,6 +494,23 @@ def calcular_area(slug):
                     dp = pd.DataFrame()
 
                 n_anos = len(anos)
+                # ── SÓ ARTIGO EM PERIÓDICO nas taxas ma_* e em prod_ano ─────────────
+                # `dp` traz TODA a produção que a CAPES publica para o ano: em 2013-2020
+                # artigos, resumos, trabalhos de congresso, capítulos, textos em jornal e
+                # mais uma dezena de subtipos (inclusive técnicos); em 2021-2024 a fonte
+                # (prod_intel_2021a2024_artpe) só tem o subtipo 25. Com `dp` inteiro no
+                # numerador, ma_* e prod_ano mediam "produção" até 2020 e "artigos" depois
+                # — a série quebrava na virada de quadriênio. Astronomia/IAG: ma_all
+                # 14,41 → 13,92 → 3,39, quando os artigos dão 2,59 → 2,92 → 3,39 (1.671
+                # itens em 2013-2016, dos quais 301 artigos). O rótulo do app é "Art/ano",
+                # e o filtro padrão (só Artigo, via prod_sub['25']) já dava o valor certo;
+                # o campo bruto vazava na série ano a ano, no CSV exportado e no caminho de
+                # filtro de estrato de ma_pq/ma_spq.
+                # prod_sub continua sobre `dp` inteiro: é ele que alimenta o filtro de tipo.
+                if not dp.empty and 'ID_SUBTIPO_PRODUCAO' in dp.columns:
+                    dp_art = dp[dp['ID_SUBTIPO_PRODUCAO'] == SUBTIPO_ARTIGO]
+                else:
+                    dp_art = dp.iloc[0:0]
                 # ── ARTIGOS DISTINTOS, não eventos artigo×autor ─────────────────────
                 # Antes: `art = dp.groupby('ID_PESSOA_DOCENTE')[...].nunique()` seguido de
                 # `sum(art.get(x,0) for x in ids_*)` — isso conta EVENTOS: um artigo com 3
@@ -504,8 +524,8 @@ def calcular_area(slug):
                         and 'ID_ADD_PRODUCAO_INTELECTUAL' in dp.columns)
 
                 def _ndist(ids, base=None):
-                    """Artigos distintos com >=1 autor em `ids`."""
-                    d = dp if base is None else base
+                    """Artigos distintos com >=1 autor em `ids` (padrão: só subtipo 25)."""
+                    d = dp_art if base is None else base
                     if not _tem or d.empty or not ids:
                         return 0
                     return int(d[d['ID_PESSOA_DOCENTE'].isin(ids)]
@@ -624,7 +644,8 @@ def calcular_area(slug):
                 prod_ano = {}
                 for ano in anos:
                     # artigos DISTINTOS no ano (ver _ndist): era soma por docente = eventos
-                    da = dp[dp['AN_BASE'] == ano] if not dp.empty else dp.iloc[0:0]
+                    # só artigo em periódico (dp_art): mesma unidade de ma_* nos 12 anos
+                    da = dp_art[dp_art['AN_BASE'] == ano] if not dp_art.empty else dp_art
                     dd_ano = dd[dd['AN_BASE'] == ano]
                     n_doc_ano = int(dd_ano['ID_PESSOA'].nunique()) if len(dd_ano) > 0 else 0
                     ids_ano = set(dd_ano['ID_PESSOA'].dropna().unique())
